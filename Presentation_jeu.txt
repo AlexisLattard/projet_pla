@@ -1,0 +1,33 @@
+Jeux 1 joueur type tower defense
+
+A l’apparition de la carte, sont présent sur la carte :
+- le personnage joueur
+- un portail permettant aux ennemis d'arriver sur la carte
+- un cristal que le joueur doit protéger des ennemis
+- différents obstacles (murs, lacs) modelant la carte
+L’objectif pour le joueur est de protéger le cristal des vagues successives d’ennemi pendant un temps donné, et ce à l’aide 
+de tourelles qu’il pourra disposer sur la carte sur les cases libres.
+Le joueur aura différentes armes à sa disposition et gagnera de l’or à la mort des ennemis, ce qui lui permettra d’acheter 
+des tourelles, IA fixes (ou non) ciblant et attaquant les ennemis, des équipements, ou des améliorations, le tout disponible 
+dans la carte du marchand.
+Les ennemis quant à eux tenteront d’aller dans la direction du cristal plus ou moins intelligemment en fonction du monstre, 
+et n’attaqueront pas, pour la plupart, les tourelles.
+Une défaite sera possible dans le cas où les ennemis réussiront à détruire le cristal.
+
+Il y aura 3 cartes en parallèles :
+Carte centrale : Là où les vagues de monstres et le cristal à protéger apparaissent, c’est la carte principale. 
+Dans cette dernière, le personnage pourra poser des tours et se battre avec son équipement. 
+Il pourra accéder à 2 autres cartes qui sont détaillées ci dessous.
+La Carte des défis : Cette carte se trouve à gauche de la carte central, elle permet d’obtenir des bonus en 
+répondant à un défi (combat d’un mini-boss, énigme, ...). En revanche, même si le joueur se trouve sur cette carte, 
+le temps ne s’arrête pas sur la carte principal c’est-à-dire que les vagues continuent d’apparaître et les tours 
+continuent à défendre. En revanche sur cette carte le joueur sera livré à lui même, il ne pourra pas s’aider de ses
+ tours et devra vaincre les monstres à bout de bras.
+La Carte du marchand : Cette carte se trouve à droite de la carte centrale, elle correspond à la boutique. Le joueur 
+pourra acheter des équipements qui seront disponibles dans des “box” en passant dessus. Ainsi plus l’équipement sera 
+loin de l’entrée plus il sera fort car comme dans la carte précédente le jeu de la carte central continue de tourner.
+
+Le but est donc de réussir à vaincre les vagues de monstres sur la carte centrale. De plus, durant les moments creux 
+le joueur pourra aller acheter des équipements plus puissant à la boutique où bien aller tenter des défis pour gagner 
+des bonus (argent, amélioration, équipement, ...).
+
