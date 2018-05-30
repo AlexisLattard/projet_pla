@@ -1,10 +1,10 @@
-#Journal de bord
+# Journal de bord
 
-##Mardi 29 Mai :
+## Mardi 29 Mai :
 
     Nous avons commencé à déterminer les différents concepts qui feront notre jeu (cf. Presentation jeu). Nous avons réfléchi à la manière de le rendre unique grâce aux automates, et à comment l’implémenter de façon permettant qu’on puisse facilement intégrer les automates des autres groupes.
 
-##Mercredi 30 Mai :
+## Mercredi 30 Mai :
 
 - Création du diagramme de classe, création en brainstorming de toutes les  “entitées” (monstres, tourelles, personnage principal, obstacles,  armes) Voir Diagramme de classe ci dessous
 - Début de réflexion sur Pop() -> Kamikaze et Wizz() -> Téléportation
