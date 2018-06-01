@@ -3,8 +3,10 @@
 ## Vendredi 1 Juin :
 
 - Début de l'IHM avec la Home Page
-- Design sur le personnage principal, les monstres, les tourelles
-![Monstre n°3](./Photo/Mob3_R.gif)
+- Design sur le personnage principal, les monstres, les tourelles  
+![Monstre n°1](https://piskel-imgstore-b.appspot.com/img/a51e9299-65a3-11e8-9f26-f7f0e10bc042.gif)
+![Monstre n°2](./Photo/Mob2_L.gif)
+![Monstre n°3](./Photo/Mob3_R.gif)  
 - Développement en pixel art à l'aide de l'outil piskel
 -
 - Définition des Défis (carte sur le côté gauche)
