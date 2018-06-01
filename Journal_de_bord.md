@@ -4,6 +4,7 @@
 
 - Début de l'IHM avec la Home Page
 - Design sur le personnage principal, les monstres, les tourelles
+![Monstre n°3](./Photo/Mob3_R.gif)
 - Développement en pixel art à l'aide de l'outil piskel
 -
 - Définition des Défis (carte sur le côté gauche)
