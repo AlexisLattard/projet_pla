@@ -5,8 +5,8 @@
 - Début de l'IHM avec la Home Page
 - Design sur le personnage principal, les monstres, les tourelles  
 ![Monstre n°1](https://piskel-imgstore-b.appspot.com/img/612a3ce3-65a4-11e8-b96a-f7f0e10bc042.gif)
-![Monstre n°2](./Photo/Mob2_L.gif)
-![Monstre n°3](./Photo/Mob3_R.gif)  
+![Monstre n°2](https://piskel-imgstore-b.appspot.com/img/b46e6b14-65a4-11e8-852c-f7f0e10bc042.gif)
+![Monstre n°3](https://piskel-imgstore-b.appspot.com/img/f53313e8-65a4-11e8-b852-f7f0e10bc042.gif)  
 - Développement en pixel art à l'aide de l'outil piskel
 -
 - Définition des Défis (carte sur le côté gauche)
