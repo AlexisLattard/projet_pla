@@ -2,7 +2,7 @@ E E N N N N
 E E N N Os N
 N N N N N N
 N N N N N N
-N N N Os Os Os
+N Os N N Os Os
 N N N N N N
 N N N N C C
-N N N N C C
+N N Os Os C C

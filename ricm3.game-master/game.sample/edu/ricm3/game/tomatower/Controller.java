@@ -63,25 +63,7 @@ public class Controller extends GameController implements ActionListener {
 	public void keyTyped(KeyEvent e) {
 		// if (Options.ECHO_KEYBOARD)
 		// System.out.println("KeyTyped: " + e);
-		if (e.getKeyChar() == ' ') {
-			try {
-				/*
-				 * NEVER, EVER, DO THIS! NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP, YOU
-				 * WILL BLOCK EVERYTHING.
-				 */
-				System.err.println("You should not have done that!");
-				System.out.println("ZZzzz....");
-				Thread.sleep(3000);
-				System.out.println("Hey! I am back");
-			} catch (InterruptedException ex) {
-			}
-		} else if (e.getKeyChar() == '+') {
-			Overhead h = model.getOverhead();
-			h.inc();
-		} else if (e.getKeyChar() == '-') {
-			Overhead h = model.getOverhead();
-			h.dec();
-		}
+
 	}
 
 	@Override
@@ -105,7 +87,15 @@ public class Controller extends GameController implements ActionListener {
 		case KeyEvent.VK_KP_UP:
 			model.player.move(-1, 0);
 			break;
-
+        case KeyEvent.VK_T:
+            this.model.getPlayer().pick();
+            this.model.getPlayer().store();
+            break;
+        case KeyEvent.VK_P:
+            System.out.println("PUT");
+            this.model.getPlayer().getEntity();
+            this.model.getPlayer().throwAction();
+            break;
 		}
 	}
 

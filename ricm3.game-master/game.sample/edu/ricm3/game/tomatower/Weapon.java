@@ -16,6 +16,10 @@ public class Weapon {
 		
 	}
 	
+	public void hit(int origin_cell_x, int origin_cell_y) {
+		
+	}
+	
 	
 
 }
