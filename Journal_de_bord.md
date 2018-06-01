@@ -1,5 +1,15 @@
 # Journal de bord
 
+## Vendredi 1 Juin :
+
+- Début de l'IHM avec la Home Page
+- Design sur le personnage principal, les monstres, les tourelles
+- Développement en pixel art à l'aide de l'outil piskel
+-
+- Définition des Défis (carte sur le côté gauche)
+- Finitions des maquettes de Défis
+
+
 ## Jeudi 31 Mai :
 
 - Prise en main de Swing, création de la map à l’aide d’un fichier texte
