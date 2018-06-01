@@ -27,8 +27,8 @@ Voici une démonstration  du la création de map à partir d'un fichier, du pers
 ![Démonstration 1 juin](https://media.giphy.com/media/1qdONHokwpG59VLy40/giphy.gif)
 
 Voici des captures d'écran du menu du jeu et du tableau des scores (En cours de réalisation) , On peut passer du menu au tableau des scores et revenir au menu et quitter l'application soit avec le bouton quitter ou la croix en haut a droite.
-![Menu](./image/Menu.png)
-![Score](./image/Score.png)
+![Menu](./Image/Menu.png)
+![Score](./Image/Score.png)
 
 
 
