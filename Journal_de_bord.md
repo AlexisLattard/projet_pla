@@ -2,15 +2,28 @@
 
 ## Vendredi 1 Juin :
 
-- Début de l'IHM avec la Home Page
+
+### Design et conception
 - Design sur le personnage principal, les monstres, les tourelles  
 ![Monstre n°1](https://piskel-imgstore-b.appspot.com/img/612a3ce3-65a4-11e8-b96a-f7f0e10bc042.gif)
 ![Monstre n°2](https://piskel-imgstore-b.appspot.com/img/b46e6b14-65a4-11e8-852c-f7f0e10bc042.gif)
 ![Monstre n°3](https://piskel-imgstore-b.appspot.com/img/f53313e8-65a4-11e8-b852-f7f0e10bc042.gif)  
 - Développement en pixel art à l'aide de l'outil piskel
--
 - Définition des Défis (carte sur le côté gauche)
 - Finitions des maquettes de Défis
+
+
+### Codage
+- Début de l'IHM avec la Home Page
+- Finitions de l'implémentation des différentes classes principales (voir diagramme UML) (Player, Entité, Mobs, Cristal)
+- Implémentations des fonctions de base du modèle MVC pour ces classes (paint, move, etc)
+- Amélioration de la fonction de création d'entités à partir d'un fichier
+- Gestion des "colisions" entre les entités
+- Début du developpement des fonctions pick, store, throw et getEntity
+
+Voici une démonstration  du la création de map à partir d'un fichier, du personnage contrôlé par le clavier, la gestion de colision avec les obstacles (télés) et la possibilié de prendre et poser une tourelle (devant soi) :  
+![Démonstration 1 juin](https://media.giphy.com/media/1qdONHokwpG59VLy40/giphy.gif)
+
 
 
 ## Jeudi 31 Mai :
@@ -21,6 +34,8 @@
 - Création des mockups via MockFlow
 - Modification du diagramme de classe
 - Implémentation du diagramme de classe
+
+![Diagramme UML](https://image.ibb.co/eFeXHd/PLA_UML.png)
 
 ## Mercredi 30 Mai :
 
