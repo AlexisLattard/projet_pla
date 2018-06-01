@@ -221,7 +221,7 @@ public class Model extends GameModel {
     }
 
     public boolean freeCell(int cell_x, int cell_y) {
-
+        System.out.println(cell_x + " " + cell_y);
 
         if(cell_x < 0 || cell_x > nb_cell_horizontal -1 || cell_y < 0 || cell_y > nb_cell_vertical -1)
             return false;
@@ -270,7 +270,6 @@ public class Model extends GameModel {
         if(cell_x == pos_player[0] && cell_y == pos_player[1]) {
             return this.getPlayer();
         }
-
         return null;
     }
 
