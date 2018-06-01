@@ -17,16 +17,10 @@
  */
 package edu.ricm3.game.tomatower;
 
-import java.awt.Button;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.File;
 
 import edu.ricm3.game.GameController;
 
@@ -92,10 +86,14 @@ public class Controller extends GameController implements ActionListener {
             this.model.getPlayer().store();
             break;
         case KeyEvent.VK_P:
-            System.out.println("PUT");
-            this.model.getPlayer().getEntity();
+            this.model.getPlayer().getBagEntity();
             this.model.getPlayer().throwAction();
             break;
+        case KeyEvent.VK_SPACE:
+            for(int i = 0; i < model.getTowers().size(); i++) {
+                System.out.println("tower " + model.getTowers().get(i).isVisible() + " " +  model.getTowers().get(i).cell_x + " " +  model.getTowers().get(i).cell_y);
+            }
+            System.out.println("perso" + model.getPlayer().isVisible());
 		}
 	}
 

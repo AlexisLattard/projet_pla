@@ -18,7 +18,7 @@ public class Inert extends Entity {
     public void pick() { return ; }
     public void store() { return ; }
     public void power(int hp) { return ; }
-    public void getEntity() { return ;}
+    public void getBagEntity() { return ;}
     public void throwAction() { return ;}
 
 

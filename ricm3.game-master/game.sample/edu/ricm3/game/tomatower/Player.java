@@ -27,14 +27,6 @@ public class Player extends Living {
         bag.add(t2);
         bag.add(t3);
         bag.add(t4);
-        Tower t5 = new Tower(this.model, false, this.model.sprite_tower, 1);
-        Tower t6 = new Tower(this.model, false, this.model.sprite_tower, 1);
-        Tower t7 = new Tower(this.model, false, this.model.sprite_tower, 1);
-        Tower t8 = new Tower(this.model, false, this.model.sprite_tower, 1);
-        bag.add(t5);
-        bag.add(t6);
-        bag.add(t7);
-        bag.add(t8);
     }
 
 
@@ -43,31 +35,17 @@ public class Player extends Living {
         super.paint(g);
     }
 
-    public void pick() { // Ou store ?
-        int[] pos_front_cell = this.getPosFrontCell();
 
-
-        Entity entity = this.model.getEntityCell(pos_front_cell[0], pos_front_cell[1]);
-        if (entity instanceof Tower) {
-            entity.setNotVisible();
-            hand = (Tower)(entity);
-        }
-    }
 
     public ArrayList<Tower> getBag() {
         return this.bag;
     }
 
-    public void getEntity() {
+    public void getBagEntity() {
         if(this.getBag().size() >= 1) {
-            if(hand == null)
+            if(hand == null) {
                 hand = this.getBag().remove(0);
-            if(hand == null)
-                System.out.println("Rien dans la main");
-            else
-                System.out.println("Tourrel prise");
-        } else {
-            System.out.println("Rien dans le sac");
+            }
         }
     }
 
@@ -80,7 +58,17 @@ public class Player extends Living {
             if(hand.setVisible(pos_front_cell[0], pos_front_cell[1])) {
                 hand = null;
             }
+        }
+    }
 
+    public void pick() { // Ou store ?
+        int[] pos_front_cell = this.getPosFrontCell();
+
+        Entity entity = this.model.getEntityCell(pos_front_cell[0], pos_front_cell[1]);
+        if (entity instanceof Tower) {
+            System.out.println("PICK ENTITY : (" + cell_x + " " + cell_y + ")");
+            entity.setNotVisible();
+            hand = (Tower)(entity);
         }
     }
 

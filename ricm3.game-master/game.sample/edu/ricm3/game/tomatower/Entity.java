@@ -11,7 +11,7 @@ public abstract class Entity {
     double scale = 1;
     BufferedImage sprite;
     Kind kind;
-    protected boolean visible = true;
+    protected boolean visible;
 
 
     public Entity(Model c_model, Boolean c_movment, BufferedImage c_sprite, double c_scale, int cell_x, int cell_y) {
@@ -37,12 +37,13 @@ public abstract class Entity {
     }
     public Boolean setVisible(int cell_x, int cell_y) {
         if(model.freeCell(cell_x, cell_y)) {
-            System.out.println("Entitéposé");
+            System.out.println("PUT ENTITY : (" + cell_x + " " + cell_y + ")");
             this.cell_x = cell_x;
             this.cell_y = cell_y;
             this.visible = true;
             return true;
         } else {
+            this.visible = false;
             return false;
         }
     }
@@ -95,7 +96,7 @@ public abstract class Entity {
 
     public abstract void store() ; // mettre dans son sac
 
-    public abstract void getEntity() ; //take entity
+    public abstract void getBagEntity() ; //take entity
 
     public abstract void power(int hp) ; //recuperation d'energie
 

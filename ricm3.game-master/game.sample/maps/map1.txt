@@ -1,8 +1,8 @@
-E E N N N N
-E E N N Os N
-N N N N N N
-N N N N N N
-N Os N N Os Os
-N N N N N N
-N N N N C C
-N N Os Os C C
+E E Os N N N N Os
+E E N N Os N N N
+N N N N N N N N
+N N N N P N N N
+N Os N N Os Os N N
+N N Os N N N N N
+N N Os N C C Os Os
+N N Os Os C C Os Os

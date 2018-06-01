@@ -191,6 +191,7 @@ public class Model extends GameModel {
 
                             break;
                         case "P":
+                            System.out.println("PERSO");
                             this.getPlayer().initPosition(col, row);
                             break;
                         case "Os":
@@ -221,7 +222,6 @@ public class Model extends GameModel {
     }
 
     public boolean freeCell(int cell_x, int cell_y) {
-        System.out.println(cell_x + " " + cell_y);
 
         if(cell_x < 0 || cell_x > nb_cell_horizontal -1 || cell_y < 0 || cell_y > nb_cell_vertical -1)
             return false;
@@ -245,7 +245,6 @@ public class Model extends GameModel {
             }
         }
 
-        System.out.println("Cellule libre");
         return true;
     }
 
@@ -261,7 +260,7 @@ public class Model extends GameModel {
         while(entitiesIterator.hasNext()) {
             Entity m = entitiesIterator.next();
             pos_entity = m.getPosition();
-            if(pos_entity[0] == cell_x && pos_entity[1] == cell_y) {
+            if(pos_entity[0] == cell_x && pos_entity[1] == cell_y && m.isVisible()) {
                 return m;
             }
         }

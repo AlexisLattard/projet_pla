@@ -60,7 +60,6 @@ public class Living extends Entity {
             case DOWN: pick_cell_x = this.cell_x; pick_cell_y = this.cell_y +1; break;
             default: pick_cell_x = -1; pick_cell_y = -1; // Ne devrait pas arriver
         }
-        System.out.println();
         return new int[]{pick_cell_x, pick_cell_y};
     }
 
@@ -84,7 +83,7 @@ public class Living extends Entity {
 
     }
 
-    public void getEntity() {
+    public void getBagEntity() {
 
     }
 
