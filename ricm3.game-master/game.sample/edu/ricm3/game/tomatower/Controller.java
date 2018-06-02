@@ -71,7 +71,10 @@ public class Controller extends GameController implements ActionListener {
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_KP_RIGHT:
+			long start0 = System.nanoTime();
 			model.player.move(0, 1);
+			long end0 = System.nanoTime();
+			System.out.println("MOVE : " + (end0 - start0));
 			break;
 		case KeyEvent.VK_KP_LEFT:
 		case KeyEvent.VK_LEFT:
@@ -82,12 +85,18 @@ public class Controller extends GameController implements ActionListener {
 			model.player.move(-1, 0);
 			break;
         case KeyEvent.VK_T:
+            long start1 = System.nanoTime();
             this.model.getPlayer().pick();
             this.model.getPlayer().store();
+            long end1 = System.nanoTime();
+            System.out.println("TAKE : " + (end1 - start1));
             break;
         case KeyEvent.VK_P:
+            long start2 = System.nanoTime();
             this.model.getPlayer().getBagEntity();
             this.model.getPlayer().throwAction();
+            long end2 = System.nanoTime();
+            System.out.println("PUT : " + (end2 - start2));
             break;
         case KeyEvent.VK_SPACE:
             for(int i = 0; i < model.getTowers().size(); i++) {

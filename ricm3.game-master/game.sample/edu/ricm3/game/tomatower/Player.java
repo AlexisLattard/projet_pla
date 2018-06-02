@@ -66,7 +66,7 @@ public class Player extends Living {
 
         Entity entity = this.model.getEntityCell(pos_front_cell[0], pos_front_cell[1]);
         if (entity instanceof Tower) {
-            System.out.println("PICK ENTITY : (" + cell_x + " " + cell_y + ")");
+            //System.out.println("PICK ENTITY : (" + cell_x + " " + cell_y + ")");
             entity.setNotVisible();
             hand = (Tower)(entity);
         }

@@ -37,7 +37,7 @@ public abstract class Entity {
     }
     public Boolean setVisible(int cell_x, int cell_y) {
         if(model.freeCell(cell_x, cell_y)) {
-            System.out.println("PUT ENTITY : (" + cell_x + " " + cell_y + ")");
+            //System.out.println("PUT ENTITY : (" + cell_x + " " + cell_y + ")");
             this.cell_x = cell_x;
             this.cell_y = cell_y;
             this.visible = true;

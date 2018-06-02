@@ -41,7 +41,7 @@ public class Living extends Entity {
             }
 
         }
-        System.out.println(this.direction.toString());
+        //System.out.println(this.direction.toString());
     }
     public void turn() {
         if(this.canMove()) {

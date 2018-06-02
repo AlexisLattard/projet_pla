@@ -166,6 +166,7 @@ public class Model extends GameModel {
     void initMap() {
         File map_file = new File("game.sample/maps/map1.txt");
         try {
+            long start0 = System.nanoTime();
             BufferedReader reader = new BufferedReader(new FileReader(map_file));
             ArrayList<String[]> map_langugage = new ArrayList<>();
             String line;
@@ -191,11 +192,11 @@ public class Model extends GameModel {
 
                             break;
                         case "P":
-                            System.out.println("PERSO");
+                            //System.out.println("PERSO");
                             this.getPlayer().initPosition(col, row);
                             break;
                         case "Os":
-                            System.out.println("Stone");
+                            //System.out.println("Stone");
                             Inert stone = new Inert(this, false, sprite_cailloux, 1, col, row, ObstaclesKind.Stone);
                             break;
 
@@ -205,7 +206,7 @@ public class Model extends GameModel {
 
                         case "C":
                             if (this.crystal == null) {
-                                System.out.println("map init : crystal");
+                                //System.out.println("map init : crystal");
                                 this.crystal = new Crystal(this, sprite_crystal, col, row);
                             }
                             break;
@@ -213,6 +214,8 @@ public class Model extends GameModel {
                 }
                 row++;
             }
+            long end0 = System.nanoTime();
+            System.out.println("INIT MAP : " + (end0 - start0));
 
         } catch (FileNotFoundException e) {
 
