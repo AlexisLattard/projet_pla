@@ -62,9 +62,8 @@ public class Player extends Living {
         Cell front_cell = this.getFrontCell();
 
         Entity entity = this.model.getMap().getEntityCell(front_cell);
-        System.out.println(entity);
         if (entity instanceof Tower) {
-            System.out.println("PICK ENTITY : (" + entity.getPosition()[0] + " " + entity.getPosition()[1] + ")");
+            //System.out.println("PICK ENTITY : (" + entity.getPosition()[0] + " " + entity.getPosition()[1] + ")");
             entity.removeEntityFromCell();
             hand = (Tower)(entity);
         }

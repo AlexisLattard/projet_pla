@@ -6,6 +6,7 @@ import edu.ricm3.game.tomatower.mvc.Model;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Timer;
 
 public class Map {
     Model model;
@@ -35,8 +36,12 @@ public class Map {
     }
 
     public void initMap() {
+
+
         File map_file = new File("game.sample/maps/map1.txt");
+
         try {
+            long start1 = System.nanoTime();
             BufferedReader reader = new BufferedReader(new FileReader(map_file));
             ArrayList<String[]> map_langugage = new ArrayList<>();
             String line;
@@ -65,11 +70,11 @@ public class Map {
 
                             break;
                         case "P":
-                            System.out.println("PERSO");
+                            //System.out.println("PERSO");
                             this.model.setPlayer(new Player(this.model, true, this.model.getSprites().sprite_player, 1, cell, Direction.UP));
                             break;
                         case "Os":
-                            System.out.println("Stone");
+                            //System.out.println("Stone");
                             Inert stone = new Inert(this.model, false, this.model.getSprites().sprite_cailloux, 1,cell, ObstaclesKind.Stone);
                             break;
 
@@ -79,7 +84,7 @@ public class Map {
 
                         case "C":
                             if (this.model.getCrystal() == null) {
-                                System.out.println("map init : crystal");
+                                //System.out.println("map init : crystal");
                                 Crystal c = this.model.getCrystal();
                                 c = new Crystal(this.model, this.model.getSprites().sprite_crystal, col, row);
                             }
@@ -90,6 +95,8 @@ public class Map {
                 row++;
             }
             this.setCellsMap(cells);
+            long end1 = System.nanoTime();
+            System.out.println("Init map : " + (end1 - start1));
 
         } catch (FileNotFoundException e) {
 
@@ -100,58 +107,16 @@ public class Map {
 
     public boolean freeCell(Cell cell) {
 
-        /*
-        if(cell_x < 0 || cell_x > nb_cell_horizontal -1 || cell_y < 0 || cell_y > nb_cell_vertical -1)
-            return false;
+        return  (cell != null)  && (cell.isFree());
 
-        int[] pos_entity;
-        ArrayList<Entity> entities = this.model.getAllEntities();
-        Iterator<Entity> entitiesIterator = entities.iterator();
-        while(entitiesIterator.hasNext()) {
-            Entity m = entitiesIterator.next();
-            pos_entity = m.getPosition();
-            if(pos_entity[0] == cell_x && pos_entity[1] == cell_y && m.isVisible()) {
-                return false;
-            }
-        }
-
-        if(this.model.getCrystal() != null) {
-            int [][] pos_crystal = this.model.getCrystal().getPosition();
-            for(int i = 0 ; i < 4; i++) {
-                if(cell_x == pos_crystal[i][0] && cell_y == pos_crystal[i][1])
-                    return false;
-            }
-        }*/
-        if(cell != null)
-            return cell.isFree();
-        else
-            return false;
     }
 
     public Entity getEntityCell(Cell c) {
+
         if(!c.getEntities().isEmpty())
             return c.getEntities().get(0);
         else
             return null;
-/*
-        if(cell_x < 0 || cell_x > nb_cell_horizontal -1 || cell_y < 0 || cell_y > nb_cell_vertical -1)
-            return null;
 
-        int[] pos_entity;
-        ArrayList<Entity> entities = this.model.getAllEntities();
-        Iterator<Entity> entitiesIterator = entities.iterator();
-        while(entitiesIterator.hasNext()) {
-            Entity m = entitiesIterator.next();
-            pos_entity = m.getPosition();
-            if(pos_entity[0] == cell_x && pos_entity[1] == cell_y && m.isVisible()) {
-                return m;
-            }
-        }
-
-        int[] pos_player = this.model.getPlayer().getPosition();
-        if(cell_x == pos_player[0] && cell_y == pos_player[1]) {
-            return this.model.getPlayer();
-        }
-        return null;*/
     }
 }

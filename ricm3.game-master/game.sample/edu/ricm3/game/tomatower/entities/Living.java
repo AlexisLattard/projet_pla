@@ -28,7 +28,7 @@ public class Living extends Entity {
         if (this.canMove()) {
             int dest_cell_x = this.getPosition()[0] + horizontal;
             int dest_cell_y = this.getPosition()[1]  + vertical;
-            System.out.println(dest_cell_x + " " + dest_cell_y);
+            //System.out.println(dest_cell_x + " " + dest_cell_y);
             Cell cell_destination = this.model.getMap().getCell(dest_cell_x, dest_cell_y);
 
             if (model.getMap().freeCell(cell_destination)) {
@@ -48,7 +48,7 @@ public class Living extends Entity {
             }
 
         }
-        //System.out.println(this.direction.toString());
+        //pSystem.out.println(this.direction.toString());
     }
     public void turn(Direction d) {
         if(this.canMove()) {
