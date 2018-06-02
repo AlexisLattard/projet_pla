@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.mvc;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import edu.ricm3.game.GameController;
+import edu.ricm3.game.tomatower.Options;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -98,11 +99,6 @@ public class Controller extends GameController implements ActionListener {
             long end2 = System.nanoTime();
             System.out.println("PUT : " + (end2 - start2));
             break;
-        case KeyEvent.VK_SPACE:
-            for(int i = 0; i < model.getTowers().size(); i++) {
-                System.out.println("tower " + model.getTowers().get(i).isVisible() + " " +  model.getTowers().get(i).cell_x + " " +  model.getTowers().get(i).cell_y);
-            }
-            System.out.println("perso" + model.getPlayer().isVisible());
 		}
 	}
 

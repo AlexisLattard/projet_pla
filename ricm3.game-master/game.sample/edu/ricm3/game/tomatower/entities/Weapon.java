@@ -1,4 +1,7 @@
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.entities;
+
+import edu.ricm3.game.tomatower.Cell;
+import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
 
@@ -16,7 +19,7 @@ public class Weapon {
 		
 	}
 	
-	public void hit(int origin_cell_x, int origin_cell_y) {
+	public void hit(Cell cell) {
 		
 	}
 	

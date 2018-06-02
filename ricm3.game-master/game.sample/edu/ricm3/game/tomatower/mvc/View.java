@@ -15,13 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.mvc;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
 import edu.ricm3.game.GameView;
+import edu.ricm3.game.tomatower.entities.Entity;
 
 public class View extends GameView {
 
@@ -59,7 +60,7 @@ public class View extends GameView {
         g.setColor(m_background);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        model.crystal.paint(g);
+        //model.crystal.paint(g);
 
         Iterator<Entity> iter_entities = model.getAllEntities().iterator();
         while (iter_entities.hasNext()) {

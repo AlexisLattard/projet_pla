@@ -1,4 +1,4 @@
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.entities;
 
 public enum Direction {
     UP,

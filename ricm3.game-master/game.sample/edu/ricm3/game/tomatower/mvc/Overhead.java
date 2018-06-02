@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.mvc;
 
 /**
  * This class is to simulate an overhead in the model step computation.
