@@ -32,4 +32,6 @@ public class Options {
   public static final boolean ECHO_MOUSE_MOTION = false;
   public static final boolean ECHO_KEYBOARD = false;
 
+  public static final boolean ECHO_PERFORMANCE = false;
+
 }

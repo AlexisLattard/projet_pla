@@ -4,15 +4,17 @@ import edu.ricm3.game.tomatower.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
-import java.net.ServerSocket;
 
 public class Living extends Entity {
 
     int hp;
-    int speed_x;
-    int speed_y;
     Direction direction;
     Weapon weapon;
+
+    // TEST
+    long action_time = 1000; // 1000ms = 1s
+    long last_action;
+
 
     public Living(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction) {
         super(c_model, c_movement, c_sprite, c_scale, c_cell);
@@ -24,14 +26,18 @@ public class Living extends Entity {
         this.direction = c_direction;
     }
 
+    public void step(long now) {
+
+    }
+
     public void move(int vertical, int horizontal) {
         if (this.canMove()) {
             int dest_cell_x = this.getPosition()[0] + horizontal;
             int dest_cell_y = this.getPosition()[1]  + vertical;
             //System.out.println(dest_cell_x + " " + dest_cell_y);
-            Cell cell_destination = this.model.getMap().getCell(dest_cell_x, dest_cell_y);
+            Cell cell_destination = this.model.getMainMap().getCell(dest_cell_x, dest_cell_y);
 
-            if (model.getMap().freeCell(cell_destination)) {
+            if (model.getMainMap().freeCell(cell_destination)) {
                 this.cell.removeEntity(this);
                 this.cell = cell_destination;
                 this.cell.addEntity(this);
@@ -68,7 +74,7 @@ public class Living extends Entity {
             case DOWN: pos_front_cell_y = current_pos[1] +1; break;
             default: pos_front_cell_x = -1; pos_front_cell_y = -1; // Ne devrait pas arriver
         }
-        return this.model.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
+        return this.model.getMainMap().getCell(pos_front_cell_x, pos_front_cell_y);
     }
 
     public boolean isAlive() {

@@ -22,7 +22,7 @@ import java.awt.Graphics;
 import java.util.Iterator;
 
 import edu.ricm3.game.GameView;
-import edu.ricm3.game.tomatower.entities.Entity;
+import edu.ricm3.game.tomatower.Cell;
 
 public class View extends GameView {
 
@@ -60,12 +60,12 @@ public class View extends GameView {
         g.setColor(m_background);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        //model.crystal.paint(g);
+        model.crystal.paint(g);
 
-        Iterator<Entity> iter_entities = model.getAllEntities().iterator();
-        while (iter_entities.hasNext()) {
-            Entity m = iter_entities.next();
-            m.paint(g);
+        Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
+        while(iter_cells.hasNext()) {
+            Cell c = iter_cells.next();
+            c.paint(g);
         }
 
 

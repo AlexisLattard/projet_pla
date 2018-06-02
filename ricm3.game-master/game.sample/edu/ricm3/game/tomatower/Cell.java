@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower;
 import edu.ricm3.game.tomatower.entities.Entity;
 import edu.ricm3.game.tomatower.entities.Living;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -62,6 +63,22 @@ public class Cell {
                 return false;
         }
         return true;
+    }
+
+    public void paint(Graphics g) {
+        Iterator<Entity> iter = this.getEntitiesIterator();
+        while (iter.hasNext()) {
+            Entity e = iter.next();
+            e.paint(g);
+        }
+    }
+
+    public void step(long now) {
+        Iterator<Entity> iter = this.getEntitiesIterator();
+        while (iter.hasNext()){
+            Entity e = iter.next();
+            e.step(now);
+        }
     }
 
 }

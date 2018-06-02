@@ -6,7 +6,6 @@ import edu.ricm3.game.tomatower.mvc.Model;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Timer;
 
 public class Map {
     Model model;
@@ -15,7 +14,7 @@ public class Map {
     private int nb_cell_horizontal;
     private int nb_cell_vertical;
 
-    public Map(Model c_model) {
+    public Map(Model c_model, boolean c_visible) {
         this.model = c_model;
         this.cells = new ArrayList<>();
     }
@@ -31,8 +30,22 @@ public class Map {
             return this.cells.get(y).get(x);
     }
 
-    public void setCellsMap(ArrayList<ArrayList<Cell>> c) {
+    private void setCellsMap(ArrayList<ArrayList<Cell>> c) {
         this.cells = c;
+    }
+
+
+    public Iterator<Cell> getCellsIterator() {
+        ArrayList<Cell> cells = new ArrayList<>();
+
+        Iterator<ArrayList<Cell>> iter_line_cells = this.model.getMainMap().cells.iterator();
+        while (iter_line_cells.hasNext()) {
+            ArrayList<Cell> line_cell = iter_line_cells.next();
+            cells.addAll(line_cell);
+        }
+
+        Iterator<Cell> iter_cells = cells.iterator();
+        return iter_cells;
     }
 
     public void initMap() {
@@ -70,11 +83,11 @@ public class Map {
 
                             break;
                         case "P":
-                            //System.out.println("PERSO");
+                            System.out.println("PERSO");
                             this.model.setPlayer(new Player(this.model, true, this.model.getSprites().sprite_player, 1, cell, Direction.UP));
                             break;
                         case "Os":
-                            //System.out.println("Stone");
+                            System.out.println("Stone");
                             Inert stone = new Inert(this.model, false, this.model.getSprites().sprite_cailloux, 1,cell, ObstaclesKind.Stone);
                             break;
 
@@ -84,9 +97,8 @@ public class Map {
 
                         case "C":
                             if (this.model.getCrystal() == null) {
-                                //System.out.println("map init : crystal");
-                                Crystal c = this.model.getCrystal();
-                                c = new Crystal(this.model, this.model.getSprites().sprite_crystal, col, row);
+                                System.out.println("map init : crystal");
+                                model.setCrystal(new Crystal(this.model, this.model.getSprites().sprite_crystal, col, row));
                             }
                             break;
                     }
@@ -106,9 +118,7 @@ public class Map {
     }
 
     public boolean freeCell(Cell cell) {
-
         return  (cell != null)  && (cell.isFree());
-
     }
 
     public Entity getEntityCell(Cell c) {
@@ -117,6 +127,21 @@ public class Map {
             return c.getEntities().get(0);
         else
             return null;
+    }
 
+    public void step(long now) {
+        Iterator<Cell> iter_cells_mainmap = this.getCellsIterator();
+        while (iter_cells_mainmap.hasNext()) {
+            Cell c = iter_cells_mainmap.next();
+            c.step(now);
+        }
+    }
+
+    public void setVisible() {
+        this.model.setCurrentMap(this);
+    }
+
+    public boolean isVisible() {
+        return this.model.getCurrentMap() == this;
     }
 }

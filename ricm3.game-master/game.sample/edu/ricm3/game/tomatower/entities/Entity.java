@@ -21,7 +21,7 @@ public abstract class Entity {
         this.movement = c_movment;
         this.sprite = c_sprite;
         this.scale = c_scale;
-        this.addEntityOnCell(cell); // Initialisation avec position = visible
+        this.addEntityOnCell(cell);
     }
 
     public Entity(Model c_model, Boolean c_movment, BufferedImage c_sprite, double c_scale) {
@@ -36,9 +36,9 @@ public abstract class Entity {
         return this.visible;
     }
 
-    public Boolean addEntityOnCell(Cell c) {
+    public boolean addEntityOnCell(Cell c) {
 
-        if(model.getMap().freeCell(c)) {
+        if(model.getMainMap().freeCell(c)) {
             //System.out.println("PUT ENTITY : (" + c.getPosition()[0] + " " + c.getPosition()[1] + ")");
             c.addEntity(this);
             this.cell = c;
@@ -53,33 +53,29 @@ public abstract class Entity {
     public void removeEntityFromCell() {
         //System.out.println("Set not visible");
         this.cell.removeEntity(this);
+        this.cell = null;
         this.visible = false;
     }
 
     public void paint(Graphics g) {
         if(this.isVisible()) {
-            int d = (int) (model.getMap().getCellSize() * scale);
+            int d = (int) (model.getMainMap().getCellSize() * scale);
             int[] pos = this.getPosition();
-            int x = pos[0] * model.getMap().getCellSize();
-            int y = pos[1] * model.getMap().getCellSize();
+            int x = pos[0] * model.getMainMap().getCellSize();
+            int y = pos[1] * model.getMainMap().getCellSize();
             g.drawImage(sprite, x, y, d, d, null);
         }
     }
 
-    public void step() {
+    public void step(long now) {
         // Comportment - Automate
     }
-
-    public void initPosition(Cell c) {
-        this.cell = c;  // A changer, initialisation de la position des ennemis sur un même spawn ?Init sur case illegal
-    }
-
 
 
     public void move(int vertical, int horizontal) {
 
     }
-    public void turn() {
+    public void turn(Direction d) {
 
     }
 

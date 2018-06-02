@@ -22,7 +22,7 @@ public class Crystal {
 
 	
 	public void paint(Graphics g) {
-		int cell_size = model.getMap().getCellSize();
+		int cell_size = model.getMainMap().getCellSize();
 		g.drawImage(sprite, cells[0][0] * cell_size, cells[0][1] * cell_size, cell_size * 2, cell_size * 2, null);
 	}
 

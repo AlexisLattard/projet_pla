@@ -29,7 +29,7 @@ public class Player extends Living {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
+        super.paint(g); //Paint aussi le weapon, a deplacer dans living du coup
     }
 
 
@@ -61,7 +61,7 @@ public class Player extends Living {
     public void pick() { // Ou store ?
         Cell front_cell = this.getFrontCell();
 
-        Entity entity = this.model.getMap().getEntityCell(front_cell);
+        Entity entity = this.model.getMainMap().getEntityCell(front_cell);
         if (entity instanceof Tower) {
             //System.out.println("PICK ENTITY : (" + entity.getPosition()[0] + " " + entity.getPosition()[1] + ")");
             entity.removeEntityFromCell();

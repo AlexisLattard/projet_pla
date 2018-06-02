@@ -18,15 +18,8 @@
 package edu.ricm3.game.tomatower.mvc;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import javax.imageio.ImageIO;
 
 import edu.ricm3.game.GameModel;
 import edu.ricm3.game.tomatower.Cell;
@@ -36,23 +29,32 @@ import edu.ricm3.game.tomatower.entities.*;
 public class Model extends GameModel {
 
     Sprites game_sprites;
-    Map map;
+
+    private Map main_map;
+    private ArrayList<Map> maps_challenge;
+    private Map map_store;
+    private Map current_map;
 
     Player player;
-    ArrayList<Mobs> mobs;
-    ArrayList<Inert> obstacles;
-    ArrayList<Tower> towers;
+    //ArrayList<Mobs> mobs;
+    //ArrayList<Inert> obstacles;
+    //ArrayList<Tower> towers;
     Crystal crystal;
 
     Overhead m_overhead = new Overhead();
 
     public Model() {
         game_sprites = new Sprites();
+        main_map = new Map(this, true);
+        main_map.initMap();
+        current_map = main_map;
+
+        /*
+        VOIR CI DESSOUS LES FONCTIONS ASSOCIEES
         mobs = new ArrayList<>();
         obstacles = new ArrayList<>();
         towers = new ArrayList<>();
-        map = new Map(this);
-        map.initMap();
+        */
     }
 
     @Override
@@ -64,24 +66,35 @@ public class Model extends GameModel {
         return this.m_overhead;
     }
 
+    /*
+    LES FONCTIONS SUIVANTES SONT UTILES (ONT DU SENS) UNIQUEMENT
+    SI ON DECOMMENTE LA LIGNE ASSOCIE DANS LES CONSTRUCTEURS
+    RESPECTIFS POUR AJOUTER LES OBJETS CREERS AUX COLLECTIONS
+    mobs, obstacles et towers.
+
     public ArrayList<Mobs> getMobs() {
         return this.mobs;
     }
 
-    public void addMobs(Mobs m) { this.mobs.add(m);}
+    public void addMobs(Mobs m) {
+        this.mobs.add(m);
+    }
 
     public ArrayList<Inert> getObstacles() {
         return this.obstacles;
     }
 
-    public void addObstacle(Inert o) { this.obstacles.add(o);}
+    public void addObstacle(Inert o) {
+        this.obstacles.add(o);
+    }
 
-    public Player getPlayer() { return this.player;}
+    public ArrayList<Tower> getTowers() {
+        return this.towers;
+    }
 
-    public ArrayList<Tower> getTowers() { return this.towers;}
-
-    public void addTower(Tower t) {this.towers.add(t);}
-
+    public void addTower(Tower t) {
+        this.towers.add(t);
+    }
     public ArrayList<Entity> getAllEntities() {
         ArrayList<Entity> entities = new ArrayList<>();
         entities.addAll(this.getMobs());
@@ -89,6 +102,14 @@ public class Model extends GameModel {
         entities.addAll(this.getTowers());
 
         return entities;
+    }*/
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public void setPlayer(Player p) {
+        this.player = p;
     }
 
     public Sprites getSprites() {
@@ -99,13 +120,30 @@ public class Model extends GameModel {
         return this.crystal;
     }
 
-    public Map getMap() {
-        return this.map;
+    public void setCrystal(Crystal c) {
+        this.crystal = c;
     }
 
-    public void setPlayer(Player p) {
-        this.player = p;
+    public Map getMainMap() {
+        return this.main_map;
     }
+
+    public Map getStoreMap() {
+        return this.map_store;
+    }
+
+    public ArrayList<Map> getChallengesMap() {
+        return this.maps_challenge;
+    }
+
+    public void setCurrentMap(Map m) {
+        this.current_map = m;
+    }
+
+    public Map getCurrentMap() {
+        return this.current_map;
+    }
+
 
 
     public BufferedImage getSpriteTower() {
@@ -119,7 +157,19 @@ public class Model extends GameModel {
      */
     @Override
     public void step(long now) {
-        m_overhead.overhead();
+        this.getMainMap().step(now);
+        if(this.current_map != getMainMap())
+            current_map.step(now);
+
+    }
+
+    public void initMapsChallenge() {
+        /*
+        for(toutes les maps du dossier)
+            map = new Map(this, false)
+            map.initMap();
+
+         */
     }
 
 }

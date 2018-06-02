@@ -12,7 +12,7 @@ public class Inert extends Entity {
     public Inert(Model c_model, Boolean c_movment, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind) {
         super(c_model, c_movment, c_sprite, c_scale, c_cell);
         this.obstacles_kind = c_kind;
-        this.model.addObstacle(this);
+        //this.model.addObstacle(this);
     }
 
 

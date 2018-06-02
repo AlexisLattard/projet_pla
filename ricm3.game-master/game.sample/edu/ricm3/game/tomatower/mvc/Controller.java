@@ -61,6 +61,8 @@ public class Controller extends GameController implements ActionListener {
 
 	}
 
+
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
@@ -75,7 +77,8 @@ public class Controller extends GameController implements ActionListener {
             long start0 = System.nanoTime();
 			model.player.move(0, 1);
             long end0 = System.nanoTime();
-            System.out.println("Move " + (end0 - start0));
+            if(Options.ECHO_PERFORMANCE)
+                System.out.println("Move action time" + (end0 - start0));
 			break;
 		case KeyEvent.VK_KP_LEFT:
 		case KeyEvent.VK_LEFT:
@@ -87,17 +90,20 @@ public class Controller extends GameController implements ActionListener {
 			break;
         case KeyEvent.VK_T:
 			long start1 = System.nanoTime();
+			System.out.println("PICK");
             this.model.getPlayer().pick();
             this.model.getPlayer().store();
             long end1 = System.nanoTime();
-            System.out.println("Take action : " + (end1 - start1));
+            if(Options.ECHO_PERFORMANCE)
+            	System.out.println("Take action time: " + (end1 - start1));
             break;
         case KeyEvent.VK_P:
             long start2 = System.nanoTime();
             this.model.getPlayer().getBagEntity();
             this.model.getPlayer().throwAction();
             long end2 = System.nanoTime();
-            System.out.println("Put action : " + (end2 - start2));
+            if(Options.ECHO_PERFORMANCE)
+            	System.out.println("Put action time : " + (end2 - start2));
             break;
 		}
 	}
