@@ -12,8 +12,8 @@ public class Player extends Living {
     ArrayList<Tower> bag;
     Tower hand = null;
 
-    public Player(Model c_model, Boolean c_movment, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction) {
-        super(c_model, c_movment, c_sprite, c_scale, c_cell, c_direction);
+    public Player(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction) {
+        super(c_model, true, c_sprite, c_scale, c_cell, c_direction);
         bag = new ArrayList<>();
         //TESTS
         Tower t1 = new Tower(this.model, false, this.model.getSpriteTower(), 1);

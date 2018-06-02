@@ -45,8 +45,7 @@ public class Model extends GameModel {
 
     public Model() {
         game_sprites = new Sprites();
-        main_map = new Map(this, true);
-        main_map.initMap();
+        this.initMaps();
         current_map = main_map;
 
         /*
@@ -144,6 +143,10 @@ public class Model extends GameModel {
         return this.current_map;
     }
 
+    public void addChallengeMap(Map m) {
+        this.getChallengesMap().add(m);
+    }
+
 
 
     public BufferedImage getSpriteTower() {
@@ -163,13 +166,25 @@ public class Model extends GameModel {
 
     }
 
-    public void initMapsChallenge() {
-        /*
-        for(toutes les maps du dossier)
-            map = new Map(this, false)
-            map.initMap();
+    /*
 
-         */
+    Pour l'instant un map challenge,
+    A faire : un dossier + parcourir toutes les maps de ce fichier
+     */
+    public void initMaps() {
+        main_map = new Map(this);
+        this.getMainMap().initMap("map1.txt");
+
+        this.maps_challenge = new ArrayList<>();
+        Map map_challenge = new Map(this);
+        this.addChallengeMap(map_challenge);
+
+        Iterator<Map> iter_map_challenge = this.getChallengesMap().iterator();
+        while (iter_map_challenge.hasNext()) {
+            Map m = iter_map_challenge.next();
+            m.initMap("defis");
+        }
+
     }
 
 }

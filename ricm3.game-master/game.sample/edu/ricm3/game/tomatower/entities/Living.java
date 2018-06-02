@@ -86,7 +86,7 @@ public class Living extends Entity {
     }
 
     public void hit() {
-        this.weapon.hit(this.cell);
+        this.weapon.hit(this.cell, this.direction);
     }
 
     public void pick() {

@@ -21,13 +21,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
+import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
 import edu.ricm3.game.tomatower.Cell;
+
+import javax.swing.*;
 
 public class View extends GameView {
 
     private static final long serialVersionUID = 1L;
-
     Color m_background = Color.white;
     long last;
     int npaints;
@@ -70,7 +72,8 @@ public class View extends GameView {
 
 
         model.player.paint(g);
-
     }
+
+
 
 }

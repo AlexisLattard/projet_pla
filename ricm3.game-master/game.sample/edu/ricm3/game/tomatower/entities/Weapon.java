@@ -9,7 +9,7 @@ public class Weapon {
 	Model model;
 	int range;
 	int power;
-	int direction;
+	int direction; // la direction est relative par rapport
 	
 	public Weapon() {
 		
@@ -19,7 +19,7 @@ public class Weapon {
 		
 	}
 	
-	public void hit(Cell cell) {
+	public void hit(Cell origin_cell, Direction origin_direction) {
 		
 	}
 	

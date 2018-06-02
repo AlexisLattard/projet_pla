@@ -12,8 +12,8 @@ public class Portal extends Inert {
     Map destination;
     Map origin;
 
-    public Portal(Model c_model, Boolean c_movment, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind) {
-        super(c_model, c_movment, c_sprite, c_scale, c_cell, ObstaclesKind.Lake.PORTAL);
+    public Portal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell) {
+        super(c_model, false, c_sprite, c_scale, c_cell, ObstaclesKind.Lake.PORTAL);
     }
 
     public void activePortal() {

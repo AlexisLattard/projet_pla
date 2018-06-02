@@ -54,15 +54,23 @@ public class Cell {
         this.getEntities().remove(e);
     }
 
+    /*
+    Return if the cell is free for the entity e,
+    if e is null, the function return if the cell contain someting
+     */
     public boolean isFree() {
+        //if(e == null) {
+            Iterator<Entity> iter = this.getEntitiesIterator();
+            while(iter.hasNext()) {
+                Entity entity = iter.next();
+                if(entity.isVisible())
+                    return false;
+            }
+            return true;
+        //} else {
 
-        Iterator<Entity> iter = this.getEntitiesIterator();
-        while(iter.hasNext()) {
-            Entity e = iter.next();
-            if(e.isVisible())
-                return false;
-        }
-        return true;
+          //  return true;
+        //}
     }
 
     public void paint(Graphics g) {

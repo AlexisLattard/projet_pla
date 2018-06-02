@@ -77,9 +77,9 @@ Seule la map courrante est affichée (méthode paint de View).
 Les maps sont définis par des fichier `.txt`. Chaque cellule correspondant à un identifiant :
 - `N` : nothing ;
 - Portals :
-  - `Pm` : Portal vers le magazin ;
-  - `Pd` : Portal vers le défis ;
-  - `Pp` : Portal vers la zone principale ;
+  - `Ps` : Portal vers le magazin (store);
+  - `Pc` : Portal vers le défis (challenge) ;
+  - `Pg` : Portal vers la zone principale (game) ;
 - Obstacles :
   - `Os` : Pierre (stone) ;
   - `Ol` : Lac ; **Pas encore géré**

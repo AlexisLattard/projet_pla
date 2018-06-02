@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.mvc.Model;
 
+import javax.sound.sampled.Port;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,10 +15,17 @@ public class Map {
     private int nb_cell_horizontal;
     private int nb_cell_vertical;
 
-    public Map(Model c_model, boolean c_visible) {
+    //private boolean legal_move[][];
+
+    public Map(Model c_model) {
         this.model = c_model;
         this.cells = new ArrayList<>();
+        //this.initLegalMove();
     }
+
+    /*public void initLegalMove() {
+
+    }*/
 
     public int getCellSize() {
         return this.cell_size;
@@ -48,10 +56,10 @@ public class Map {
         return iter_cells;
     }
 
-    public void initMap() {
+    public void initMap(String path) {
 
 
-        File map_file = new File("game.sample/maps/map1.txt");
+        File map_file = new File("game.sample/maps/" + path);
 
         try {
             long start1 = System.nanoTime();
@@ -84,15 +92,15 @@ public class Map {
                             break;
                         case "P":
                             System.out.println("PERSO");
-                            this.model.setPlayer(new Player(this.model, true, this.model.getSprites().sprite_player, 1, cell, Direction.UP));
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP));
                             break;
                         case "Os":
-                            System.out.println("Stone");
-                            Inert stone = new Inert(this.model, false, this.model.getSprites().sprite_cailloux, 1,cell, ObstaclesKind.Stone);
+                            //System.out.println("Stone");
+                            new Obstacle(this.model,  this.model.getSprites().sprite_cailloux, 1,cell, ObstaclesKind.Stone);
                             break;
 
                         case "Ol":
-                            Inert lac = new Inert(this.model, false, this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
                             break;
 
                         case "C":
@@ -101,6 +109,9 @@ public class Map {
                                 model.setCrystal(new Crystal(this.model, this.model.getSprites().sprite_crystal, col, row));
                             }
                             break;
+                        case "Pc":
+                            System.out.println("Portal challenge");
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell);
                     }
                 }
                 cells.add(cells_line);

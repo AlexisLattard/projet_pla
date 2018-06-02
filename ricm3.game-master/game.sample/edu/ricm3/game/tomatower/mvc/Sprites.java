@@ -14,6 +14,7 @@ public class Sprites {
     public BufferedImage sprite_lac;
     public BufferedImage sprite_crystal;
     public BufferedImage sprite_spawn_mobs;
+    public BufferedImage sprite_portal;
 
     public Sprites() {
         loadSprites();
@@ -65,6 +66,14 @@ public class Sprites {
         imageFile = new File("game.sample/sprites/mobs_spawn.png");
         try {
             sprite_spawn_mobs = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+
+        imageFile = new File("game.sample/sprites/portal.png");
+        try {
+            sprite_portal = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);
