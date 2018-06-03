@@ -47,7 +47,7 @@ public abstract class GameView extends Canvas {
   private static final long serialVersionUID = 1L;
 
   protected GameUI m_game;
-  protected Color m_background = Color.white;
+  protected Color m_background = Color.gray;
   
   private Image m_buffer1, m_buffer2;
   private Image m_renderBuffer;

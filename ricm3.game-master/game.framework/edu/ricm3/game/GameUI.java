@@ -205,12 +205,4 @@ public class GameUI {
     m_msg = msg;
   }
 
-  public JFrame getFrame() {
-    return this.m_frame;
-  }
-
-  public void setSize(int width, int height) {
-    this.m_frame.setSize(width, height);
-  }
-
 }

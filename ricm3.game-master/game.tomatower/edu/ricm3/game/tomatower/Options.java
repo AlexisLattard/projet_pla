@@ -15,22 +15,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.ricm3.game;
+package edu.ricm3.game.tomatower;
 
 public class Options {
-  /*
-   * You want to use double buffering... 
-   * Trust us, but you need to understand what that means.
-   * Look at the class GameView.
-   */
   public static final boolean USE_DOUBLE_BUFFERING = true;
   
-  /*
-   * We want to target 24 frame per seconds (fps),
-   * which is the following period in milliseconds
-   *   period = (1000.0 / 24.0)
-   */
-  static final double FPS = 30.0;
-  static final int REPAINT_DELAY = (int) (1000.0 / FPS);
+  public static final int NSQUARES = 6;
+  public static boolean STROBBING_SQUARES = false;
+  public static boolean SHOW_COWBOYS = false;
+  public static boolean EXPLODE_COWBOYS = false;
+  public static int SHOW_NCOWBOYS = 1;
+  public static int MAX_NCOWBOYS = 8;
+  
+
+  public static final boolean ECHO_MOUSE = false;
+  public static final boolean ECHO_MOUSE_MOTION = false;
+  public static final boolean ECHO_KEYBOARD = false;
+
+  public static final boolean ECHO_PERFORMANCE = false;
+  public static final boolean ECHO_GAME_STATE = true;
 
 }
