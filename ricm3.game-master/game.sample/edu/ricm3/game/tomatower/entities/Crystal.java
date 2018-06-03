@@ -1,4 +1,6 @@
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.entities;
+
+import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -20,7 +22,8 @@ public class Crystal {
 
 	
 	public void paint(Graphics g) {
-		g.drawImage(sprite, cells[0][0] * model.cell_size, cells[0][1] * model.cell_size, model.cell_size * 2, model.cell_size * 2, null);
+		int cell_size = model.getMainMap().getCellSize();
+		g.drawImage(sprite, cells[0][0] * cell_size, cells[0][1] * cell_size, cell_size * 2, cell_size * 2, null);
 	}
 
 	public int[][] getPosition() {

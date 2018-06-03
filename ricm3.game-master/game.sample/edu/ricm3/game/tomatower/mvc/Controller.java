@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.mvc;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +23,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import edu.ricm3.game.GameController;
+import edu.ricm3.game.tomatower.Options;
+import edu.ricm3.game.tomatower.entities.Direction;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -60,6 +62,8 @@ public class Controller extends GameController implements ActionListener {
 
 	}
 
+
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
@@ -67,42 +71,41 @@ public class Controller extends GameController implements ActionListener {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_KP_DOWN:
-			model.player.move(1, 0);
+			model.player.move(Direction.DOWN);
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_KP_RIGHT:
-			long start0 = System.nanoTime();
-			model.player.move(0, 1);
-			long end0 = System.nanoTime();
-			System.out.println("MOVE : " + (end0 - start0));
+            long start0 = System.nanoTime();
+			model.player.move(Direction.RIGHT);
+            long end0 = System.nanoTime();
+            if(Options.ECHO_PERFORMANCE)
+                System.out.println("Move action time" + (end0 - start0));
 			break;
 		case KeyEvent.VK_KP_LEFT:
 		case KeyEvent.VK_LEFT:
-			model.player.move(0, -1);
+			model.player.move(Direction.LEFT);
 			break;
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_KP_UP:
-			model.player.move(-1, 0);
+			model.player.move(Direction.UP);
 			break;
         case KeyEvent.VK_T:
-            long start1 = System.nanoTime();
+			long start1 = System.nanoTime();
+			System.out.println("PICK");
             this.model.getPlayer().pick();
             this.model.getPlayer().store();
             long end1 = System.nanoTime();
-            System.out.println("TAKE : " + (end1 - start1));
+            if(Options.ECHO_PERFORMANCE)
+            	System.out.println("Take action time: " + (end1 - start1));
             break;
         case KeyEvent.VK_P:
             long start2 = System.nanoTime();
             this.model.getPlayer().getBagEntity();
             this.model.getPlayer().throwAction();
             long end2 = System.nanoTime();
-            System.out.println("PUT : " + (end2 - start2));
+            if(Options.ECHO_PERFORMANCE)
+            	System.out.println("Put action time : " + (end2 - start2));
             break;
-        case KeyEvent.VK_SPACE:
-            for(int i = 0; i < model.getTowers().size(); i++) {
-                System.out.println("tower " + model.getTowers().get(i).isVisible() + " " +  model.getTowers().get(i).cell_x + " " +  model.getTowers().get(i).cell_y);
-            }
-            System.out.println("perso" + model.getPlayer().isVisible());
 		}
 	}
 

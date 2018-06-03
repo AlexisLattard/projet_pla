@@ -30,7 +30,7 @@ public class Options {
    * which is the following period in milliseconds
    *   period = (1000.0 / 24.0)
    */
-  static final double FPS = 30.0;
+  static final double FPS = 60.0;
   static final int REPAINT_DELAY = (int) (1000.0 / FPS);
 
 }

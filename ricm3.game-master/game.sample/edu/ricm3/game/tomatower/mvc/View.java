@@ -15,18 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.mvc;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
+import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
+import edu.ricm3.game.tomatower.Cell;
+
+import javax.swing.*;
 
 public class View extends GameView {
 
     private static final long serialVersionUID = 1L;
-
     Color m_background = Color.white;
     long last;
     int npaints;
@@ -61,15 +64,16 @@ public class View extends GameView {
 
         model.crystal.paint(g);
 
-        Iterator<Entity> iter_entities = model.getAllEntities().iterator();
-        while (iter_entities.hasNext()) {
-            Entity m = iter_entities.next();
-            m.paint(g);
+        Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
+        while(iter_cells.hasNext()) {
+            Cell c = iter_cells.next();
+            c.paint(g);
         }
 
 
         model.player.paint(g);
-
     }
+
+
 
 }
