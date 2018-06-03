@@ -59,9 +59,7 @@ public class Cell {
     public boolean isFree() {
         Entity e = null;
         if(e == null) {
-            Iterator<Entity> iter = this.getEntitiesIterator();
-            while(iter.hasNext()) {
-                Entity entity = iter.next();
+            for(Entity entity : this.entities) {
                 if(entity.isVisible() && !(entity instanceof Portal))
                     return false;
             }

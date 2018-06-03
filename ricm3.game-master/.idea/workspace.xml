@@ -21,11 +21,81 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Weapon.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Weapon.java">
+      <file leaf-file-name="Living.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Living.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+            <state relative-caret-position="528">
+              <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Mobs.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Mobs.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Model.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="161" column="33" selection-start-line="161" selection-start-column="33" selection-end-line="161" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#4631#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="View.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/View.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="428">
+              <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Map.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1708">
+              <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Entity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="428">
+              <caret line="104" column="40" selection-start-line="104" selection-start-column="40" selection-end-line="104" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="164">
+              <caret line="36" column="27" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cell.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Cell.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -42,7 +112,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>\/\*\n \* Educational software for a basic game development\n \* Copyright \(C\) 2018  Pr\. Olivier Gruber\n \*\n \* This program is free software\: you can redistribute it and\/or modify\n \* it under the terms of the GNU General Public License as published by\n \* the Free Software Foundation\, either version 3 of the License\, or\n \* \(at your option\) any later version\.\n \* \n \* This program is distributed in the hope that it will be useful\,\n \* but WITHOUT ANY WARRANTY\; without even the implied warranty of\n \* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE\.  See the\n \* GNU General Public License for more details\.\n \* \n \* You should have received a copy of the GNU General Public License\n \* along with this program\.  If not\, see \&lt;http\:\/\/www\.gnu\.org\/licenses\/\&gt;\.\n \*\/\npackage edu\.ricm3\.game\.tomatower\;\n\nimport java\.awt\.image\.BufferedImage\;\nimport java\.io\.BufferedReader\;\nimport java\.io\.File\;\nimport java\.io\.FileNotFoundException\;\nimport java\.io\.FileReader\;\nimport java\.io\.IOException\;\nimport java\.util\.ArrayList\;\nimport java\.util\.Iterator\;\n\nimport javax\.imageio\.ImageIO\;\n\nimport edu\.ricm3\.game\.GameModel\;\n\npublic class Model extends GameModel \{\n\	int cell_size \= 50\;\n\	int nb_cell_horizontal\;\n\	int nb_cell_vertical\;\n\	\n\	Player player\;\n\	ArrayList\&lt;Mobs\&gt; mobs\;\n\	ArrayList\&lt;Inert\&gt; obstacles\;\n\	Crystal crystal\;\n\	\n\	BufferedImage sprite_player\;\n\	BufferedImage sprite_mobs\;\n\	BufferedImage sprite_cailloux\;\n\	BufferedImage sprite_arbre\;\n\	BufferedImage sprite_tower\;\n\	BufferedImage sprite_lac\;\n\	BufferedImage sprite_crystal\;\n\	BufferedImage sprite_spawn_mobs\;\n\n\	Overhead m_overhead \= new Overhead\(\)\;\n\n\	public Model\(\) \{\n\	\	loadSprites\(\)\;\n\	\	mobs \= new ArrayList\&lt;\&gt;\(\)\;\n\	\	obstacles \= new ArrayList\&lt;\&gt;\(\)\;\n\	\	player \= new Player\(this\, true\, sprite_player\, 1\, 0\, 0\)\;\n\	\	initMap\(\)\;\n\	\}\n\n\	\@Override\n\	public void shutdown\(\) \{\n\n\	\}\n\n\	public Overhead getOverhead\(\) \{\n\	\	return m_overhead\;\n\	\}\n\n\	public ArrayList\&lt;Mobs\&gt; getMobs\(\) \{\n\	\	return mobs\;\n\	\}\n\n\	public ArrayList\&lt;Inert\&gt; getObstacles\(\) \{\n\	\	return obstacles\;\n\	\}\n\n\	\/\*\*\n\	 \* Simulation step\.\n\	 \* \n\	 \* \@param now\n\	 \*            is the current time in milliseconds\.\n\	 \*\/\n\	\@Override\n\	public void step\(long now\) \{\n\n\	\	m_overhead\.overhead\(\)\;\n\n\	\}\n\n\	private void loadSprites\(\) \{\n\	\	\n\	\	File imageFile \= new File\(\&quot;game\.sample\/sprites\/player\.png\&quot;\)\;\n\	\	try \{\n\	\	\	sprite_player \= ImageIO\.read\(imageFile\)\;\n\	\	\} catch \(IOException ex\) \{\n\	\	\	ex\.printStackTrace\(\)\;\n\	\	\	System\.exit\(\-1\)\;\n\	\	\}\n\	\	\n\	\	imageFile \= new File\(\&quot;game\.sample\/sprites\/mobs\.png\&quot;\)\;\n\	\	try \{\n\	\	\	sprite_cailloux \= ImageIO\.read\(imageFile\)\;\n\	\	\} catch \(IOException ex\) \{\n\	\	\	ex\.printStackTrace\(\)\;\n\	\	\	System\.exit\(\-1\)\;\n\	\	\}\n\	\	\n\	\	imageFile \= new File\(\&quot;game\.sample\/sprites\/stone\.png\&quot;\)\;\n\	\	try \{\n\	\	\	sprite_cailloux \= ImageIO\.read\(imageFile\)\;\n\	\	\} catch \(IOException ex\) \{\n\	\	\	ex\.printStackTrace\(\)\;\n\	\	\	System\.exit\(\-1\)\;\n\	\	\}\n\	\	\n\	\	\n\	\	imageFile \= new File\(\&quot;game\.sample\/sprites\/tower\.png\&quot;\)\;\n\	\	try \{\n\	\	\	sprite_tower \= ImageIO\.read\(imageFile\)\;\n\	\	\} catch \(IOException ex\) \{\n\	\	\	ex\.printStackTrace\(\)\;\n\	\	\	System\.exit\(\-1\)\;\n\	\	\}\n\	\	\n\	\	imageFile \= new File\(\&quot;game\.sample\/sprites\/crystal\.png\&quot;\)\;\n\	\	try \{\n\	\	\	sprite_crystal \= ImageIO\.read\(imageFile\)\;\n\	\	\} catch \(IOException ex\) \{\n\	\	\	ex\.printStackTrace\(\)\;\n\	\	\	System\.exit\(\-1\)\;\n\	\	\}\n\n\	\	imageFile \= new File\(\&quot;game\.sample\/sprites\/mobs_spawn\.png\&quot;\)\;\n\	\	try \{\n\	\	\	sprite_spawn_mobs \= ImageIO\.read\(imageFile\)\;\n\	\	\} catch \(IOException ex\) \{\n\	\	\	ex\.printStackTrace\(\)\;\n\	\	\	System\.exit\(\-1\)\;\n\	\	\}\n\	\}\n\	\n\	void initMap\(\) \{\n\	\	\n\	\	\n\	\	File map_file \= new File\(\&quot;game\.sample\/maps\/map1\.txt\&quot;\)\;\n        try \{\n            BufferedReader reader \= new BufferedReader\(new FileReader\(map_file\)\)\;\n            ArrayList\&lt;String\[\]\&gt; map_langugage \= new ArrayList\&lt;\&gt;\(\)\;\n            String line\;\n\n            int row \= 0\;\n            while\(\(line \= reader\.readLine\(\)\) \!\= null \&amp;\&amp; line \!\= \&quot;\&quot;\) \{\n                map_langugage\.add\(line\.split\(\&quot; \&quot;\)\)\;\n                row\+\+\;\n            \}\n            \n            this\.nb_cell_vertical \= row\;\n            this\.nb_cell_horizontal \= map_langugage\.get\(0\)\.length\;\n            \n            row \= 0\;\n            Iterator\&lt;String\[\]\&gt; iter_map \= map_langugage\.iterator\(\)\;\n            while\(iter_map\.hasNext\(\)\) \{\n            \	String\[\] line_elements \= iter_map\.next\(\)\;\n            \	\n            \	for\(int col \= 0\; col \&lt; line_elements\.length\; col\+\+\) \{\n            \	\	\n            \	\	switch\(line_elements\[col\]\) \{\n            \	\	case \&quot;E\&quot; \:\n            \	\	\	\n            \	\	\	break\;\n            \	\	case \&quot;P\&quot; \:\n            \	\	\	this\.player\.initPosition\(col\, row\)\;\n            \	\	\	break\;\n            \	\	case \&quot;Os\&quot; \:\n            \	\	\	System\.out\.println\(\&quot;Stone\&quot;\)\;\n            \	\	\	Inert stone \= new Inert\(this\, false\, sprite_cailloux\, 1\, col\, row\, ObstaclesKind\.Stone\)\;\n            \	\	\	this\.obstacles\.add\(stone\)\;\n            \	\	\	break\;\n            \	\	\	\n            \	\	case \&quot;Ol\&quot; \:\n            \	\	\	Inert lac \= new Inert\(this\, false\, sprite_lac\, 1\, col\, row\, ObstaclesKind\.Lake\)\;\n            \	\	\	this\.obstacles\.add\(lac\)\;\n            \	\	\	break\;\n            \	\	\n            \	\	case \&quot;C\&quot; \:\	\n            \	\	\	if\(this\.crystal \=\= null\) \{\n            \	\	\	\	System\.out\.println\(\&quot;map init \: crystal\&quot;\)\;\n            \	\	\	\	this\.crystal \= new Crystal\(this\, sprite_crystal\, col\, row\)\;\n            \	\	\	\}\n            \	\	\	break\;\n            \	\	\}\n            \	\}\n            \	row\+\+\;\n            \}\n \n\n\n        \}catch \(FileNotFoundException e\) \{\n\n        \} catch \(IOException e\) \{\n\n        \}\n\	\	\n\	\}\n\n\}\n\n\n\n\n\n\n\n\n\n\n\n</find>
+      <find />
       <find>player</find>
       <find>System.</find>
       <find>System</find>
@@ -81,19 +151,19 @@
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/Map.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Controller.java" />
         <option value="$PROJECT_DIR$/game.framework/edu/ricm3/game/Options.java" />
-        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Model.java" />
-        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/View.java" />
-        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Cell.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Map.java" />
-        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Crystal.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Portal.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Entity.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Inert.java" />
-        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Living.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Tower.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Mobs.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Player.java" />
         <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Weapon.java" />
+        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Crystal.java" />
+        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Living.java" />
+        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/View.java" />
+        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Cell.java" />
+        <option value="$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Model.java" />
       </list>
     </option>
   </component>
@@ -253,7 +323,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1920" height="1042" extended-state="6" />
+    <frame x="0" y="-1" width="1920" height="1042" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -264,13 +334,13 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26855895" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.26855895" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="2" />
       <window_info anchor="bottom" id="Run with VisualVM" order="11" weight="0.2860262" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989083" visible="true" weight="0.20330843" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4989083" visible="true" weight="0.20330843" />
       <window_info id="Structure" order="1" sideWeight="0.5010917" side_tool="true" weight="0.25987193" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="3" />
@@ -382,13 +452,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Overhead.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game.framework/edu/ricm3/game/GameUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -425,16 +488,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-144">
@@ -443,31 +496,6 @@
             <element signature="e#1517#1518#0" expanded="true" />
             <element signature="e#1538#1539#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1612">
-          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
-          <folding>
-            <element signature="e#0#4631#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Sprites.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Cell.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="848">
-          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
         </state>
       </provider>
     </entry>
@@ -481,34 +509,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Crystal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="76" column="30" lean-forward="true" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Living.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-768">
-          <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Inert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Portal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
@@ -516,34 +516,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Mobs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="52" column="42" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Tower.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="104" column="40" selection-start-line="104" selection-start-column="40" selection-end-line="104" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -570,8 +542,106 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Weapon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+        <state relative-caret-position="432">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Crystal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Sprites.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Inert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Tower.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Mobs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Overhead.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="36" column="27" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="104" column="40" selection-start-line="104" selection-start-column="40" selection-end-line="104" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/entities/Living.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/mvc/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="161" column="33" selection-start-line="161" selection-start-column="33" selection-end-line="161" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#4631#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1708">
+          <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.sample/edu/ricm3/game/tomatower/map/Cell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
         </state>
       </provider>
     </entry>

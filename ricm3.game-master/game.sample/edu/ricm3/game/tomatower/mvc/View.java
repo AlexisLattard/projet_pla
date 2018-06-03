@@ -64,8 +64,6 @@ public class View extends GameView {
             Cell c = iter_cells.next();
             c.paint(g);
         }
-
-        model.getPlayer().paint(g);
     }
 
 

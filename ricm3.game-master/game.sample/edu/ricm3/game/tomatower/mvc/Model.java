@@ -17,9 +17,7 @@
  */
 package edu.ricm3.game.tomatower.mvc;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 import edu.ricm3.game.GameModel;
@@ -153,7 +151,7 @@ public class Model extends GameModel {
         // Map principale
         main_map = new Map(this);
         this.setCurrentMap(main_map);
-        this.main_map.initMap("map1.txt");
+        this.main_map.initMap("game.txt");
 
         //  Maps défis
         this.maps_challenge = new ArrayList<>();
@@ -161,7 +159,7 @@ public class Model extends GameModel {
         this.addChallengeMap(map_challenge);
 
         for (Map m: this.maps_challenge) {
-            m.initMap("defis.txt");
+            m.initMap("challenges/defis.txt");
         }
 
         // Map store

@@ -26,7 +26,7 @@ public class Crystal extends Inert {
     }
 
     public void paint(Graphics g) {
-        if(this == main_instance)
+        if(main_instance == null)
             super.paint(g);
     }
 }

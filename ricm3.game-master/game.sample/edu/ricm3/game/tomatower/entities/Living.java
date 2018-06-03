@@ -9,9 +9,9 @@ import java.awt.image.BufferedImage;
 
 public abstract class Living extends Entity {
 
-    private int hp;
-    private Direction direction;
-    private Weapon weapon;
+    protected int hp;
+    protected Direction direction;
+    protected Weapon weapon;
 
 
     Living(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction) {
