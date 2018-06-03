@@ -21,11 +21,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
-import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
-import edu.ricm3.game.tomatower.Cell;
-
-import javax.swing.*;
+import edu.ricm3.game.tomatower.map.Cell;
 
 public class View extends GameView {
 
@@ -62,16 +59,13 @@ public class View extends GameView {
         g.setColor(m_background);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        model.crystal.paint(g);
-
         Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
         while(iter_cells.hasNext()) {
             Cell c = iter_cells.next();
             c.paint(g);
         }
 
-
-        model.player.paint(g);
+        model.getPlayer().paint(g);
     }
 
 

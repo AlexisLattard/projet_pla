@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
 
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
-import edu.ricm3.game.tomatower.entities.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -71,23 +71,23 @@ public class Controller extends GameController implements ActionListener {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_KP_DOWN:
-			model.player.move(Direction.DOWN);
+			model.getPlayer().move(Direction.DOWN);
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_KP_RIGHT:
             long start0 = System.nanoTime();
-			model.player.move(Direction.RIGHT);
+			model.getPlayer().move(Direction.RIGHT);
             long end0 = System.nanoTime();
             if(Options.ECHO_PERFORMANCE)
                 System.out.println("Move action time" + (end0 - start0));
 			break;
 		case KeyEvent.VK_KP_LEFT:
 		case KeyEvent.VK_LEFT:
-			model.player.move(Direction.LEFT);
+			model.getPlayer().move(Direction.LEFT);
 			break;
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_KP_UP:
-			model.player.move(Direction.UP);
+			model.getPlayer().move(Direction.UP);
 			break;
         case KeyEvent.VK_T:
 			long start1 = System.nanoTime();

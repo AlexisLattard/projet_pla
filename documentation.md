@@ -1,4 +1,4 @@
-# Documentation (v0 - 2 juin 2018)
+# Documentation (v0 - 3 juin 2018)
 
 ![UML Diagram](photo/uml.png)
 
@@ -15,11 +15,12 @@ projet
 ```
 
 ## [TODO] Prochaines étapes
-- Gestion du hit des entité, principalement définis pour les Living (classe(s) Weapon, appelle de la fonction hit des entités) ;
-- Implémentation des défis (création maps, intéraction, etc) ;
-- Implémentation du magasin (argent dans le jeu, possibilité d'acheter des tourelles, améliorations) ;
-- Implémentation du comportement des entité (Tower, Mobs) (automates, fonctions step() des entités) + spawn des ennemis ;
-- Animation des entités.
+- **Hit des entité**, principalement définis pour les Living (classe(s) Weapon, appelle de la fonction hit des entités) ;
+- **Défis** (création maps, intéraction, etc) ;
+- **Magasin** (argent dans le jeu, possibilité d'acheter des tourelles, améliorations, map du magasin) ;
+- **Comportement des entité** (Tower, Mobs) (automates, fonctions step() des entités) + spawn des ennemis ;
+- **Animation des entités** ;
+- **Barres de vie** (niveau, crystal, joueur).
 
 
 ## MVC - model, view, controleur
@@ -60,6 +61,8 @@ Une instance de Map est composées de :
 - La fonction freeCell(Cell c) retourne vrai si la cellule contient aucune entité, faux sinon ;
 - La fonction getEntityCell(Cell c) retourne la première entité présente sur la cellule (*à discuter du comportement de cette fonction*) ;
 - La fonction getCell(int x, int y) retourne la cellule correspondant à la colonne x et la ligne y.
+
+getCurrentMap() getMainMap()
 
 ### Cell
 Une cellule est composé de :

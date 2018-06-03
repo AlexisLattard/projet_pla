@@ -1,5 +1,5 @@
-Os N P N Os
 Os N N N Os
-Pg N N N Os
+Os N N N Po
+Os N N N Pi
 Os N N N Os
 Os Os Os Os Os

@@ -1,6 +1,7 @@
 package edu.ricm3.game.tomatower.entities;
 
-import edu.ricm3.game.tomatower.Cell;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
@@ -12,8 +13,8 @@ public class Tower extends Living {
 		//this.model.addTower(this);
 	}
 
-	public Tower(Model c_model, Boolean c_movment, BufferedImage c_sprite, double c_scale) {
-		super(c_model, c_movment, c_sprite, c_scale, Direction.NONE);
+	public Tower(Model c_model, BufferedImage c_sprite, double c_scale) {
+		super(c_model, false, c_sprite, c_scale, Direction.NONE);
 		//this.model.addTower(this);
 	}
 

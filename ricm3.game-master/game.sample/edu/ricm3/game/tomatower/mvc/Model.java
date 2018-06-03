@@ -20,36 +20,35 @@ package edu.ricm3.game.tomatower.mvc;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import edu.ricm3.game.GameModel;
-import edu.ricm3.game.tomatower.Cell;
-import edu.ricm3.game.tomatower.Map;
+import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.entities.*;
+import edu.ricm3.game.tomatower.map.Sprites;
 
 public class Model extends GameModel {
 
-    Sprites game_sprites;
+    private Sprites game_sprites;
 
     private Map main_map;
     private ArrayList<Map> maps_challenge;
     private Map map_store;
     private Map current_map;
 
-    Player player;
-    //ArrayList<Mobs> mobs;
-    //ArrayList<Inert> obstacles;
-    //ArrayList<Tower> towers;
-    Crystal crystal;
+    private Player player;
 
-    Overhead m_overhead = new Overhead();
+    private Overhead m_overhead = new Overhead();
+
+    /*ArrayList<Mobs> mobs;
+    ArrayList<Inert> obstacles;
+    ArrayList<Tower> towers;
+    Crystal crystal;*/
 
     public Model() {
         game_sprites = new Sprites();
         this.initMaps();
-        current_map = main_map;
-
-        /*
-        VOIR CI DESSOUS LES FONCTIONS ASSOCIEES
+        /* VOIR CI DESSOUS LES FONCTIONS ASSOCIEES
         mobs = new ArrayList<>();
         obstacles = new ArrayList<>();
         towers = new ArrayList<>();
@@ -71,35 +70,19 @@ public class Model extends GameModel {
     RESPECTIFS POUR AJOUTER LES OBJETS CREERS AUX COLLECTIONS
     mobs, obstacles et towers.
 
-    public ArrayList<Mobs> getMobs() {
-        return this.mobs;
-    }
-
-    public void addMobs(Mobs m) {
-        this.mobs.add(m);
-    }
-
-    public ArrayList<Inert> getObstacles() {
-        return this.obstacles;
-    }
-
-    public void addObstacle(Inert o) {
-        this.obstacles.add(o);
-    }
-
-    public ArrayList<Tower> getTowers() {
-        return this.towers;
-    }
-
-    public void addTower(Tower t) {
-        this.towers.add(t);
-    }
+    public ArrayList<Mobs> getMobs() {return this.mobs;}
+    public void addMobs(Mobs m) {this.mobs.add(m);}
+    public ArrayList<Inert> getObstacles() {return this.obstacles;}
+    public void addObstacle(Inert o) {this.obstacles.add(o);}
+    public ArrayList<Tower> getTowers() {return this.towers;}
+    public void addTower(Tower t) {this.towers.add(t);}
+    public Crystal getCrystal() {return this.crystal;}
+    public void setCrystal(Crystal c) {this.crystal = c;}
     public ArrayList<Entity> getAllEntities() {
         ArrayList<Entity> entities = new ArrayList<>();
         entities.addAll(this.getMobs());
         entities.addAll(this.getObstacles());
         entities.addAll(this.getTowers());
-
         return entities;
     }*/
 
@@ -115,13 +98,7 @@ public class Model extends GameModel {
         return this.game_sprites;
     }
 
-    public Crystal getCrystal() {
-        return this.crystal;
-    }
 
-    public void setCrystal(Crystal c) {
-        this.crystal = c;
-    }
 
     public Map getMainMap() {
         return this.main_map;
@@ -135,6 +112,16 @@ public class Model extends GameModel {
         return this.maps_challenge;
     }
 
+    public void addChallengeMap(Map m) {
+        this.getChallengesMap().add(m);
+    }
+
+    public Map getRandomChallengeMap() {
+        Random rand = new Random();
+        int n = rand.nextInt(this.getChallengesMap().size());
+        return this.getChallengesMap().get(n);
+    }
+
     public void setCurrentMap(Map m) {
         this.current_map = m;
     }
@@ -143,15 +130,7 @@ public class Model extends GameModel {
         return this.current_map;
     }
 
-    public void addChallengeMap(Map m) {
-        this.getChallengesMap().add(m);
-    }
 
-
-
-    public BufferedImage getSpriteTower() {
-        return this.game_sprites.sprite_tower;
-    }
 
     /**
      * Simulation step.
@@ -163,7 +142,6 @@ public class Model extends GameModel {
         this.getMainMap().step(now);
         if(this.current_map != getMainMap())
             current_map.step(now);
-
     }
 
     /*
@@ -172,19 +150,23 @@ public class Model extends GameModel {
     A faire : un dossier + parcourir toutes les maps de ce fichier
      */
     public void initMaps() {
+        // Map principale
         main_map = new Map(this);
-        this.getMainMap().initMap("map1.txt");
+        this.setCurrentMap(main_map);
+        this.main_map.initMap("map1.txt");
 
+        //  Maps défis
         this.maps_challenge = new ArrayList<>();
         Map map_challenge = new Map(this);
         this.addChallengeMap(map_challenge);
 
-        Iterator<Map> iter_map_challenge = this.getChallengesMap().iterator();
-        while (iter_map_challenge.hasNext()) {
-            Map m = iter_map_challenge.next();
-            m.initMap("defis");
+        for (Map m: this.maps_challenge) {
+            m.initMap("defis.txt");
         }
 
+        // Map store
+        this.map_store = new Map(this);
+        this.map_store.initMap("store.txt");
     }
 
 }

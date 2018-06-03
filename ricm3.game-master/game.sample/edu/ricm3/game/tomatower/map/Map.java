@@ -1,31 +1,30 @@
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.map;
 
+import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.*;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.mvc.Model;
 
-import javax.sound.sampled.Port;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Map {
     Model model;
+
     private ArrayList<ArrayList<Cell>> cells;
     private int cell_size = 50;
     private int nb_cell_horizontal;
     private int nb_cell_vertical;
+    private Cell cell_portal_in;
 
-    private boolean legal_move[][];
 
     public Map(Model c_model) {
         this.model = c_model;
         this.cells = new ArrayList<>();
-        //this.initLegalMove();
     }
 
-    public void initLegalMove() {
-
-    }
 
     public int getCellSize() {
         return this.cell_size;
@@ -46,19 +45,54 @@ public class Map {
     public Iterator<Cell> getCellsIterator() {
         ArrayList<Cell> cells = new ArrayList<>();
 
-        Iterator<ArrayList<Cell>> iter_line_cells = this.model.getMainMap().cells.iterator();
-        while (iter_line_cells.hasNext()) {
-            ArrayList<Cell> line_cell = iter_line_cells.next();
-            cells.addAll(line_cell);
+        for(ArrayList<Cell> line : this.cells) {
+            cells.addAll(line);
         }
 
-        Iterator<Cell> iter_cells = cells.iterator();
-        return iter_cells;
+        return cells.iterator();
+    }
+
+    public boolean freeCell(Cell cell) {
+        return  (cell != null)  && (cell.isFree());
+    }
+
+    public Entity getEntityCell(Cell c) {
+
+        if(!c.getEntities().isEmpty())
+            return c.getEntities().get(0);
+        else
+            return null;
+    }
+
+    public void step(long now) {
+        Iterator<Cell> iter_cells_mainmap = this.getCellsIterator();
+        while (iter_cells_mainmap.hasNext()) {
+            Cell c = iter_cells_mainmap.next();
+            c.step(now);
+        }
+    }
+
+    public void setCellIn(Cell cell) {
+        this.cell_portal_in = cell;
+    }
+
+    public void setVisible() {
+        this.model.setCurrentMap(this);
+        this.model.getPlayer().addEntityOnCell(this.cell_portal_in);
+    }
+
+    public boolean isVisible() {
+        return this.model.getCurrentMap() == this;
     }
 
     public void initMap(String path) {
+        /*
 
-
+        Faire verification de map avec compteur
+        Principal : Joueur, spawn ennemi, spawn joueur
+        Defis : portal to principal, spawn ennemi
+         */
+        System.out.println(path);
         File map_file = new File("game.sample/maps/" + path);
 
         try {
@@ -79,6 +113,8 @@ public class Map {
             row = 0;
             ArrayList<ArrayList<Cell>> cells = new ArrayList<>();
             Iterator<String[]> iter_map = map_langugage.iterator();
+            Crystal main_crystal = null;
+
             while (iter_map.hasNext()) {
                 String[] line_elements = iter_map.next();
 
@@ -104,14 +140,26 @@ public class Map {
                             break;
 
                         case "C":
-                            if (this.model.getCrystal() == null) {
-                                System.out.println("map init : crystal");
-                                model.setCrystal(new Crystal(this.model, this.model.getSprites().sprite_crystal, col, row));
+                            if(main_crystal == null) {
+                                main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell, ObstaclesKind.CRYSTAL, null);
+                            } else {
+                                new Crystal(this.model, this.model.getSprites().sprite_crystal, 0, cell, ObstaclesKind.CRYSTAL, main_crystal);
                             }
+
                             break;
                         case "Pc":
-                            System.out.println("Portal challenge");
-                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell);
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_CHALLENGE);
+                            break;
+                        case "Ps":
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_STORE);
+                            break;
+                        case "Pi":
+                            new Portal(this.model, this.model.getSprites().sprite_portal_in, 1, cell, ObstaclesKind.PORTAL_DESTINATION);
+                            this.cell_portal_in = cell;
+                            break;
+                        case "Po":
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME);
+                            break;
                     }
                 }
                 cells.add(cells_line);
@@ -119,7 +167,8 @@ public class Map {
             }
             this.setCellsMap(cells);
             long end1 = System.nanoTime();
-            System.out.println("Init map : " + (end1 - start1));
+            if(Options.ECHO_GAME_STATE)
+                System.out.println("Init map finished in " + (end1 - start1) + " ns");
 
         } catch (FileNotFoundException e) {
 
@@ -128,31 +177,4 @@ public class Map {
         }
     }
 
-    public boolean freeCell(Cell cell) {
-        return  (cell != null)  && (cell.isFree());
-    }
-
-    public Entity getEntityCell(Cell c) {
-
-        if(!c.getEntities().isEmpty())
-            return c.getEntities().get(0);
-        else
-            return null;
-    }
-
-    public void step(long now) {
-        Iterator<Cell> iter_cells_mainmap = this.getCellsIterator();
-        while (iter_cells_mainmap.hasNext()) {
-            Cell c = iter_cells_mainmap.next();
-            c.step(now);
-        }
-    }
-
-    public void setVisible() {
-        this.model.setCurrentMap(this);
-    }
-
-    public boolean isVisible() {
-        return this.model.getCurrentMap() == this;
-    }
 }

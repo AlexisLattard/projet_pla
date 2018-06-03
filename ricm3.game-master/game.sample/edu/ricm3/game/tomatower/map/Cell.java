@@ -1,7 +1,8 @@
-package edu.ricm3.game.tomatower;
+package edu.ricm3.game.tomatower.map;
 
 import edu.ricm3.game.tomatower.entities.Entity;
 import edu.ricm3.game.tomatower.entities.Living;
+import edu.ricm3.game.tomatower.entities.Portal;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,18 +36,15 @@ public class Cell {
     }
 
     public void damage(int power) {
-        // SI un hit = bombe sur une case
-        Iterator<Entity> iter = this.getEntitiesIterator();
-        while (iter.hasNext()) {
-            Entity e = iter.next();
-            if(e instanceof Living)
-                ((Living) e).damage(power);
+        // Si on considère que un hit est une bombre (fait des dégats sur toutes les entités)
+        for (Entity e : this.entities) {
+            e.damage(power);
         }
 
-        /* OU si on fait des degat sur une seul entité par hit
-        Entity e = entities.get(0);
-        if(e instanceof Living)
-            ((Living) e).damage(power);
+        /* Si on considère que le hit est une balle (dégat sur une entité)
+        if(!this.entites.isEmpty()) {
+            e.damage(power);
+        }
          */
     }
 
@@ -59,12 +57,12 @@ public class Cell {
     if e is null, the function return if the cell contain someting
      */
     public boolean isFree() {
-        Cell e = null;
+        Entity e = null;
         if(e == null) {
             Iterator<Entity> iter = this.getEntitiesIterator();
             while(iter.hasNext()) {
                 Entity entity = iter.next();
-                if(entity.isVisible())
+                if(entity.isVisible() && !(entity instanceof Portal))
                     return false;
             }
             return true;
@@ -75,19 +73,15 @@ public class Cell {
     }
 
     public void paint(Graphics g) {
-        Iterator<Entity> iter = this.getEntitiesIterator();
-        while (iter.hasNext()) {
-            Entity e = iter.next();
+        for(Entity e : this.entities) {
             e.paint(g);
         }
     }
 
     public void step(long now) {
-        Iterator<Entity> iter = this.getEntitiesIterator();
-        while (iter.hasNext()){
-            Entity e = iter.next();
-            e.step(now);
-        }
+       for(Entity e : this.entities) {
+           e.step(now);
+       }
     }
 
 }

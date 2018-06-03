@@ -1,9 +1,12 @@
 package edu.ricm3.game.tomatower.entities;
 
-import edu.ricm3.game.tomatower.Cell;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
-import java.awt.Graphics;
+/*
+IT IS NOT AN ENTITY
+ */
 
 public class Weapon {
 	Model model;
@@ -14,13 +17,11 @@ public class Weapon {
 	public Weapon() {
 		
 	}
-	
-	public void paint(Graphics g, int x, int y) {
-		
-	}
+
 	
 	public void hit(Cell origin_cell, Direction origin_direction) {
-		
+		/*Cell cell_hit = ;
+		cell_hit.damage(this.power);*/
 	}
 	
 	

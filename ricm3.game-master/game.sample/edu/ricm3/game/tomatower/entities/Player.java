@@ -1,71 +1,56 @@
 package edu.ricm3.game.tomatower.entities;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import edu.ricm3.game.tomatower.Cell;
+import edu.ricm3.game.tomatower.Options;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 public class Player extends Living {
 
-    ArrayList<Tower> bag;
-    Tower hand = null;
+    private ArrayList<Tower> bag;
+    private Tower hand = null;
 
     public Player(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction) {
         super(c_model, true, c_sprite, c_scale, c_cell, c_direction);
         bag = new ArrayList<>();
-        //TESTS
-        Tower t1 = new Tower(this.model, false, this.model.getSpriteTower(), 1);
-        Tower t2 = new Tower(this.model, false, this.model.getSpriteTower(), 1);
-        Tower t3 = new Tower(this.model, false, this.model.getSpriteTower(), 1);
-        Tower t4 = new Tower(this.model, false, this.model.getSpriteTower(), 1);
-        bag.add(t1);
-        bag.add(t2);
-        bag.add(t3);
-        bag.add(t4);
+
+        // Pour tester
+        Tower t1 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1);
+        Tower t2 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1);
+        Tower t3 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1);
+        Tower t4 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1);
+        bag.add(t1);bag.add(t2);bag.add(t3);bag.add(t4);
     }
 
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g); //Paint aussi le weapon, a deplacer dans living du coup
-    }
-
-
-
-    public ArrayList<Tower> getBag() {
-        return this.bag;
-    }
 
     public void getBagEntity() {
-        if(this.getBag().size() >= 1) {
+        if(this.bag.size() >= 1) {
             if(hand == null) {
-                hand = this.getBag().remove(0);
+                hand = this.bag.remove(0);
             }
         }
     }
 
     public void throwAction() {
-        if(hand == null)
+        if(Options.ECHO_GAME_STATE && hand == null)
             System.out.println("Rien dans la main");
 
-        if(hand != null) {
-            Cell front_cell = this.getFrontCell();
-            if(hand.addEntityOnCell(front_cell)) {
-                hand = null;
-            }
+        if(hand != null && hand.addEntityOnCell(this.getFrontCell())) {
+            // Si vrai, alors la tourelle a été posée, donc plus rien en main
+            hand = null;
         }
     }
 
-    public void pick() { // Ou store ?
-        Cell front_cell = this.getFrontCell();
+    public void pick() {
+        Entity entity = this.model.getCurrentMap().getEntityCell(this.getFrontCell());
 
-        Entity entity = this.model.getMainMap().getEntityCell(front_cell);
         if (entity instanceof Tower) {
-            entity.removeEntityFromCell();
             if(hand != null) // On a déjà quelque chose en main, on le remet dans le sac
                 this.bag.add(hand);
+            entity.removeEntityFromCell();
             hand = (Tower)(entity);
         }
     }

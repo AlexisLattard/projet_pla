@@ -1,6 +1,8 @@
 package edu.ricm3.game.tomatower.entities;
 
-import edu.ricm3.game.tomatower.Cell;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind;
+import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
@@ -8,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Entity {
     Model model;
-    Cell cell;
+    protected Cell cell;
     protected boolean movement;
     double scale = 1;
     BufferedImage sprite;
@@ -16,17 +18,17 @@ public abstract class Entity {
     protected boolean visible;
 
 
-    public Entity(Model c_model, Boolean c_movment, BufferedImage c_sprite, double c_scale, Cell cell) {
+    Entity(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell) {
         this.model = c_model;
-        this.movement = c_movment;
+        this.movement = c_movement;
         this.sprite = c_sprite;
         this.scale = c_scale;
-        this.addEntityOnCell(cell);
+        this.addEntityOnCell(c_cell);
     }
 
-    public Entity(Model c_model, Boolean c_movment, BufferedImage c_sprite, double c_scale) {
+    Entity(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale) {
         this.model = c_model;
-        this.movement = c_movment;
+        this.movement = c_movement;
         this.sprite = c_sprite;
         this.scale = c_scale;
         this.visible = false; // Initialisation sans position = pas visible
@@ -38,15 +40,15 @@ public abstract class Entity {
 
     public boolean addEntityOnCell(Cell c) {
 
-        if(model.getMainMap().freeCell(c)) {
+        if(model.getCurrentMap().freeCell(c)) {
             //System.out.println("PUT ENTITY : (" + c.getPosition()[0] + " " + c.getPosition()[1] + ")");
+            if(this.cell != null)
+                this.cell.removeEntity(this);
             c.addEntity(this);
             this.cell = c;
             this.visible = true;
             return true;
         } else {
-            System.out.println("not free");
-            this.visible = false;
             return false;
         }
     }
@@ -59,24 +61,16 @@ public abstract class Entity {
 
     public void paint(Graphics g) {
         if(this.isVisible()) {
-            int d = (int) (model.getMainMap().getCellSize() * scale);
+            int d = (int) (model.getCurrentMap().getCellSize() * scale);
             int[] pos = this.getPosition();
-            int x = pos[0] * model.getMainMap().getCellSize();
-            int y = pos[1] * model.getMainMap().getCellSize();
+            int x = pos[0] * model.getCurrentMap().getCellSize();
+            int y = pos[1] * model.getCurrentMap().getCellSize();
             g.drawImage(sprite, x, y, d, d, null);
         }
     }
 
     public void step(long now) {
         // Comportment - Automate
-    }
-
-
-    public void move(Direction d) {
-
-    }
-    public void turn(Direction d) {
-
     }
 
     public boolean canMove() {
@@ -88,11 +82,19 @@ public abstract class Entity {
     }
 
 
+    // Actions
+
+    public void move(Direction d) { }
+
+    public void turn(Direction d) { }
+
     public void jump() { return ;}
 
     public void protect() { return ;} // protection
 
     public abstract void hit() ;
+
+    public abstract void damage(int power) ;
 
     public abstract void pick() ; // ramasser sur la map
 
@@ -102,7 +104,7 @@ public abstract class Entity {
 
     public abstract void getBagEntity() ; //take entity
 
-    public abstract void power(int hp) ; //recuperation d'energie
+    public abstract void power(int power) ; //recuperation d'energie
 
 
 }
