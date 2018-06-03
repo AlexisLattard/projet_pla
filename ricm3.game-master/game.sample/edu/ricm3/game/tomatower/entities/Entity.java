@@ -72,7 +72,7 @@ public abstract class Entity {
     }
 
 
-    public void move(int vertical, int horizontal) {
+    public void move(Direction d) {
 
     }
     public void turn(Direction d) {

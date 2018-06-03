@@ -59,7 +59,8 @@ public class Cell {
     if e is null, the function return if the cell contain someting
      */
     public boolean isFree() {
-        //if(e == null) {
+        Cell e = null;
+        if(e == null) {
             Iterator<Entity> iter = this.getEntitiesIterator();
             while(iter.hasNext()) {
                 Entity entity = iter.next();
@@ -67,10 +68,10 @@ public class Cell {
                     return false;
             }
             return true;
-        //} else {
+        } else {
 
-          //  return true;
-        //}
+            return true;
+        }
     }
 
     public void paint(Graphics g) {

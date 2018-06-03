@@ -30,29 +30,32 @@ public class Living extends Entity {
 
     }
 
-    public void move(int vertical, int horizontal) {
+    public void move(Direction d) {
+        this.turn(d);
         if (this.canMove()) {
-            int dest_cell_x = this.getPosition()[0] + horizontal;
-            int dest_cell_y = this.getPosition()[1]  + vertical;
-            //System.out.println(dest_cell_x + " " + dest_cell_y);
-            Cell cell_destination = this.model.getMainMap().getCell(dest_cell_x, dest_cell_y);
+            Cell cell_destination;
+            switch (d) {
+                case UP:
+                    cell_destination = this.model.getMainMap().getCell(this.getPosition()[0], this.getPosition()[1] - 1);
+                    break;
+                case RIGHT:
+                    cell_destination = this.model.getMainMap().getCell(this.getPosition()[0] + 1, this.getPosition()[1]);
+                    break;
+                case DOWN :
+                    cell_destination = this.model.getMainMap().getCell(this.getPosition()[0], this.getPosition()[1] + 1);
+                    break;
+                case LEFT :
+                    cell_destination = this.model.getMainMap().getCell(this.getPosition()[0] - 1, this.getPosition()[1]);
+                    break;
+                default:
+                    cell_destination = null;
+            }
 
             if (model.getMainMap().freeCell(cell_destination)) {
                 this.cell.removeEntity(this);
                 this.cell = cell_destination;
                 this.cell.addEntity(this);
             }
-
-            if(horizontal < 0) { // typiquement -1
-                this.turn(Direction.LEFT);
-            } else if( horizontal > 0) {
-                this.turn(Direction.RIGHT);
-            } else if( vertical < 0) {
-                this.turn(Direction.UP);
-            } else if( vertical > 0) {
-                this.turn(Direction.DOWN);
-            }
-
         }
         //pSystem.out.println(this.direction.toString());
     }

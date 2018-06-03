@@ -15,7 +15,7 @@ public class Map {
     private int nb_cell_horizontal;
     private int nb_cell_vertical;
 
-    //private boolean legal_move[][];
+    private boolean legal_move[][];
 
     public Map(Model c_model) {
         this.model = c_model;
@@ -23,9 +23,9 @@ public class Map {
         //this.initLegalMove();
     }
 
-    /*public void initLegalMove() {
+    public void initLegalMove() {
 
-    }*/
+    }
 
     public int getCellSize() {
         return this.cell_size;
