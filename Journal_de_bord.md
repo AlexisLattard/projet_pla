@@ -1,7 +1,24 @@
 # Journal de bord
 
-## Vendredi 1 Juin :
+## Dimanche 3 juin
+- Organisation du projet en sous-dossier
+- Développement d'une nouvelle implémentation pour la gestion de la grille (classe Cell et Map)  
 
+Comparaison du temps d'exécution de certaine action entre la nouvelle implémentation et l'ancienne avec une map de 1000 cellules avec 990 entités sur la map :
+
+Actions | Nouvelle Implémentation| Ancienne implémentation^^1
+---|---|---
+Bouger  | 16 000ns = 0.016ms  |  185003ns = 0.18ms
+Prendre entité  | 13 000ns = 0.013ms  |  167893ns = 0.16ms
+Déposer entité  | 11 500ns = 0.011ms |  251881ns = 0.25ms
+Initialisation map^^2  | 5 552 679ns = 5.5ms |  29 076 590ns = 29ms
+
+^^1 Dans le pire cas, où la fonctions de colisions et de récuperation d'entité doivent parcourir toutes les entités (~900). La nouvelle implémentation ne dépend pas du nombre d'entité (juste du nombre d'entité de la cellule).  
+^^2 Sans l'ouverture du fichier  
+- Quelques optimisations de fonctions
+- Début de developpement des téléporteurs entre les maps
+
+## Vendredi 1 Juin :
 
 ### Design et conception
 - Design sur le personnage principal, les monstres, les tourelles, entre autres  
