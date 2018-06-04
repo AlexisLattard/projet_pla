@@ -20,6 +20,7 @@ public class Menu extends JPanel
     private Bouton boutonScore;
     private Bouton boutonOption;
     private Bouton boutonDebug;
+    private Bouton boutonCredit;
     // JButton //
     
     private JPanel boutonsCentre;
@@ -38,6 +39,7 @@ public class Menu extends JPanel
         boutonScore = new Bouton("Score");
         boutonRegles = new Bouton("Regles");
         boutonQuitter = new Bouton("Quitter");
+        boutonCredit = new Bouton("Credit");
         boutonOption = new Bouton();
         boutonDebug = new Bouton();
         boutonOption.setIcon(new ImageIcon("./Image/Option.png"),30,30);
@@ -45,7 +47,7 @@ public class Menu extends JPanel
         // Initialisation des bouton//
         
         // Initialisation du conteneur des boutons//
-        boutonsCentre = new JPanel(new GridLayout(4,1));
+        boutonsCentre = new JPanel(new GridLayout(5,1));
         // Initialisation du conteneur des boutons//
         
         
@@ -61,6 +63,7 @@ public class Menu extends JPanel
         boutonsCentre.add(boutonJouer);
         boutonsCentre.add(boutonRegles);
         boutonsCentre.add(boutonScore);
+        boutonsCentre.add(boutonCredit);
         boutonsCentre.add(boutonQuitter);
         // Ajout des boutons dans le conteneur//
         this.add(panel_centre,BorderLayout.CENTER);
