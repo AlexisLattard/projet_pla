@@ -83,4 +83,7 @@ public class Menu extends JPanel
     public JButton getButtonDebug(){
         return boutonDebug;
     }
+    public JButton getButtonJouer(){
+        return boutonJouer;
+    }
 }

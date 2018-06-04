@@ -16,6 +16,7 @@ public class My_Frame extends JFrame
     private Score score;
     private Regles regles;
     private Debug debug;
+    private Jouer jouer;
 
     /**
      * Constructor for objects of class My_Frame
@@ -29,6 +30,7 @@ public class My_Frame extends JFrame
         score = new Score();
         regles = new Regles();
         debug = new Debug();
+        jouer = new Jouer();
         //Initialise les differente interface//
         
         this.setName("Tower Deffence");
@@ -41,9 +43,11 @@ public class My_Frame extends JFrame
         menu.getButtonQuitter().addActionListener(new QuitterListener(this));
         menu.getButtonRegles().addActionListener(new ReglesListener(this));
         menu.getButtonDebug().addActionListener(new DebugListener(this));
+        menu.getButtonJouer().addActionListener(new JouerListener(this));
         score.getButtonRetour().addActionListener(new RetourListener(this));
         regles.getButtonRetour().addActionListener(new RetourListener(this));
         debug.getButtonRetour().addActionListener(new RetourListener(this));
+        jouer.getButtonRetour().addActionListener(new RetourListener(this));
     }
        
     private class ScoreListener implements ActionListener
@@ -135,6 +139,25 @@ public class My_Frame extends JFrame
         {
         	System.out.println("Debug");
             frame.setContentPane(debug);
+            frame.getContentPane().repaint();
+            frame.setVisible(true);
+        }   
+    }
+    
+    private class JouerListener implements ActionListener
+    {
+        private JFrame frame;
+        
+        public JouerListener(JFrame frame)
+        {
+            this.frame = frame;
+        } 
+        
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+        	System.out.println("Jouer");
+            frame.setContentPane(jouer);
             frame.getContentPane().repaint();
             frame.setVisible(true);
         }   

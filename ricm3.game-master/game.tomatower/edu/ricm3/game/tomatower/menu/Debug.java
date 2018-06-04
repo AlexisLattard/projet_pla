@@ -1,7 +1,6 @@
 package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
-import javax.swing.text.DefaultCaret;
 
 import java.awt.*;
 
