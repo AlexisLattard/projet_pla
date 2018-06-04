@@ -6,6 +6,7 @@ import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public abstract class Living extends Entity {
 
@@ -13,16 +14,14 @@ public abstract class Living extends Entity {
 	protected Direction direction;
 	protected Weapon weapon;
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell,
-			Direction c_direction, Weapon c_weapon) {
-		super(c_model, c_movement, c_sprite, c_scale, c_cell);
+	Living(Model c_model, boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_colisions) {
+		super(c_model, c_movement, c_sprite, c_scale, c_colisions, c_cell);
 		this.direction = c_direction;
 		this.weapon = c_weapon;
 	}
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Direction c_direction,
-			Weapon c_weapon) {
-		super(c_model, c_movement, c_sprite, c_scale);
+	Living(Model c_model, boolean c_movement, BufferedImage c_sprite, double c_scale, Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_colisions) {
+		super(c_model, c_movement, c_sprite, c_scale, c_colisions);
 		this.direction = c_direction;
 		this.weapon = c_weapon;
 	}
