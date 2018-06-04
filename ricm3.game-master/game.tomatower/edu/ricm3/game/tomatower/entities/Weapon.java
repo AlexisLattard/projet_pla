@@ -24,6 +24,9 @@ public class Weapon {
 		cell_hit.damage(this.power);*/
 	}
 	
+	public void upgrade() {
+		this.power += 3;
+	}
 	
 
 }

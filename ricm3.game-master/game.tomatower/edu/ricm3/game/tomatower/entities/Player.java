@@ -12,6 +12,7 @@ public class Player extends Living {
 
     private ArrayList<Tower> bag;
     private Tower hand = null;
+    private int money = 1000;
 
     public Player(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction) {
         super(c_model, true, c_sprite, c_scale, c_cell, c_direction);
@@ -60,6 +61,18 @@ public class Player extends Living {
             bag.add(hand);
             hand = null;
         }
+    }
+    
+    public int getMoney() {
+    	return this.money;
+    }
+    
+    public void decreaseMoney(int money) {
+    	this.money -=money;
+    }
+    
+    public void increaseMoney(int money) {
+    	this.money +=money;
     }
 
 
