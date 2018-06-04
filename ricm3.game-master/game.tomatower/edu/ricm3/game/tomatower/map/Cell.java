@@ -1,6 +1,7 @@
 package edu.ricm3.game.tomatower.map;
 
 import edu.ricm3.game.tomatower.entities.Entity;
+import edu.ricm3.game.tomatower.entities.InertAction;
 import edu.ricm3.game.tomatower.entities.Living;
 import edu.ricm3.game.tomatower.entities.Portal;
 
@@ -60,7 +61,7 @@ public class Cell {
         Entity e = null;
         if(e == null) {
             for(Entity entity : this.entities) {
-                if(entity.isVisible() && !(entity instanceof Portal))
+                if(entity.isVisible() && !(entity instanceof InertAction))
                     return false;
             }
             return true;

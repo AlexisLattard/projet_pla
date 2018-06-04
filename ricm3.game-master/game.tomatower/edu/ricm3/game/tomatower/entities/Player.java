@@ -14,15 +14,16 @@ public class Player extends Living {
     private Tower hand = null;
     private int money = 1000;
 
-    public Player(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction) {
-        super(c_model, true, c_sprite, c_scale, c_cell, c_direction);
+    public Player(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction,Weapon c_weapon) {
+        super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon);
         bag = new ArrayList<>();
-
+        
+        
         // Pour tester
-        Tower t1 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1);
-        Tower t2 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1);
-        Tower t3 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1);
-        Tower t4 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1);
+        Tower t1 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1, this.model.getWeapons().get("yellow"));
+        Tower t2 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1, this.model.getWeapons().get("yellow"));
+        Tower t3 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1, this.model.getWeapons().get("red"));
+        Tower t4 = new Tower(this.model,  this.model.getSprites().sprite_tower, 1, this.model.getWeapons().get("red"));
         bag.add(t1);bag.add(t2);bag.add(t3);bag.add(t4);
     }
 

@@ -16,6 +16,9 @@ public class Sprites {
     public BufferedImage sprite_spawn_mobs;
     public BufferedImage sprite_portal;
     public BufferedImage sprite_portal_in;
+    public BufferedImage sprite_upgrade_yellow;
+    public BufferedImage sprite_upgrade_red;
+
 
     public Sprites() {
         loadSprites();
@@ -83,6 +86,22 @@ public class Sprites {
         imageFile = new File("game.tomatower/sprites/portal_in.png");
         try {
             sprite_portal_in = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        
+        imageFile = new File("game.tomatower/sprites/bulletb.png");
+        try {
+        	sprite_upgrade_yellow = ImageIO.read(imageFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        
+        imageFile = new File("game.tomatower/sprites/bulletc.png");
+        try {
+        	sprite_upgrade_red = ImageIO.read(imageFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.exit(-1);

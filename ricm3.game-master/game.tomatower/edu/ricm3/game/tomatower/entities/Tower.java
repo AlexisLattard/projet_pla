@@ -8,13 +8,13 @@ import java.awt.image.BufferedImage;
 
 public class Tower extends Living {
 
-	public Tower(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell) {
-		super(c_model, false, c_sprite, c_scale, c_cell, Direction.LEFT);
+	public Tower(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell,Weapon c_weapon) {
+		super(c_model, false, c_sprite, c_scale, c_cell, Direction.LEFT,c_weapon);
 		//this.model.addTower(this);
 	}
 
-	public Tower(Model c_model, BufferedImage c_sprite, double c_scale) {
-		super(c_model, false, c_sprite, c_scale, Direction.NONE);
+	public Tower(Model c_model, BufferedImage c_sprite, double c_scale, Weapon c_weapon) {
+		super(c_model, false, c_sprite, c_scale, Direction.LEFT, c_weapon);
 		//this.model.addTower(this);
 	}
 

@@ -1,6 +1,6 @@
 Os Os Po Os Os
 N N N N N
-Os N N N N
-N N N N N
+Os N N Sur N
+N N Suy N N
 N N N N N
 N N Pi N N

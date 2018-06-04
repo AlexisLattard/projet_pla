@@ -128,7 +128,7 @@ public class Map {
                             break;
                         case "P":
                             System.out.println("PERSO");
-                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP));
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP,null));
                             break;
                         case "Os":
                             //System.out.println("Stone");
@@ -159,6 +159,12 @@ public class Map {
                             break;
                         case "Po":
                             new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME);
+                            break;
+                        case "Suy":
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"));
+                            break;
+                        case "Sur":
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"));
                             break;
                     }
                 }

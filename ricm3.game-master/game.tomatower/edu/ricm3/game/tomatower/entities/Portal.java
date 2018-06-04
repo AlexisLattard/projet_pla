@@ -26,7 +26,7 @@ public class Portal extends InertAction {
 		}
 	}
 
-	public void active() {
+	public void action() {
 		if (Options.ECHO_GAME_STATE)
 			System.out.println("Portal : " + this.obstacles_kind + " ...");
 
