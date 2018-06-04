@@ -161,11 +161,14 @@ public class Map {
                             new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME);
                             break;
                         case "Suy":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"));
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200);
                             break;
                         case "Sur":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"));
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
                             break;
+                        case "Sty":
+                            new Product(this.model, this.model.getSprites().sprite_tower, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
+                            break;    
                     }
                 }
                 cells.add(cells_line);
