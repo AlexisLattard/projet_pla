@@ -26,46 +26,43 @@ import edu.ricm3.game.tomatower.map.Cell;
 
 public class View extends GameView {
 
-    private static final long serialVersionUID = 1L;
-    Color m_background = Color.white;
-    long last;
-    int npaints;
-    int fps;
-    Model model;
-    Controller ctr;
+	private static final long serialVersionUID = 1L;
+	Color m_background = Color.white;
+	long last;
+	int npaints;
+	int fps;
+	Model model;
+	Controller ctr;
 
-    public View(Model m, Controller c) {
-        model = m;
-        ctr = c;
-    }
+	public View(Model m, Controller c) {
+		model = m;
+		ctr = c;
+	}
 
-    private void computeFPS() {
-        long now = System.currentTimeMillis();
-        if (now - last > 1000L) {
-            fps = npaints;
-            last = now;
-            npaints = 0;
-        }
-        m_game.setFPS(fps, "npaints=" + npaints);
-        npaints++;
-    }
+	private void computeFPS() {
+		long now = System.currentTimeMillis();
+		if (now - last > 1000L) {
+			fps = npaints;
+			last = now;
+			npaints = 0;
+		}
+		m_game.setFPS(fps, "npaints=" + npaints);
+		npaints++;
+	}
 
-    @Override
-    protected void _paint(Graphics g) {
-        computeFPS();
+	@Override
+	protected void _paint(Graphics g) {
+		computeFPS();
 
+		// erase background
+		g.setColor(m_background);
+		g.fillRect(0, 0, getWidth(), getHeight());
 
-        // erase background
-        g.setColor(m_background);
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-        Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
-        while(iter_cells.hasNext()) {
-            Cell c = iter_cells.next();
-            c.paint(g);
-        }
-    }
-
-
+		Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
+		while (iter_cells.hasNext()) {
+			Cell c = iter_cells.next();
+			c.paint(g);
+		}
+	}
 
 }
