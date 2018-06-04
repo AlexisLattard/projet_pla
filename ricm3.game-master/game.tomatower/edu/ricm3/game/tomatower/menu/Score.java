@@ -12,8 +12,11 @@ public class Score extends JPanel
 {
     // instance variables - replace the example below with your own
     private JPanel tableau;
-    private JPanel nord;
+    private JPanel south;
+    private JLabel titre;
+    private JPanel north;    
     private JTable tableauDesScore;
+    
     private String[] columnNames= {"Pseudo","Score"};
     private Object[][] data= {
             {"Maxime", new Integer(4)},{"Tibaut", new Integer(3)},
@@ -28,18 +31,32 @@ public class Score extends JPanel
      */
     public Score()
     {
+    	// BOUTON RETOUR //
         boutonRetour = new Bouton("retour");
-        nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        nord.add(boutonRetour);
+        south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        south.add(boutonRetour);
+        // BOUTON RETOUR //
         
+        // TITRE //
+        titre = new JLabel("TABLEAU DES SCORES");
+        north = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        north.add(titre);
+        // TITRE //
+        
+        // TABLEAU //
         tableau = new JPanel(new BorderLayout());
         tableauDesScore = new JTable(data,columnNames);
+        // TABLEAU //
+        
+        // AFFICHEAGE //
         tableau.add(tableauDesScore.getTableHeader(),BorderLayout.NORTH);
         tableau.add(tableauDesScore,BorderLayout.CENTER);
+        // AFFICHEAGE //
         
         this.setLayout(new BorderLayout());
         this.add(tableau,BorderLayout.CENTER);
-        this.add(nord,BorderLayout.SOUTH);
+        this.add(south,BorderLayout.SOUTH);
+        this.add(north,BorderLayout.NORTH);
     }
     
     /**

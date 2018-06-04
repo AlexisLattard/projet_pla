@@ -14,6 +14,7 @@ public class My_Frame extends JFrame
     // instance variables - replace the example below with your own
     private Menu menu;
     private Score score;
+    private Regles regles;
 
     /**
      * Constructor for objects of class My_Frame
@@ -25,6 +26,7 @@ public class My_Frame extends JFrame
         //Initialise les differente interface//
         menu = new Menu();
         score = new Score();
+        regles = new Regles();
         //Initialise les differente interface//
         
         this.setName("Tower Deffence");
@@ -34,8 +36,10 @@ public class My_Frame extends JFrame
         this.setLocationRelativeTo(null);
         
         menu.getButtonScore().addActionListener(new ScoreListener(this));
-        score.getButtonRetour().addActionListener(new RetourListener(this));
         menu.getButtonQuitter().addActionListener(new QuitterListener(this));
+        menu.getButtonRegles().addActionListener(new ReglesListener(this));
+        score.getButtonRetour().addActionListener(new RetourListener(this));
+        regles.getButtonRetour().addActionListener(new RetourListener(this));
     }
        
     private class ScoreListener implements ActionListener
@@ -94,4 +98,22 @@ public class My_Frame extends JFrame
         }   
     }
     
+    private class ReglesListener implements ActionListener
+    {
+        private JFrame frame;
+        
+        public ReglesListener(JFrame frame)
+        {
+            this.frame = frame;
+        } 
+        
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+        	System.out.println("Regles");
+            frame.setContentPane(regles);
+            frame.getContentPane().repaint();
+            frame.setVisible(true);
+        }   
+    }
 }

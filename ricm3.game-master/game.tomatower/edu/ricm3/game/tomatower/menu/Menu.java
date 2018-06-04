@@ -19,6 +19,7 @@ public class Menu extends JPanel
     private Bouton boutonQuitter;
     private Bouton boutonScore;
     private Bouton boutonOption;
+    private Bouton boutonDebug;
     // JButton //
     
     private JPanel boutonsCentre;
@@ -38,7 +39,9 @@ public class Menu extends JPanel
         boutonRegles = new Bouton("Regles");
         boutonQuitter = new Bouton("Quitter");
         boutonOption = new Bouton();
-        boutonOption.setIcon(new ImageIcon("/home/pi/Pictures/option.png"),20,20);
+        boutonDebug = new Bouton();
+        boutonOption.setIcon(new ImageIcon("./Image/Option.png"),30,30);
+        boutonDebug.setIcon(new ImageIcon("./Image/Debug.png"),30,30);
         // Initialisation des bouton//
         
         // Initialisation du conteneur des boutons//
@@ -49,6 +52,7 @@ public class Menu extends JPanel
         //Initialisation du conteneur des boutons//
         panel_centre = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel_nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panel_nord.add(boutonDebug);
         panel_nord.add(boutonOption);
         panel_centre.add(boutonsCentre);
         //Initialisation du conteneur des boutons//
@@ -70,5 +74,9 @@ public class Menu extends JPanel
     
     public JButton getButtonQuitter(){
         return boutonQuitter;
+    }
+    
+    public JButton getButtonRegles(){
+        return boutonRegles;
     }
 }
