@@ -2,14 +2,25 @@ package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.HashMap;
 
 public class Jouer extends JPanel{
+
+	// AUTRES //
+		// COMPORTEMENT //
+	private File comportement_tours;
+	private File comportement_sbires;
+	private JFileChooser fileChoser;
+		// COMPORTEMENT //
+	// AUTRES //	
 	
 	// BOUTON //
 		// COMPORTEMENT //
 	private Bouton bouton_mobs;
-	private Bouton buton_towers;
+	private Bouton bouton_tours;
 		// COMPORTEMENT //
 		// SOUTH //
 	private Bouton bouton_lancer;
@@ -55,19 +66,25 @@ public class Jouer extends JPanel{
 		// MAP //
 	// JPANEL //
 	
-	
-	
+	// JTREE //
+		JTree arbre_comportement;
+	// JTREE //
 	
 	public Jouer() {
 		// INSTANCIATION //
+			// AUTRES //
+		comportement_tours = null;
+		comportement_sbires = null;
+		fileChoser = new JFileChooser();
+			// AUTRES //
 			// BOUTON //
 				// SOUTH //
 		bouton_lancer = new Bouton("LANCER");
 		bouton_retour = new Bouton("RETOUR");
 				// SOUTH //
 				// COMPORTEMENT //
-		bouton_mobs = new Bouton("SBIRE");
-		buton_towers = new Bouton("TOURS");
+		bouton_mobs = new Bouton("Choisir un automate");
+		bouton_tours = new Bouton("Choisir un automate");
 				// COMPORTEMENT //
 			// BOUTON //
 
@@ -108,7 +125,7 @@ public class Jouer extends JPanel{
 		panel_mobs.add(bouton_mobs);
 		panel_mobs.setBorder(BorderFactory.createLineBorder(Color.YELLOW)); //
 		panel_towers.add(label_towers);
-		panel_towers.add(buton_towers);
+		panel_towers.add(bouton_tours);
 		panel_towers.setBorder(BorderFactory.createLineBorder(Color.YELLOW)); //
 		panel_mobs_towers.add(panel_towers);
 		panel_mobs_towers.add(panel_mobs);
@@ -124,14 +141,88 @@ public class Jouer extends JPanel{
 		// MAP //
 		
 		// MAP //
-		
+
+		bouton_tours.addActionListener(new ComportementListener(this));
+		bouton_mobs.addActionListener(new ComportementListener(this));
+		bouton_lancer.addActionListener(new LancerListener());
 		this.setLayout(new BorderLayout());
 		this.add(sud,BorderLayout.SOUTH);
 		this.add(panel_nord,BorderLayout.NORTH);
 		
 	}
 	
+	private class ComportementListener implements ActionListener
+    {
+		private JPanel panel;
+    
+    
+	    public ComportementListener(JPanel panel)
+	    {
+	        this.panel = panel;
+	    } 
+        
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            //In response to a button click:
+            int returnVal = fileChoser.showOpenDialog(panel);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                if (e.getSource() == bouton_mobs) {
+                	setComportementSbires(fileChoser.getSelectedFile());
+                }else {
+                	setComportementTours(fileChoser.getSelectedFile());
+                }
+                
+            	System.out.println("fichier recuperer");
+            } else {
+            	System.out.println("fichier non recuperer");
+            }
+        }
+    }
+	
+	private class LancerListener implements ActionListener
+    {
+		
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if (comportement_tours != null && comportement_sbires != null) {
+            	System.out.println("Jeux Lancer");
+            }else {
+            	if (comportement_tours == null) {
+        			bouton_tours.setText("*Choisir un automate "); 
+        			bouton_tours.setForeground(Color.RED);
+        			
+            	}
+            	if (comportement_sbires == null) {
+        			bouton_mobs.setText("*Choisir un automate");
+        			bouton_mobs.setForeground(Color.RED);
+            	}
+            }
+        }
+    }
+	
 	public JButton getButtonRetour() {
 		return bouton_retour;
+	}
+	
+	private void setComportementTours(File file) {
+		if (file == null) {
+			bouton_tours.setText("Choisir un automate");
+		}else {
+			bouton_tours.setText(file.getName());
+			bouton_tours.setForeground(Color.BLACK);
+		}
+		comportement_tours = file;
+	}
+	
+	private void setComportementSbires(File file) {
+		if (file == null) {
+			bouton_mobs.setText("Choisir un automate");
+		}else {
+			bouton_mobs.setText(file.getName());
+			bouton_mobs.setForeground(Color.BLACK);
+		}
+		comportement_sbires = file;
 	}
 }
