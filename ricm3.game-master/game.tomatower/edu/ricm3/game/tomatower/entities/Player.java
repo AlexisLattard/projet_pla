@@ -35,35 +35,41 @@ public class Player extends Living {
     	return res;
     }
 
+	public void getBagEntity() {
+		if (this.bag.size() >= 1) {
+			if (hand == null) {
+				hand = this.bag.remove(0);
+			}
+		}
+	}
 
-    public void getBagEntity() {
-        if(this.bag.size() >= 1) {
-            if(hand == null) {
-                hand = this.bag.remove(0);
-            }
-        }
-    }
+	public void throwAction() {
+		if (Options.ECHO_GAME_STATE && hand == null)
+			System.out.println("Rien dans la main");
 
-    public void throwAction() {
-        if(Options.ECHO_GAME_STATE && hand == null)
-            System.out.println("Rien dans la main");
+		if (hand != null && hand.addEntityOnCell(this.getFrontCell())) {
+			// Si vrai, alors la tourelle a été posée, donc plus rien en main
+			hand = null;
+		}
+	}
 
-        if(hand != null && hand.addEntityOnCell(this.getFrontCell())) {
-            // Si vrai, alors la tourelle a été posée, donc plus rien en main
-            hand = null;
-        }
-    }
+	public void pick() {
+		Entity entity = this.model.getCurrentMap().getEntityCell(this.getFrontCell());
 
-    public void pick() {
-        Entity entity = this.model.getCurrentMap().getEntityCell(this.getFrontCell());
+		if (entity instanceof Tower) {
+			if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac
+				this.bag.add(hand);
+			entity.removeEntityFromCell();
+			hand = (Tower) (entity);
+		}
+	}
 
-        if (entity instanceof Tower) {
-            if(hand != null) // On a déjà quelque chose en main, on le remet dans le sac
-                this.bag.add(hand);
-            entity.removeEntityFromCell();
-            hand = (Tower)(entity);
-        }
-    }
+	public void store() {
+		if (hand != null) {
+			bag.add(hand);
+			hand = null;
+		}
+	}
 
     public void store() {
         if(hand != null) {
