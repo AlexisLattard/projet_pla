@@ -34,7 +34,6 @@ public class Jouer extends JPanel{
 		// MAP //
 	// BOUTON //
 	
-	
 	// JLABEL //
 		// COMPORTEMENT //
 	private JLabel label_mobs;
@@ -186,7 +185,9 @@ public class Jouer extends JPanel{
 		File file = new File("./Map");
 		for (File child : file.listFiles()) {
 			if (child.isFile()) {
-				cartes.put(child,new Bouton(new ImageIcon("./Image/Map_Generic.png"),100,100));
+				Bouton bouton = new Bouton(new ImageIcon("./Image/Map_Generic.png"),100,100);
+				bouton.setBorder(BorderFactory.createLineBorder(Color.black,5));
+				cartes.put(child,bouton);
 			}
         }
 	}
@@ -201,6 +202,8 @@ public class Jouer extends JPanel{
 						System.out.println("EDT ?:"+ SwingUtilities.isEventDispatchThread());
 					    File key = entry.getKey();
 					    Bouton value = entry.getValue();
+					    
+					    value.addActionListener(new CarteListener(key));
 					    
 					    JPanel panel = new JPanel(new BorderLayout());
 					    JPanel titre = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -262,6 +265,25 @@ public class Jouer extends JPanel{
             	}
             	
             }
+        }
+    }
+
+	private class CarteListener implements ActionListener
+    {
+		File file;
+		public CarteListener(File file){
+			this.file = file;
+		}
+		
+        public void actionPerformed(ActionEvent e) {
+        	
+        	if (carte_selectionner != file) {
+        		if (carte_selectionner != null) {
+            		cartes.get(carte_selectionner).setBorder(BorderFactory.createLineBorder(Color.black,5)); //;
+            	}
+	        	((Bouton)(e.getSource())).setBorder(BorderFactory.createLineBorder(Color.GREEN,5)); //;
+	    		carte_selectionner = file;
+        	}
         }
     }
 	
