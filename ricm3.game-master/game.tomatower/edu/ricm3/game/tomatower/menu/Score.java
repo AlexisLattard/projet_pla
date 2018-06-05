@@ -18,11 +18,12 @@ public class Score extends JPanel
     private JTable tableauDesScore;
     
     private String[] columnNames= {"Pseudo","Score"};
-    private Object[][] data= {
+    private Object[][] data= {{"XxTHED4RK1LL3RDU38xX", new Integer(999)},
             {"Maxime", new Integer(4)},{"Tibaut", new Integer(3)},
             {"Corentin", new Integer(6)},{"Alexis", new Integer(7)},
             {"Romain", new Integer(5)},{"Andréas", new Integer(8)},
-            {"Bertrand", new Integer(6)}
+            {"Bertrand", new Integer(6)},{"Gruber", new Integer(7)},
+            {"Perrin", new Integer(7)}
         };
     private JButton boutonRetour;
         
