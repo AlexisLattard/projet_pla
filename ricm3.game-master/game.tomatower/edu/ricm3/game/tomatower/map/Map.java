@@ -138,7 +138,15 @@ public class Map {
                         case "Ol":
                             new Obstacle(this.model,  this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
                             break;
-
+                            
+                        case "Ow":
+                            new Obstacle(this.model,  this.model.getSprites().sprite_mur, 1, cell, ObstaclesKind.Lake);
+                            break;
+                            
+                        case "Ot":
+                            new Obstacle(this.model,  this.model.getSprites().sprite_arbre, 1, cell, ObstaclesKind.Lake);
+                            break;
+                            
                         case "C":
                             if(main_crystal == null) {
                                 main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell, ObstaclesKind.CRYSTAL, null);
@@ -164,10 +172,10 @@ public class Map {
                             new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200);
                             break;
                         case "Sur":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
                             break;
-                        case "Sty":
-                            new Product(this.model, this.model.getSprites().sprite_tower[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
+                        case "Str":
+                            new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
                             break;    
                     }
                 }
