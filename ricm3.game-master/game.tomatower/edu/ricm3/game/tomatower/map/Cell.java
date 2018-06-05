@@ -1,5 +1,6 @@
 package edu.ricm3.game.tomatower.map;
 
+import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
 import edu.ricm3.game.tomatower.entities.InertAction;
 import edu.ricm3.game.tomatower.entities.Living;
@@ -77,14 +78,14 @@ public class Cell {
     				allowed = false;
     				while(iter_class.hasNext() && !allowed) {
     					Class<?> class_colision = iter_class.next();
-    					System.out.println(entity.getClass() + " - " + class_colision);
     					if(entity.isVisible() && entity.getClass().equals(class_colision) && !allowed) {
-    						System.out.println("OK");
     						allowed = true;
     					}	
     				}
     			}
-    			System.out.println(allowed);
+    			if(Options.ECHO_GAME_STATE && !allowed) {
+    				System.out.println("Cell destination not free");
+    			}
     			return allowed;
     		}
     	}
