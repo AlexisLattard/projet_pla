@@ -80,7 +80,7 @@ public class Jouer extends JPanel{
 		comportement_sbires = null;
 		carte_selectionner = null;
 
-		// THANKS STACKOVERFLOW (empeche la creation de dossier dans le file chooser)//
+		// THANKS STACKOVERFLOW (empeche la creation/edition de dossier dans le file chooser... JESAISPAKOMEN LOL)//
 		Boolean old = UIManager.getBoolean("FileChooser.readOnly");  
 		UIManager.put("FileChooser.readOnly", Boolean.TRUE);   
 		fileChoser = new JFileChooser();
@@ -261,11 +261,11 @@ public class Jouer extends JPanel{
             	System.out.println("Jeux Lancer");
             }else {
             	if (comportement_tours == null) {
-        			bouton_tours.setText("*Choisir un automate"); 
+        			bouton_tours.setText("*Choisir un automate*"); 
         			bouton_tours.setForeground(Color.RED);        			
             	}
             	if (comportement_sbires == null) {
-        			bouton_mobs.setText("*Choisir un automate");
+        			bouton_mobs.setText("*Choisir un automate*");
         			bouton_mobs.setForeground(Color.RED);
             	}
             	
