@@ -15,7 +15,7 @@ public abstract class Inert extends Entity {
 
 	Inert(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell,
 			ObstaclesKind c_kind) {
-		super(c_model, c_movement, c_scale, c_cell);
+		super(c_model, c_movement, c_scale, initColisions(),c_cell);
 		this.obstacles_kind = c_kind;
 		this.sprite = c_sprite;
 		// this.model.addObstacle(this);

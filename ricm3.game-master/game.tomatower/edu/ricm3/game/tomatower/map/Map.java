@@ -167,7 +167,7 @@ public class Map {
                             new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
                             break;
                         case "Sty":
-                            new Product(this.model, this.model.getSprites().sprite_tower, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
+                            new Product(this.model, this.model.getSprites().sprite_tower[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
                             break;    
                     }
                 }

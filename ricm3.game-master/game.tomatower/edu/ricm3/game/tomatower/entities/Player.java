@@ -14,7 +14,7 @@ public class Player extends Living {
     private Entity hand = null;
     private int money = 2500;
 
-    public Player(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction,Weapon c_weapon) {
+    public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,Weapon c_weapon) {
         super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions());
         bag = new ArrayList<>();
         
@@ -70,13 +70,6 @@ public class Player extends Living {
 			hand = null;
 		}
 	}
-
-    public void store() {
-        if(hand != null) {
-            bag.add(hand);
-            hand = null;
-        }
-    }
     
     public void addBagProduct(Entity entity) {
         if (entity instanceof Tower) {
