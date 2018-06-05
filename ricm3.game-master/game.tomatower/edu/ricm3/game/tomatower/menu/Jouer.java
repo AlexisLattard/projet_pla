@@ -79,7 +79,13 @@ public class Jouer extends JPanel{
 		comportement_tours = null;
 		comportement_sbires = null;
 		carte_selectionner = null;
+
+		// THANKS STACKOVERFLOW (empeche la creation de dossier dans le file chooser)//
+		Boolean old = UIManager.getBoolean("FileChooser.readOnly");  
+		UIManager.put("FileChooser.readOnly", Boolean.TRUE);   
 		fileChoser = new JFileChooser();
+		UIManager.put("FileChooser.readOnly", old); 
+		// THANKS STACKOVERFLOW //
 		cartes = new HashMap<File,Bouton>();
 			// AUTRES //
 			// BOUTON //
@@ -149,6 +155,7 @@ public class Jouer extends JPanel{
 	
 	private void initComportement() {
 		// COMPORTEMENT //
+		
 		panel_mobs.add(label_mobs);
 		panel_mobs.add(bouton_mobs);
 		panel_towers.add(label_towers);
@@ -187,6 +194,7 @@ public class Jouer extends JPanel{
 			if (child.isFile()) {
 				Bouton bouton = new Bouton(new ImageIcon("./Image/Map_Generic.png"),100,100);
 				bouton.setBorder(BorderFactory.createLineBorder(Color.black,5));
+			    bouton.addActionListener(new CarteListener(child));
 				cartes.put(child,bouton);
 			}
         }
@@ -199,11 +207,8 @@ public class Jouer extends JPanel{
 				@Override
 				public void run() {
 					for (Map.Entry<File, Bouton> entry : cartes.entrySet()) {
-						System.out.println("EDT ?:"+ SwingUtilities.isEventDispatchThread());
 					    File key = entry.getKey();
 					    Bouton value = entry.getValue();
-					    
-					    value.addActionListener(new CarteListener(key));
 					    
 					    JPanel panel = new JPanel(new BorderLayout());
 					    JPanel titre = new JPanel(new FlowLayout(FlowLayout.CENTER));
