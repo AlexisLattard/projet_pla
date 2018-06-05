@@ -5,16 +5,18 @@ import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public abstract class Inert extends Entity {
 
     ObstaclesKind obstacles_kind;
 
     Inert(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind) {
-        super(c_model, c_movement, c_sprite, c_scale, c_cell);
+        super(c_model, c_movement, c_sprite, c_scale, initColisions(), c_cell);
         this.obstacles_kind = c_kind;
         //this.model.addObstacle(this);
     }
+    
 
 
     public void protect() { return ;}

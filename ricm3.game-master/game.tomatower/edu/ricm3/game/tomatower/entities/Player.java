@@ -15,7 +15,7 @@ public class Player extends Living {
     private int money = 2500;
 
     public Player(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, Direction c_direction,Weapon c_weapon) {
-        super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon);
+        super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions());
         bag = new ArrayList<>();
         
         
@@ -25,6 +25,14 @@ public class Player extends Living {
 //        Tower t3 = new Tower(this.model,  this.model.getSprites().sprite_tower, this.model.getWeapons().get("red"));
 //        Tower t4 = new Tower(this.model,  this.model.getSprites().sprite_tower, this.model.getWeapons().get("red"));
 //        bag.add(t1);bag.add(t2);bag.add(t3);bag.add(t4);
+    }
+    
+    public static ArrayList<Class<?>> initColisions() {
+    	ArrayList<Class<?>> res = new ArrayList<Class<?>>();
+		res.add(Portal.class);
+		res.add(Product.class);
+		res.add(Upgrade.class);
+    	return res;
     }
 
 

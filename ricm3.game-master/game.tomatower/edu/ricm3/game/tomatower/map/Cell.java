@@ -57,18 +57,37 @@ public class Cell {
     Return if the cell is free for the entity e,
     if e is null, the function return if the cell contain someting
      */
-    public boolean isFree() {
-        Entity e = null;
-        if(e == null) {
-            for(Entity entity : this.entities) {
-                if(entity.isVisible() && !(entity instanceof InertAction))
-                    return false;
-            }
-            return true;
-        } else {
-
-            return true;
-        }
+    public boolean isFree(Entity e) {
+    	if(this.entities.size() == 0) {
+    		return true;
+    	}else {
+    		if(e == null) {
+    			for(Entity entity : this.entities) {
+                    if(entity.isVisible())
+                        return false;
+                }
+    			return true;
+    		} else {
+    			
+    			Iterator<Entity> iter_entity = this.entities.iterator();
+    			Iterator<Class<?>> iter_class = e.getEntitiesDestinationAllowed().iterator();
+    			boolean allowed = true;
+    			while(iter_entity.hasNext() && allowed) {
+    				Entity entity = iter_entity.next();
+    				allowed = false;
+    				while(iter_class.hasNext() && !allowed) {
+    					Class<?> class_colision = iter_class.next();
+    					System.out.println(entity.getClass() + " - " + class_colision);
+    					if(entity.isVisible() && entity.getClass().equals(class_colision) && !allowed) {
+    						System.out.println("OK");
+    						allowed = true;
+    					}	
+    				}
+    			}
+    			System.out.println(allowed);
+    			return allowed;
+    		}
+    	}
     }
 
     public void paint(Graphics g) {

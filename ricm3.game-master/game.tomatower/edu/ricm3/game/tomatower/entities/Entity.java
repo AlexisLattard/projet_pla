@@ -7,6 +7,7 @@ import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public abstract class Entity {
     Model model;
@@ -16,21 +17,24 @@ public abstract class Entity {
     BufferedImage sprite;
     Kind kind;
     protected boolean visible;
+    protected ArrayList<Class<?>> entities_destination_allowed; 	// Utile pour determiner sur quelle cases l'entité peut se trouver
+    																// Ex : Mobs peut aller sur d'autre case avec des mobs
+    																//      Player peut aller sur des Portal
 
 
-    Entity(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell) {
-        this.model = c_model;
-        this.movement = c_movement;
-        this.sprite = c_sprite;
-        this.scale = c_scale;
+    Entity(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, ArrayList<Class<?>> c_collisions, Cell c_cell) {
+    	this(c_model, c_movement, c_sprite, c_scale, c_collisions);
+    	
+    	this.visible = true;
         this.addEntityOnCell(c_cell);
     }
 
-    Entity(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale) {
+    Entity(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, ArrayList<Class<?>> c_collisions) {
         this.model = c_model;
         this.movement = c_movement;
         this.sprite = c_sprite;
         this.scale = c_scale;
+        this.entities_destination_allowed = c_collisions;
         this.visible = false; // Initialisation sans position = pas visible
     }
 
@@ -40,7 +44,7 @@ public abstract class Entity {
 
     public boolean addEntityOnCell(Cell c) {
 
-        if(model.getCurrentMap().freeCell(c)) {
+        if(model.getCurrentMap().freeCell(c,this)) {
             //System.out.println("PUT ENTITY : (" + c.getPosition()[0] + " " + c.getPosition()[1] + ")");
             if(this.cell != null)
                 this.cell.removeEntity(this);
@@ -70,6 +74,7 @@ public abstract class Entity {
     }
 
     public void step(long now) {
+    	// if(isVisble) ou if(isActive) pour pas que l'entité continue son comportement dans le sac par exemple
         // Comportment - Automate
     }
 
@@ -105,6 +110,14 @@ public abstract class Entity {
     public abstract void getBagEntity() ; //take entity
 
     public abstract void power(int power) ; //recuperation d'energie
+    
+    public static ArrayList<Class<?>> initColisions() {
+    	return new ArrayList<Class<?>>();
+    }
+    
+    public ArrayList<Class<?>> getEntitiesDestinationAllowed() {
+    	return this.entities_destination_allowed;
+    }
 
 
 }

@@ -52,8 +52,8 @@ public class Map {
         return cells.iterator();
     }
 
-    public boolean freeCell(Cell cell) {
-        return  (cell != null)  && (cell.isFree());
+    public boolean freeCell(Cell cell, Entity e) {
+        return  (cell != null)  && (cell.isFree(e));
     }
 
     public Entity getEntityCell(Cell c) {
