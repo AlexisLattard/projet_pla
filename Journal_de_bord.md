@@ -1,5 +1,12 @@
 # Journal de bord
 
+## Lundi 4 juin
+- Gestion des sprites / animation
+- Implémentation de la boutique : achat d'amélioration, et de tourelle
+- Début d'implémentation du système de Weapon
+- Développement du menu
+- Prise en main / réflexion du système d'automate
+
 ## Dimanche 3 juin
 - Organisation du projet en sous-dossier
 - Développement d'une nouvelle implémentation pour la gestion de la grille (classe Cell et Map)  
