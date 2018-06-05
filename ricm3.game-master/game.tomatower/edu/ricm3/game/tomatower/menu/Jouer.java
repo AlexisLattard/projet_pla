@@ -27,7 +27,7 @@ public class Jouer extends JPanel{
 	private Bouton bouton_retour;
 		// SOUTH //
 		// MAP //
-	private	HashMap<String,Bouton> cartes;
+	private	HashMap<File,Bouton> cartes;
 		// MAP //
 	// BOUTON //
 	
@@ -40,7 +40,7 @@ public class Jouer extends JPanel{
 	private JLabel label_map;
 		// COMPORTEMENT //
 		// MAP //
-	private	 JLabel label_cartes;
+	private	 JLabel label_choix_carte;
 		// MAP //
 	// JLABEL //
 	
@@ -58,17 +58,14 @@ public class Jouer extends JPanel{
 	private JPanel panel_comportement;
 	private JPanel panel_title;
 	private JPanel panel_nord;
-		// COMPORTEMENT //
+		// COMPORTEMENT //_
 		// MAP //
+	private JPanel panel_carte;
 	private JPanel panel_cartes;
-	private JPanel panel_titre_cartes;
-	
+	private JPanel panel_choix_carte;
+	private JPanel panel_titre_carte;
 		// MAP //
 	// JPANEL //
-	
-	// JTREE //
-		JTree arbre_comportement;
-	// JTREE //
 	
 	public Jouer() {
 		// INSTANCIATION //
@@ -94,6 +91,9 @@ public class Jouer extends JPanel{
 		label_towers= new JLabel("Image de tours");
 		label_comportement = new JLabel("Comportement");
 				// COMPORTEMENT //
+				// MAP //
+		label_choix_carte = new JLabel("Cartes");
+				// MAP //
 			// LABEL //
 		
 			// PANEL //
@@ -110,6 +110,12 @@ public class Jouer extends JPanel{
 		panel_title = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panel_nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 				// COMPORTEMENT //
+				// MAP //
+		panel_choix_carte = new JPanel(new BorderLayout());
+		panel_cartes = new JPanel(new FlowLayout());
+		panel_titre_carte = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panel_carte = new JPanel(new BorderLayout());
+				// MAP //
 			// PANEL //
 		// INSTANCIATION //
 		
@@ -123,22 +129,21 @@ public class Jouer extends JPanel{
 		// COMPORTEMENT //
 		panel_mobs.add(label_mobs);
 		panel_mobs.add(bouton_mobs);
-		panel_mobs.setBorder(BorderFactory.createLineBorder(Color.YELLOW)); //
 		panel_towers.add(label_towers);
 		panel_towers.add(bouton_tours);
-		panel_towers.setBorder(BorderFactory.createLineBorder(Color.YELLOW)); //
 		panel_mobs_towers.add(panel_towers);
 		panel_mobs_towers.add(panel_mobs);
-		panel_mobs_towers.setBorder(BorderFactory.createLineBorder(Color.GREEN)); //
 		panel_title.add(label_comportement);
-		panel_title.setBorder(BorderFactory.createLineBorder(Color.red)); //
 		panel_comportement.add(panel_title,BorderLayout.NORTH);
 		panel_comportement.add(panel_mobs_towers,BorderLayout.CENTER);
-		panel_comportement.setBorder(BorderFactory.createLineBorder(Color.black)); //
 		panel_nord.add(panel_comportement);
 		// COMPORTEMENT //
 		
 		// MAP //
+		panel_titre_carte.add(label_choix_carte);
+		panel_choix_carte.add(panel_titre_carte,BorderLayout.NORTH);
+		panel_choix_carte.add(panel_cartes,BorderLayout.CENTER);
+		panel_cartes.setBorder(BorderFactory.createLineBorder(Color.black)); //
 		
 		// MAP //
 
@@ -147,7 +152,14 @@ public class Jouer extends JPanel{
 		bouton_lancer.addActionListener(new LancerListener());
 		this.setLayout(new BorderLayout());
 		this.add(sud,BorderLayout.SOUTH);
+		this.add(panel_choix_carte, BorderLayout.CENTER);
 		this.add(panel_nord,BorderLayout.NORTH);
+		
+	}
+	
+	private void fillMap() {
+		cartes.clear();
+		File file = new File("./Map");
 		
 	}
 	
@@ -190,9 +202,8 @@ public class Jouer extends JPanel{
             	System.out.println("Jeux Lancer");
             }else {
             	if (comportement_tours == null) {
-        			bouton_tours.setText("*Choisir un automate "); 
-        			bouton_tours.setForeground(Color.RED);
-        			
+        			bouton_tours.setText("*Choisir un automate"); 
+        			bouton_tours.setForeground(Color.RED);        			
             	}
             	if (comportement_sbires == null) {
         			bouton_mobs.setText("*Choisir un automate");

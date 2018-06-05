@@ -1,7 +1,6 @@
 package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 /**
  * Write a description of class My_Frame here.
