@@ -52,8 +52,8 @@ public class Map {
         return cells.iterator();
     }
 
-    public boolean freeCell(Cell cell) {
-        return  (cell != null)  && (cell.isFree());
+    public boolean freeCell(Cell cell, Entity e) {
+        return  (cell != null)  && (cell.isFree(e));
     }
 
     public Entity getEntityCell(Cell c) {
@@ -128,7 +128,7 @@ public class Map {
                             break;
                         case "P":
                             System.out.println("PERSO");
-                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP));
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP,null));
                             break;
                         case "Os":
                             //System.out.println("Stone");
@@ -160,6 +160,15 @@ public class Map {
                         case "Po":
                             new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME);
                             break;
+                        case "Suy":
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200);
+                            break;
+                        case "Sur":
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
+                            break;
+                        case "Sty":
+                            new Product(this.model, this.model.getSprites().sprite_tower[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
+                            break;    
                     }
                 }
                 cells.add(cells_line);

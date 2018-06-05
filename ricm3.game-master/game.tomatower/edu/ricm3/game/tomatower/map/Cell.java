@@ -1,6 +1,8 @@
 package edu.ricm3.game.tomatower.map;
 
+import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
+import edu.ricm3.game.tomatower.entities.InertAction;
 import edu.ricm3.game.tomatower.entities.Living;
 import edu.ricm3.game.tomatower.entities.Portal;
 
@@ -56,18 +58,37 @@ public class Cell {
     Return if the cell is free for the entity e,
     if e is null, the function return if the cell contain someting
      */
-    public boolean isFree() {
-        Entity e = null;
-        if(e == null) {
-            for(Entity entity : this.entities) {
-                if(entity.isVisible() && !(entity instanceof Portal))
-                    return false;
-            }
-            return true;
-        } else {
-
-            return true;
-        }
+    public boolean isFree(Entity e) {
+    	if(this.entities.size() == 0) {
+    		return true;
+    	}else {
+    		if(e == null) {
+    			for(Entity entity : this.entities) {
+                    if(entity.isVisible())
+                        return false;
+                }
+    			return true;
+    		} else {
+    			
+    			Iterator<Entity> iter_entity = this.entities.iterator();
+    			Iterator<Class<?>> iter_class = e.getEntitiesDestinationAllowed().iterator();
+    			boolean allowed = true;
+    			while(iter_entity.hasNext() && allowed) {
+    				Entity entity = iter_entity.next();
+    				allowed = false;
+    				while(iter_class.hasNext() && !allowed) {
+    					Class<?> class_colision = iter_class.next();
+    					if(entity.isVisible() && entity.getClass().equals(class_colision) && !allowed) {
+    						allowed = true;
+    					}	
+    				}
+    			}
+    			if(Options.ECHO_GAME_STATE && !allowed) {
+    				System.out.println("Cell destination not free");
+    			}
+    			return allowed;
+    		}
+    	}
     }
 
     public void paint(Graphics g) {
