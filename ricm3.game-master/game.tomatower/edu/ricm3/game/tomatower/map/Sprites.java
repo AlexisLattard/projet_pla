@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Sprites {
-    public BufferedImage sprite_upgrade_yellow;
-    public BufferedImage sprite_upgrade_red;
+	public BufferedImage sprite_upgrade_yellow;
+	public BufferedImage sprite_upgrade_red;
 	public BufferedImage sprite_player[];
 	public BufferedImage sprite_mobs[];
 	public BufferedImage sprite_tower[];
@@ -97,44 +97,44 @@ public class Sprites {
 			System.exit(-1);
 		}
 
-        imageFile = new File("game.tomatower/sprites/mobs_spawn.png");
-        try {
-            sprite_spawn_mobs = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
+		imageFile = new File("game.tomatower/sprites/mobs_spawn.png");
+		try {
+			sprite_spawn_mobs = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
-        imageFile = new File("game.tomatower/sprites/portal.png");
-        try {
-            sprite_portal = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
+		imageFile = new File("game.tomatower/sprites/portal.png");
+		try {
+			sprite_portal = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 
-        imageFile = new File("game.tomatower/sprites/portal_in.png");
-        try {
-            sprite_portal_in = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-        
-        imageFile = new File("game.tomatower/sprites/bulletb.png");
-        try {
-        	sprite_upgrade_yellow = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-        
-        imageFile = new File("game.tomatower/sprites/bulletc.png");
-        try {
-        	sprite_upgrade_red = ImageIO.read(imageFile);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-    }
+		imageFile = new File("game.tomatower/sprites/portal_in.png");
+		try {
+			sprite_portal_in = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.tomatower/sprites/bulletb.png");
+		try {
+			sprite_upgrade_yellow = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.tomatower/sprites/bulletc.png");
+		try {
+			sprite_upgrade_red = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+	}
 }
