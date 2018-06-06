@@ -15,10 +15,10 @@ public class Score extends JPanel
     private JPanel south;
     private JLabel titre;
     private JPanel north;    
-    private JTable tableauDesScore;
+    private Tableau tableauDesScore;
     
-    private String[] columnNames= {"Pseudo","Score"};
-    private Object[][] data= {{"XxTHED4RK1LL3RDU38xX", new Integer(999)},
+    private String[] columnNames= {"Pseudo","Score","Date"};
+    private Object[][] data= {{"XxTHED4RK1LL3RDU38xX", new Integer(10)},
             {"Maxime", new Integer(4)},{"Tibaut", new Integer(3)},
             {"Corentin", new Integer(6)},{"Alexis", new Integer(7)},
             {"Romain", new Integer(5)},{"Andréas", new Integer(8)},
@@ -46,7 +46,7 @@ public class Score extends JPanel
         
         // TABLEAU //
         tableau = new JPanel(new BorderLayout());
-        tableauDesScore = new JTable(data,columnNames);
+        tableauDesScore = new Tableau(data,columnNames);
         // TABLEAU //
         
         // AFFICHEAGE //

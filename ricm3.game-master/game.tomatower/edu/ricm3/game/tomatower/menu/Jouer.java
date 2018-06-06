@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Jouer extends JPanel{
@@ -80,12 +79,10 @@ public class Jouer extends JPanel{
 		comportement_sbires = null;
 		carte_selectionner = null;
 
-		// THANKS STACKOVERFLOW (empeche la creation/edition de dossier dans le file chooser... JESAISPAKOMEN LOL)//
-		Boolean old = UIManager.getBoolean("FileChooser.readOnly");  
+
 		UIManager.put("FileChooser.readOnly", Boolean.TRUE);   
 		fileChoser = new JFileChooser();
-		UIManager.put("FileChooser.readOnly", old); 
-		// THANKS STACKOVERFLOW //
+		
 		cartes = new HashMap<File,Bouton>();
 			// AUTRES //
 			// BOUTON //
