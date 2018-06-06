@@ -84,15 +84,14 @@ public class Sprites {
 		}
 
 		imageFile = new File("game.tomatower/sprites/mobs.png");
-		sprite_mobs = new BufferedImage[4];
-		for (int i = 0; i < 4; i++) {
-			try {
-				sprite_mobs[i] = ImageIO.read(imageFile);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-				System.exit(-1);
-			}
+		try {
+			tmp_sprite = ImageIO.read(imageFile);
+			sprite_mobs = this.splitSprite(tmp_sprite,1, 4);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
 		}
+
 
 		imageFile = new File("game.tomatower/sprites/stone.png");
 		try {

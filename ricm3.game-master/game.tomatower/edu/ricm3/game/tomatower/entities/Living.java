@@ -15,6 +15,8 @@ public abstract class Living extends Entity {
 	protected Direction direction;
 	protected Weapon weapon;
 	BufferedImage sprite[];
+	//TEST
+		long last_action = 0;
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
 			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions) {

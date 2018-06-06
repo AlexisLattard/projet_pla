@@ -186,12 +186,17 @@ public class Map {
             long end1 = System.nanoTime();
             if(Options.ECHO_GAME_STATE)
                 System.out.println("Init map finished in " + (end1 - start1) + " ns");
+            
 
         } catch (FileNotFoundException e) {
 
         } catch (IOException e) {
 
         }
+      //TEST
+        System.out.println("Mobs");
+        Weapon w = new Weapon(this.model, 1, 1, Direction.LEFT);
+        new Mobs(this.model, this.model.getSprites().sprite_mobs, 1, this.getCell(5, 5), Direction.LEFT, this.model.getWeapons().get("yellow"));
     }
 
 }

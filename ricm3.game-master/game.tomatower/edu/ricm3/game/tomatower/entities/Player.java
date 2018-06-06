@@ -7,6 +7,7 @@ import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
+import sun.util.logging.resources.logging_de;
 
 public class Player extends Living {
 
@@ -87,6 +88,10 @@ public class Player extends Living {
     
     public void increaseMoney(int money) {
     	this.money +=money;
+    }
+    
+    public void step(long now) {
+
     }
 
 

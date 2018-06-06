@@ -8,6 +8,7 @@ import edu.ricm3.game.tomatower.entities.Portal;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 public class Cell {
@@ -51,7 +52,7 @@ public class Cell {
     }
 
     public void removeEntity(Entity e) {
-        this.getEntities().remove(e);
+        this.entities.remove(e);
     }
 
     /*
@@ -98,9 +99,12 @@ public class Cell {
     }
 
     public void step(long now) {
-       for(Entity e : this.entities) {
-           e.step(now);
-       }
+  
+    	Entity e;
+    	for(int i = 0; i < this.entities.size(); i++) {  // Pas d'itérateur car certaine actions modifient entities
+    		e = this.entities.get(i);
+    		e.step(now);
+    	}
     }
 
 }

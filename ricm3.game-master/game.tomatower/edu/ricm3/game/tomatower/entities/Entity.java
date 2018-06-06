@@ -40,12 +40,14 @@ public abstract class Entity {
     }
 
 	public boolean addEntityOnCell(Cell c) {
-
 		if (model.getCurrentMap().freeCell(c, this)) {
 			// System.out.println("PUT ENTITY : (" + c.getPosition()[0] + " " +
 			// c.getPosition()[1] + ")");
-			if (this.cell != null)
+			if (this.cell != null) {
 				this.cell.removeEntity(this);
+				System.out.println("Remove");
+			}
+				
 			c.addEntity(this);
 			this.cell = c;
 			this.visible = true;
