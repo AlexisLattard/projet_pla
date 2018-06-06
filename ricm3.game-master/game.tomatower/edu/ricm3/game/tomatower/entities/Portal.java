@@ -35,10 +35,6 @@ public class Portal extends InertAction {
 		Map dest = null;
 		
 		switch (this.obstacles_kind) {
-		case PORTAL_TO_CHALLENGE:
-			this.model.getMainMap().setCellIn(this.cell);// Le joueur reviendra sur la téléporteur qui l'a téléporteur
-			dest = this.model.getRandomChallengeMap();
-			break;
 		case PORTAL_TO_GAME:
 			dest = this.model.getMainMap();
 			break;
@@ -52,9 +48,16 @@ public class Portal extends InertAction {
 			return;
 		}
 		
-		if(e instanceof Player)
-			this.model.setCurrentMap(dest);
-		e.addEntityOnCell(dest.getCellIn());
+		if(dest.getCellIn().isFree(e)) {
+			if(e instanceof Player)
+				this.model.setCurrentMap(dest);
+			e.addEntityOnCell(dest.getCellIn());
+		}else {
+			if(Options.ECHO_GAME_STATE)
+				System.out.println("Une entité est occupe déjà le téléporteur d'entrée");
+		}
+		
+		
 	}
 
 }

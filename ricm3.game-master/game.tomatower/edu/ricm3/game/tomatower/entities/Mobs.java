@@ -29,8 +29,13 @@ public class Mobs extends Living {
 	
 	public void step(long now) {
     	if(now- last_action > 2000L) {
-			this.move(Direction.RIGHT);
-			last_action = now;
+    		last_action = now;
+    		if(this.getMap() == this.model.getMainMap()) {
+    			this.move(Direction.RIGHT);
+    		} else {
+    			this.move(Direction.UP);
+    		}
+			
 		}
 	}
 	

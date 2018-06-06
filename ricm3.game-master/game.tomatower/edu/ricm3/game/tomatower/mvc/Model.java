@@ -33,7 +33,7 @@ public class Model extends GameModel {
     private Sprites game_sprites;
 
     private Map main_map;
-    private ArrayList<Map> maps_challenge;
+   // private ArrayList<Map> maps_challenge;
     private Map map_store;
     private Map current_map;
 
@@ -111,8 +111,15 @@ public class Model extends GameModel {
     public Map getStoreMap() {
         return this.map_store;
     }
+    
+    public ArrayList<Map> getAllMaps() {
+    	ArrayList<Map> res = new ArrayList<>();
+    	res.add(this.main_map);
+    	res.add(this.map_store);
+    	return res;
+    }
 
-    public ArrayList<Map> getChallengesMap() {
+    /*public ArrayList<Map> getChallengesMap() {
         return this.maps_challenge;
     }
 
@@ -124,7 +131,7 @@ public class Model extends GameModel {
         Random rand = new Random();
         int n = rand.nextInt(this.getChallengesMap().size());
         return this.getChallengesMap().get(n);
-    }
+    }*/
 
     public void setCurrentMap(Map m) {
         this.current_map = m;
@@ -148,9 +155,9 @@ public class Model extends GameModel {
      */
     @Override
     public void step(long now) {
-        this.getMainMap().step(now);
-        if(this.current_map != getMainMap())
-            current_map.step(now);
+    	for(Map m : this.getAllMaps()) {
+    		m.step(now);
+    	}
     }
 
     /*
@@ -166,13 +173,13 @@ public class Model extends GameModel {
         new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.LEFT, this.getWeapons().get("yellow"));
 
         //  Maps défis
-        this.maps_challenge = new ArrayList<>();
+        /*this.maps_challenge = new ArrayList<>();
         Map map_challenge = new Map(this);
         this.addChallengeMap(map_challenge);
 
         for (Map m: this.maps_challenge) {
             m.initMap("challenges/defis.txt");
-        }
+        }*/
 
         // Map store
         this.map_store = new Map(this);
