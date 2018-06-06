@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import edu.ricm3.game.GameModel;
+import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
@@ -136,6 +137,7 @@ public class Model extends GameModel {
     public HashMap<String,Weapon> getWeapons(){
     	return this.weapons;
     }
+    
 
 
 
@@ -161,7 +163,7 @@ public class Model extends GameModel {
         main_map = new Map(this);
         this.setCurrentMap(main_map);
         this.main_map.initMap("game.txt");
-        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(2, 2), Direction.LEFT, this.getWeapons().get("yellow"),this.getMainMap());
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.LEFT, this.getWeapons().get("yellow"));
 
         //  Maps défis
         this.maps_challenge = new ArrayList<>();

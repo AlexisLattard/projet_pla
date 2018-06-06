@@ -14,8 +14,8 @@ public abstract class Buyable extends InertAction {
 	int price;
 
 	public Buyable(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind,
-			Weapon c_weapon, int c_price, Map c_map) {
-		super(c_model, false, c_sprite, c_scale, c_cell, c_kind, c_map);
+			Weapon c_weapon, int c_price) {
+		super(c_model, false, c_sprite, c_scale, c_cell, c_kind);
 		this.weapon = c_weapon;
 		this.price = c_price;
 	}

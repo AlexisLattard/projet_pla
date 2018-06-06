@@ -16,8 +16,8 @@ public class Player extends Living {
     private Entity hand = null;
     private int money = 2500;
 
-    public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,Weapon c_weapon, Map c_map) {
-        super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions(), c_map);
+    public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,Weapon c_weapon) {
+        super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions());
         bag = new ArrayList<>();
         
         
@@ -56,7 +56,7 @@ public class Player extends Living {
 	}
 
 	public void pick() {
-		Entity entity = this.map.getEntityCell(this.getFrontCell());
+		Entity entity = this.getMap().getEntityCell(this.getFrontCell());
 
 		if (entity instanceof Tower) {
 			if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac

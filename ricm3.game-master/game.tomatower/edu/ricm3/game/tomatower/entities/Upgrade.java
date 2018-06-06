@@ -11,8 +11,8 @@ import edu.ricm3.game.tomatower.mvc.Model;
 public class Upgrade extends Buyable {
 
 	public Upgrade(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind,
-			Weapon c_weapon, int c_price, Map c_map) {
-		super(c_model, c_sprite, c_scale, c_cell, c_kind, c_weapon, c_price, c_map);
+			Weapon c_weapon, int c_price) {
+		super(c_model, c_sprite, c_scale, c_cell, c_kind, c_weapon, c_price);
 	}
 
 	public void action(Entity e) {

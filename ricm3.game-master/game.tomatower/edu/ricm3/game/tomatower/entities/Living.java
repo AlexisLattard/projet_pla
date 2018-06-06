@@ -21,8 +21,8 @@ public abstract class Living extends Entity {
 		long last_action = 0;
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
-			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions, Map c_map ) {
-		super(c_model, c_movement, c_scale, c_collisions, c_cell,c_map);
+			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions ) {
+		super(c_model, c_movement, c_scale, c_collisions, c_cell);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
@@ -38,7 +38,7 @@ public abstract class Living extends Entity {
 
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
-			int d = (int) (this.map.getCellSize() * scale);
+			int d = (int) (this.getMap().getCellSize() * scale);
 			int[] pos = this.getPosition();
 			int x = pos[0] * model.getCurrentMap().getCellSize();
 			int y = pos[1] * model.getCurrentMap().getCellSize();
@@ -85,7 +85,7 @@ public abstract class Living extends Entity {
 			return null;
 		}
 		
-		return this.map.getCell(pos_front_cell_x, pos_front_cell_y);
+		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
 
 	public boolean isAlive() {

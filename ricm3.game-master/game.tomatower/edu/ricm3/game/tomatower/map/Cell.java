@@ -14,11 +14,13 @@ import java.util.Iterator;
 public class Cell {
     private int col;
     private int row;
+    private Map map;
     private ArrayList<Entity> entities;
 
-    public Cell(int c_col, int c_row) {
+    public Cell(int c_col, int c_row, Map c_map) {
         this.col = c_col;
         this.row = c_row;
+        this.map = c_map;
         this.entities = new ArrayList<>();
     }
 
@@ -105,6 +107,10 @@ public class Cell {
     		e = this.entities.get(i);
     		e.step(now);
     	}
+    }
+    
+    public Map getMap() {
+    	return this.map;
     }
 
 }

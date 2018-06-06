@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 
 public class Portal extends InertAction {
 
-	public Portal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind, Map c_map) {
-		super(c_model, false, c_sprite, c_scale, c_cell, c_kind, c_map);
+	public Portal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind) {
+		super(c_model, false, c_sprite, c_scale, c_cell, c_kind);
 		this.canActive = c_kind != ObstaclesKind.PORTAL_DESTINATION;
 	}
 
@@ -32,28 +32,29 @@ public class Portal extends InertAction {
 			System.out.println("Portal : " + this.obstacles_kind + " ...");
 
 		super.action(e);
+		Map dest = null;
 		
 		switch (this.obstacles_kind) {
 		case PORTAL_TO_CHALLENGE:
-			
-			this.model.getMainMap().setCellIn(this.cell); // Le joueur reviendra sur la téléporteur qui l'a téléporté
-			Map dest = this.model.getRandomChallengeMap();
-			dest.setVisible();
-			e.setMap(dest);
+			this.model.getMainMap().setCellIn(this.cell);// Le joueur reviendra sur la téléporteur qui l'a téléporteur
+			dest = this.model.getRandomChallengeMap();
 			break;
 		case PORTAL_TO_GAME:
-			this.model.getMainMap().setVisible();
-			e.setMap(this.model.getMainMap());
+			dest = this.model.getMainMap();
 			break;
 		case PORTAL_TO_STORE:
 			this.model.getMainMap().setCellIn(this.cell); // Le joueur reviendra sur la téléporteur qui l'a téléporté
-			this.model.getStoreMap().setVisible();
-			e.setMap(this.model.getStoreMap());
+			dest = this.model.getStoreMap();
 			break;
 		default:
 			if (Options.ECHO_GAME_STATE)
 				System.out.println("... this portal is not supported.");
+			return;
 		}
+		
+		if(e instanceof Player)
+			this.model.setCurrentMap(dest);
+		e.addEntityOnCell(dest.getCellIn());
 	}
 
 }

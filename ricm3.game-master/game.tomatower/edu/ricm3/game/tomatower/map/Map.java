@@ -75,11 +75,11 @@ public class Map {
     public void setCellIn(Cell cell) {
         this.cell_portal_in = cell;
     }
-
-    public void setVisible() {
-        this.model.setCurrentMap(this);
-        this.model.getPlayer().addEntityOnCell(this.cell_portal_in);
+    
+    public Cell getCellIn() {
+    	return this.cell_portal_in;
     }
+
 
     public boolean isVisible() {
         return this.model.getCurrentMap() == this;
@@ -120,7 +120,7 @@ public class Map {
 
                 ArrayList<Cell> cells_line = new ArrayList<>();
                 for (int col = 0; col < line_elements.length; col++) {
-                    Cell cell = new Cell(col, row);
+                    Cell cell = new Cell(col, row, this);
                     cells_line.add(cell);
                     switch (line_elements[col]) {
                         case "E":
@@ -128,54 +128,54 @@ public class Map {
                             break;
                         case "P":
                             System.out.println("PERSO");
-                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP,null, this));
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP,null));
                             break;
                         case "Os":
                             //System.out.println("Stone");
-                            new Obstacle(this.model,  this.model.getSprites().sprite_cailloux, 1,cell, ObstaclesKind.Stone, this);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_cailloux, 1,cell, ObstaclesKind.Stone);
                             break;
 
                         case "Ol":
-                            new Obstacle(this.model,  this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake, this);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
                             break;
                             
                         case "Ow":
-                            new Obstacle(this.model,  this.model.getSprites().sprite_mur, 1, cell, ObstaclesKind.Lake, this);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_mur, 1, cell, ObstaclesKind.Lake);
                             break;
                             
                         case "Ot":
-                            new Obstacle(this.model,  this.model.getSprites().sprite_arbre, 1, cell, ObstaclesKind.Lake, this);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_arbre, 1, cell, ObstaclesKind.Lake);
                             break;
                             
                         case "C":
                             if(main_crystal == null) {
-                                main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell, ObstaclesKind.CRYSTAL, null, this);
+                                main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell, ObstaclesKind.CRYSTAL, null);
                             } else {
-                                new Crystal(this.model, this.model.getSprites().sprite_crystal, 0, cell, ObstaclesKind.CRYSTAL, main_crystal, this);
+                                new Crystal(this.model, this.model.getSprites().sprite_crystal, 0, cell, ObstaclesKind.CRYSTAL, main_crystal);
                             }
 
                             break;
                         case "Pc":
-                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_CHALLENGE,this);
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_CHALLENGE);
                             break;
                         case "Ps":
-                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_STORE,this);
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_STORE);
                             break;
                         case "Pi":
-                            new Portal(this.model, this.model.getSprites().sprite_portal_in, 1, cell, ObstaclesKind.PORTAL_DESTINATION,this);
+                            new Portal(this.model, this.model.getSprites().sprite_portal_in, 1, cell, ObstaclesKind.PORTAL_DESTINATION);
                             this.cell_portal_in = cell;
                             break;
                         case "Po":
-                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME,this);
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME);
                             break;
                         case "Suy":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200,this);
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200);
                             break;
                         case "Sur":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200,this);
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
                             break;
                         case "Str":
-                            new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000,this);
+                            new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
                             break;    
                     }
                 }

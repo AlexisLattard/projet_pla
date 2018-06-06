@@ -18,15 +18,13 @@ public abstract class Entity {
     double scale = 1;
     Kind kind;
     protected boolean visible;
-    Map map;
     protected ArrayList<Class<?>> entities_destination_allowed; 	// Utile pour determiner sur quelle cases l'entité peut se trouver
     															// Ex : Mobs peut aller sur d'autre case avec des mobs
     																//      Player peut aller sur des Portal
 
-	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, Cell c_cell, Map c_map) {
+	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, Cell c_cell) {
 		this(c_model,c_movement,c_scale,c_collisions);
     	this.visible = true;
-    	this.map = c_map;
 		this.addEntityOnCell(c_cell);
 	}
 
@@ -44,7 +42,7 @@ public abstract class Entity {
     }
 
 	public boolean addEntityOnCell(Cell c) {
-		if (this.map.freeCell(c, this)) {
+		if (c != null && c.getMap().freeCell(c, this)) {
 			// System.out.println("PUT ENTITY : (" + c.getPosition()[0] + " " +
 			// c.getPosition()[1] + ")");
 			if (this.cell != null) {
@@ -129,12 +127,11 @@ public abstract class Entity {
     
     
     public Map getMap() {
-    	return this.map;
+    	return this.cell.getMap();
     }
     
-    public void setMap(Map m) {
-    	this.map = m;
-    }
+    
+
 
 
 }
