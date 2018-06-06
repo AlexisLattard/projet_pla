@@ -18,14 +18,14 @@ public class Player extends Living {
 		bag = new ArrayList<>();
 
 		// Pour tester
-//		Tower t1 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
-//		Tower t2 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
-//		Tower t3 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
-//		Tower t4 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
-//		bag.add(t1);
-//		bag.add(t2);
-//		bag.add(t3);
-//		bag.add(t4);
+		Tower t1 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
+		Tower t2 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
+		Tower t3 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
+		Tower t4 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
+		bag.add(t1);
+		bag.add(t2);
+		bag.add(t3);
+		bag.add(t4);
 	}
 
 	public void getBagEntity() {

@@ -17,9 +17,14 @@
  */
 package edu.ricm3.game.tomatower.mvc;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
+
+import javax.imageio.ImageIO;
+
+import java.io.File;
+import java.io.IOException;
 
 import edu.ricm3.game.GameView;
 import edu.ricm3.game.tomatower.map.Cell;
@@ -27,7 +32,7 @@ import edu.ricm3.game.tomatower.map.Cell;
 public class View extends GameView {
 
 	private static final long serialVersionUID = 1L;
-	Color m_background = Color.white;
+	BufferedImage background;
 	long last;
 	int npaints;
 	int fps;
@@ -54,9 +59,7 @@ public class View extends GameView {
 	protected void _paint(Graphics g) {
 		computeFPS();
 
-		// erase background
-		g.setColor(m_background);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		g.drawImage(this.model.getSprites().sprite_background, 0, 0, getWidth(), getHeight(), null);
 
 		Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
 		while (iter_cells.hasNext()) {

@@ -1,6 +1,7 @@
 package edu.ricm3.game.tomatower.map;
 
 import javax.imageio.ImageIO;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class Sprites {
 	public BufferedImage sprite_spawn_mobs;
 	public BufferedImage sprite_portal;
 	public BufferedImage sprite_portal_in;
+	public BufferedImage sprite_background;
 
 	public Sprites() {
 		loadSprites();
@@ -31,7 +33,6 @@ public class Sprites {
 		File imageFile;
 		sprite_player = new BufferedImage[4];
 		for (int i = 0; i < 4; i++) {
-			System.out.println("game.tomatower/sprites/player_" + directions.get(i) + ".png");
 			imageFile = new File("game.tomatower/sprites/player_" + directions.get(i) + ".png");
 			try {
 				sprite_player[i] = ImageIO.read(imageFile);
@@ -98,6 +99,14 @@ public class Sprites {
 		imageFile = new File("game.tomatower/sprites/portal_in.png");
 		try {
 			sprite_portal_in = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.tomatower/sprites/background.png");
+		try {
+			sprite_background = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
