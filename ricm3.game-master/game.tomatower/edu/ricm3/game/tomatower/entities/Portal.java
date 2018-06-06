@@ -2,6 +2,7 @@ package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -9,8 +10,8 @@ import java.awt.image.BufferedImage;
 
 public class Portal extends InertAction {
 
-	public Portal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind) {
-		super(c_model, false, c_sprite, c_scale, c_cell, c_kind);
+	public Portal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind, Map c_map) {
+		super(c_model, false, c_sprite, c_scale, c_cell, c_kind, c_map);
 		this.canActive = c_kind != ObstaclesKind.PORTAL_DESTINATION;
 	}
 
@@ -26,23 +27,28 @@ public class Portal extends InertAction {
 		}
 	}
 
-	public void action() {
+	public void action(Entity e) {
 		if (Options.ECHO_GAME_STATE)
 			System.out.println("Portal : " + this.obstacles_kind + " ...");
 
-		super.action();
+		super.action(e);
 		
 		switch (this.obstacles_kind) {
 		case PORTAL_TO_CHALLENGE:
+			
 			this.model.getMainMap().setCellIn(this.cell); // Le joueur reviendra sur la téléporteur qui l'a téléporté
-			this.model.getRandomChallengeMap().setVisible();
+			Map dest = this.model.getRandomChallengeMap();
+			dest.setVisible();
+			e.setMap(dest);
 			break;
 		case PORTAL_TO_GAME:
 			this.model.getMainMap().setVisible();
+			e.setMap(this.model.getMainMap());
 			break;
 		case PORTAL_TO_STORE:
 			this.model.getMainMap().setCellIn(this.cell); // Le joueur reviendra sur la téléporteur qui l'a téléporté
 			this.model.getStoreMap().setVisible();
+			e.setMap(this.model.getStoreMap());
 			break;
 		default:
 			if (Options.ECHO_GAME_STATE)

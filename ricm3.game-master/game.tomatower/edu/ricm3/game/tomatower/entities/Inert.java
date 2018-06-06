@@ -2,6 +2,7 @@ package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
@@ -14,8 +15,8 @@ public abstract class Inert extends Entity {
 	BufferedImage sprite;
 
 	Inert(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell,
-			ObstaclesKind c_kind) {
-		super(c_model, c_movement, c_scale, initColisions(),c_cell);
+			ObstaclesKind c_kind, Map c_map) {
+		super(c_model, c_movement, c_scale, initColisions(),c_cell,c_map);
 		this.obstacles_kind = c_kind;
 		this.sprite = c_sprite;
 		// this.model.addObstacle(this);
@@ -23,7 +24,7 @@ public abstract class Inert extends Entity {
 
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
-			int d = (int) (model.getCurrentMap().getCellSize() * scale);
+			int d = (int) (this.map.getCellSize() * scale);
 			int[] pos = this.getPosition();
 			int x = pos[0] * model.getCurrentMap().getCellSize();
 			int y = pos[1] * model.getCurrentMap().getCellSize();

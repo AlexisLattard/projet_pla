@@ -161,6 +161,7 @@ public class Model extends GameModel {
         main_map = new Map(this);
         this.setCurrentMap(main_map);
         this.main_map.initMap("game.txt");
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(2, 2), Direction.LEFT, this.getWeapons().get("yellow"),this.getMainMap());
 
         //  Maps défis
         this.maps_challenge = new ArrayList<>();

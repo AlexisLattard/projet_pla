@@ -128,54 +128,54 @@ public class Map {
                             break;
                         case "P":
                             System.out.println("PERSO");
-                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP,null));
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP,null, this));
                             break;
                         case "Os":
                             //System.out.println("Stone");
-                            new Obstacle(this.model,  this.model.getSprites().sprite_cailloux, 1,cell, ObstaclesKind.Stone);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_cailloux, 1,cell, ObstaclesKind.Stone, this);
                             break;
 
                         case "Ol":
-                            new Obstacle(this.model,  this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake, this);
                             break;
                             
                         case "Ow":
-                            new Obstacle(this.model,  this.model.getSprites().sprite_mur, 1, cell, ObstaclesKind.Lake);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_mur, 1, cell, ObstaclesKind.Lake, this);
                             break;
                             
                         case "Ot":
-                            new Obstacle(this.model,  this.model.getSprites().sprite_arbre, 1, cell, ObstaclesKind.Lake);
+                            new Obstacle(this.model,  this.model.getSprites().sprite_arbre, 1, cell, ObstaclesKind.Lake, this);
                             break;
                             
                         case "C":
                             if(main_crystal == null) {
-                                main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell, ObstaclesKind.CRYSTAL, null);
+                                main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell, ObstaclesKind.CRYSTAL, null, this);
                             } else {
-                                new Crystal(this.model, this.model.getSprites().sprite_crystal, 0, cell, ObstaclesKind.CRYSTAL, main_crystal);
+                                new Crystal(this.model, this.model.getSprites().sprite_crystal, 0, cell, ObstaclesKind.CRYSTAL, main_crystal, this);
                             }
 
                             break;
                         case "Pc":
-                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_CHALLENGE);
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_CHALLENGE,this);
                             break;
                         case "Ps":
-                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_STORE);
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_STORE,this);
                             break;
                         case "Pi":
-                            new Portal(this.model, this.model.getSprites().sprite_portal_in, 1, cell, ObstaclesKind.PORTAL_DESTINATION);
+                            new Portal(this.model, this.model.getSprites().sprite_portal_in, 1, cell, ObstaclesKind.PORTAL_DESTINATION,this);
                             this.cell_portal_in = cell;
                             break;
                         case "Po":
-                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME);
+                            new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME,this);
                             break;
                         case "Suy":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200);
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200,this);
                             break;
                         case "Sur":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200,this);
                             break;
                         case "Str":
-                            new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
+                            new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000,this);
                             break;    
                     }
                 }
@@ -196,7 +196,7 @@ public class Map {
       //TEST
         System.out.println("Mobs");
         Weapon w = new Weapon(this.model, 1, 1, Direction.LEFT);
-        new Mobs(this.model, this.model.getSprites().sprite_mobs, 1, this.getCell(5, 5), Direction.LEFT, this.model.getWeapons().get("yellow"));
+        
     }
 
 }

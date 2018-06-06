@@ -2,6 +2,7 @@ package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.*;
@@ -13,8 +14,8 @@ public class Crystal extends Inert {
 	private Crystal main_instance;
 
 	public Crystal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind,
-			Crystal c_main_instance) {
-		super(c_model, false, c_sprite, c_scale, c_cell, c_kind);
+			Crystal c_main_instance, Map c_map) {
+		super(c_model, false, c_sprite, c_scale, c_cell, c_kind, c_map);
 		this.main_instance = c_main_instance;
 	}
 
