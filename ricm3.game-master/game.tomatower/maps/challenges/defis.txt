@@ -1,5 +1,5 @@
-Os N N N Os
-Os N N N Po
-Os N N N Pi
-Os N N N Os
-Os Os Os Os Os
+Os N N N Os N N N N N 
+Os N N N Po N N N N N
+Os N N N Pi N N N N N 
+Os N N N Os N N N N N 
+Os Os Os Os Os N N N N N

@@ -1,5 +1,18 @@
 # Journal de bord
 
+## Merdeci 6 juin
+- Matin : Soutenance pour établir un contrat
+- Modification de certain aspect du jeu en fonction de la soutenance du matin
+- Amélioration du changement de map et des téléporteur en conséquence
+- Amélioration de la maquette du HUD 
+
+![](./Image/gif_6juin.gif)
+
+## Mardi 5juin
+- Préparation de la soutenance
+- Amélioration de la boutique
+- Développement du menu
+
 ## Lundi 4 juin
 - Gestion des sprites / animation
 - Implémentation de la boutique : achat d'amélioration, et de tourelle

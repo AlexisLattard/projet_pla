@@ -38,7 +38,7 @@ public class GameMain {
     int height = (int)screenSize.getHeight();
     System.out.println("Screen resolution : " + width + " x " + height);
 
-    Dimension d = new Dimension(width/2, height/2);
+    Dimension d = new Dimension(700,730);
     new GameUI(model,view,controller,d);
     
     // notice that the main thread will exit here,

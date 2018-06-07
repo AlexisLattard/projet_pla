@@ -14,11 +14,11 @@ public class Product extends Buyable {
 		super(c_model, c_sprite, c_scale, c_cell, c_kind, c_weapon, c_price);
 	}
 	
-	public void action() {
-		super.action();
+	public void action(Entity e) {
+		super.action(e);
 
 		if (this.model.getPlayer().getMoney() >= this.price) {
-			Tower tower = new Tower(this.model, this.model.getSprites().sprite_tower, this.weapon);
+			Tower tower = new Tower(this.model, this.model.getSprites().sprite_tower_red, this.weapon);
 			this.model.getPlayer().addBagProduct(tower);
 			this.model.getPlayer().decreaseMoney(this.price);
 			if (Options.ECHO_GAME_STATE) {

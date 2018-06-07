@@ -6,7 +6,6 @@ import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public abstract class Inert extends Entity {
 
@@ -23,7 +22,7 @@ public abstract class Inert extends Entity {
 
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
-			int d = (int) (model.getCurrentMap().getCellSize() * scale);
+			int d = (int) (this.getMap().getCellSize() * scale);
 			int[] pos = this.getPosition();
 			int x = pos[0] * model.getCurrentMap().getCellSize();
 			int y = pos[1] * model.getCurrentMap().getCellSize();

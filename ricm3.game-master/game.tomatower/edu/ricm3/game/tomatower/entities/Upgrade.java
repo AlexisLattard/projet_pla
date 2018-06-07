@@ -14,8 +14,8 @@ public class Upgrade extends Buyable {
 		super(c_model, c_sprite, c_scale, c_cell, c_kind, c_weapon, c_price);
 	}
 
-	public void action() {
-		super.action();
+	public void action(Entity e) {
+		super.action(e);
 
 		if (this.model.getPlayer().getMoney() >= this.price) {
 			this.model.getPlayer().decreaseMoney(this.price);
