@@ -180,13 +180,13 @@ public class Sprites {
 			System.exit(-1);
 		}
 
-//		imageFile = new File("game.tomatower/sprites/bulletc.png");
-//		try {
-//			sprite_upgrade_red = ImageIO.read(imageFile);
-//		} catch (IOException ex) {
-//			ex.printStackTrace();
-//			System.exit(-1);
-//		}
+		// imageFile = new File("game.tomatower/sprites/bulletc.png");
+		// try {
+		// sprite_upgrade_red = ImageIO.read(imageFile);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		// }
 		imageFile = new File("game.tomatower/sprites/upgrade_red.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
