@@ -29,6 +29,10 @@ public class Map {
     public int getCellSize() {
         return this.cell_size;
     }
+    
+    public int[] getMapDimention() {
+    	return new int[] {cell_size*nb_cell_horizontal,cell_size*nb_cell_vertical};
+    }
 
     public Cell getCell(int x, int y) {
         if(x < 0 || x > nb_cell_horizontal-1 || y < 0 || y > nb_cell_vertical -1)

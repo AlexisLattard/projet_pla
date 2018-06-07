@@ -21,8 +21,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
+import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.map.Hud;
 
 public class View extends GameView {
 
@@ -33,10 +35,13 @@ public class View extends GameView {
 	int fps;
 	Model model;
 	Controller ctr;
+	GameUI gameUI;
+	Hud hud;
 
 	public View(Model m, Controller c) {
 		model = m;
 		ctr = c;
+		hud = new Hud(m);
 	}
 
 	private void computeFPS() {
@@ -63,6 +68,11 @@ public class View extends GameView {
 			Cell c = iter_cells.next();
 			c.paint(g);
 		}
+		hud.paint(g);
+	}
+	
+	public void setGameUI(GameUI gameUI) {
+		this.gameUI = gameUI;
 	}
 
 }
