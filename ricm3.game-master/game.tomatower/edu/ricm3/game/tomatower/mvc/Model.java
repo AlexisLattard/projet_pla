@@ -18,11 +18,13 @@
 package edu.ricm3.game.tomatower.mvc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import edu.ricm3.game.GameModel;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.entities.*;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Sprites;
 
 public class Model extends GameModel {
@@ -36,6 +38,8 @@ public class Model extends GameModel {
 
     private Player player;
 
+    private HashMap<String, Weapon> weapons;
+    
     private Overhead m_overhead = new Overhead();
 
     /*ArrayList<Mobs> mobs;
@@ -45,6 +49,7 @@ public class Model extends GameModel {
 
     public Model() {
         game_sprites = new Sprites();
+        this.initWeapons();        
         this.initMaps();
         /* VOIR CI DESSOUS LES FONCTIONS ASSOCIEES
         mobs = new ArrayList<>();
@@ -127,6 +132,10 @@ public class Model extends GameModel {
     public Map getCurrentMap() {
         return this.current_map;
     }
+    
+    public HashMap<String,Weapon> getWeapons(){
+    	return this.weapons;
+    }
 
 
 
@@ -165,6 +174,16 @@ public class Model extends GameModel {
         // Map store
         this.map_store = new Map(this);
         this.map_store.initMap("store.txt");
+    }
+    
+    public void initWeapons() {
+    	this.weapons = new HashMap<>();
+    	Weapon weapons1 = new Weapon(this,3,10,Direction.UP); 
+    	Weapon weapons2 = new Weapon(this,1,15,Direction.DOWN); 
+
+    	weapons.put("yellow", weapons1);
+    	weapons.put("red", weapons2);
+    	    	
     }
 
 }

@@ -10,34 +10,38 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Entity {
-	Model model;
-	protected Cell cell;
-	protected boolean movement;
-	double scale = 1;
-	Kind kind;
-	protected boolean visible;
+    Model model;
+    protected Cell cell;
+    protected boolean movement;
+    double scale = 1;
+    Kind kind;
+    protected boolean visible;
+    protected ArrayList<Class<?>> entities_destination_allowed; 	// Utile pour determiner sur quelle cases l'entité peut se trouver
+    																// Ex : Mobs peut aller sur d'autre case avec des mobs
+    																//      Player peut aller sur des Portal
 
-	Entity(Model c_model, Boolean c_movement, double c_scale, Cell c_cell) {
-		this.model = c_model;
-		this.movement = c_movement;
-		this.scale = c_scale;
+	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions,Cell c_cell) {
+		this(c_model,c_movement,c_scale,c_collisions);
+    	this.visible = true;
 		this.addEntityOnCell(c_cell);
 	}
 
-	Entity(Model c_model, Boolean c_movement, double c_scale) {
-		this.model = c_model;
-		this.movement = c_movement;
-		this.scale = c_scale;
-		this.visible = false; // Initialisation sans position = pas visible
-	}
+    Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions) {
+    	this.model =  c_model;
+    	this.movement =  c_movement;
+    	this.scale =  c_scale;
+    	this.entities_destination_allowed =  c_collisions;
+    	this.visible = false;
 
-	public boolean isVisible() {
-		return this.visible;
-	}
+    }
+
+    public boolean isVisible() {
+    	return this.visible;
+    }
 
 	public boolean addEntityOnCell(Cell c) {
 
-		if (model.getCurrentMap().freeCell(c)) {
+		if (model.getCurrentMap().freeCell(c, this)) {
 			// System.out.println("PUT ENTITY : (" + c.getPosition()[0] + " " +
 			// c.getPosition()[1] + ")");
 			if (this.cell != null)
@@ -51,19 +55,21 @@ public abstract class Entity {
 		}
 	}
 
-	public void removeEntityFromCell() {
-		// System.out.println("Set not visible");
-		this.cell.removeEntity(this);
-		this.cell = null;
-		this.visible = false;
-	}
+
+    public void removeEntityFromCell() {
+        //System.out.println("Set not visible");
+        this.cell.removeEntity(this);
+        this.cell = null;
+        this.visible = false;
+    }
 
 	public void paint(Graphics g) {
 	}
 
-	public void step(long now) {
-		// Comportment - Automate
-	}
+    public void step(long now) {
+    	// if(isVisble) ou if(isActive) pour pas que l'entité continue son comportement dans le sac par exemple
+        // Comportment - Automate
+    }
 
 	public boolean canMove() {
 		return this.movement;
@@ -102,5 +108,14 @@ public abstract class Entity {
 	public abstract void getBagEntity(); // take entity
 
 	public abstract void power(int power); // recuperation d'energie
+    
+    public static ArrayList<Class<?>> initColisions() {
+    	return new ArrayList<Class<?>>();
+    }
+    
+    public ArrayList<Class<?>> getEntitiesDestinationAllowed() {
+    	return this.entities_destination_allowed;
+    }
+
 
 }

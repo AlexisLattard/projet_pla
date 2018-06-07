@@ -8,5 +8,6 @@ public enum ObstaclesKind {
     PORTAL_TO_STORE,
     PORTAL_TO_GAME,
     PORTAL_DESTINATION,
-    CRYSTAL
+    CRYSTAL,
+    UPGRADE
 }

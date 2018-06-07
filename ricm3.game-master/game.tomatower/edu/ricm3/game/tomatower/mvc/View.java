@@ -21,11 +21,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
-import javax.imageio.ImageIO;
-
-import java.io.File;
-import java.io.IOException;
-
 import edu.ricm3.game.GameView;
 import edu.ricm3.game.tomatower.map.Cell;
 
@@ -67,5 +62,4 @@ public class View extends GameView {
 			c.paint(g);
 		}
 	}
-
 }

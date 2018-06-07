@@ -17,16 +17,19 @@ public abstract class Living extends Entity {
 	BufferedImage sprite[];
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
-			Direction c_direction) {
-		super(c_model, c_movement, c_scale, c_cell);
+			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions) {
+		super(c_model, c_movement, c_scale, c_collisions, c_cell);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
+		this.weapon = c_weapon;
 	}
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Direction c_direction) {
-		super(c_model, c_movement, c_scale);
+	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Direction c_direction,
+			Weapon c_weapon, ArrayList<Class<?>> c_collisions) {
+		super(c_model, c_movement, c_scale, c_collisions);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
+		this.weapon = c_weapon;
 	}
 
 	public void paint(Graphics g) {
@@ -66,16 +69,14 @@ public abstract class Living extends Entity {
 			}
 
 			this.addEntityOnCell(cell_destination);
-
+			
 		}
 		if (Options.ECHO_GAME_STATE)
 			System.out.println("Player direction : " + this.direction.toString());
 	}
 
 	public void turn(Direction d) {
-		if (this.canMove()) {
-			this.direction = d;
-		}
+		this.direction = d;
 	}
 
 	public Cell getFrontCell() {

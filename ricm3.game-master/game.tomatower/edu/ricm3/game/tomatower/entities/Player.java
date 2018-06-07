@@ -10,22 +10,33 @@ import edu.ricm3.game.tomatower.mvc.Model;
 
 public class Player extends Living {
 
-	private ArrayList<Tower> bag;
-	private Tower hand = null;
+	private ArrayList<Entity> bag;
+	private Entity hand = null;
+	private int money = 2500;
 
-	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction) {
-		super(c_model, true, c_sprite, c_scale, c_cell, c_direction);
+	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,
+			Weapon c_weapon) {
+		super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions());
 		bag = new ArrayList<>();
 
 		// Pour tester
-		Tower t1 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
-		Tower t2 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
-		Tower t3 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
-		Tower t4 = new Tower(this.model, this.model.getSprites().sprite_tower, 1);
-		bag.add(t1);
-		bag.add(t2);
-		bag.add(t3);
-		bag.add(t4);
+		// Tower t1 = new Tower(this.model, this.model.getSprites().sprite_tower,
+		// this.model.getWeapons().get("yellow"));
+		// Tower t2 = new Tower(this.model, this.model.getSprites().sprite_tower,
+		// this.model.getWeapons().get("yellow"));
+		// Tower t3 = new Tower(this.model, this.model.getSprites().sprite_tower,
+		// this.model.getWeapons().get("red"));
+		// Tower t4 = new Tower(this.model, this.model.getSprites().sprite_tower,
+		// this.model.getWeapons().get("red"));
+		// bag.add(t1);bag.add(t2);bag.add(t3);bag.add(t4);
+	}
+
+	public static ArrayList<Class<?>> initColisions() {
+		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
+		res.add(Portal.class);
+		res.add(Product.class);
+		res.add(Upgrade.class);
+		return res;
 	}
 
 	public void getBagEntity() {
@@ -62,6 +73,24 @@ public class Player extends Living {
 			bag.add(hand);
 			hand = null;
 		}
+	}
+
+	public void addBagProduct(Entity entity) {
+		if (entity instanceof Tower) {
+			this.bag.add(entity);
+		}
+	}
+
+	public int getMoney() {
+		return this.money;
+	}
+
+	public void decreaseMoney(int money) {
+		this.money -= money;
+	}
+
+	public void increaseMoney(int money) {
+		this.money += money;
 	}
 
 }
