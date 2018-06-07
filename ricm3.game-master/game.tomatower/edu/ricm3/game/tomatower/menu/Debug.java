@@ -23,7 +23,7 @@ public class Debug extends JPanel{
 		retour = new Bouton("Retour");
 		titre = new JLabel("Debug");
 		textArea = new JEditorPane();
-		textArea_scroll = new JScrollPane(textArea);
+		textArea_scroll = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		nord = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		sud = new JPanel(new GridLayout(1,2));
 		sud_valider = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -42,8 +42,7 @@ public class Debug extends JPanel{
 		// NORD //
 		
 		// CENTRE //
-		centre.add(textArea,BorderLayout.CENTER);
-		centre.add(textArea_scroll,BorderLayout.EAST);
+		centre.add(textArea_scroll,BorderLayout.CENTER);
 		// CENTRE //		
 		
 		this.setLayout(new BorderLayout());

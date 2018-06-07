@@ -129,7 +129,6 @@ public class Jouer extends JPanel{
 			// PANEL //
 			// JSCROLLBAR //
 				// MAP //
-		scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 				// MAP //
 			// JSCROLLBAR //
 		// INSTANCIATION //
@@ -172,12 +171,11 @@ public class Jouer extends JPanel{
 
 	private void initMap() {
 		// MAP //
+		scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panel_titre_carte.add(label_choix_carte);
 		panel_choix_carte.add(panel_titre_carte,BorderLayout.NORTH);
-		panel_choix_carte.add(panel_cartes,BorderLayout.CENTER);
-		panel_choix_carte.add(scrollmap,BorderLayout.SOUTH);
-		panel_choix_carte.setBorder(BorderFactory.createLineBorder(Color.black)); //
-		scrollmap.setViewportView(panel_cartes);
+		panel_choix_carte.add(scrollmap,BorderLayout.CENTER);
+		panel_choix_carte.setBorder(BorderFactory.createLineBorder(Color.black));
 		fillMap();
 		fillCartes();
 		this.add(panel_choix_carte, BorderLayout.CENTER);

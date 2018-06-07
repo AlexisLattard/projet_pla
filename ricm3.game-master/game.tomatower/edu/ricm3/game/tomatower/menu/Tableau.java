@@ -8,72 +8,37 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class Tableau extends JTable{
-	private DefaultTableModel tablemodel;
-	private Object[][] data;
-	private String[] columns = {"Pseudo", "Score", "Date"};
 	
-	public Tableau() {
-		data = null;
+	public Tableau(Vector data,Vector column) {
+		super(data,column);
+        this.setModel(new ScoreTableModel(data,column));
+        this.setAutoCreateRowSorter(true);
+	}
+	
+	public class ScoreTableModel extends DefaultTableModel {
 		
-		tablemodel = new DefaultTableModel(data,columns) {
-            @Override
-            public Class getColumnClass(int column) {
-                switch (column) {
-                    case 0:
-                        return String.class;
-                    case 1:
-                        return Integer.class;
-                    case 2:
-                        return Calendar.class;
-                    default:
-                        return String.class;
-                }
-            }
-        };
-        this.setModel(tablemodel);
-		this.setAutoCreateRowSorter(true);
-	}
-	
-	public Tableau(Object[][] data) {
-		this.data = data;
-		tablemodel = new DefaultTableModel(this.data,this.columns) {
-            @Override
-            public Class getColumnClass(int column) {
-                switch (column) {
-                    case 0:
-                        return String.class;
-                    case 1:
-                        return Integer.class;
-                    case 2:
-                        return Calendar.class;
-                    default:
-                        return String.class;
-                }
-            }
-        };
-        this.setModel(tablemodel);
-		this.setAutoCreateRowSorter(true);
-	}
-	
-	public Tableau(Object[][] data,String[] columns) {
-		this.data = data;
-		this.columns = columns;
-        tablemodel = new DefaultTableModel(this.data,this.columns) {
-            @Override
-            public Class getColumnClass(int column) {
-                switch (column) {
-                    case 0:
-                        return String.class;
-                    case 1:
-                        return Integer.class;
-                    case 2:
-                        return Calendar.class;
-                    default:
-                        return String.class;
-                }
-            }
-        };
-        this.setModel(tablemodel);
-		this.setAutoCreateRowSorter(true);
+		
+		 public ScoreTableModel(Vector data, Vector column) {
+			super(data,column);
+		}
+
+		@Override
+         public Class getColumnClass(int column) {
+             switch (column) {
+                 case 0:
+                     return String.class;
+                 case 1:
+                     return Integer.class;
+                 case 2:
+                     return Calendar.class;
+                 default:
+                     return String.class;
+             }
+         }
+     
+         @Override
+         public boolean isCellEditable(int row, int column) {
+             return false;
+         }
 	}
 }

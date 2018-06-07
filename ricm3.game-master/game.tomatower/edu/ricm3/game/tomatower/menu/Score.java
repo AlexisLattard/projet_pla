@@ -23,6 +23,7 @@ public class Score extends JPanel
     private JLabel titre;
     private JPanel north;    
     private JTable tableauDesScore;
+    private JScrollPane scrollTableau;
     
     private Vector<String> columnNames;
     private Vector<Vector<Object>> data;
@@ -50,39 +51,12 @@ public class Score extends JPanel
         data =  fillData();
         columnNames=new Vector<String>();
         columnNames.add("Psuedo");columnNames.add("Scores");columnNames.add("Date");
-       
-        tableau = new JPanel(new BorderLayout());
-        tableauDesScore = new JTable(data,columnNames);
-        tableauDesScore.setModel(new DefaultTableModel(data,columnNames) {
-            @Override
-            public Class getColumnClass(int column) {
-                switch (column) {
-                    case 0:
-                        return String.class;
-                    case 1:
-                        return Integer.class;
-                    case 2:
-                        return Calendar.class;
-                    default:
-                        return String.class;
-                }
-            }
-        
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        });
-        tableauDesScore.setAutoCreateRowSorter(true);
+        tableauDesScore = new Tableau(data,columnNames);
+        scrollTableau = new JScrollPane(tableauDesScore,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         // TABLEAU //
         
-        // AFFICHEAGE //
-        tableau.add(tableauDesScore.getTableHeader(),BorderLayout.NORTH);
-        tableau.add(tableauDesScore,BorderLayout.CENTER);
-        // AFFICHEAGE //
-        
         this.setLayout(new BorderLayout());
-        this.add(tableau,BorderLayout.CENTER);
+        this.add(scrollTableau,BorderLayout.CENTER);
         this.add(south,BorderLayout.SOUTH);
         this.add(north,BorderLayout.NORTH);
     }
