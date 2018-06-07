@@ -2,6 +2,7 @@ package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -26,28 +27,37 @@ public class Portal extends InertAction {
 		}
 	}
 
-	public void action() {
+	public void action(Entity e) {
 		if (Options.ECHO_GAME_STATE)
 			System.out.println("Portal : " + this.obstacles_kind + " ...");
 
-		super.action();
+		super.action(e);
+		Map dest = null;
 		
 		switch (this.obstacles_kind) {
-		case PORTAL_TO_CHALLENGE:
-			this.model.getMainMap().setCellIn(this.cell); // Le joueur reviendra sur la téléporteur qui l'a téléporté
-			this.model.getRandomChallengeMap().setVisible();
-			break;
 		case PORTAL_TO_GAME:
-			this.model.getMainMap().setVisible();
+			dest = this.model.getMainMap();
 			break;
 		case PORTAL_TO_STORE:
 			this.model.getMainMap().setCellIn(this.cell); // Le joueur reviendra sur la téléporteur qui l'a téléporté
-			this.model.getStoreMap().setVisible();
+			dest = this.model.getStoreMap();
 			break;
 		default:
 			if (Options.ECHO_GAME_STATE)
 				System.out.println("... this portal is not supported.");
+			return;
 		}
+		
+		if(dest.getCellIn().isFree(e)) {
+			if(e instanceof Player)
+				this.model.setCurrentMap(dest);
+			e.addEntityOnCell(dest.getCellIn());
+		}else {
+			if(Options.ECHO_GAME_STATE)
+				System.out.println("Une entité est occupe déjà le téléporteur d'entrée");
+		}
+		
+		
 	}
 
 }

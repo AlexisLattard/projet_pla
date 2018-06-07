@@ -75,11 +75,11 @@ public class Map {
     public void setCellIn(Cell cell) {
         this.cell_portal_in = cell;
     }
-
-    public void setVisible() {
-        this.model.setCurrentMap(this);
-        this.model.getPlayer().addEntityOnCell(this.cell_portal_in);
+    
+    public Cell getCellIn() {
+    	return this.cell_portal_in;
     }
+
 
     public boolean isVisible() {
         return this.model.getCurrentMap() == this;
@@ -98,6 +98,7 @@ public class Map {
         try {
             long start1 = System.nanoTime();
             BufferedReader reader = new BufferedReader(new FileReader(map_file));
+            
             ArrayList<String[]> map_langugage = new ArrayList<>();
             String line;
 
@@ -120,7 +121,7 @@ public class Map {
 
                 ArrayList<Cell> cells_line = new ArrayList<>();
                 for (int col = 0; col < line_elements.length; col++) {
-                    Cell cell = new Cell(col, row);
+                    Cell cell = new Cell(col, row, this);
                     cells_line.add(cell);
                     switch (line_elements[col]) {
                         case "E":
@@ -128,7 +129,8 @@ public class Map {
                             break;
                         case "P":
                             System.out.println("PERSO");
-                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP,null));
+                            Weapon w = new Weapon(this.model, 1, 7, Direction.UP);
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP, w));
                             break;
                         case "Os":
                             //System.out.println("Stone");
@@ -138,7 +140,15 @@ public class Map {
                         case "Ol":
                             new Obstacle(this.model,  this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
                             break;
-
+                            
+                        case "Ow":
+                            new Obstacle(this.model,  this.model.getSprites().sprite_mur, 1, cell, ObstaclesKind.Lake);
+                            break;
+                            
+                        case "Ot":
+                            new Obstacle(this.model,  this.model.getSprites().sprite_arbre, 1, cell, ObstaclesKind.Lake);
+                            break;
+                            
                         case "C":
                             if(main_crystal == null) {
                                 main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell, ObstaclesKind.CRYSTAL, null);
@@ -164,10 +174,10 @@ public class Map {
                             new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200);
                             break;
                         case "Sur":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red, 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
                             break;
-                        case "Sty":
-                            new Product(this.model, this.model.getSprites().sprite_tower[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
+                        case "Str":
+                            new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
                             break;    
                     }
                 }
@@ -178,12 +188,14 @@ public class Map {
             long end1 = System.nanoTime();
             if(Options.ECHO_GAME_STATE)
                 System.out.println("Init map finished in " + (end1 - start1) + " ns");
-
+            
+            reader.close();
         } catch (FileNotFoundException e) {
 
         } catch (IOException e) {
 
         }
+        
     }
 
 }

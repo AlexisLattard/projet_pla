@@ -1,6 +1,14 @@
-Os Os Po Os Os
-N N N N N
-Os Sty N Sur N
-N N Suy N N
-N N N N N
-N N Pi N N
+Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow
+Ow N Sur N N N N N N Str N Ow
+Ow Ow Ow Ow N N N N Ow Ow Ow Ow
+Ow N Sur N N N N N N Str N Ow
+Ow Ow Ow Ow N N N N Ow Ow Ow Ow
+Ow N Sur N N N N N N Str N Ow
+Ow Ow Ow Ow N N N N Ow Ow Ow Ow
+Ow N Sur N N N N N N Str N Ow
+Ow Ow Ow Ow N N N N Ow Ow Ow Ow
+Ow N N N N N N N N Str N Ow
+Ow N N N N N N N Ow Ow Ow Ow
+Ow N N N N N N N N C C Ow
+Ow N N N N N N N N C C Ow
+Ow Ow Ow Ow Po Ow Pi Ow Ow Ow Ow Ow

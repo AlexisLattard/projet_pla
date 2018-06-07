@@ -7,9 +7,10 @@ import edu.ricm3.game.tomatower.mvc.Model;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+
 public class Crystal extends Inert {
 
-	private int hp;
+	private int hp = 100;
 	private Crystal main_instance;
 
 	public Crystal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind,
@@ -28,5 +29,9 @@ public class Crystal extends Inert {
 	public void paint(Graphics g) {
 		if (main_instance == null)
 			super.paint(g);
+	}
+	
+	public void decreaseLife(int power) {
+		this.hp -= power;
 	}
 }

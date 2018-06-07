@@ -9,15 +9,18 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+
 public abstract class Living extends Entity {
 
 	protected int hp;
 	protected Direction direction;
 	protected Weapon weapon;
 	BufferedImage sprite[];
+	//TEST
+		long last_action = 0;
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
-			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions) {
+			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions ) {
 		super(c_model, c_movement, c_scale, c_collisions, c_cell);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
@@ -34,7 +37,7 @@ public abstract class Living extends Entity {
 
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
-			int d = (int) (model.getCurrentMap().getCellSize() * scale);
+			int d = (int) (this.getMap().getCellSize() * scale);
 			int[] pos = this.getPosition();
 			int x = pos[0] * model.getCurrentMap().getCellSize();
 			int y = pos[1] * model.getCurrentMap().getCellSize();
@@ -43,34 +46,22 @@ public abstract class Living extends Entity {
 	}
 
 	public void step(long now) {
+		super.step(now);
+		
+		if(this.hp <= 0) {
+			
+			this.cell.removeEntity(this);
+		}
+			
+		
 
 	}
 
 	public void move(Direction d) {
 		this.turn(d);
+		this.addEntityOnCell(getFrontCell());
 
-		if (this.canMove()) {
-			Cell cell_destination;
-			switch (d) {
-			case UP:
-				cell_destination = this.model.getCurrentMap().getCell(this.getPosition()[0], this.getPosition()[1] - 1);
-				break;
-			case RIGHT:
-				cell_destination = this.model.getCurrentMap().getCell(this.getPosition()[0] + 1, this.getPosition()[1]);
-				break;
-			case DOWN:
-				cell_destination = this.model.getCurrentMap().getCell(this.getPosition()[0], this.getPosition()[1] + 1);
-				break;
-			case LEFT:
-				cell_destination = this.model.getCurrentMap().getCell(this.getPosition()[0] - 1, this.getPosition()[1]);
-				break;
-			default:
-				cell_destination = null;
-			}
-
-			this.addEntityOnCell(cell_destination);
-
-		}
+		
 		if (Options.ECHO_GAME_STATE)
 			System.out.println("Player direction : " + this.direction.toString());
 	}
@@ -100,7 +91,8 @@ public abstract class Living extends Entity {
 		default:
 			return null;
 		}
-		return this.model.getCurrentMap().getCell(pos_front_cell_x, pos_front_cell_y);
+		
+		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
 
 	public boolean isAlive() {
@@ -108,11 +100,11 @@ public abstract class Living extends Entity {
 	}
 
 	public void damage(int power) {
-		hp -= power;
+		this.hp -= power;
 	}
 
 	public void hit() {
-		this.weapon.hit(this.cell, this.direction);
+		this.weapon.hit(this);
 	}
 
 	public void pick() {
@@ -133,6 +125,10 @@ public abstract class Living extends Entity {
 
 	public void throwAction() {
 
+	}
+	
+	public Direction getDirection() {
+	    	return this.direction;
 	}
 
 }

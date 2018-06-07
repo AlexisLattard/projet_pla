@@ -2,9 +2,7 @@ package edu.ricm3.game.tomatower.map;
 
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
-import edu.ricm3.game.tomatower.entities.InertAction;
-import edu.ricm3.game.tomatower.entities.Living;
-import edu.ricm3.game.tomatower.entities.Portal;
+
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,11 +11,13 @@ import java.util.Iterator;
 public class Cell {
     private int col;
     private int row;
+    private Map map;
     private ArrayList<Entity> entities;
 
-    public Cell(int c_col, int c_row) {
+    public Cell(int c_col, int c_row, Map c_map) {
         this.col = c_col;
         this.row = c_row;
+        this.map = c_map;
         this.entities = new ArrayList<>();
     }
 
@@ -40,6 +40,7 @@ public class Cell {
     public void damage(int power) {
         // Si on considère que un hit est une bombre (fait des dégats sur toutes les entités)
         for (Entity e : this.entities) {
+        	System.out.println("Hit sur la case ("+this.col + ", "+this.row +"), d'une puissance de " + power);
             e.damage(power);
         }
 
@@ -51,7 +52,7 @@ public class Cell {
     }
 
     public void removeEntity(Entity e) {
-        this.getEntities().remove(e);
+        this.entities.remove(e);
     }
 
     /*
@@ -93,14 +94,23 @@ public class Cell {
 
     public void paint(Graphics g) {
         for(Entity e : this.entities) {
-            e.paint(g);
+        	if(e.isVisible())
+        		e.paint(g);
         }
     }
 
     public void step(long now) {
-       for(Entity e : this.entities) {
-           e.step(now);
-       }
+  
+    	Entity e;
+    	for(int i = 0; i < this.entities.size(); i++) {  // Pas d'itérateur car certaine actions modifient entities
+    		e = this.entities.get(i);
+    		//if(e.isVisible())
+    			e.step(now);
+    	}
+    }
+    
+    public Map getMap() {
+    	return this.map;
     }
 
 }
