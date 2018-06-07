@@ -1,7 +1,6 @@
 package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.Direction;
-import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
@@ -23,6 +22,10 @@ public class Tower extends Living {
 	// On pourrai simplement faire appelle à celle défini dans Entity, mais c'est plus clair d'indiquer clairement la gestion de colision aussi ici
 	public static ArrayList<Class<?>> initColisions() {
 		return  new ArrayList<Class<?>>();
+	}
+	
+	public void step(long now) {
+		super.step(now);
 	}
 	
 	

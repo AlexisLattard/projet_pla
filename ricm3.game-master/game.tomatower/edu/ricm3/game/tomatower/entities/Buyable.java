@@ -2,10 +2,8 @@ package edu.ricm3.game.tomatower.entities;
 
 import java.awt.image.BufferedImage;
 
-import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
-import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 public abstract class Buyable extends InertAction {
@@ -29,6 +27,7 @@ public abstract class Buyable extends InertAction {
 		if (!canActive && this.cell.getEntities().size() == 1) {
 			this.canActive = true;
 		}
+		
 	}
 
 }

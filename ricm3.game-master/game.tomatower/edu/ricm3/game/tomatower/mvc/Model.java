@@ -19,10 +19,8 @@ package edu.ricm3.game.tomatower.mvc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 import edu.ricm3.game.GameModel;
-import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.entities.enums.Direction;

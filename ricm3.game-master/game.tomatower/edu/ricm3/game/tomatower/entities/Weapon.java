@@ -52,7 +52,7 @@ public class Weapon {
 			return map.getCell(origin_cell.getPosition()[0] + 1, origin_cell.getPosition()[1]);
 		} else if((origin_direction == Direction.UP && dir == Direction.LEFT) || (origin_direction == Direction.RIGHT && dir == Direction.DOWN) || (origin_direction == Direction.LEFT && dir == Direction.UP) || (origin_direction == Direction.DOWN && dir == Direction.RIGHT)) {
 			return map.getCell(origin_cell.getPosition()[0] - 1, origin_cell.getPosition()[1]);
-		} else if((origin_direction == Direction.UP && dir == Direction.DOWN) || (origin_direction == Direction.RIGHT && dir == Direction.RIGHT) || (origin_direction == Direction.LEFT && dir == Direction.LEFT) || (origin_direction == Direction.DOWN && dir == Direction.DOWN)) {
+		} else if((origin_direction == Direction.UP && dir == Direction.DOWN) || (origin_direction == Direction.RIGHT && dir == Direction.RIGHT) || (origin_direction == Direction.LEFT && dir == Direction.LEFT) || (origin_direction == Direction.DOWN && dir == Direction.UP)) {
 			return map.getCell(origin_cell.getPosition()[0], origin_cell.getPosition()[1] + 1);
 		}
 		return null; 

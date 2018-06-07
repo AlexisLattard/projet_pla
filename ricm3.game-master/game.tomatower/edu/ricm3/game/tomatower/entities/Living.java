@@ -3,7 +3,6 @@ package edu.ricm3.game.tomatower.entities;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Cell;
-import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
@@ -47,6 +46,14 @@ public abstract class Living extends Entity {
 	}
 
 	public void step(long now) {
+		super.step(now);
+		
+		if(this.hp <= 0) {
+			
+			this.cell.removeEntity(this);
+		}
+			
+		
 
 	}
 
@@ -93,7 +100,7 @@ public abstract class Living extends Entity {
 	}
 
 	public void damage(int power) {
-		hp -= power;
+		this.hp -= power;
 	}
 
 	public void hit() {

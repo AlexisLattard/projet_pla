@@ -98,6 +98,7 @@ public class Map {
         try {
             long start1 = System.nanoTime();
             BufferedReader reader = new BufferedReader(new FileReader(map_file));
+            
             ArrayList<String[]> map_langugage = new ArrayList<>();
             String line;
 
@@ -128,7 +129,8 @@ public class Map {
                             break;
                         case "P":
                             System.out.println("PERSO");
-                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP,null));
+                            Weapon w = new Weapon(this.model, 1, 7, Direction.UP);
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP, w));
                             break;
                         case "Os":
                             //System.out.println("Stone");
@@ -187,15 +189,12 @@ public class Map {
             if(Options.ECHO_GAME_STATE)
                 System.out.println("Init map finished in " + (end1 - start1) + " ns");
             
-
+            reader.close();
         } catch (FileNotFoundException e) {
 
         } catch (IOException e) {
 
         }
-      //TEST
-        System.out.println("Mobs");
-        Weapon w = new Weapon(this.model, 1, 1, Direction.LEFT);
         
     }
 

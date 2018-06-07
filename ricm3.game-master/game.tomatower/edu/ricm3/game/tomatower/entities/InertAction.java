@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
-import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 public abstract class InertAction extends Inert {

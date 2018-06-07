@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Cell;
-import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
-import sun.util.logging.resources.logging_de;
 
 public class Player extends Living {
 
@@ -20,13 +18,8 @@ public class Player extends Living {
         super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions());
         bag = new ArrayList<>();
         
-        
-        // Pour tester
-//        Tower t1 = new Tower(this.model,  this.model.getSprites().sprite_tower, this.model.getWeapons().get("yellow"));
-//        Tower t2 = new Tower(this.model,  this.model.getSprites().sprite_tower, this.model.getWeapons().get("yellow"));
-//        Tower t3 = new Tower(this.model,  this.model.getSprites().sprite_tower, this.model.getWeapons().get("red"));
-//        Tower t4 = new Tower(this.model,  this.model.getSprites().sprite_tower, this.model.getWeapons().get("red"));
-//        bag.add(t1);bag.add(t2);bag.add(t3);bag.add(t4);
+        // TEST
+        this.hp = 100;
     }
     
     public static ArrayList<Class<?>> initColisions() {
@@ -92,7 +85,7 @@ public class Player extends Living {
     }
     
     public void step(long now) {
-
+    	super.step(now);
     }
 
 
