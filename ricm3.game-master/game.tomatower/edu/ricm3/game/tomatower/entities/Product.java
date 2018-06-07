@@ -8,17 +8,17 @@ import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 public class Product extends Buyable {
-	
+
 	public Product(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind,
 			Weapon c_weapon, int c_price) {
 		super(c_model, c_sprite, c_scale, c_cell, c_kind, c_weapon, c_price);
 	}
-	
-	public void action() {
-		super.action();
+
+	public void action(Entity e) {
+		super.action(e);
 
 		if (this.model.getPlayer().getMoney() >= this.price) {
-			Tower tower = new Tower(this.model, this.model.getSprites().sprite_tower, this.weapon);
+			Tower tower = new Tower(this.model, this.model.getSprites().sprite_tower_red, this.weapon, null);
 			this.model.getPlayer().addBagProduct(tower);
 			this.model.getPlayer().decreaseMoney(this.price);
 			if (Options.ECHO_GAME_STATE) {

@@ -15,20 +15,12 @@ public class Player extends Living {
 	private int money = 2500;
 
 	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,
-			Weapon c_weapon) {
-		super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions());
+			Weapon c_weapon, BufferedImage c_sprite_run[][]) {
+		super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions(), c_sprite_run);
 		bag = new ArrayList<>();
 
-		// Pour tester
-		// Tower t1 = new Tower(this.model, this.model.getSprites().sprite_tower,
-		// this.model.getWeapons().get("yellow"));
-		// Tower t2 = new Tower(this.model, this.model.getSprites().sprite_tower,
-		// this.model.getWeapons().get("yellow"));
-		// Tower t3 = new Tower(this.model, this.model.getSprites().sprite_tower,
-		// this.model.getWeapons().get("red"));
-		// Tower t4 = new Tower(this.model, this.model.getSprites().sprite_tower,
-		// this.model.getWeapons().get("red"));
-		// bag.add(t1);bag.add(t2);bag.add(t3);bag.add(t4);
+		// TEST
+		this.hp = 100;
 	}
 
 	public static ArrayList<Class<?>> initColisions() {
@@ -58,7 +50,7 @@ public class Player extends Living {
 	}
 
 	public void pick() {
-		Entity entity = this.model.getCurrentMap().getEntityCell(this.getFrontCell());
+		Entity entity = this.getMap().getEntityCell(this.getFrontCell());
 
 		if (entity instanceof Tower) {
 			if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac

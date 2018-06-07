@@ -1,99 +1,14 @@
-N N N N P N Os Os Os Os
-N N N N N N Os Os Os Os
-N N N N N N Os Os Os Os
-Pc N N N N N Ps Os Os Os
-N N N N N N Os Os Os Os
-N N N N N N Os Os Os Os
-N N N N N N Os Os Os Os
-N N N N C C Os Os Os Os
-N N N N C C Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
-Os Os Os Os Os Os Os Os Os Os
+Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow
+Ow N N N N N N N N Ol Ol Ol Ol Ow
+Ow N N N N N N N N Ol Ol Ol Ol Ow
+Ow N N N N N Ot Ot N Ol Ol Ol Ol Ow
+Ow Os N N N N N N N N Ol Ol Os Ow
+Ow Os N N N N N N N N N Ol N Ow
+Ow Os N Ol Ol Ol N N Os Os N N N Ow
+Ow N N Ol Ol Ol N N Os Os N Ot Ot Ow
+Ow N N Ol Ol Ol N N N N N Ot Ot Ow
+Pc N N N N N N N N N N N N Ow
+Ow Ot Ot Ot Ot N N N N N N N N Ps
+Ow Ot Ot Ot Ot Ot N N N P N C C Ow
+Ow Ot Ot Ot Ot N N Os Os N N C C Ow
+Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow Ow

@@ -17,15 +17,13 @@ public abstract class InertAction extends Inert {
 
 	public void step(long now) {
 		
-		if (this.cell.getEntities().size() > 1) { // Player possiblement sur la case
-			if (this.cell.getEntities().contains(this.model.getPlayer()) && canActive) {
-				this.action();
-			}
+		if (this.cell.getEntities().size() > 1  && canActive) { // Player possiblement sur la case
+				this.action(this.cell.getEntities().get(1));
 		}
 		
 	}
 
-	public void action() {
+	public void action(Entity e) {
 		this.canActive = false;
 	}
 }
