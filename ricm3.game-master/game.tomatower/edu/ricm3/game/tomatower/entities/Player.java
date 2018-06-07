@@ -43,7 +43,7 @@ public class Player extends Living {
 			System.out.println("Rien dans la main");
 
 		if (hand != null && hand.addEntityOnCell(this.getFrontCell())) {
-			// Si vrai, alors la tourelle a été posée, donc plus rien en main
+			// Si vrai, alors la tourelle a été posée, donc plus rien en main			
 			hand = null;
 		}
 	}

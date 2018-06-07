@@ -60,10 +60,6 @@ public abstract class Living extends Entity {
 	public void move(Direction d) {
 		this.turn(d);
 		this.addEntityOnCell(getFrontCell());
-
-		
-		if (Options.ECHO_GAME_STATE)
-			System.out.println("Player direction : " + this.direction.toString());
 	}
 
 	public void turn(Direction d) {
