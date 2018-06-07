@@ -1,7 +1,14 @@
 package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Calendar;
+import java.util.Scanner;
+import java.util.Vector;
 /**
  * Write a description of class Score here.
  * 
@@ -15,22 +22,17 @@ public class Score extends JPanel
     private JPanel south;
     private JLabel titre;
     private JPanel north;    
-    private Tableau tableauDesScore;
+    private JTable tableauDesScore;
     
-    private String[] columnNames= {"Pseudo","Score","Date"};
-    private Object[][] data= {{"XxTHED4RK1LL3RDU38xX", new Integer(10)},
-            {"Maxime", new Integer(4)},{"Tibaut", new Integer(3)},
-            {"Corentin", new Integer(6)},{"Alexis", new Integer(7)},
-            {"Romain", new Integer(5)},{"Andréas", new Integer(8)},
-            {"Bertrand", new Integer(6)},{"Gruber", new Integer(7)},
-            {"Perrin", new Integer(7)}
-        };
+    private Vector<String> columnNames;
+    private Vector<Vector<Object>> data;
     private JButton boutonRetour;
         
     /**
      * Constructor for objects of class Score
      */
-    public Score()
+
+	public Score()
     {
     	// BOUTON RETOUR //
         boutonRetour = new Bouton("retour");
@@ -45,8 +47,33 @@ public class Score extends JPanel
         // TITRE //
         
         // TABLEAU //
+        data =  fillData();
+        columnNames=new Vector<String>();
+        columnNames.add("Psuedo");columnNames.add("Scores");columnNames.add("Date");
+       
         tableau = new JPanel(new BorderLayout());
-        tableauDesScore = new Tableau(data,columnNames);
+        tableauDesScore = new JTable(data,columnNames);
+        tableauDesScore.setModel(new DefaultTableModel(data,columnNames) {
+            @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return String.class;
+                    case 1:
+                        return Integer.class;
+                    case 2:
+                        return Calendar.class;
+                    default:
+                        return String.class;
+                }
+            }
+        
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+        tableauDesScore.setAutoCreateRowSorter(true);
         // TABLEAU //
         
         // AFFICHEAGE //
@@ -67,5 +94,27 @@ public class Score extends JPanel
      */
     public JButton getButtonRetour(){
         return boutonRetour;
+    }
+    
+    public Vector<Vector<Object>> fillData(){
+    	File file = new File("./Autres/Score");
+    	Vector<Vector<Object>> newdata = new Vector<Vector<Object>>();
+    	Scanner scanner;
+		try {
+			scanner = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] split = line.split(";");
+            Vector<Object> row = new Vector<Object>();
+            row.add(split[0]);row.add(new Integer(split[1]));
+            newdata.add(row);
+        }
+        scanner.close();
+        return newdata;
     }
 }

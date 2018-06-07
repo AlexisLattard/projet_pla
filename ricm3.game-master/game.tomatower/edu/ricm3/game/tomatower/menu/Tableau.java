@@ -10,7 +10,7 @@ import javax.swing.table.TableModel;
 public class Tableau extends JTable{
 	private DefaultTableModel tablemodel;
 	private Object[][] data;
-	private String[] columns = {"Track #", "Title", "Length"};
+	private String[] columns = {"Pseudo", "Score", "Date"};
 	
 	public Tableau() {
 		data = null;
