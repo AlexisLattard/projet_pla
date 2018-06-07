@@ -11,7 +11,15 @@ import java.lang.String;
 public class main
 {
       public static void main(String argv[]){
+    	long debut= System.currentTimeMillis();
+    	long fin= System.currentTimeMillis();
+    	long residu = fin-debut;
+    	
+
+    	debut= System.currentTimeMillis();
         JFrame frame =new My_Frame();
+    	fin= System.currentTimeMillis();
+    	System.out.println("Fenetre afficher en "+(fin-debut-residu)+" ms");
         frame.setVisible(true);
       }
 }

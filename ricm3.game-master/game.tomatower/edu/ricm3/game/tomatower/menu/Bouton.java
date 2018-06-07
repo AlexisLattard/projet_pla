@@ -16,6 +16,7 @@ public class Bouton extends JButton
     public Bouton()
     {
         // initialise instance variables
+    	super();
         this.setBackground(new Color(255,255,255));
     }
     
@@ -25,7 +26,8 @@ public class Bouton extends JButton
     public Bouton(String name)
     {
         // initialise instance variables
-        this.setText(name);
+    	
+        super(name);
         this.setBackground(new Color(255,255,255));
         this.setFocusPainted(false);
     }
@@ -33,6 +35,7 @@ public class Bouton extends JButton
     public Bouton(ImageIcon icon,int longueur,int largeur)
     {
         // initialise instance variables
+    	super();
     	this.setIcon(icon,longueur,largeur);
         this.setBackground(new Color(255,255,255));
         this.setFocusPainted(false);

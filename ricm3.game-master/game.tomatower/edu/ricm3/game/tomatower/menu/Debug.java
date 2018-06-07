@@ -19,7 +19,7 @@ public class Debug extends JPanel{
 	
 	
 	public Debug() {
-		valider= new Bouton("Valider");
+		valider= new Bouton("Envoyé");
 		retour = new Bouton("Retour");
 		titre = new JLabel("Debug");
 		textArea = new JEditorPane();
