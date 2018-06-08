@@ -1,5 +1,7 @@
 package edu.ricm3.game.tomatower.entities;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +49,7 @@ public class Player extends Living {
 			System.out.println("Rien dans la main");
 
 		if (hand != null && hand.addEntityOnCell(this.getFrontCell())) {
-			// Si vrai, alors la tourelle a été posée, donc plus rien en main
+			// Si vrai, alors la tourelle a été posée, donc plus rien en main			
 			hand = null;
 		}
 	}
@@ -69,6 +71,9 @@ public class Player extends Living {
 			hand = null;
 		}
 	}
+    public Tower getHand() {
+    	return this.hand;
+    }
 
 	public void addBagProduct(Tower tower) {
 		if (tower instanceof Tower) {
@@ -82,14 +87,6 @@ public class Player extends Living {
 
 	public void decreaseMoney(int money) {
 		this.money -= money;
-	}
-
-	public void increaseMoney(int money) {
-		this.money += money;
-	}
-
-	public void step(long now) {
-		super.step(now);
 	}
 
 	public HashMap<Kind_Weapon, Integer> getBagNumberTower() {
@@ -120,4 +117,7 @@ public class Player extends Living {
 		return numbertowers;
 	}
 
+	public void increaseMoney(int money) {
+		this.money += money;
+	}
 }

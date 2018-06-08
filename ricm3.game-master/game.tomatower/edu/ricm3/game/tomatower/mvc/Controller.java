@@ -106,6 +106,12 @@ public class Controller extends GameController implements ActionListener {
             if(Options.ECHO_PERFORMANCE)
             	System.out.println("Put action time : " + (end2 - start2));
             break;
+        case KeyEvent.VK_H:
+        	this.model.getPlayer().pick();
+        	break;
+        case KeyEvent.VK_J:
+        	this.model.getPlayer().throwAction();
+        	break;
         case KeyEvent.VK_SPACE:
         	this.model.getPlayer().hit();        	
         	break;

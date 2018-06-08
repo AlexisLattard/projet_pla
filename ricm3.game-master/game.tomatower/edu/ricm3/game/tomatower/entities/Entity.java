@@ -46,9 +46,8 @@ public abstract class Entity {
 			// c.getPosition()[1] + ")");
 			if (this.cell != null) {
 				this.cell.removeEntity(this);
-				System.out.println("Remove");
 			}
-				
+
 			c.addEntity(this);
 			this.cell = c;
 			this.visible = true;

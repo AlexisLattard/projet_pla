@@ -34,11 +34,6 @@ public class Crystal extends Inert {
 		if (main_instance == null)
 			super.paint(g);
 	}
-	
-	public void decreaseLife(int power) {
-		this.hp -= power;
-	}
-	
 	public int getHp() {
 		return this.hp;
 	}
