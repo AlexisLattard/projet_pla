@@ -33,7 +33,6 @@ public class Mobs extends Living {
 			} else {
 				this.move(Direction.UP);
 			}
-
 		}
 	}
 

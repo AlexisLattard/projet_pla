@@ -36,7 +36,10 @@ public class Tower extends Living {
 
 	public void step(long now) {
 		super.step(now);
-		idx = (idx + 1) % this.sprite.length;
+		if (now - last_action > 250L) {
+			last_action = now;
+			idx = (idx + 1) % this.sprite.length;
+		}
 	}
 
 }

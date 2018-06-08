@@ -27,7 +27,6 @@ public class Player extends Living {
 		// TEST
 		this.hp = MAX_LIFE;
 		this.sprite_run = c_sprite_run;
-
 	}
 
 	public static ArrayList<Class<?>> initColisions() {
@@ -47,7 +46,7 @@ public class Player extends Living {
 			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
 		}
 	}
-	
+
 	public void getBagEntity() {
 		if (this.bag.size() >= 1) {
 			if (hand == null) {

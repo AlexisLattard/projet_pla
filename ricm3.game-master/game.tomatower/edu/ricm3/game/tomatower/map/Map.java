@@ -149,7 +149,7 @@ public class Map {
 						break;
 
 					case "Ot":
-						new Obstacle(this.model, this.model.getSprites().sprite_arbre, 1, cell, ObstaclesKind.Lake);
+						new Obstacle(this.model, this.model.getSprites().sprite_arbre, 2, cell, ObstaclesKind.Lake);
 						break;
 
 					case "C":
