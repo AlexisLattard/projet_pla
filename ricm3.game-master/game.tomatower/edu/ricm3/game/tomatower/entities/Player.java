@@ -16,7 +16,7 @@ public class Player extends Living {
 
 	private ArrayList<Tower> bag;
 	private Tower hand = null;
-	private int money = 2500;
+	private int money = 25000000;
 	public final int MAX_LIFE = 150;
 
 	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,
