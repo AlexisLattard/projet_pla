@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 public class Hud {
@@ -28,6 +29,8 @@ public class Hud {
 	public BufferedImage sprite_background;
 	public BufferedImage sprite_money;
 	public BufferedImage sprite_component_tower;
+	public BufferedImage sprite_star;
+	public BufferedImage sprite_range;
 	public BufferedImage sprite_tower_red;
 	public BufferedImage sprite_tower_blue;
 	public BufferedImage sprite_tower_yellow;
@@ -39,11 +42,8 @@ public class Hud {
 		this.model = model;
 		try {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(
-					Font.createFont(Font.PLAIN, new File("game.tomatower/sprites/hud/Acme/Acme-Regular.ttf")));
-			font = new Font("Acme",Font.PLAIN, 18);
-			// font = Font.createFont(Font.TRUETYPE_FONT, new
-			// File("game.tomatower/sprites/hud/Acme/Acme-Regular.ttf"));
+			ge.registerFont(Font.createFont(Font.PLAIN, new File("game.tomatower/sprites/hud/Acme/Acme-Regular.ttf")));
+			font = new Font("Acme", Font.PLAIN, 18);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
@@ -119,6 +119,24 @@ public class Hud {
 			System.exit(-1);
 		}
 
+		// Sprite star
+		imageFile = new File("game.tomatower/sprites/hud/star.png");
+		try {
+			sprite_star = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		// Sprite range
+		imageFile = new File("game.tomatower/sprites/hud/bow.png");
+		try {
+			sprite_range = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
 		// Sprite health player
 		imageFile = new File("game.tomatower/sprites/hud/hud_life.png");
 		try {
@@ -151,22 +169,45 @@ public class Hud {
 		g.setColor(Color.decode("#e6af13"));
 		g.drawString(String.valueOf(this.model.getPlayer().getMoney()), x + 15, 43);
 
+		int j = height_money + 2 * MARGIN;
+		for (Kind_Weapon kw : Kind_Weapon.values()) {
+			g.drawImage(sprite_component_tower, x + 3, j, null);
+			g.setColor(Color.WHITE);
+			g.drawString(this.model.getPlayer().getBagNumberTower().get(kw).toString(), x + 45, j + 30);
+			g.drawImage(sprite_star, x + 75, j + 8, 16, 16, null);
+			g.drawString(String.valueOf(this.model.getWeapons().get(kw).getPower()), x + 95, j + 22);
+			g.drawImage(sprite_range, x + 75, j + 30, 16, 16, null);
+			g.drawString(String.valueOf(this.model.getWeapons().get(kw).getRange()), x + 95, j + 42);
+			j += height_component_tower + MARGIN;
+		}
 		// Tower red
-		g.drawImage(sprite_component_tower, x + 3, height_money + 2 * MARGIN, null);
+		g.drawImage(sprite_tower_red, x + 15, height_money + 2 * MARGIN + 8, null);
 
 		// Tower blue
-		g.drawImage(sprite_component_tower, x + 3, height_money + height_component_tower + 3 * MARGIN, null);
+		g.drawImage(sprite_tower_blue, x + 15, height_component_tower + height_money + 3 * MARGIN + 8, null);
 
 		// Tower yellow
-		g.drawImage(sprite_component_tower, x + 3, height_money + 2 * height_component_tower + 4 * MARGIN, null);
+		g.drawImage(sprite_tower_yellow, x + 15, 2 * height_component_tower + height_money + 4 * MARGIN + 8, null);
 
 		// Tower purple
-		g.drawImage(sprite_component_tower, x + 3, height_money + 3 * height_component_tower + 5 * MARGIN, null);
+		g.drawImage(sprite_tower_purple, x + 15, 3 * height_component_tower + height_money + 5 * MARGIN + 8, null);
 
 		// Life
+		int h = 150;
+		float h_life = h * (this.model.getPlayer().getHp() / (float) this.model.getPlayer().MAX_LIFE);
+		g.setColor(Color.decode("#4c0909"));
+		g.fillRoundRect(x + 25, height_money + 4 * height_component_tower + 6 * MARGIN + 40, 15, 150, 10, 10);
+		g.setColor(Color.decode("#d73f2e"));
+		g.fillRoundRect(x + 25, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15,
+				(int) h_life, 10, 10);
 		g.drawImage(sprite_health_player, x + 11, height_money + 4 * height_component_tower + 6 * MARGIN, null);
 
 		// Crystal
+		h_life = h * (this.model.getCrystal().getHp() / (float) this.model.getCrystal().MAX_LIFE);
+		g.setColor(Color.decode("#094d49"));
+		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40, 15, 150, 10, 10);
+		g.setColor(Color.decode("#8ccfcb"));
+		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15, (int) h_life, 10, 10);
 		g.drawImage(sprite_health_crystal, x + 73, height_money + 4 * height_component_tower + 6 * MARGIN, null);
 
 	}

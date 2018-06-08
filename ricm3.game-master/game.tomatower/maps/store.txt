@@ -3,9 +3,9 @@ Ow N Sur N N N N N N Str N Ow
 Ow Ow Ow Ow N N N N Ow Ow Ow Ow
 Ow N Sur N N N N N N Str N Ow
 Ow Ow Ow Ow N N N N Ow Ow Ow Ow
-Ow N Sur N N N N N N Str N Ow
+Ow N Suy N N N N N N Str N Ow
 Ow Ow Ow Ow N N N N Ow Ow Ow Ow
-Ow N Sur N N N N N N Str N Ow
+Ow N Suy N N N N N N Str N Ow
 Ow Ow Ow Ow N N N N Ow Ow Ow Ow
 Ow N N N N N N N N Str N Ow
 Ow N N N N N N N Ow Ow Ow Ow

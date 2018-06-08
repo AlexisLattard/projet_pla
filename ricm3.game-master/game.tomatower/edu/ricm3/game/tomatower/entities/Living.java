@@ -130,5 +130,13 @@ public abstract class Living extends Entity {
 	public Direction getDirection() {
 	    	return this.direction;
 	}
+	
+	public Weapon getWeapon() {
+		return this.weapon;
+	}
+	
+	public int getHp() {
+		return this.hp;
+	}
 
 }
