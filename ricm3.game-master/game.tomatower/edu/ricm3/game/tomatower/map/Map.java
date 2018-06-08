@@ -130,7 +130,7 @@ public class Map {
                     cells_line.add(cell);
                     switch (line_elements[col]) {
                         case "E":
-
+                        	
                             break;
                         case "P":
                             System.out.println("PERSO");
@@ -177,15 +177,33 @@ public class Map {
                         case "Po":
                             new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_GAME);
                             break;
-                        case "Suy":
-                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Yellow), 200);
-                            break;
+                            
+                        case "Str":
+                            new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell, ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Red), 1000);
+                            break; 
+                        case "Stb":
+                            new Product(this.model, this.model.getSprites().sprite_tower_blue[0], 1, cell, ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Blue), 1000);
+                            break; 
+                        case "Sty":
+                            new Product(this.model, this.model.getSprites().sprite_tower_yellow[0], 1, cell, ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Yellow), 1000);
+                            break; 
+                        case "Stp":
+                            new Product(this.model, this.model.getSprites().sprite_tower_purple[0], 1, cell, ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Purple), 1000);
+                            break; 
+                            
                         case "Sur":
                             new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Red), 200);
                             break;
-                        case "Str":
-                            new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Red), 1000);
-                            break;    
+                        case "Sub":
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_blue[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Blue), 200);
+                            break;
+                        case "Suy":
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Yellow), 200);
+                            break;
+                        case "Sup":
+                            new Upgrade(this.model, this.model.getSprites().sprite_upgrade_purple[0], 1, cell, ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Purple), 200);
+                            break;
+                           
                     }
                 }
                 cells.add(cells_line);
