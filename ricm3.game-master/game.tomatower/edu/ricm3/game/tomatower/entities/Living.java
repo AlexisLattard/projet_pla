@@ -54,7 +54,6 @@ public abstract class Living extends Entity {
 
 			this.cell.removeEntity(this);
 		}
-
 	}
 
 	public void move(Direction d) {

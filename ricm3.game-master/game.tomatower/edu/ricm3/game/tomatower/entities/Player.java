@@ -39,6 +39,7 @@ public class Player extends Living {
 		}
 	}
 
+	@Override
 	public void throwAction() {
 		if (Options.ECHO_GAME_STATE && hand == null)
 			System.out.println("Rien dans la main");
