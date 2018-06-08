@@ -24,6 +24,7 @@ import edu.ricm3.game.GameModel;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.map.Sprites;
 
 public class Model extends GameModel {
@@ -36,8 +37,9 @@ public class Model extends GameModel {
     private Map current_map;
 
     private Player player;
+    private Crystal crystal;
 
-    private HashMap<String, Weapon> weapons;
+    private HashMap<Kind_Weapon, Weapon> weapons;
     
     private Overhead m_overhead = new Overhead();
 
@@ -95,6 +97,14 @@ public class Model extends GameModel {
     public void setPlayer(Player p) {
         this.player = p;
     }
+    
+    public Crystal getCrystal() {
+    	return this.crystal;
+    }
+    
+    public void setCrystal(Crystal c) {
+    	this.crystal = c;
+    }
 
     public Sprites getSprites() {
         return this.game_sprites;
@@ -109,6 +119,8 @@ public class Model extends GameModel {
     public Map getStoreMap() {
         return this.map_store;
     }
+    
+    
     
     public ArrayList<Map> getAllMaps() {
     	ArrayList<Map> res = new ArrayList<>();
@@ -139,7 +151,7 @@ public class Model extends GameModel {
         return this.current_map;
     }
     
-    public HashMap<String,Weapon> getWeapons(){
+    public HashMap<Kind_Weapon,Weapon> getWeapons(){
     	return this.weapons;
     }
     
@@ -186,11 +198,15 @@ public class Model extends GameModel {
     
     public void initWeapons() {
     	this.weapons = new HashMap<>();
-    	Weapon weapons1 = new Weapon(this,3,10,Direction.UP); 
-    	Weapon weapons2 = new Weapon(this,1,15,Direction.DOWN); 
-
-    	weapons.put("yellow", weapons1);
-    	weapons.put("red", weapons2);
+    	Weapon weapons1 = new Weapon(this,3,10,Direction.UP,Kind_Weapon.Yellow); 
+    	Weapon weapons2 = new Weapon(this,1,15,Direction.DOWN, Kind_Weapon.Red); 
+    	Weapon weapons3 = new Weapon(this,2,13,Direction.RIGHT, Kind_Weapon.Blue); 
+    	Weapon weapons4 = new Weapon(this,4,8,Direction.LEFT, Kind_Weapon.Purple); 
+    	
+    	weapons.put(weapons1.getKindWeapon(), weapons1);
+    	weapons.put(weapons2.getKindWeapon(), weapons2);
+    	weapons.put(weapons3.getKindWeapon(), weapons3);
+    	weapons.put(weapons4.getKindWeapon(), weapons4);   
     	    	
     }
 
