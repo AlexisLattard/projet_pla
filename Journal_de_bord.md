@@ -1,5 +1,8 @@
 # Journal de bord
 
+## Jeudi 7 juin
+- HUD du jeu
+
 ## Merdeci 6 juin
 - Matin : Soutenance pour établir un contrat
 - Modification de certain aspect du jeu en fonction de la soutenance du matin

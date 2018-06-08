@@ -50,17 +50,14 @@ public abstract class Living extends Entity {
 		if (this.hp <= 0) {
 
 			this.cell.removeEntity(this);
-		}
 
+		}
 	}
 
 	public void move(Direction d) {
 		this.turn(d);
-		if (this.movement)
-			this.addEntityOnCell(getFrontCell());
 
-		if (Options.ECHO_GAME_STATE)
-			System.out.println("Player direction : " + this.direction.toString());
+		this.addEntityOnCell(getFrontCell());
 	}
 
 	public void turn(Direction d) {
@@ -96,6 +93,10 @@ public abstract class Living extends Entity {
 		return hp > 0;
 	}
 
+	public BufferedImage[] getSprite() {
+		return this.sprite;
+	}
+
 	public void damage(int power) {
 		this.hp -= power;
 	}
@@ -126,6 +127,14 @@ public abstract class Living extends Entity {
 
 	public Direction getDirection() {
 		return this.direction;
+	}
+
+	public Weapon getWeapon() {
+		return this.weapon;
+	}
+
+	public int getHp() {
+		return this.hp;
 	}
 
 }

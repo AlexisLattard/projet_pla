@@ -16,6 +16,7 @@ public class Tower extends Living {
 	public Tower(Model c_model, BufferedImage c_sprite[], Weapon c_weapon) {
 		super(c_model, false, c_sprite, 1, Direction.LEFT, c_weapon, initColisions());
 		//this.model.addTower(this);
+		this.hp = 50;
 	}
 	
 	
