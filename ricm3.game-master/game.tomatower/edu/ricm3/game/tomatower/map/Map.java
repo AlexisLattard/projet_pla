@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower.map;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Map {
+
 	Model model;
 
 	private ArrayList<ArrayList<Cell>> cells;
@@ -26,6 +28,10 @@ public class Map {
 
 	public int getCellSize() {
 		return this.cell_size;
+	}
+
+	public int[] getMapDimention() {
+		return new int[] { cell_size * nb_cell_horizontal, cell_size * nb_cell_vertical };
 	}
 
 	public Cell getCell(int x, int y) {
@@ -124,7 +130,8 @@ public class Map {
 						break;
 					case "P":
 						System.out.println("PERSO");
-						Weapon w = new Weapon(this.model, 1, 7, Direction.UP);
+						// TEST
+						Weapon w = new Weapon(this.model, 1, 7, Direction.UP, Kind_Weapon.Yellow);
 						this.model.setPlayer(new Player(this.model, this.model.getSprites().sprite_player, 1, cell,
 								Direction.UP, w, this.model.getSprites().sprite_player_run));
 						break;
@@ -147,10 +154,11 @@ public class Map {
 
 					case "C":
 						if (main_crystal == null) {
-							main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell,
+							main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal[0], 2, cell,
 									ObstaclesKind.CRYSTAL, null);
+							this.model.setCrystal(main_crystal);
 						} else {
-							new Crystal(this.model, this.model.getSprites().sprite_crystal, 0, cell,
+							new Crystal(this.model, this.model.getSprites().sprite_crystal[0], 0, cell,
 									ObstaclesKind.CRYSTAL, main_crystal);
 						}
 
@@ -173,16 +181,16 @@ public class Map {
 								ObstaclesKind.PORTAL_TO_GAME);
 						break;
 					case "Suy":
-						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow, 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get("yellow"), 200);
+						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow[0], 1, cell,
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Yellow), 200);
 						break;
 					case "Sur":
 						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 200);
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Red), 200);
 						break;
 					case "Str":
 						new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get("red"), 1000);
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Red), 1000);
 						break;
 					}
 				}

@@ -1,26 +1,33 @@
 package edu.ricm3.game.tomatower.entities;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 public class Player extends Living {
 
-	private ArrayList<Entity> bag;
-	private Entity hand = null;
+	private ArrayList<Tower> bag;
+	private Tower hand = null;
 	private int money = 2500;
+	public final int MAX_LIFE = 150;
+	BufferedImage sprite_run[][];
 
 	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,
 			Weapon c_weapon, BufferedImage c_sprite_run[][]) {
-		super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions(), c_sprite_run);
+		super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions());
 		bag = new ArrayList<>();
 
 		// TEST
-		this.hp = 100;
+		this.hp = MAX_LIFE;
+		this.sprite_run = c_sprite_run;
+
 	}
 
 	public static ArrayList<Class<?>> initColisions() {
@@ -31,6 +38,16 @@ public class Player extends Living {
 		return res;
 	}
 
+	public void paint(Graphics g) {
+		if (this.isVisible()) {
+			int d = (int) (this.getMap().getCellSize() * scale);
+			int[] pos = this.getPosition();
+			int x = pos[0] * model.getCurrentMap().getCellSize();
+			int y = pos[1] * model.getCurrentMap().getCellSize();
+			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+		}
+	}
+	
 	public void getBagEntity() {
 		if (this.bag.size() >= 1) {
 			if (hand == null) {
@@ -68,9 +85,13 @@ public class Player extends Living {
 		}
 	}
 
-	public void addBagProduct(Entity entity) {
-		if (entity instanceof Tower) {
-			this.bag.add(entity);
+	public Tower getHand() {
+		return this.hand;
+	}
+
+	public void addBagProduct(Tower tower) {
+		if (tower instanceof Tower) {
+			this.bag.add(tower);
 		}
 	}
 
@@ -82,8 +103,34 @@ public class Player extends Living {
 		this.money -= money;
 	}
 
+	public HashMap<Kind_Weapon, Integer> getBagNumberTower() {
+
+		HashMap<Kind_Weapon, Integer> numbertowers = new HashMap<>();
+
+		for (Kind_Weapon kw : Kind_Weapon.values()) {
+			numbertowers.put(kw, 0);
+		}
+		for (Tower t : bag) {
+			switch (t.getWeapon().getKindWeapon()) {
+			case Yellow:
+				numbertowers.put(Kind_Weapon.Yellow, numbertowers.get(Kind_Weapon.Yellow) + 1);
+				break;
+			case Red:
+				numbertowers.put(Kind_Weapon.Red, numbertowers.get(Kind_Weapon.Red) + 1);
+				break;
+			case Blue:
+				numbertowers.put(Kind_Weapon.Blue, numbertowers.get(Kind_Weapon.Blue) + 1);
+				break;
+			case Purple:
+				numbertowers.put(Kind_Weapon.Purple, numbertowers.get(Kind_Weapon.Purple) + 1);
+				break;
+			}
+		}
+
+		return numbertowers;
+	}
+
 	public void increaseMoney(int money) {
 		this.money += money;
 	}
-
 }

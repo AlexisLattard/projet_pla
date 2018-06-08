@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Sprites {
-	public BufferedImage sprite_upgrade_yellow;
+	public BufferedImage sprite_upgrade_yellow[];
 	public BufferedImage sprite_upgrade_red[];
 	public BufferedImage sprite_player[];
 	public BufferedImage sprite_player_run[][];
@@ -18,7 +18,7 @@ public class Sprites {
 	public BufferedImage sprite_arbre;
 	public BufferedImage sprite_lac;
 	public BufferedImage sprite_mur;
-	public BufferedImage sprite_crystal;
+	public BufferedImage sprite_crystal[];
 	public BufferedImage sprite_spawn_mobs;
 	public BufferedImage sprite_portal;
 	public BufferedImage sprite_portal_in;
@@ -110,9 +110,10 @@ public class Sprites {
 			System.exit(-1);
 		}
 
-		imageFile = new File("game.tomatower/sprites/crystal.png");
+		imageFile = new File("game.tomatower/sprites/Main_Cristal.png");
 		try {
-			sprite_crystal = ImageIO.read(imageFile);
+			tmp_sprite = ImageIO.read(imageFile);
+			sprite_crystal = this.splitSprite(tmp_sprite, 1, 6);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
@@ -167,13 +168,15 @@ public class Sprites {
 			System.exit(-1);
 		}
 
-		// imageFile = new File("game.tomatower/sprites/bulletc.png");
-		// try {
-		// sprite_upgrade_red = ImageIO.read(imageFile);
-		// } catch (IOException ex) {
-		// ex.printStackTrace();
-		// System.exit(-1);
-		// }
+		imageFile = new File("game.tomatower/sprites/upgrade_yellow.png");
+		try {
+			tmp_sprite = ImageIO.read(imageFile);
+			sprite_upgrade_yellow = this.splitSprite(tmp_sprite, 1, 6);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
 		imageFile = new File("game.tomatower/sprites/upgrade_red.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
