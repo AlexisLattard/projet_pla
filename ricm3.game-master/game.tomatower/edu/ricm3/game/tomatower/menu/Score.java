@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Calendar;
@@ -17,8 +18,6 @@ import java.util.Vector;
  */
 public class Score extends JPanel
 {
-    // instance variables - replace the example below with your own
-    private JPanel tableau;
     private JPanel south;
     private JLabel titre;
     private JPanel north;    
@@ -32,9 +31,23 @@ public class Score extends JPanel
     /**
      * Constructor for objects of class Score
      */
-
-	public Score()
+    
+    private static class ScoreHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Score INSTANCE = new Score();
+    }
+ 
+    /** Point d'accès pour l'instance unique du singleton */
+    public static Score getInstance(ActionListener actionRetour)
     {
+		ScoreHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
+	    return ScoreHolder.INSTANCE;
+    }
+
+	private Score()
+    {
+		System.out.println("création Score");
     	// BOUTON RETOUR //
         boutonRetour = new Bouton("retour");
         south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -85,7 +98,7 @@ public class Score extends JPanel
             String line = scanner.nextLine();
             String[] split = line.split(";");
             Vector<Object> row = new Vector<Object>();
-            row.add(split[0]);row.add(new Integer(split[1]));
+            row.add(split[0]);row.add(new Integer(split[1]));//row.add(new Long(split[2]));
             newdata.add(row);
         }
         scanner.close();

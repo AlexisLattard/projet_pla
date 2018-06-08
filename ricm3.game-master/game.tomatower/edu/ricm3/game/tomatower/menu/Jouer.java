@@ -1,6 +1,7 @@
 package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -71,7 +72,22 @@ public class Jouer extends JPanel{
 	private JScrollPane scrollmap;
 		// MAP //
 	
-	public Jouer() {
+	
+	private static class JouerHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Jouer INSTANCE = new Jouer();
+    }
+ 
+    /** Point d'accès pour l'instance unique du singleton */
+    public static Jouer getInstance(ActionListener actionRetour)
+    {
+    	JouerHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
+	    return JouerHolder.INSTANCE;
+    }
+	
+	private Jouer() {
+		System.out.println("création_Jouer");
 		this.setLayout(new BorderLayout());
 		// INSTANCIATION //
 			// AUTRES //
@@ -171,13 +187,13 @@ public class Jouer extends JPanel{
 
 	private void initMap() {
 		// MAP //
-		scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_NEVER,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		fillMap();
+		fillCartes();
+		scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		panel_titre_carte.add(label_choix_carte);
 		panel_choix_carte.add(panel_titre_carte,BorderLayout.NORTH);
 		panel_choix_carte.add(scrollmap,BorderLayout.CENTER);
 		panel_choix_carte.setBorder(BorderFactory.createLineBorder(Color.black));
-		fillMap();
-		fillCartes();
 		this.add(panel_choix_carte, BorderLayout.CENTER);
 		// MAP //
 	}

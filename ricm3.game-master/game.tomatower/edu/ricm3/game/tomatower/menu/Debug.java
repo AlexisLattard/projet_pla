@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower.menu;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class Debug extends JPanel{
 
@@ -17,8 +18,22 @@ public class Debug extends JPanel{
 	private JPanel sud_retour;
 	private JPanel centre;
 	
+
+	private static class DebugHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Debug INSTANCE = new Debug();
+    }
+ 
+    /** Point d'accès pour l'instance unique du singleton */
+    public static Debug getInstance(ActionListener actionRetour)
+    {
+    	DebugHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
+	    return DebugHolder.INSTANCE;
+    }
 	
-	public Debug() {
+	private Debug() {
+		System.out.println("création_Debug");      
 		valider= new Bouton("Envoyé");
 		retour = new Bouton("Retour");
 		titre = new JLabel("Debug");

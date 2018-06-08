@@ -2,6 +2,7 @@ package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class Regles extends JPanel{
 
@@ -11,7 +12,22 @@ public class Regles extends JPanel{
 	private JPanel south;
 	private Bouton boutonRetour;
 	
-	public Regles() {
+
+	private static class ReglesHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Regles INSTANCE = new Regles();
+    }
+ 
+    /** Point d'accès pour l'instance unique du singleton */
+    public static Regles getInstance(ActionListener actionRetour)
+    {
+    	ReglesHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
+	    return ReglesHolder.INSTANCE;
+    }
+	
+	private Regles() {
+		System.out.println("création_Régles");      
 		north = new JPanel(new FlowLayout());
 		title = new JLabel("Regles");
 		south = new JPanel(new FlowLayout(FlowLayout.RIGHT));

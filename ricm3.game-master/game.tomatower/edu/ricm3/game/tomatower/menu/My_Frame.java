@@ -15,55 +15,46 @@ import java.util.Vector;
 public class My_Frame extends JFrame
 {
     // instance variables - replace the example below with your own
-    private Menu menu;
-    private Score score;
-    private Regles regles;
-    private Debug debug;
-    private Jouer jouer;
-    private Option option;
 
     /**
      * Constructor for objects of class My_Frame
      */
-    public My_Frame()
+    
+    private static class My_FrameHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static My_Frame INSTANCE = new My_Frame();
+    }
+ 
+    /** Point d'accès pour l'instance unique du singleton */
+    public static My_Frame getInstance()
     {
-        // initialise instance variables
-        
-        //Initialise les differente interface//
-        menu = new Menu();
-        score = new Score();
-        regles = new Regles();
-        debug = new Debug();
-        jouer = new Jouer();
-        option = new Option();
-        //Initialise les differente interface//
-
-        
+	    return My_FrameHolder.INSTANCE;
+    }
+    
+    private My_Frame()
+    {  
+		System.out.println("création_MyFrame");      
         setupJFrame();
-        
-        menu.getButtonScore().addActionListener(new ScoreListener(this));
-        menu.getButtonQuitter().addActionListener(new QuitterListener(this));
-        menu.getButtonRegles().addActionListener(new ReglesListener(this));
-        menu.getButtonDebug().addActionListener(new DebugListener(this));
-        menu.getButtonJouer().addActionListener(new JouerListener(this));
-        menu.getButtonOption().addActionListener(new OptionListener(this));
-        score.getButtonRetour().addActionListener(new RetourListener(this));
-        regles.getButtonRetour().addActionListener(new RetourListener(this));
-        debug.getButtonRetour().addActionListener(new RetourListener(this));
-        jouer.getButtonRetour().addActionListener(new RetourListener(this));
-        option.getButtonRetour().addActionListener(new RetourListener(this));
         
     }
     
     private void setupJFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setName("Tower Deffence");
-        this.setContentPane(menu);
+        this.setContentPane(Menu.getInstance());
         this.setResizable(false);
     	if(!this.getOptionDemarage()) {
 	        this.setSize(400, 400);
         }
         this.setLocationRelativeTo(null);
+        
+        Menu.getInstance().getButtonScore().addActionListener(new ScoreListener(this));
+        Menu.getInstance().getButtonQuitter().addActionListener(new QuitterListener(this));
+        Menu.getInstance().getButtonRegles().addActionListener(new ReglesListener(this));
+        Menu.getInstance().getButtonDebug().addActionListener(new DebugListener(this));
+        Menu.getInstance().getButtonJouer().addActionListener(new JouerListener(this));
+        Menu.getInstance().getButtonOption().addActionListener(new OptionListener(this));
     }
     
     private boolean getOptionDemarage() {
@@ -126,7 +117,7 @@ public class My_Frame extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("Score");
-            frame.setContentPane(score);
+            frame.setContentPane(Score.getInstance(new RetourListener(frame)));
             frame.getContentPane().repaint();
             frame.setVisible(true);
         }   
@@ -145,7 +136,7 @@ public class My_Frame extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("Option");
-            frame.setContentPane(option);
+            frame.setContentPane(Option.getInstance(new RetourListener(frame)));
             frame.getContentPane().repaint();
             frame.setVisible(true);
         }   
@@ -164,7 +155,7 @@ public class My_Frame extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("Retour");
-            frame.setContentPane(menu);
+            frame.setContentPane(Menu.getInstance());
             frame.getContentPane().repaint();
             frame.setVisible(true);
         }   
@@ -201,7 +192,7 @@ public class My_Frame extends JFrame
         public void actionPerformed(ActionEvent e)
         {
         	System.out.println("Regles");
-            frame.setContentPane(regles);
+            frame.setContentPane(Regles.getInstance(new RetourListener(frame)));
             frame.getContentPane().repaint();
             frame.setVisible(true);
         }   
@@ -220,7 +211,7 @@ public class My_Frame extends JFrame
         public void actionPerformed(ActionEvent e)
         {
         	System.out.println("Debug");
-            frame.setContentPane(debug);
+            frame.setContentPane(Debug.getInstance(new RetourListener(frame)));
             frame.getContentPane().repaint();
             frame.setVisible(true);
         }   
@@ -239,7 +230,7 @@ public class My_Frame extends JFrame
         public void actionPerformed(ActionEvent e)
         {
         	System.out.println("Jouer");
-            frame.setContentPane(jouer);
+            frame.setContentPane(Jouer.getInstance(new RetourListener(frame)));
             frame.getContentPane().repaint();
             frame.setVisible(true);
         }   

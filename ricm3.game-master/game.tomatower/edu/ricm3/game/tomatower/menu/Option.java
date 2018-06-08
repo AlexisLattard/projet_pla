@@ -1,8 +1,10 @@
 package edu.ricm3.game.tomatower.menu;
 
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -12,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 
 public class Option extends JPanel{
 	private Bouton bouton_retour;
@@ -24,7 +27,21 @@ public class Option extends JPanel{
 	private JPanel titre_panel;
 	private JLabel titre;
 	
-	public Option() {
+	private static class OptionHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Option INSTANCE = new Option();
+    }
+ 
+    /** Point d'accès pour l'instance unique du singleton */
+    public static Option getInstance(ActionListener actionRetour)
+    {
+    	OptionHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
+	    return OptionHolder.INSTANCE;
+    }
+    
+	private Option() {
+		System.out.println("création_Option");
 		this.setLayout(new BorderLayout());
 		centre = new JPanel(new GridLayout(1,1));
 		this.add(centre, BorderLayout.CENTER);

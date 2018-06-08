@@ -1,6 +1,7 @@
 package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 /**
@@ -27,11 +28,27 @@ public class Menu extends JPanel
     private JPanel panel_centre;
     private JPanel panel_nord;
 
+    
+    
+    private static class MenuHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Menu INSTANCE = new Menu();
+    }
+ 
+    /** Point d'accès pour l'instance unique du singleton */
+    public static Menu getInstance()
+    {
+	    return MenuHolder.INSTANCE;
+    }
+    
+    
     /**
      * Constructor for objects of class Menu
      */
     public Menu()
     {
+		System.out.println("création_Menu");
         // initialise instance variables
         this.setLayout(new BorderLayout());
         // Initialisation des bouton//

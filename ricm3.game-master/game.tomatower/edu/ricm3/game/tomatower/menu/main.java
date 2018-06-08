@@ -17,7 +17,7 @@ public class main
     	
 
     	debut= System.currentTimeMillis();
-        JFrame frame =new My_Frame();
+        JFrame frame =My_Frame.getInstance();
     	fin= System.currentTimeMillis();
     	System.out.println("Fenetre afficher en "+(fin-debut-residu)+" ms");
         frame.setVisible(true);
