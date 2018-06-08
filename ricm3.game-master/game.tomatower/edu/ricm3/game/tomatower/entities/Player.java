@@ -1,5 +1,7 @@
 package edu.ricm3.game.tomatower.entities;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -10,8 +12,8 @@ import edu.ricm3.game.tomatower.mvc.Model;
 
 public class Player extends Living {
 
-    private ArrayList<Entity> bag;
-    private Entity hand = null;
+    private ArrayList<Tower> bag;
+    private Tower hand = null;
     private int money = 2500;
 
     public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,Weapon c_weapon) {
@@ -66,7 +68,7 @@ public class Player extends Living {
 		}
 	}
     
-    public void addBagProduct(Entity entity) {
+    public void addBagProduct(Tower entity) {
         if (entity instanceof Tower) {
         	this.bag.add(entity);
         }
@@ -74,6 +76,10 @@ public class Player extends Living {
     
     public int getMoney() {
     	return this.money;
+    }
+    
+    public Tower getHand() {
+    	return this.hand;
     }
     
     public void decreaseMoney(int money) {
@@ -87,8 +93,14 @@ public class Player extends Living {
     public void step(long now) {
     	super.step(now);
     }
+    
+    
 
 
 
 
+    
+    
+    
+    
 }

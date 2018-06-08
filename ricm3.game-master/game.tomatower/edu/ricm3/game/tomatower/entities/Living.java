@@ -51,10 +51,7 @@ public abstract class Living extends Entity {
 		if(this.hp <= 0) {
 			
 			this.cell.removeEntity(this);
-		}
-			
-		
-
+		}	
 	}
 
 	public void move(Direction d) {
@@ -93,6 +90,10 @@ public abstract class Living extends Entity {
 
 	public boolean isAlive() {
 		return hp > 0;
+	}
+	
+	public BufferedImage[] getSprite() {
+		return this.sprite;
 	}
 
 	public void damage(int power) {
