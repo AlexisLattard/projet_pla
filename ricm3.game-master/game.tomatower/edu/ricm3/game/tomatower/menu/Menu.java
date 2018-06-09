@@ -48,7 +48,6 @@ public class Menu extends JPanel
      */
     public Menu()
     {
-		System.out.println("création_Menu");
         // initialise instance variables
         this.setLayout(new BorderLayout());
         // Initialisation des bouton//

@@ -80,14 +80,13 @@ public class Jouer extends JPanel{
     }
  
     /** Point d'accès pour l'instance unique du singleton */
-    public static Jouer getInstance(ActionListener actionRetour)
+    public static Jouer getInstance(ActionListener action)
     {
-    	JouerHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
+    	JouerHolder.INSTANCE.getButtonRetour().addActionListener(action);
 	    return JouerHolder.INSTANCE;
     }
 	
 	private Jouer() {
-		System.out.println("création_Jouer");
 		this.setLayout(new BorderLayout());
 		// INSTANCIATION //
 			// AUTRES //
@@ -166,8 +165,7 @@ public class Jouer extends JPanel{
 	}
 	
 	private void initComportement() {
-		// COMPORTEMENT //
-		
+		// COMPORTEMENT //		
 		panel_mobs.add(label_mobs);
 		panel_mobs.add(bouton_mobs);
 		panel_towers.add(label_towers);
@@ -195,6 +193,7 @@ public class Jouer extends JPanel{
 		panel_choix_carte.add(scrollmap,BorderLayout.CENTER);
 		panel_choix_carte.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.add(panel_choix_carte, BorderLayout.CENTER);
+		this.add(new JLabel(), BorderLayout.EAST);
 		// MAP //
 	}
 	
@@ -203,7 +202,7 @@ public class Jouer extends JPanel{
 		File file = new File("./Map");
 		for (File child : file.listFiles()) {
 			if (child.isFile()) {
-				Bouton bouton = new Bouton(new ImageIcon("./Image/Map_Generic.png"),100,100);
+				Bouton bouton = new Bouton(new ImageIcon("./Image/Map_Generic.png"));
 				bouton.setBorder(BorderFactory.createLineBorder(Color.black,5));
 			    bouton.addActionListener(new CarteListener(child));
 				cartes.put(child,bouton);
@@ -268,8 +267,11 @@ public class Jouer extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if (comportement_tours != null && comportement_sbires != null) {
+            if (comportement_tours != null && comportement_sbires != null && carte_selectionner != null) {
             	System.out.println("Jeux Lancer");
+            	System.out.println("Tours : "+comportement_tours.getName());
+            	System.out.println("Sbires : "+comportement_sbires.getName());
+            	System.out.println("Cartes :"+carte_selectionner.getName());
             }else {
             	if (comportement_tours == null) {
         			bouton_tours.setText("*Choisir un automate*"); 

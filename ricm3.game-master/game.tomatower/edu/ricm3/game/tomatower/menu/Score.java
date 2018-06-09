@@ -47,7 +47,6 @@ public class Score extends JPanel
 
 	private Score()
     {
-		System.out.println("création Score");
     	// BOUTON RETOUR //
         boutonRetour = new Bouton("retour");
         south = new JPanel(new FlowLayout(FlowLayout.RIGHT));

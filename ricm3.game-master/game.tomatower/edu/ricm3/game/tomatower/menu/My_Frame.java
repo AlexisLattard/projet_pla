@@ -34,27 +34,25 @@ public class My_Frame extends JFrame
     
     private My_Frame()
     {  
-		System.out.println("création_MyFrame");      
         setupJFrame();
         
     }
     
     private void setupJFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setName("Tower Deffence");
+        this.setName("PLA");
         this.setContentPane(Menu.getInstance());
         this.setResizable(false);
     	if(!this.getOptionDemarage()) {
 	        this.setSize(400, 400);
         }
-        this.setLocationRelativeTo(null);
-        
-        Menu.getInstance().getButtonScore().addActionListener(new ScoreListener(this));
-        Menu.getInstance().getButtonQuitter().addActionListener(new QuitterListener(this));
-        Menu.getInstance().getButtonRegles().addActionListener(new ReglesListener(this));
-        Menu.getInstance().getButtonDebug().addActionListener(new DebugListener(this));
-        Menu.getInstance().getButtonJouer().addActionListener(new JouerListener(this));
-        Menu.getInstance().getButtonOption().addActionListener(new OptionListener(this));
+		this.setLocationRelativeTo(null);
+        Menu.getInstance().getButtonScore().addActionListener(new ScoreListener());
+        Menu.getInstance().getButtonQuitter().addActionListener(new QuitterListener());
+        Menu.getInstance().getButtonRegles().addActionListener(new ReglesListener());
+        Menu.getInstance().getButtonDebug().addActionListener(new DebugListener());
+        Menu.getInstance().getButtonJouer().addActionListener(new JouerListener());
+        Menu.getInstance().getButtonOption().addActionListener(new OptionListener());
     }
     
     private boolean getOptionDemarage() {
@@ -106,133 +104,91 @@ public class My_Frame extends JFrame
 
 	private class ScoreListener implements ActionListener
     {
-        private JFrame frame;
-        
-        public ScoreListener(JFrame frame)
-        {
-            this.frame = frame;
-        } 
-        
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Score");
-            frame.setContentPane(Score.getInstance(new RetourListener(frame)));
-            frame.getContentPane().repaint();
-            frame.setVisible(true);
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Score.getInstance(new RetourListener());
+        	frame.setContentPane(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
         }   
     }
     
     private class OptionListener implements ActionListener
     {
-        private JFrame frame;
-        
-        public OptionListener(JFrame frame)
-        {
-            this.frame = frame;
-        } 
-        
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Option");
-            frame.setContentPane(Option.getInstance(new RetourListener(frame)));
-            frame.getContentPane().repaint();
-            frame.setVisible(true);
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Option.getInstance(new RetourListener());
+        	frame.setContentPane(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
         }   
     }
     
-    private class RetourListener implements ActionListener
+    private static class RetourListener implements ActionListener
     {
-        private JFrame frame;
-        
-        public RetourListener(JFrame frame)
-        {
-            this.frame = frame;
-        } 
         
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Retour");
-            frame.setContentPane(Menu.getInstance());
-            frame.getContentPane().repaint();
-            frame.setVisible(true);
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Menu.getInstance();
+        	frame.setContentPane(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
         }   
     }
     
     private class QuitterListener implements ActionListener
     {
-        private JFrame frame;
-        
-        public QuitterListener(JFrame frame)
-        {
-            this.frame = frame;
-        } 
-        
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            frame.dispose();
-            System.out.println("Quitter");
+        	My_Frame.getInstance().dispose();
             System.exit(0);
         }   
     }
     
     private class ReglesListener implements ActionListener
     {
-        private JFrame frame;
-        
-        public ReglesListener(JFrame frame)
-        {
-            this.frame = frame;
-        } 
-        
         @Override
         public void actionPerformed(ActionEvent e)
         {
-        	System.out.println("Regles");
-            frame.setContentPane(Regles.getInstance(new RetourListener(frame)));
-            frame.getContentPane().repaint();
-            frame.setVisible(true);
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Regles.getInstance(new RetourListener());
+        	frame.setContentPane(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
         }   
     }
     
     private class DebugListener implements ActionListener
     {
-        private JFrame frame;
-        
-        public DebugListener(JFrame frame)
-        {
-            this.frame = frame;
-        } 
         
         @Override
         public void actionPerformed(ActionEvent e)
         {
-        	System.out.println("Debug");
-            frame.setContentPane(Debug.getInstance(new RetourListener(frame)));
-            frame.getContentPane().repaint();
-            frame.setVisible(true);
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Debug.getInstance(new RetourListener());
+        	frame.setContentPane(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
         }   
     }
     
     private class JouerListener implements ActionListener
     {
-        private JFrame frame;
-        
-        public JouerListener(JFrame frame)
-        {
-            this.frame = frame;
-        } 
-        
         @Override
         public void actionPerformed(ActionEvent e)
         {
-        	System.out.println("Jouer");
-            frame.setContentPane(Jouer.getInstance(new RetourListener(frame)));
-            frame.getContentPane().repaint();
-            frame.setVisible(true);
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Jouer.getInstance(new RetourListener());
+        	frame.setContentPane(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
         }   
     }
 }

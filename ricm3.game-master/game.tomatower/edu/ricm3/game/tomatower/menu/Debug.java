@@ -32,8 +32,7 @@ public class Debug extends JPanel{
 	    return DebugHolder.INSTANCE;
     }
 	
-	private Debug() {
-		System.out.println("création_Debug");      
+	private Debug() {      
 		valider= new Bouton("Envoyé");
 		retour = new Bouton("Retour");
 		titre = new JLabel("Debug");

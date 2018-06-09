@@ -41,6 +41,15 @@ public class Bouton extends JButton
         this.setFocusPainted(false);
     }
     
+    public Bouton(ImageIcon icon)
+    {
+        // initialise instance variables
+    	super();
+    	this.setIcon(icon);
+        this.setBackground(new Color(255,255,255));
+        this.setFocusPainted(false);
+    }
+    
     public void setIcon(ImageIcon icon,int longueur,int largeur){
         Image image = icon.getImage(); // transform it 
         Image newimg = image.getScaledInstance(longueur, largeur,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  

@@ -26,8 +26,7 @@ public class Regles extends JPanel{
 	    return ReglesHolder.INSTANCE;
     }
 	
-	private Regles() {
-		System.out.println("création_Régles");      
+	private Regles() {      
 		north = new JPanel(new FlowLayout());
 		title = new JLabel("Regles");
 		south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
