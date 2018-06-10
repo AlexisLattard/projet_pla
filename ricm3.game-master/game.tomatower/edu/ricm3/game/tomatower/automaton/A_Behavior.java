@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower.automaton;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
 
 public class A_Behavior {
@@ -15,17 +16,19 @@ public class A_Behavior {
 		this.a_Transitions = t;
 	}
 	
-	public void exec(A_Automaton a, Entity e) throws Exception {
+	public boolean exec(A_Automaton a, Entity e) throws Exception {
 		
 		boolean transition_executed = false;
 		Iterator<A_Transition> iter_transition = this.a_Transitions.iterator();
 		while(iter_transition.hasNext() && !transition_executed) {
-			transition_executed = iter_transition.next().exec(a, e);
+			A_Transition t = iter_transition.next();
+			if(t.condition.eval(e)) {
+				t.exec(a, e);
+				transition_executed = true;
+			}
 		}
 		
-		if(!transition_executed)
-			throw new Exception("Unable to find a transition to execute");
-		
+		return transition_executed; // Si aucune transition n'a pu être executé on renvoie faux
 		
 	}
 	

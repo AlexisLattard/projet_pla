@@ -6,5 +6,7 @@ public enum Kind {
 	Nothing,
 	Obstacle,
 	Unknwon,
-	Gate
+	Gate,
+	Takable,
+	Void
 }

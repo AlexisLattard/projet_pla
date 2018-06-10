@@ -4,17 +4,23 @@ import edu.ricm3.game.tomatower.entities.Entity;
 
 public class A_Action {
 	
-	A_Expression a_Expression;
+	A_Expression expression;
 	
 	public A_Action(A_Expression e) {
-		this.a_Expression = e;	
+		this.expression = e;	
 	}
 	
 	public void exec(Entity e) throws Exception {
-		if(!(a_Expression instanceof A_FunctionCall))
-			throw new Exception("Illegal action");
+			
 		
-		((A_FunctionCall)a_Expression).exec(e);
+		if(expression instanceof A_FunctionCall || expression instanceof A_OrOp) {
+			expression.exec(e);
+		} else {
+			throw new Exception("Illegal action");
+		}
+		
+		
+		
 	}
 
 }

@@ -1,7 +1,62 @@
-Mover(Un){
+MoverSquare(Un){
     * (Un): True ? Move(S) : (Deux)
     * (Deux) : True ? Move(E) : (Trois)
     * (Trois) : True ? Move(N) : (Quatre)
     * (Quatre) : True ? Move(O) : (Un)
 }
 
+MoverRandom(Init) {
+    * (Init): True ? Move(E) / Move(O) : (Init)
+}
+
+Hiter(Init) {
+    *(Init): 
+     | Cell(N, T) ? Hit(N) : (Init)
+     | True ? Jump : (Init)
+    
+}
+
+
+
+Perso(Init) {
+    *(Init):
+     | Key(FU) ? Move(N) : (Init)
+     | Key(FD) ? Move(S) : (Init)
+     | Key(FR) ? Move(E) : (Init)
+     | Key(FL) ? Move(O) : (Init)
+     | Key(SPACE) ? Hit : (Init)
+     | Key(a) ? Pick : (Init)
+     | Key(z) ? Store : (Init)
+     | Key(q) ? Throw : (Init)
+     | Key(s) ? Get : (Init)
+}
+
+Explorer(Explore){
+
+* (Explore):
+  | Cell(F,V) ? Move    :(Explore)
+  | Cell(R,V) ? Turn(R) :(Explore)
+  | Cell(L,V) ? Turn(L) :(Explore)
+  | True ? Turn(B) :(Exploreb)
+
+* (Exploreb):
+    | Cell(F,V) ? Move    :(Exploreb)
+    | Cell(L,V) ? Turn(L) :(Exploreb)
+    | Cell(R,V) ? Turn(R) :(Exploreb)
+    | True ? Turn(B) :(Explore)
+}
+
+ExplorerBIS(Explore_R){
+
+* (Explore_R):
+  | Cell(F,V) ? Move    :(Explore_R)
+  | Cell(R,V) ? Turn(R) :(Explore_R)
+  | Cell(L,V) ? Turn(L) :(Explore_R)
+  | True ? Turn(B) :(Explore_L)
+
+* (Explore_L):
+    | Cell(F,V) ? Move    :(Explore_L)
+    | Cell(L,V) ? Turn(L) :(Explore_L)
+    | Cell(R,V) ? Turn(R) :(Explore_L)
+    | True ? Turn(B) :(Explore_R)
+}

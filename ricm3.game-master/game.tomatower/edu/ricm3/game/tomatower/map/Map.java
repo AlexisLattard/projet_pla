@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower.map;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.mvc.Model;
@@ -60,6 +61,7 @@ public class Map {
     public boolean freeCell(Cell cell, Entity e) {
         return  (cell != null)  && (cell.isFree(e));
     }
+    
 
     public Entity getEntityCell(Cell c) {
 
@@ -133,8 +135,8 @@ public class Map {
                             break;
                         case "P":
                             // TEST
-                            Weapon w = new Weapon(this.model, 1, 7, Direction.UP, Kind_Weapon.Yellow);
-                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP, w));
+                            Weapon w = new Weapon(this.model, 1, 7, Kind_Weapon.Yellow);
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.NORTH, w, this.model.getAutomatons().get("Perso")));
                             break;
                         case "Os":
                             //System.out.println("Stone");

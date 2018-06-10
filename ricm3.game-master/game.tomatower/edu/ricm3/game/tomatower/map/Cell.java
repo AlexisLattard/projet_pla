@@ -2,7 +2,7 @@ package edu.ricm3.game.tomatower.map;
 
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
-
+import edu.ricm3.game.tomatower.entities.enums.Kind;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Cell {
     }
 
     public void addEntity(Entity e) {
-        this.getEntities().add(e);
+        this.entities.add(e);
     }
 
     public int[] getPosition() {
@@ -90,6 +90,21 @@ public class Cell {
     			return allowed;
     		}
     	}
+    }
+    
+    public boolean containEntityKind(Kind k) {
+    	if(k.equals(Kind.Void) && this.entities.size() == 0) {
+    		return true;
+    	}
+    		
+    	boolean found = false;
+    	Iterator<Entity> iterator = this.entities.iterator();
+    	while(iterator.hasNext() && !found) {
+    		Entity entity = iterator.next();
+    		if(entity.getKind().equals(k))
+    			found = true;
+    	}
+    	return found;
     }
 
     public void paint(Graphics g) {

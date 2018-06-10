@@ -18,7 +18,8 @@ public class Product extends Buyable {
 		super.action(e);
 
 		if (this.model.getPlayer().getMoney() >= this.price) {
-			Tower tower = new Tower(this.model, this.model.getSprites().sprite_tower_red, this.weapon);
+			//TODO : init automate
+			Tower tower = new Tower(this.model, this.model.getSprites().sprite_tower_red, this.weapon, null);
 			this.model.getPlayer().addBagProduct(tower);
 			this.model.getPlayer().decreaseMoney(this.price);
 			if (Options.ECHO_GAME_STATE) {

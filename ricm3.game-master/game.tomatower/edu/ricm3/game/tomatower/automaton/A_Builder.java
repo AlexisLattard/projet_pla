@@ -1,6 +1,7 @@
 package edu.ricm3.game.tomatower.automaton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,35 +24,36 @@ import edu.ricm3.game.parser.Ast.Transition;
 import edu.ricm3.game.parser.Ast.UnaryOp;
 import edu.ricm3.game.parser.Ast.Value;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
+import edu.ricm3.game.tomatower.mvc.Controller;
 
 
 public class A_Builder {
 	
 	Ast ast;
+	Controller c;
 	
-	public A_Builder(Ast a) {
+	public A_Builder(Ast a, Controller c) {
 		this.ast = a;
+		this.c = c;
 	}
 	
 	
 	
-	public A_Automaton makeAutomatonFromAst() throws Exception {
+	public HashMap<String, A_Automaton> makeAutomatonFromAst() throws Exception {
 		System.out.println("DEBUT MAKE AUTOMATON");
 		
-		System.out.println(ast.getClass());
 		
+		HashMap<String, A_Automaton> res = new HashMap<>();
 		
-		//Iterator<Automaton> iter_automatons = ((AI_Definitions)ast).getAutomatons().iterator();
+		for(Automaton a : ((AI_Definitions)ast).automata ) {
+			ArrayList<A_Behavior> behaviors = makeBehavior(a.behaviours);
+			res.put(a.name.toString(), new A_Automaton(a.name.toString(), behaviors, a.entry.name.toString()));
+		}
 		
-		Automaton ast_automaton = ((AI_Definitions)ast).automata.get(0);
-		ArrayList<A_Behavior> behaviors = makeBehavior(ast_automaton.behaviours);
-		A_Automaton automaton = new A_Automaton(ast_automaton.name.toString(), behaviors,ast_automaton.entry.name.toString());
-		
-		if(behaviors == null)
-			System.out.println("Bahaviors null");
-		
+
 		System.out.println("END MAKE AUTOMATON");
-		return automaton;
+		
+		return res;
 	}
 	
 	
@@ -133,7 +135,7 @@ public class A_Builder {
 		for(Parameter parameter : funcall.parameters) {
 			parameters.add(makeParameter(parameter));
 		}
-		return new A_FunctionCall(funcall.name.toString(), parameters);
+		return new A_FunctionCall(funcall.name.toString(), parameters, this.c);
 	}
 	
 	
@@ -187,7 +189,6 @@ public class A_Builder {
 	
 	
 	public A_Parameter makeParameter(Parameter parameter) throws Exception {
-		System.out.println("parameter");
 		
 		A_Parameter res;
 		
@@ -248,8 +249,10 @@ public class A_Builder {
 	}
 	
 	
-	public A_EntityParameter makeKeyParameter(Value value) {
-		return null;
+	public A_KeyParameter makeKeyParameter(Value value) {
+		
+		
+		return new A_KeyParameter(((Constant)value).value.value);
 	}
 	
 	
@@ -259,38 +262,38 @@ public class A_Builder {
 		
 		switch (c.value.toString()) {
 			case "N":
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.UP;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.NORTH;
 				break;
 				
 			case "S":
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.DOWN;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.SOUTH;
 				break;
 				
 			case "E":
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.RIGHT;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.EAST;
 				break;
 				
 			case "O":
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.LEFT;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.WEST;
 				break;
 				
 			case "F":
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.UP;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.FRONT;
 				break;
 			case "B":
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.UP;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.BACK;
 				break;
 				
 			case "L":
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.UP;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.ONTHELEFT;
 				break;
 				
 			case "R":
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.UP;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.ONTHERIGHT;
 				break;
 				
 			default:
-				direction = edu.ricm3.game.tomatower.entities.enums.Direction.UP;
+				direction = edu.ricm3.game.tomatower.entities.enums.Direction.FRONT;
 		}
 		
 		return direction;
@@ -300,7 +303,7 @@ public class A_Builder {
 		Kind kind;
 		switch (c.value.toString()) {
 			case "V":
-				kind = Kind.Obstacle;
+				kind = Kind.Void;
 				break;
 				
 			case "T":
@@ -312,7 +315,7 @@ public class A_Builder {
 				break;
 				
 			case "P":
-				kind = Kind.Unknwon;
+				kind = Kind.Takable;
 				break;
 				
 			case "G":

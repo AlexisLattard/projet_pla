@@ -27,11 +27,14 @@ import edu.ricm3.game.tomatower.mvc.View;
 public class GameMain {
 
   public static void main(String[] args) {
+	  
+
 
     // construct the game elements: model, controller, and view.
     Model model = new Model();
     Controller controller = new Controller(model);
     View view = new View(model,controller);
+    model.initModel(controller);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = (int)screenSize.getWidth();

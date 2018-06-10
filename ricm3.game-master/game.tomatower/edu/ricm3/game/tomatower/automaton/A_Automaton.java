@@ -27,7 +27,6 @@ public class A_Automaton {
 			Iterator<A_Behavior> iter_behavior = this.a_Behaviors.iterator();
 			while(iter_behavior.hasNext() && a_Behavior == null) {
 				A_Behavior b = iter_behavior.next();
-				System.out.println(b.state);
 				if(b.state.equals(this.state)) {
 					a_Behavior = b;
 				}
@@ -36,7 +35,8 @@ public class A_Automaton {
 			if(a_Behavior == null)
 				throw new Exception("Unable to find a behavior");
 			
-			a_Behavior.exec(this, e);
+			return a_Behavior.exec(this, e);
+			
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}

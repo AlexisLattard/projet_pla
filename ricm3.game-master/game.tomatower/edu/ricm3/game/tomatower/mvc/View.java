@@ -24,6 +24,7 @@ import java.util.Iterator;
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
 import edu.ricm3.game.tomatower.entities.Tower;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Hud;
 
@@ -75,7 +76,7 @@ public class View extends GameView {
 		// Affichage de la main du personnage sur la cellule devant lui
 		Tower hand = this.model.getPlayer().getHand();
 		if(hand != null) {
-    		Cell dest = this.model.getPlayer().getFrontCell();
+    		Cell dest = this.model.getPlayer().getCellDirection( Direction.FRONT);
     		if(dest != null) {
     			int d = (int) (this.model.getPlayer().getMap().getCellSize());
     			int x = dest.getPosition()[0] * model.getCurrentMap().getCellSize();

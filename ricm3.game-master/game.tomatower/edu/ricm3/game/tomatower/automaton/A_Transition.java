@@ -4,27 +4,24 @@ import edu.ricm3.game.tomatower.entities.Entity;
 
 public class A_Transition {
 	
-	A_Condition a_Condition;
-	A_Action a_Action;
+	A_Condition condition;
+	A_Action action;
 	String state;
 	
 	public A_Transition(A_Condition c, A_Action a, String s) {
-		this.a_Condition = c;
-		this.a_Action = a;
+		this.condition = c;
+		this.action = a;
 		this.state = s;
 	}
 	
 	
 	/*
-	 * Execute the transition
+	 * Execute the transition (even if the condition if false, so it necessary to check before)
 	 */
-	public boolean exec(A_Automaton a, Entity e) throws Exception {
-		if(this.a_Condition.eval(e)) {
-			this.a_Action.exec(e);
-			a.state = state;
-			return true;
-		}
-		return false;
+	public void exec(A_Automaton a, Entity e) throws Exception {
+		
+		this.action.exec(e);
+		a.state = state;
 	}
 
 }

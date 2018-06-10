@@ -48,6 +48,7 @@ public class Model extends GameModel {
     private Crystal crystal;
 
     private HashMap<Kind_Weapon, Weapon> weapons;
+    private HashMap<String, A_Automaton> automatons;
     
     private Overhead m_overhead = new Overhead();
 
@@ -57,27 +58,27 @@ public class Model extends GameModel {
     Crystal crystal;*/
 
     public Model() {
-        game_sprites = new Sprites();
-        this.initWeapons();        
-        this.initMaps();
+    	game_sprites = new Sprites();
         /* VOIR CI DESSOUS LES FONCTIONS ASSOCIEES
         mobs = new ArrayList<>();
         obstacles = new ArrayList<>();
         towers = new ArrayList<>();
         */
         
-        //TEST
-        try {
-			new AutomataParser(new BufferedReader(new FileReader("game.tomatower/automaton/automata.txt")));
-			Ast ast = AutomataParser.Run();
-			A_Builder builder = new  A_Builder(ast);
-			A_Automaton automaton = builder.makeAutomatonFromAst();
-			new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.LEFT, this.getWeapons().get(Kind_Weapon.Yellow), automaton);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        // TEST
+		
         
     }
+    
+    public void initModel(Controller c) {
+    	
+        this.initWeapons();  
+        this.initAutomatons(c);
+        this.initMaps();
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("Hiter"));
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 8), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("ExplorerBIS"));
+    }
+    
 
     @Override
     public void shutdown() {
@@ -175,6 +176,10 @@ public class Model extends GameModel {
     	return this.weapons;
     }
     
+    public HashMap<String, A_Automaton> getAutomatons() {
+    	return this.automatons;
+    }
+    
 
 
 
@@ -218,16 +223,30 @@ public class Model extends GameModel {
     
     public void initWeapons() {
     	this.weapons = new HashMap<>();
-    	Weapon weapons1 = new Weapon(this,3,10,Direction.UP,Kind_Weapon.Yellow); 
-    	Weapon weapons2 = new Weapon(this,1,15,Direction.DOWN, Kind_Weapon.Red); 
-    	Weapon weapons3 = new Weapon(this,2,13,Direction.RIGHT, Kind_Weapon.Blue); 
-    	Weapon weapons4 = new Weapon(this,4,8,Direction.LEFT, Kind_Weapon.Purple); 
+    	Weapon weapons1 = new Weapon(this,3,10,Kind_Weapon.Yellow); 
+    	Weapon weapons2 = new Weapon(this,1,15, Kind_Weapon.Red); 
+    	Weapon weapons3 = new Weapon(this,2,13, Kind_Weapon.Blue); 
+    	Weapon weapons4 = new Weapon(this,4,8, Kind_Weapon.Purple); 
     	
     	weapons.put(weapons1.getKindWeapon(), weapons1);
     	weapons.put(weapons2.getKindWeapon(), weapons2);
     	weapons.put(weapons3.getKindWeapon(), weapons3);
     	weapons.put(weapons4.getKindWeapon(), weapons4);   
     	    	
+    }
+    
+    public void initAutomatons(Controller c) {
+    	this.automatons = new HashMap<>();
+    	
+    	try {
+			new AutomataParser(new BufferedReader(new FileReader("game.tomatower/automaton/automata.txt")));
+			Ast ast = AutomataParser.Run();
+			A_Builder builder = new  A_Builder(ast, c);
+			this.automatons = builder.makeAutomatonFromAst();
+			System.out.println(automatons.keySet());
+    	} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
 }

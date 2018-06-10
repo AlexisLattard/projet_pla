@@ -33,6 +33,6 @@ public class Options {
   public static final boolean ECHO_KEYBOARD = false;
 
   public static final boolean ECHO_PERFORMANCE = false;
-  public static final boolean ECHO_GAME_STATE = false;
+  public static final boolean ECHO_GAME_STATE = true;
 
 }

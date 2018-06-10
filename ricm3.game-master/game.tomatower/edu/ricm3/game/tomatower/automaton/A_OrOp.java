@@ -21,7 +21,7 @@ public class A_OrOp extends A_BinaryOp{
 	@Override
 	public void exec(Entity e) throws Exception{
 		Random rand = new Random();
-		int n = rand.nextInt(1);
+		int n = rand.nextInt(2);
 		if(n == 0)
 			this.left_expression.exec(e);
 		else
