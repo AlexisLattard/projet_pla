@@ -17,11 +17,19 @@
  */
 package edu.ricm3.game.tomatower.mvc;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.ricm3.game.GameModel;
+import edu.ricm3.game.parser.Ast;
+import edu.ricm3.game.parser.AutomataParser;
+import edu.ricm3.game.parser.ParseException;
 import edu.ricm3.game.tomatower.map.Map;
+import edu.ricm3.game.tomatower.automaton.A_Automaton;
+import edu.ricm3.game.tomatower.automaton.A_Builder;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
@@ -57,6 +65,18 @@ public class Model extends GameModel {
         obstacles = new ArrayList<>();
         towers = new ArrayList<>();
         */
+        
+        //TEST
+        try {
+			new AutomataParser(new BufferedReader(new FileReader("game.tomatower/automaton/automata.txt")));
+			Ast ast = AutomataParser.Run();
+			A_Builder builder = new  A_Builder(ast);
+			A_Automaton automaton = builder.makeAutomatonFromAst();
+			new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.LEFT, this.getWeapons().get(Kind_Weapon.Yellow), automaton);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
     }
 
     @Override
@@ -180,7 +200,7 @@ public class Model extends GameModel {
         main_map = new Map(this);
         this.setCurrentMap(main_map);
         this.main_map.initMap("game.txt");
-        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.LEFT, this.getWeapons().get("yellow"));
+        
 
         //  Maps défis
         /*this.maps_challenge = new ArrayList<>();

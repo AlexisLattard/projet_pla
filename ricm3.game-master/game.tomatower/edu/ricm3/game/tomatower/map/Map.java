@@ -97,7 +97,6 @@ public class Map {
         Principal : Joueur, spawn ennemi, spawn joueur
         Defis : portal to principal, spawn ennemi
          */
-        System.out.println(path);
         File map_file = new File("game.tomatower/maps/" + path);
 
         try {
@@ -133,7 +132,6 @@ public class Map {
                         	
                             break;
                         case "P":
-                            System.out.println("PERSO");
                             // TEST
                             Weapon w = new Weapon(this.model, 1, 7, Direction.UP, Kind_Weapon.Yellow);
                             this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP, w));

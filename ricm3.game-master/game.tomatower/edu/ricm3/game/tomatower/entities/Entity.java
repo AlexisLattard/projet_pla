@@ -1,5 +1,6 @@
 package edu.ricm3.game.tomatower.entities;
 
+import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
@@ -14,12 +15,17 @@ public abstract class Entity {
     Model model;
     protected Cell cell;
     protected boolean movement;
+    protected Direction direction;
     double scale = 1;
     Kind kind;
     protected boolean visible;
+    
     protected ArrayList<Class<?>> entities_destination_allowed; 	// Utile pour determiner sur quelle cases l'entité peut se trouver
     															// Ex : Mobs peut aller sur d'autre case avec des mobs
     																//      Player peut aller sur des Portal
+    //TEST
+	long last_action = 0;
+	A_Automaton automaton = null;
 
 	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, Cell c_cell) {
 		this(c_model,c_movement,c_scale,c_collisions);
@@ -71,6 +77,10 @@ public abstract class Entity {
     public void step(long now) {
     	// if(isVisble) ou if(isActive) pour pas que l'entité continue son comportement dans le sac par exemple
         // Comportment - Automate
+    	if(automaton != null && now - last_action > 2000L) {
+    		this.automaton.step(this);
+    		last_action = now;
+    	}
     }
 
 	public boolean canMove() {
@@ -87,7 +97,7 @@ public abstract class Entity {
 	}
 
 	public void turn(Direction d) {
-	}
+	}	
 
 	public void jump() {
 		return;
@@ -128,6 +138,37 @@ public abstract class Entity {
     	return this.cell.getMap();
     }
     
+    public Cell getFrontCell() {
+		int[] current_pos = this.getPosition();
+		int pos_front_cell_x = current_pos[0];
+		int pos_front_cell_y = current_pos[1];
+		
+		if(this.direction == null)
+			System.out.println("NULLLLLLLLLLLL");
+	
+		switch (this.direction) {
+		case LEFT:
+			pos_front_cell_x = current_pos[0] - 1;
+			break;
+		case RIGHT:
+			pos_front_cell_x = current_pos[0] + 1;
+			break;
+		case UP:
+			pos_front_cell_y = current_pos[1] - 1;
+			break;
+		case DOWN:
+			pos_front_cell_y = current_pos[1] + 1;
+			break;
+		default:
+			return null;
+		}
+		
+		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
+	}
+    
+    public boolean freeCell(Direction d) {
+    	return true;
+    }
     
 
 

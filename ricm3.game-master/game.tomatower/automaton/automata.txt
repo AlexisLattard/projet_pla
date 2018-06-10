@@ -1,0 +1,7 @@
+Mover(Un){
+    * (Un): True ? Move(S) : (Deux)
+    * (Deux) : True ? Move(E) : (Trois)
+    * (Trois) : True ? Move(N) : (Quatre)
+    * (Quatre) : True ? Move(O) : (Un)
+}
+
