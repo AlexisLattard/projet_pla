@@ -1,7 +1,9 @@
 package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.Options;
+import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -12,28 +14,33 @@ import java.util.ArrayList;
 public abstract class Living extends Entity {
 
 	protected int hp;
-	protected Direction direction;
+	protected boolean canTake;
+	protected ArrayList<Tower> bag;
+	protected Tower hand = null;
 	protected Weapon weapon;
+	public int MAX_LIFE;
 	BufferedImage sprite[];
-	// TEST
-	long last_action = 0;
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
-			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions) {
-		super(c_model, c_movement, c_scale, c_collisions, c_cell);
+			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
+			Kind c_kind) {
+		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_cell, c_kind);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
+		bag = new ArrayList<>();
 	}
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Direction c_direction,
-			Weapon c_weapon, ArrayList<Class<?>> c_collisions) {
-		super(c_model, c_movement, c_scale, c_collisions);
+			Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind) {
+		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
+		bag = new ArrayList<>();
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
 			int d = (int) (this.getMap().getCellSize() * scale);
@@ -44,86 +51,91 @@ public abstract class Living extends Entity {
 		}
 	}
 
+	@Override
 	public void step(long now) {
 		super.step(now);
-
 		if (this.hp <= 0) {
-
 			this.cell.removeEntity(this);
 
 		}
 	}
 
-	public void move(Direction d) {
-		this.turn(d);
+	// Actions
 
-		this.addEntityOnCell(getFrontCell());
+	@Override
+	public void hit(Direction d) {
+		this.weapon.hit(this, d);
 	}
 
-	public void turn(Direction d) {
-		this.direction = d;
-	}
+	@Override
+	public void pick(Direction d) {
+		if (this.canTake) {
+			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
 
-	public Cell getFrontCell() {
-		int[] current_pos = this.getPosition();
-		int pos_front_cell_x = current_pos[0];
-		int pos_front_cell_y = current_pos[1];
-
-		switch (this.direction) {
-		case LEFT:
-			pos_front_cell_x = current_pos[0] - 1;
-			break;
-		case RIGHT:
-			pos_front_cell_x = current_pos[0] + 1;
-			break;
-		case UP:
-			pos_front_cell_y = current_pos[1] - 1;
-			break;
-		case DOWN:
-			pos_front_cell_y = current_pos[1] + 1;
-			break;
-		default:
-			return null;
+			if (entity instanceof Tower) {
+				if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac
+					this.bag.add(hand);
+				entity.removeEntityFromCell();
+				hand = (Tower) (entity);
+			}
 		}
-
-		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
 
-	public boolean isAlive() {
-		return hp > 0;
+	@Override
+	public void store() {
+		if (hand != null) {
+			bag.add(hand);
+			hand = null;
+		}
 	}
 
-	public BufferedImage[] getSprite() {
-		return this.sprite;
+	@Override
+	public void getBagEntity() {
+		if (this.canTake && this.bag.size() >= 1) {
+			if (hand == null) {
+				hand = this.bag.remove(0);
+			}
+		}
 	}
 
+	@Override
+	public void power() {
+		this.hp += MAX_LIFE / 10; // On recupere 1/10 de sa maximale
+	}
+
+	@Override
+	public void throwAction(Direction d) {
+		if (Options.ECHO_GAME_STATE && this.hand == null)
+			System.out.println("Rien dans la main");
+
+		if (this.canTake && this.hand != null && this.hand.addEntityOnCell(this.getCellDirection(d, 1))) {
+			// Si vrai, alors la tourelle a été posée, donc plus rien en main
+			hand = null;
+		}
+	}
+
+	@Override
+	public void kamikaze() {
+		this.hp = 0;
+	}
+
+	@Override
 	public void damage(int power) {
 		this.hp -= power;
 	}
 
-	public void hit() {
-		this.weapon.hit(this);
+	// Conditions
+	@Override
+	public boolean isAlive() {
+		return hp > 0;
 	}
 
-	public void pick() {
-
+	@Override
+	public boolean gotStuff() {
+		return canTake && this.bag.size() > 0;
 	}
 
-	public void store() {
-
-	}
-
-	public void getBagEntity() {
-
-	}
-
-	public void power(int power) {
-		this.hp += power;
-	}
-
-	public void throwAction() {
-
-	}
+	// Getters - setters
 
 	public Direction getDirection() {
 		return this.direction;
@@ -135,6 +147,20 @@ public abstract class Living extends Entity {
 
 	public int getHp() {
 		return this.hp;
+	}
+
+	public BufferedImage[] getSprite() {
+		return this.sprite;
+	}
+
+	public Tower getHand() {
+		return this.hand;
+	}
+
+	public void addBagProduct(Tower tower) {
+		if (tower instanceof Tower) {
+			this.bag.add(tower);
+		}
 	}
 
 }

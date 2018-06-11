@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
@@ -40,8 +41,10 @@ import edu.ricm3.game.tomatower.entities.enums.Direction;
 public class Controller extends GameController implements ActionListener {
 
 	Model model;
+	String keyPressed ;
 
 	public Controller(Model m) {
+		keyPressed = "";
 		this.model = m;
 	}
 	
@@ -53,6 +56,10 @@ public class Controller extends GameController implements ActionListener {
 	 */
 	@Override
 	public void step(long now) {
+	}
+	
+	public String getKeyPressed() {
+		return this.keyPressed;
 	}
 
 	@Override
@@ -68,60 +75,41 @@ public class Controller extends GameController implements ActionListener {
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
 			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_DOWN:
-		case KeyEvent.VK_KP_DOWN:
-			model.getPlayer().move(Direction.DOWN);
-			break;
-		case KeyEvent.VK_RIGHT:
-		case KeyEvent.VK_KP_RIGHT:
-            long start0 = System.nanoTime();
-			model.getPlayer().move(Direction.RIGHT);
-            long end0 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-                System.out.println("Move action time" + (end0 - start0));
-			break;
-		case KeyEvent.VK_KP_LEFT:
-		case KeyEvent.VK_LEFT:
-			model.getPlayer().move(Direction.LEFT);
-			break;
-		case KeyEvent.VK_UP:
-		case KeyEvent.VK_KP_UP:
-			model.getPlayer().move(Direction.UP);
-			break;
-        case KeyEvent.VK_T:
-			long start1 = System.nanoTime();
-			System.out.println("PICK");
-            this.model.getPlayer().pick();
-            this.model.getPlayer().store();
-            long end1 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-            	System.out.println("Take action time: " + (end1 - start1));
-            break;
-        case KeyEvent.VK_P:
-            long start2 = System.nanoTime();
-            this.model.getPlayer().getBagEntity();
-            this.model.getPlayer().throwAction();
-            long end2 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-            	System.out.println("Put action time : " + (end2 - start2));
-            break;
-        case KeyEvent.VK_H:
-        	this.model.getPlayer().pick();
-        	break;
-        case KeyEvent.VK_J:
-        	this.model.getPlayer().throwAction();
-        	break;
-        case KeyEvent.VK_SPACE:
-        	this.model.getPlayer().hit();        	
-        	break;
+			case KeyEvent.VK_KP_UP:
+			case KeyEvent.VK_UP:
+				this.keyPressed = "FU";
+				break;
+			case KeyEvent.VK_KP_DOWN:
+			case KeyEvent.VK_DOWN:
+				this.keyPressed = "FD";
+				break;
+			case KeyEvent.VK_KP_RIGHT:
+			case KeyEvent.VK_RIGHT:
+				this.keyPressed = "FR";
+				break;
+			case KeyEvent.VK_KP_LEFT:
+			case KeyEvent.VK_LEFT:
+				this.keyPressed ="FL";
+				break;
+			case KeyEvent.VK_SPACE:
+				this.keyPressed = "SPACE";
+				break;
+			default:
+				this.keyPressed = String.valueOf(e.getKeyChar());
 		}
+		
+		
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
 			System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		
+		this.keyPressed = "";
 	}
 
 	@Override

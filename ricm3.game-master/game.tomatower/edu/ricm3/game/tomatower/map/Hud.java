@@ -159,7 +159,6 @@ public class Hud {
 
 	public void paint(Graphics g) {
 		int x = this.model.getCurrentMap().getMapDimention()[0];
-		int y = this.model.getCurrentMap().getMapDimention()[1];
 		g.setFont(font);
 
 		g.drawImage(sprite_background, x, 0, null);
