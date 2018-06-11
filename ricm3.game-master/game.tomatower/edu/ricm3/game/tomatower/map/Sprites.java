@@ -159,7 +159,7 @@ public class Sprites {
 			System.exit(-1);
 		}
 
-		imageFile = new File("game.tomatower/sprites/background.png");
+		imageFile = new File("game.tomatower/sprites/grass.png");
 		try {
 			sprite_background = ImageIO.read(imageFile);
 

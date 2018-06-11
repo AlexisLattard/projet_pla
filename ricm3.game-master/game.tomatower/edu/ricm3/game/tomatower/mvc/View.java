@@ -61,13 +61,14 @@ public class View extends GameView {
 	protected void _paint(Graphics g) {
 		computeFPS();
 
-		g.drawImage(this.model.getSprites().sprite_background, 0, 0, getWidth(), getHeight(), null);
+		// g.drawImage(this.model.getSprites().sprite_background, 0, 0, null);
 
 		Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
 		while (iter_cells.hasNext()) {
 			Cell c = iter_cells.next();
 			c.paint(g);
 		}
+
 		hud.paint(g);
 
 		// Affichage de la main du personnage sur la cellule devant lui
