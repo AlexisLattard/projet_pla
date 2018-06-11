@@ -7,9 +7,12 @@ import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.mvc.Model;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 
 public class Map {
     Model model;
@@ -24,6 +27,40 @@ public class Map {
     public Map(Model c_model) {
         this.model = c_model;
         this.cells = new ArrayList<>();
+    }
+    
+    public void step(long now) {
+        Iterator<Cell> iter_cells_mainmap = this.getCellsIterator();
+        while (iter_cells_mainmap.hasNext()) {
+            Cell c = iter_cells_mainmap.next();
+            c.step(now);
+        }
+    }
+    
+    public void paint(Graphics g) {
+    	Iterator<Cell> iter_cells = this.getCellsIterator();
+		while (iter_cells.hasNext()) {
+			Cell c = iter_cells.next();
+			c.paint(g);
+		}
+		
+		// Affichage de la main du personnage sur la cellule devant lui
+		Tower hand = this.model.getPlayer().getHand();
+		if(hand != null) {
+    		Cell dest = this.model.getPlayer().getCellDirection(Direction.FRONT, 1);
+    		if(dest != null) {
+    			int d = (int) (this.model.getPlayer().getMap().getCellSize());
+    			int x = dest.getPosition()[0] * model.getPlayer().getMap().getCellSize();
+    			int y = dest.getPosition()[1] * model.getPlayer().getMap().getCellSize();
+        		if(dest.isFree(hand)) {
+        			g.setColor(new Color(0, 255, 0, 100)); 
+        		}else {
+        			g.setColor(new Color(255, 0, 0, 100)); 
+        		}
+        		g.fillRect(x,y,d,d);
+        		g.drawImage(((Tower)hand).getSprite()[this.model.getPlayer().getDirection().getValue()], x, y, d, d, null);
+    		}	
+    	}
     }
 
 
@@ -60,6 +97,7 @@ public class Map {
     public boolean freeCell(Cell cell, Entity e) {
         return  (cell != null)  && (cell.isFree(e));
     }
+    
 
     public Entity getEntityCell(Cell c) {
 
@@ -69,13 +107,7 @@ public class Map {
             return null;
     }
 
-    public void step(long now) {
-        Iterator<Cell> iter_cells_mainmap = this.getCellsIterator();
-        while (iter_cells_mainmap.hasNext()) {
-            Cell c = iter_cells_mainmap.next();
-            c.step(now);
-        }
-    }
+    
 
     public void setCellIn(Cell cell) {
         this.cell_portal_in = cell;
@@ -97,7 +129,6 @@ public class Map {
         Principal : Joueur, spawn ennemi, spawn joueur
         Defis : portal to principal, spawn ennemi
          */
-        System.out.println(path);
         File map_file = new File("game.tomatower/maps/" + path);
 
         try {
@@ -133,10 +164,9 @@ public class Map {
                         	
                             break;
                         case "P":
-                            System.out.println("PERSO");
                             // TEST
-                            Weapon w = new Weapon(this.model, 1, 7, Direction.UP, Kind_Weapon.Yellow);
-                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.UP, w));
+                            Weapon w = new Weapon(this.model, 1, 7, Kind_Weapon.Yellow);
+                            this.model.setPlayer(new Player(this.model,  this.model.getSprites().sprite_player, 1, cell, Direction.NORTH, w, this.model.getAutomatons().get("Perso")));
                             break;
                         case "Os":
                             //System.out.println("Stone");
