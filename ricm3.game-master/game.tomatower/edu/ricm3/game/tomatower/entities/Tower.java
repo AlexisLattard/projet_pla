@@ -1,7 +1,6 @@
 package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.Direction;
-import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
@@ -30,32 +29,96 @@ public class Tower extends Living {
 		super.step(now);
 	}
 
-	public boolean enemyInRange(Entity[] enemies) {
-		Cell c_cell = this.getCell();
-		int c_abscisse = c_cell.getPosition()[0];
-		int c_ordonnee = c_cell.getPosition()[1];
-		int range = this.weapon.getRange();
+	/**
+	 * Fonction pour tester si un ennemi est dans la range de la tour, et ce dans
+	 * toutes les directions
+	 * 
+	 * @param direction
+	 * @param enemies
+	 * @return true s'il y en a un, false sinon
+	 */
+	// public boolean enemyInRange(Direction direction, Entity[] enemies) {
+	// Cell c_cell = this.getCell();
+	// int c_abscisse = c_cell.getPosition()[0];
+	// int c_ordonnee = c_cell.getPosition()[1];
+	// int range = this.weapon.getRange();
+	//
+	// int x = 0;
+	// for (int i = c_abscisse - range; i <= c_abscisse; i++) {
+	// for (int j = c_ordonnee - x; j <c_ordonnee + x; j++) {
+	// for (int ent = 0; ent < enemies.length; ent++) {
+	// if (this.model.getCurrentMap().getCell(j,
+	// i).getEntities().contains(enemies[ent])) {
+	// return true;
+	// }
+	// }
+	// x++;
+	// }
+	// }
+	// for (int i = c_abscisse + 1; i < c_abscisse + range; i++) {
+	// for (int j = c_ordonnee - x; j <c_ordonnee + x; j++) {
+	// for (int ent = 0; ent < enemies.length; ent++) {
+	// if (this.model.getCurrentMap().getCell(j,
+	// i).getEntities().contains(enemies[ent])) {
+	// return true;
+	// }
+	// }
+	// x--;
+	// }
+	// }
+	//
+	// return false;
+	// }
 
-		int x = 0;
-		for (int i =  c_abscisse - range; i <= c_abscisse; i++) {
-			for (int j = c_ordonnee - x; j <c_ordonnee + x; j++) {
+	public boolean enemyInRange(Direction c_direction, Entity[] enemies) {
+		int c_abscisse = this.getCell().getPosition()[0];
+		int c_ordonnee = this.getCell().getPosition()[1];
+		int range = this.weapon.getRange();
+		int direction = c_direction.getValue();
+
+		switch (direction) {
+		case 0:
+			for (int i = c_ordonnee; i < c_ordonnee - range; i--) {
 				for (int ent = 0; ent < enemies.length; ent++) {
-					if (this.model.getCurrentMap().getCell(j, i).getEntities().contains(enemies[ent])) {
+					if (this.model.getCurrentMap().getCell(c_abscisse, i).getEntities().contains(enemies[ent])) {
 						return true;
 					}
 				}
-				x++;
 			}
-		}
-		for (int i = c_abscisse + 1; i < c_abscisse + range; i++) {
-			for (int j = c_ordonnee - x; j <c_ordonnee + x; j++) {
+			break;
+
+		case 1:
+			for (int i = c_ordonnee; i < c_ordonnee + range; i++) {
 				for (int ent = 0; ent < enemies.length; ent++) {
-					if (this.model.getCurrentMap().getCell(j, i).getEntities().contains(enemies[ent])) {
+					if (this.model.getCurrentMap().getCell(c_abscisse, i).getEntities().contains(enemies[ent])) {
 						return true;
 					}
 				}
-				x--;
 			}
+			break;
+
+		case 2:
+			for (int i = c_abscisse; i < c_abscisse + range; i++) {
+				for (int ent = 0; ent < enemies.length; ent++) {
+					if (this.model.getCurrentMap().getCell(i, c_ordonnee).getEntities().contains(enemies[ent])) {
+						return true;
+					}
+				}
+			}
+			break;
+
+		case 3:
+			for (int i = c_abscisse; i < c_abscisse - range; i--) {
+				for (int ent = 0; ent < enemies.length; ent++) {
+					if (this.model.getCurrentMap().getCell(i, c_ordonnee).getEntities().contains(enemies[ent])) {
+						return true;
+					}
+				}
+			}
+			break;
+
+		default:
+			break;
 		}
 
 		return false;
