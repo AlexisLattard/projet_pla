@@ -1,6 +1,7 @@
 package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
@@ -33,11 +34,10 @@ public class Tower extends Living {
 	 * Fonction pour tester si un ennemi est dans la range de la tour, et ce dans
 	 * toutes les directions
 	 * 
-	 * @param direction
 	 * @param enemies
 	 * @return true s'il y en a un, false sinon
 	 */
-	// public boolean enemyInRange(Direction direction, Entity[] enemies) {
+	// public boolean enemyInRange(Entity[] enemies) {
 	// Cell c_cell = this.getCell();
 	// int c_abscisse = c_cell.getPosition()[0];
 	// int c_ordonnee = c_cell.getPosition()[1];
@@ -70,17 +70,27 @@ public class Tower extends Living {
 	// return false;
 	// }
 
+	/**
+	 * Fonction pour tester si un ennemi est dans la range de la tour en ligne
+	 * droite dans la direcion donnée
+	 * 
+	 * @param direction
+	 * @param enemies
+	 * @return true s'il y en a un, false sinon
+	 */
 	public boolean enemyInRange(Direction c_direction, Entity[] enemies) {
 		int c_abscisse = this.getCell().getPosition()[0];
 		int c_ordonnee = this.getCell().getPosition()[1];
 		int range = this.weapon.getRange();
 		int direction = c_direction.getValue();
+		Map c_map = this.model.getCurrentMap();
 
 		switch (direction) {
 		case 0:
 			for (int i = c_ordonnee; i < c_ordonnee - range; i--) {
+				ArrayList<Entity> tabEntites = c_map.getCell(c_abscisse, i).getEntities();
 				for (int ent = 0; ent < enemies.length; ent++) {
-					if (this.model.getCurrentMap().getCell(c_abscisse, i).getEntities().contains(enemies[ent])) {
+					if (tabEntites.contains(enemies[ent])) {
 						return true;
 					}
 				}
@@ -89,8 +99,9 @@ public class Tower extends Living {
 
 		case 1:
 			for (int i = c_ordonnee; i < c_ordonnee + range; i++) {
+				ArrayList<Entity> tabEntites = c_map.getCell(c_abscisse, i).getEntities();
 				for (int ent = 0; ent < enemies.length; ent++) {
-					if (this.model.getCurrentMap().getCell(c_abscisse, i).getEntities().contains(enemies[ent])) {
+					if (tabEntites.contains(enemies[ent])) {
 						return true;
 					}
 				}
@@ -99,8 +110,9 @@ public class Tower extends Living {
 
 		case 2:
 			for (int i = c_abscisse; i < c_abscisse + range; i++) {
+				ArrayList<Entity> tabEntites = c_map.getCell(i, c_ordonnee).getEntities();
 				for (int ent = 0; ent < enemies.length; ent++) {
-					if (this.model.getCurrentMap().getCell(i, c_ordonnee).getEntities().contains(enemies[ent])) {
+					if (tabEntites.contains(enemies[ent])) {
 						return true;
 					}
 				}
@@ -109,8 +121,9 @@ public class Tower extends Living {
 
 		case 3:
 			for (int i = c_abscisse; i < c_abscisse - range; i--) {
+				ArrayList<Entity> tabEntites = c_map.getCell(i, c_ordonnee).getEntities();
 				for (int ent = 0; ent < enemies.length; ent++) {
-					if (this.model.getCurrentMap().getCell(i, c_ordonnee).getEntities().contains(enemies[ent])) {
+					if (tabEntites.contains(enemies[ent])) {
 						return true;
 					}
 				}
