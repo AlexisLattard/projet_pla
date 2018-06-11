@@ -15,23 +15,15 @@ public class RunGame {
 	View view;
 	Controller controller;
 	GameUI game;
-	
-	private static RunGame INSTANCE = null;
-    
-
-    public static synchronized RunGame getInstance(){ 
-        if (INSTANCE == null){
-        	INSTANCE = new RunGame(); 
-        }
-        return INSTANCE;
-    }
     
     
-    private RunGame() {
+    public RunGame() {
     	// construct the game elements: model, controller, and view.
-        model = new Model();
-        controller = new Controller(model);
-        view = new View(model,controller);
-        game = new GameUI(model,view,controller,My_Frame.getInstance().getSize());
+	        model = new Model();
+	        controller = new Controller(model);
+	        view = new View(model,controller);
+	        game = new GameUI(model,view,controller,My_Frame.getInstance().getSize());
     }
+    
+    
 }

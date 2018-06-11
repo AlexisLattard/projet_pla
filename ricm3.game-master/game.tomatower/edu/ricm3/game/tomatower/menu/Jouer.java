@@ -1,6 +1,8 @@
 package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -193,11 +195,13 @@ public class Jouer extends JPanel{
  	private void fillMap() {
 		cartes.clear();
 		File file = new File("./Map");
+		ImageIcon image = new ImageIcon("./Image/Map_Generic.png");
+		Border border = BorderFactory.createLineBorder(Color.black,5);
 		for (File child : file.listFiles()) {
 			if (child.isFile()) {
 				System.out.println("EDT1:"+SwingUtilities.isEventDispatchThread());
-				Bouton bouton = new Bouton(new ImageIcon("./Image/Map_Generic.png"));
-				bouton.setBorder(BorderFactory.createLineBorder(Color.black,5));
+				Bouton bouton = new Bouton(image);
+				bouton.setBorder(border);
 			    bouton.addActionListener(new CarteListener(child));
 				cartes.put(child,bouton);
 			}
@@ -261,7 +265,7 @@ public class Jouer extends JPanel{
             if (comportement_tours != null && comportement_sbires != null && carte_selectionner != null) {
             	My_Frame frame = My_Frame.getInstance();
             	frame.setVisible(false);
-            	RunGame.getInstance();
+            	new RunGame();
             }else {
             	if (comportement_tours == null) {
         			bouton_tours.setText("*Choisir un automate*"); 
