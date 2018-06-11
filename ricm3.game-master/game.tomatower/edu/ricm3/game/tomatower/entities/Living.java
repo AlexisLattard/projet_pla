@@ -21,7 +21,7 @@ public abstract class Living extends Entity {
 	protected Weapon weapon;
 	public int MAX_LIFE;
 	BufferedImage sprite[];
-	protected Kind_Weapon tower_selected;
+	protected Kind_Weapon tower_selected = Kind_Weapon.Red;
 	
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind ) {
@@ -176,6 +176,10 @@ public abstract class Living extends Entity {
 	
 	public void setTowerSelected(Kind_Weapon kw){
 		this.tower_selected = kw;
+	}
+	
+	public Kind_Weapon getTowerSelected(){
+		return this.tower_selected;
 	}
 	
 
