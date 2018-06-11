@@ -131,7 +131,7 @@ public class My_Frame extends JFrame
         }   
     }
     
-    private static class RetourListener implements ActionListener
+    private class RetourListener implements ActionListener
     {
         
         @Override

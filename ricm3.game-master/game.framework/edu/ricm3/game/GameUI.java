@@ -205,4 +205,8 @@ public class GameUI {
     m_msg = msg;
   }
 
+  public JFrame getFrame() {
+	  return m_frame;
+  }
+  
 }

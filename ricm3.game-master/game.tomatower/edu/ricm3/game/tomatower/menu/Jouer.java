@@ -259,10 +259,9 @@ public class Jouer extends JPanel{
         public void actionPerformed(ActionEvent e)
         {
             if (comportement_tours != null && comportement_sbires != null && carte_selectionner != null) {
-            	System.out.println("Jeux Lancer");
-            	System.out.println("Tours : "+comportement_tours.getName());
-            	System.out.println("Sbires : "+comportement_sbires.getName());
-            	System.out.println("Cartes :"+carte_selectionner.getName());
+            	My_Frame frame = My_Frame.getInstance();
+            	frame.setVisible(false);
+            	RunGame.getInstance();
             }else {
             	if (comportement_tours == null) {
         			bouton_tours.setText("*Choisir un automate*"); 
