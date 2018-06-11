@@ -1,7 +1,6 @@
 package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -136,14 +135,10 @@ public class Jouer extends JPanel{
 				// COMPORTEMENT //
 				// MAP //
 		panel_choix_carte = new JPanel(new BorderLayout());
-		panel_cartes = new JPanel(new FlowLayout());
 		panel_titre_carte = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panel_cartes = new JPanel(new WrapLayout());
+		
 				// MAP //
-			// PANEL //
-			// JSCROLLBAR //
-				// MAP //
-				// MAP //
-			// JSCROLLBAR //
 		// INSTANCIATION //
 		
 		initSouth()	;
@@ -186,13 +181,12 @@ public class Jouer extends JPanel{
 		// MAP //
 		fillMap();
 		fillCartes();
-		scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollmap.getVerticalScrollBar().setUnitIncrement(10);
 		panel_titre_carte.add(label_choix_carte);
 		panel_choix_carte.add(panel_titre_carte,BorderLayout.NORTH);
 		panel_choix_carte.add(scrollmap,BorderLayout.CENTER);
-		panel_choix_carte.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.add(panel_choix_carte, BorderLayout.CENTER);
-		this.add(new JLabel(), BorderLayout.EAST);
 		// MAP //
 	}
 	
@@ -201,6 +195,7 @@ public class Jouer extends JPanel{
 		File file = new File("./Map");
 		for (File child : file.listFiles()) {
 			if (child.isFile()) {
+				System.out.println("EDT1:"+SwingUtilities.isEventDispatchThread());
 				Bouton bouton = new Bouton(new ImageIcon("./Image/Map_Generic.png"));
 				bouton.setBorder(BorderFactory.createLineBorder(Color.black,5));
 			    bouton.addActionListener(new CarteListener(child));
@@ -212,24 +207,19 @@ public class Jouer extends JPanel{
 	private void fillCartes() {
 		panel_cartes.removeAll();
 		if (!cartes.isEmpty()) {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					
-					for (Map.Entry<File, Bouton> entry : cartes.entrySet()) {
-					    File key = entry.getKey();
-					    Bouton value = entry.getValue();
-					    
-					    JPanel panel = new JPanel(new BorderLayout());
-					    JPanel titre = new JPanel(new FlowLayout(FlowLayout.CENTER));
-					    titre.add(new JLabel(key.getName()));
-					    panel.add(titre,BorderLayout.SOUTH);
-					    panel.add(value,BorderLayout.CENTER);
-					    panel_cartes.add(panel);
-					}
-					setSelected((File) cartes.keySet().toArray()[0]);
-				}
-			});
+			for (Map.Entry<File, Bouton> entry : cartes.entrySet()) {
+				System.out.println("EDT2:"+SwingUtilities.isEventDispatchThread());
+			    File key = entry.getKey();
+			    Bouton value = entry.getValue();
+			    
+			    JPanel panel = new JPanel(new BorderLayout());
+			    JPanel titre = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			    titre.add(new JLabel(key.getName()));
+			    panel.add(titre,BorderLayout.SOUTH);
+			    panel.add(value,BorderLayout.CENTER);
+			    panel_cartes.add(panel);
+			}
+			setSelected((File) cartes.keySet().toArray()[0]);			
 		}
 	}
 	

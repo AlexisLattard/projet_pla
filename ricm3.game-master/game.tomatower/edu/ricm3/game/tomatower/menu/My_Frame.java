@@ -41,7 +41,7 @@ public class My_Frame extends JFrame
     private void setupJFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setName("PLA");
-        this.setResizable(false);
+        this.setResizable(true);
     	if(!this.getOptionDemarage()) {
 	        this.setSize(400, 400);
         }
