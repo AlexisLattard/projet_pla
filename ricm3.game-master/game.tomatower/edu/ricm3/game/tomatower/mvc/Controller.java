@@ -95,8 +95,12 @@ public class Controller extends GameController implements ActionListener {
 			case KeyEvent.VK_SPACE:
 				this.keyPressed = "SPACE";
 				break;
+			case KeyEvent.VK_NUMPAD1:
+			case KeyEvent.VK_1:
+				this.model.getPlayer().setTowerSelected(Kind_Weapon.Red);
+				break;
 			default:
-				this.keyPressed = String.valueOf(e.getKeyChar());
+				this.keyPressed = String.valueOf(e.getKeyChar());				
 		}
 		
 		

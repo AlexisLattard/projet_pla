@@ -32,6 +32,7 @@ Perso(Init) {
      | Key(z) ? Store : (Init)
      | Key(q) ? Throw : (Init)
      | Key(s) ? Get : (Init)
+     | Key(p) ? Pop : (Init)
 }
 
 Explorer(Explore){
