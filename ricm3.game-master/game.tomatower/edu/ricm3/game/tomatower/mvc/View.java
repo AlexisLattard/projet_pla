@@ -61,11 +61,22 @@ public class View extends GameView {
 	protected void _paint(Graphics g) {
 		computeFPS();
 
-		// g.drawImage(this.model.getSprites().sprite_background, 0, 0, null);
+		g.fillRect(0, 0, getWidth(), getHeight());
 
 		Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
+		Cell c;
 		while (iter_cells.hasNext()) {
-			Cell c = iter_cells.next();
+			c = iter_cells.next();
+			int d = (int) (this.model.getCurrentMap().getCellSize());
+			int[] pos = c.getPosition();
+			int x = pos[0] * this.model.getCurrentMap().getCellSize();
+			int y = pos[1] * this.model.getCurrentMap().getCellSize();
+			g.drawImage(this.model.getSprites().sprite_background, x, y, d, d, null);
+		}
+
+		iter_cells = this.model.getCurrentMap().getCellsIterator();
+		while (iter_cells.hasNext()) {
+			c = iter_cells.next();
 			c.paint(g);
 		}
 

@@ -13,14 +13,13 @@ public class Cell {
 	private int row;
 	private Map map;
 	private ArrayList<Entity> entities;
-	private BufferedImage sprite;
+//	private BufferedImage sprite;
 
-	public Cell(int c_col, int c_row, Map c_map, BufferedImage c_sprite) {
+	public Cell(int c_col, int c_row, Map c_map) {
 		this.col = c_col;
 		this.row = c_row;
 		this.map = c_map;
 		this.entities = new ArrayList<>();
-		this.sprite = c_sprite;
 	}
 
 	public ArrayList<Entity> getEntities() {
@@ -95,11 +94,7 @@ public class Cell {
 	}
 
 	public void paint(Graphics g) {
-		int d = (int) (this.getMap().getCellSize());
-		int[] pos = this.getPosition();
-		int x = pos[0] * map.getCellSize();
-		int y = pos[1] * map.getCellSize();
-		g.drawImage(sprite, x, y, d, d, null);
+		
 		for (Entity e : this.entities) {
 			if (e.isVisible())
 				e.paint(g);

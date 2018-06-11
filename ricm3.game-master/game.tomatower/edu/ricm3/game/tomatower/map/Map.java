@@ -122,7 +122,7 @@ public class Map {
 
 				ArrayList<Cell> cells_line = new ArrayList<>();
 				for (int col = 0; col < line_elements.length; col++) {
-					Cell cell = new Cell(col, row, this, this.model.getSprites().sprite_background);
+					Cell cell = new Cell(col, row, this);
 					cells_line.add(cell);
 					switch (line_elements[col]) {
 					case "E":
