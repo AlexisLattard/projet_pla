@@ -112,7 +112,7 @@ public class Cell {
     public int[] getPosition() {
         return new int[]{this.col, this.row};
     }
-    
+   
     public Map getMap() {
     	return this.map;
     }

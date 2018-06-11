@@ -238,6 +238,9 @@ public abstract class Entity {
     	return this.kind;
     }
    
+    public void removeAutomaton() {
+    	this.automaton = null;
+    }
     
    
     
