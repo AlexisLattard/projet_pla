@@ -7,6 +7,7 @@ import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
+import sun.security.jca.GetInstance.Instance;
 
 /*
 IT IS NOT AN ENTITY
@@ -28,10 +29,9 @@ public class Weapon {
 		
 
 	public void hit(Living e, Direction d) {
-		/*
-		 * Cell cell_hit = ; cell_hit.damage(this.power);
-		 */
+
 		Cell shot = getCellToShot(e, d);
+
 		if(shot != null)
 			shot.damage(this.power);
 		

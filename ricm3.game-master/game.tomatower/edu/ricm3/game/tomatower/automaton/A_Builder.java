@@ -39,7 +39,7 @@ public class A_Builder {
 	
 	
 	
-	public HashMap<String, A_Automaton> makeAutomatonFromAst() throws Exception {
+	public HashMap<String, A_Automaton> makeAutomatonsFromAst() throws Exception {
 		System.out.println("DEBUT MAKE AUTOMATON");
 		
 		
@@ -194,9 +194,7 @@ public class A_Builder {
 		
 		switch (parameter.kind) {
 			case "Any":
-				System.out.println("TODO : parameter any");
-				res = null;
-				break;
+				throw new Exception("TODO : Any dans makeParameter");
 			case "Key":
 				res = makeKeyParameter(((Key)parameter).value);
 				break;
@@ -249,10 +247,11 @@ public class A_Builder {
 	}
 	
 	
-	public A_KeyParameter makeKeyParameter(Value value) {
-		
-		
-		return new A_KeyParameter(((Constant)value).value.value);
+	public A_KeyParameter makeKeyParameter(Value value) throws Exception {
+		if(value.kind.equals("Constant"))
+			return new A_KeyParameter(((Constant)value).value.value);
+		else
+			throw new Exception("Key parameter have to be a constant");
 	}
 	
 	

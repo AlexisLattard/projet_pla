@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower.entities;
 import java.awt.image.BufferedImage;
 
 import edu.ricm3.game.tomatower.Options;
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
@@ -19,7 +20,7 @@ public class Product extends Buyable {
 
 		if (this.model.getPlayer().getMoney() >= this.price) {
 			//TODO : init automate
-			Tower tower = new Tower(this.model, this.model.getSprites().sprite_tower_red, this.weapon, null);
+			Tower tower = new Tower(this.model, this.model.getSprites().sprite_tower_red, this.weapon, this.model.getAutomatons().get("HiterTower"));
 			this.model.getPlayer().addBagProduct(tower);
 			this.model.getPlayer().decreaseMoney(this.price);
 			if (Options.ECHO_GAME_STATE) {

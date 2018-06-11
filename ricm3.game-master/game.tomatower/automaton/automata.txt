@@ -13,7 +13,10 @@ Hiter(Init) {
     *(Init): 
      | Cell(N, T) ? Hit(N) : (Init)
      | True ? Jump : (Init)
-    
+}
+
+HiterTower(Init) {
+    *(Init): True ? Hit(N) : (Init)
 }
 
 

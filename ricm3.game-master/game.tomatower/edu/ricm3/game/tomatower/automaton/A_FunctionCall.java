@@ -101,13 +101,13 @@ public class A_FunctionCall extends A_Expression {
 	// Actions
 	
 	public void wizz(Entity e) {
-		// TODO : verifier arguments
+		// TODO : verifier arguments si il y en a
 		e.wizz();
 	}
 	
 	
 	public void pop(Entity e) {
-		// TODO : verifier arguments
+		// TODO : verifier arguments si il y en a
 		e.pop();
 	}
 	
@@ -118,9 +118,6 @@ public class A_FunctionCall extends A_Expression {
 		} else {
 			e.move(((A_DirectionParameter)parameters.get(0)).value); 
 		}
-			
-		
-		
 	}
 	
 	
@@ -135,8 +132,6 @@ public class A_FunctionCall extends A_Expression {
 		}else {
 			e.turn(((A_DirectionParameter)parameters.get(0)).value); 
 		}
-		
-		
 	}
 	
 	
@@ -146,8 +141,6 @@ public class A_FunctionCall extends A_Expression {
 		}else {
 			e.hit(((A_DirectionParameter)parameters.get(0)).value); 
 		}
-		
-		
 	}
 	
 	
@@ -157,7 +150,6 @@ public class A_FunctionCall extends A_Expression {
 		} else {
 			e.protect(((A_DirectionParameter)parameters.get(0)).value); ;
 		}
-		
 	}
 	
 	
@@ -167,7 +159,6 @@ public class A_FunctionCall extends A_Expression {
 		}else {
 			e.pick(((A_DirectionParameter)parameters.get(0)).value);
 		}
-		
 	}
 	
 	
@@ -177,7 +168,6 @@ public class A_FunctionCall extends A_Expression {
 		} else {
 			e.throwAction(((A_DirectionParameter)parameters.get(0)).value);
 		}
-		
 	}
 	
 	

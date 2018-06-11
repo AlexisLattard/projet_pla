@@ -49,7 +49,6 @@ public class Model extends GameModel {
     private HashMap<Kind_Weapon, Weapon> weapons;
     private HashMap<String, A_Automaton> automatons;
     
-    private Overhead m_overhead = new Overhead();
 
 
     public Model() {
@@ -176,7 +175,7 @@ public class Model extends GameModel {
 			new AutomataParser(new BufferedReader(new FileReader("game.tomatower/automaton/automata.txt")));
 			Ast ast = AutomataParser.Run();
 			A_Builder builder = new  A_Builder(ast, c);
-			this.automatons = builder.makeAutomatonFromAst();
+			this.automatons = builder.makeAutomatonsFromAst();
 			System.out.println(automatons.keySet());
     	} catch (Exception e) {
 			e.printStackTrace();
