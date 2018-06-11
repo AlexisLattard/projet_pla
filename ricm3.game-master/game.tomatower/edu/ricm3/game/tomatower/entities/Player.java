@@ -20,7 +20,7 @@ public class Player extends Living {
 	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction, Weapon c_weapon, A_Automaton c_automaton) {
 		super(c_model, true, c_sprite, c_scale, c_cell, c_direction, c_weapon, initColisions(), c_automaton, Kind.Team);
 		
-		// TODO : move to super constructor 
+		// TODO : Mettre dans le constructeur d'entity
 		this.canTake = true;
 
 		// TEST
@@ -63,14 +63,6 @@ public class Player extends Living {
 	
 	
 	
-	public static ArrayList<Class<?>> initColisions() {
-		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
-		res.add(Portal.class);
-		res.add(Product.class);
-		res.add(Upgrade.class);
-		return res;
-	}
-	
 	public HashMap<Kind_Weapon, Integer> getBagNumberTower() {
 
 		HashMap<Kind_Weapon, Integer> numbertowers = new HashMap<>();
@@ -97,5 +89,13 @@ public class Player extends Living {
 		}
 		
 		return numbertowers;
+	}
+	
+	public static ArrayList<Class<?>> initColisions() {
+		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
+		res.add(Portal.class);
+		res.add(Product.class);
+		res.add(Upgrade.class);
+		return res;
 	}
 }

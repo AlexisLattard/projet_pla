@@ -23,12 +23,6 @@ public class Tower extends Living {
 	}
 	
 	
-	// On pourrai simplement faire appelle à celle défini dans Entity, mais c'est plus clair d'indiquer clairement la gestion de colision aussi ici
-	public static ArrayList<Class<?>> initColisions() {
-		return  new ArrayList<Class<?>>();
-	}
-	
-	
 	// Actions
 	
 	@Override
@@ -39,6 +33,12 @@ public class Tower extends Living {
 	@Override
 	public void wizz() {
 		// TODO
+	}
+	
+	
+	// On pourrai simplement faire appelle à celle défini dans Entity, mais c'est plus clair d'indiquer clairement la gestion de colision aussi ici
+	public static ArrayList<Class<?>> initColisions() {
+		return  new ArrayList<Class<?>>();
 	}
 	
 	

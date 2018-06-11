@@ -10,7 +10,6 @@ import edu.ricm3.game.tomatower.mvc.Model;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.swing.table.AbstractTableModel;
 
 
 public abstract class Entity {
@@ -69,7 +68,7 @@ public abstract class Entity {
 	public void move(Direction d) {
 		this.turn(d);
 		if(this.movement)
-			this.addEntityOnCell(this.getCellDirection(d));
+			this.addEntityOnCell(this.getCellDirection(d, 1));
 	}
 	
 	public void jump() {} // No entity can jump
@@ -133,7 +132,7 @@ public abstract class Entity {
 	public abstract boolean gotStuff();
 	
 	public boolean cell(Direction d, Kind k) {
-		Cell cell = this.getCellDirection(d);
+		Cell cell = this.getCellDirection(d, 1);
 		return cell.containEntityKind(k);
 	}
 	
@@ -201,7 +200,7 @@ public abstract class Entity {
     	return this.direction;
     }
     
-    public Cell getCellDirection(Direction d) {
+    public Cell getCellDirection(Direction d, int range) {
 		int[] current_pos = this.getPosition();
 		int pos_front_cell_x = current_pos[0];
 		int pos_front_cell_y = current_pos[1];
@@ -211,25 +210,25 @@ public abstract class Entity {
 				(direction == Direction.SOUTH && d == Direction.BACK ) ||
 				(direction == Direction.EAST && d == Direction.ONTHELEFT) ||
 				(direction == Direction.WEST && d == Direction.ONTHERIGHT)) {
-			pos_front_cell_y -= 1;
+			pos_front_cell_y -= range;
 		} else if((d == Direction.SOUTH) ||
 				(direction == Direction.NORTH && d == Direction.BACK) ||
 				(direction == Direction.SOUTH && d == Direction.FRONT ) ||
 				(direction == Direction.EAST && d == Direction.ONTHERIGHT) ||
 				(direction == Direction.WEST && d == Direction.ONTHELEFT)) {
-			pos_front_cell_y += 1;
+			pos_front_cell_y += range;
 		} else if((d == Direction.EAST) ||
 				(direction == Direction.NORTH && d == Direction.ONTHERIGHT) ||
 				(direction == Direction.SOUTH && d == Direction.ONTHELEFT ) ||
 				(direction == Direction.EAST && d == Direction.FRONT) ||
 				(direction == Direction.WEST && d == Direction.BACK)) {
-			pos_front_cell_x += 1;
+			pos_front_cell_x += range;
 		} else if((d == Direction.WEST) ||
 				(direction == Direction.NORTH && d == Direction.ONTHELEFT) ||
 				(direction == Direction.SOUTH && d == Direction.ONTHERIGHT ) ||
 				(direction == Direction.EAST && d == Direction.BACK) ||
 				(direction == Direction.WEST && d == Direction.FRONT)) {
-			pos_front_cell_x -= 1;
+			pos_front_cell_x -= range;
 		}
 		
 		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);

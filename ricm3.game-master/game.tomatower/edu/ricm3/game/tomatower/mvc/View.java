@@ -64,32 +64,10 @@ public class View extends GameView {
 		// erase background
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		this.model.getCurrentMap().paint(g);
 
-		Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
-		while (iter_cells.hasNext()) {
-			Cell c = iter_cells.next();
-			c.paint(g);
-		}
 		hud.paint(g);
-		
-		
-		// Affichage de la main du personnage sur la cellule devant lui
-		Tower hand = this.model.getPlayer().getHand();
-		if(hand != null) {
-    		Cell dest = this.model.getPlayer().getCellDirection( Direction.FRONT);
-    		if(dest != null) {
-    			int d = (int) (this.model.getPlayer().getMap().getCellSize());
-    			int x = dest.getPosition()[0] * model.getCurrentMap().getCellSize();
-    			int y = dest.getPosition()[1] * model.getCurrentMap().getCellSize();
-        		if(dest.isFree(hand)) {
-        			g.setColor(new Color(0, 255, 0, 100)); 
-        		}else {
-        			g.setColor(new Color(255, 0, 0, 100)); 
-        		}
-        		g.fillRect(x,y,d,d);
-        		g.drawImage(((Tower)hand).getSprite()[this.model.getPlayer().getDirection().getValue()], x, y, d, d, null);
-    		}	
-    	}
 	}
 	
 	public void setGameUI(GameUI gameUI) {

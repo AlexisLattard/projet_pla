@@ -39,7 +39,8 @@ public abstract class Living extends Entity {
 		bag = new ArrayList<>();
 	}
 	
-
+	
+	@Override
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
 			int d = (int) (this.getMap().getCellSize() * scale);
@@ -70,7 +71,7 @@ public abstract class Living extends Entity {
 	@Override
 	public void pick(Direction d) {
 		if(this.canTake) {
-			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d));
+			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
 
 			if (entity instanceof Tower) {
 				if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac
@@ -79,7 +80,6 @@ public abstract class Living extends Entity {
 				hand = (Tower) (entity);
 			}
 		}
-		
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public abstract class Living extends Entity {
 		if (Options.ECHO_GAME_STATE && this.hand == null)
 			System.out.println("Rien dans la main");
 
-		if (this.canTake && this.hand != null && this.hand.addEntityOnCell(this.getCellDirection(d))) {
+		if (this.canTake && this.hand != null && this.hand.addEntityOnCell(this.getCellDirection(d, 1))) {
 			// Si vrai, alors la tourelle a été posée, donc plus rien en main			
 			hand = null;
 		}

@@ -24,13 +24,6 @@ public class Mobs extends Living {
 		this.hp = 20;
 	}
 	
-	public static ArrayList<Class<?>> initColisions() {
-		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
-		res.add(Mobs.class);
-		res.add(Portal.class);
-		return res;
-	}
-	
 	
 	@Override
 	public void pop() {
@@ -41,6 +34,14 @@ public class Mobs extends Living {
 	@Override
 	public void wizz() {
 		// TODO
+	}
+	
+	
+	public static ArrayList<Class<?>> initColisions() {
+		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
+		res.add(Mobs.class);
+		res.add(Portal.class);
+		return res;
 	}
 	
 	

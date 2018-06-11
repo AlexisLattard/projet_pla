@@ -40,7 +40,6 @@ public class Model extends GameModel {
     private Sprites game_sprites;
 
     private Map main_map;
-   // private ArrayList<Map> maps_challenge;
     private Map map_store;
     private Map current_map;
 
@@ -52,22 +51,9 @@ public class Model extends GameModel {
     
     private Overhead m_overhead = new Overhead();
 
-    /*ArrayList<Mobs> mobs;
-    ArrayList<Inert> obstacles;
-    ArrayList<Tower> towers;
-    Crystal crystal;*/
 
     public Model() {
     	game_sprites = new Sprites();
-        /* VOIR CI DESSOUS LES FONCTIONS ASSOCIEES
-        mobs = new ArrayList<>();
-        obstacles = new ArrayList<>();
-        towers = new ArrayList<>();
-        */
-        
-        // TEST
-		
-        
     }
     
     public void initModel(Controller c) {
@@ -75,8 +61,11 @@ public class Model extends GameModel {
         this.initWeapons();  
         this.initAutomatons(c);
         this.initMaps();
-        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("Hiter"));
+        //TEST
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red), this.automatons.get("Hiter"));
         new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 8), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("ExplorerBIS"));
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(4, 4), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("MoverRandom"));
+
     }
     
 
@@ -84,32 +73,20 @@ public class Model extends GameModel {
     public void shutdown() {
 
     }
-
-    public Overhead getOverhead() {
-        return this.m_overhead;
+    
+    /**
+     * Simulation step.
+     *
+     * @param now is the current time in milliseconds.
+     */
+    @Override
+    public void step(long now) {
+    	for(Map m : this.getAllMaps()) {
+    		m.step(now);
+    	}
     }
+    
 
-    /*
-    LES FONCTIONS SUIVANTES SONT UTILES (ONT DU SENS) UNIQUEMENT
-    SI ON DECOMMENTE LA LIGNE ASSOCIE DANS LES CONSTRUCTEURS
-    RESPECTIFS POUR AJOUTER LES OBJETS CREERS AUX COLLECTIONS
-    mobs, obstacles et towers.
-
-    public ArrayList<Mobs> getMobs() {return this.mobs;}
-    public void addMobs(Mobs m) {this.mobs.add(m);}
-    public ArrayList<Inert> getObstacles() {return this.obstacles;}
-    public void addObstacle(Inert o) {this.obstacles.add(o);}
-    public ArrayList<Tower> getTowers() {return this.towers;}
-    public void addTower(Tower t) {this.towers.add(t);}
-    public Crystal getCrystal() {return this.crystal;}
-    public void setCrystal(Crystal c) {this.crystal = c;}
-    public ArrayList<Entity> getAllEntities() {
-        ArrayList<Entity> entities = new ArrayList<>();
-        entities.addAll(this.getMobs());
-        entities.addAll(this.getObstacles());
-        entities.addAll(this.getTowers());
-        return entities;
-    }*/
 
     public Player getPlayer() {
         return this.player;
@@ -131,17 +108,13 @@ public class Model extends GameModel {
         return this.game_sprites;
     }
 
-
-
     public Map getMainMap() {
         return this.main_map;
     }
 
     public Map getStoreMap() {
         return this.map_store;
-    }
-    
-    
+    }    
     
     public ArrayList<Map> getAllMaps() {
     	ArrayList<Map> res = new ArrayList<>();
@@ -149,20 +122,6 @@ public class Model extends GameModel {
     	res.add(this.map_store);
     	return res;
     }
-
-    /*public ArrayList<Map> getChallengesMap() {
-        return this.maps_challenge;
-    }
-
-    public void addChallengeMap(Map m) {
-        this.getChallengesMap().add(m);
-    }
-
-    public Map getRandomChallengeMap() {
-        Random rand = new Random();
-        int n = rand.nextInt(this.getChallengesMap().size());
-        return this.getChallengesMap().get(n);
-    }*/
 
     public void setCurrentMap(Map m) {
         this.current_map = m;
@@ -183,38 +142,13 @@ public class Model extends GameModel {
 
 
 
-    /**
-     * Simulation step.
-     *
-     * @param now is the current time in milliseconds.
-     */
-    @Override
-    public void step(long now) {
-    	for(Map m : this.getAllMaps()) {
-    		m.step(now);
-    	}
-    }
-
-    /*
-
-    Pour l'instant un map challenge,
-    A faire : un dossier + parcourir toutes les maps de ce fichier
-     */
+   
     public void initMaps() {
         // Map principale
         main_map = new Map(this);
         this.setCurrentMap(main_map);
         this.main_map.initMap("game.txt");
         
-
-        //  Maps défis
-        /*this.maps_challenge = new ArrayList<>();
-        Map map_challenge = new Map(this);
-        this.addChallengeMap(map_challenge);
-
-        for (Map m: this.maps_challenge) {
-            m.initMap("challenges/defis.txt");
-        }*/
 
         // Map store
         this.map_store = new Map(this);
