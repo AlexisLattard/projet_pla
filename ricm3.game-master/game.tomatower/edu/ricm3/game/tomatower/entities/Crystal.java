@@ -17,7 +17,7 @@ public class Crystal extends Inert {
 
 
 	public Crystal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind, Crystal c_main_instance) {
-		super(c_model, false, c_sprite, c_scale, c_cell, c_kind, Kind.Team);
+		super(c_model, false, c_sprite, c_scale, c_cell, c_kind, Kind.Danger);
 		this.main_instance = c_main_instance;
 		this.hp = 550;
 

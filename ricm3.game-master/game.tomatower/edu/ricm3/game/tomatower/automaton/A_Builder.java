@@ -320,7 +320,9 @@ public class A_Builder {
 			case "G":
 				kind = Kind.Gate;
 				break;
-				
+			case "D":
+				kind = Kind.Danger;
+				break;				
 			default:
 				kind = Kind.Unknwon;
 		}

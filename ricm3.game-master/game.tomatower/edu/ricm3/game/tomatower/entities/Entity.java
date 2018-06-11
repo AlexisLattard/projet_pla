@@ -23,7 +23,7 @@ public abstract class Entity {
     protected ArrayList<Class<?>> entities_destination_allowed; 	// Utile pour determiner sur quelle cases l'entité peut se trouver
     double scale = 1;
     Kind kind;
-    protected long action_time = 1000L;
+    protected long action_time = 100L;
     															
 
 	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Cell c_cell, Kind c_kind) {
@@ -238,7 +238,9 @@ public abstract class Entity {
     	return this.kind;
     }
    
-    
+    public void removeAutomaton(){
+    	this.automaton = null;
+    }
    
     
 
