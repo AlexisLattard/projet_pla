@@ -32,20 +32,18 @@ public class Score extends JPanel
      * Constructor for objects of class Score
      */
     
-    private static class ScoreHolder
-    {       
-        /** Instance unique non préinitialisée */
-        private final static Score INSTANCE = new Score();
-    }
- 
+    private static Score INSTANCE = null;
+    
     /** Point d'accès pour l'instance unique du singleton */
-    public static Score getInstance(ActionListener actionRetour)
-    {
-		ScoreHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
-	    return ScoreHolder.INSTANCE;
+    public static synchronized Score getInstance(ActionListener actionRetour)
+    {           
+        if (INSTANCE == null){
+        	INSTANCE = new Score(actionRetour); 
+        }
+        return INSTANCE;
     }
 
-	private Score()
+	private Score(ActionListener retourListener)
     {
     	// BOUTON RETOUR //
         boutonRetour = new Bouton("retour");
@@ -71,6 +69,8 @@ public class Score extends JPanel
         this.add(scrollTableau,BorderLayout.CENTER);
         this.add(south,BorderLayout.SOUTH);
         this.add(north,BorderLayout.NORTH);
+        
+        this.getButtonRetour().addActionListener(retourListener);
     }
     
     /**

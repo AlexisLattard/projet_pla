@@ -73,20 +73,18 @@ public class Jouer extends JPanel{
 		// MAP //
 	
 	
-	private static class JouerHolder
-    {       
-        /** Instance unique non préinitialisée */
-        private final static Jouer INSTANCE = new Jouer();
-    }
- 
+	private static Jouer INSTANCE = null;
+    
     /** Point d'accès pour l'instance unique du singleton */
-    public static Jouer getInstance(ActionListener action)
-    {
-    	JouerHolder.INSTANCE.getButtonRetour().addActionListener(action);
-	    return JouerHolder.INSTANCE;
+    public static synchronized Jouer getInstance(ActionListener actionRetour)
+    {           
+        if (INSTANCE == null){
+        	INSTANCE = new Jouer(actionRetour); 
+        }
+        return INSTANCE;
     }
 	
-	private Jouer() {
+	private Jouer(ActionListener actionRetour) {
 		this.setLayout(new BorderLayout());
 		// INSTANCIATION //
 			// AUTRES //
@@ -151,6 +149,7 @@ public class Jouer extends JPanel{
 		initSouth()	;
 		initComportement();
 		initMap();
+		this.getButtonRetour().addActionListener(actionRetour);
 	}
 	
 	private void initSouth() {
@@ -216,6 +215,7 @@ public class Jouer extends JPanel{
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
+					
 					for (Map.Entry<File, Bouton> entry : cartes.entrySet()) {
 					    File key = entry.getKey();
 					    Bouton value = entry.getValue();
@@ -227,6 +227,7 @@ public class Jouer extends JPanel{
 					    panel.add(value,BorderLayout.CENTER);
 					    panel_cartes.add(panel);
 					}
+					setSelected((File) cartes.keySet().toArray()[0]);
 				}
 			});
 		}
@@ -294,16 +295,20 @@ public class Jouer extends JPanel{
 		}
 		
         public void actionPerformed(ActionEvent e) {
-        	
-        	if (carte_selectionner != file) {
-        		if (carte_selectionner != null) {
-            		cartes.get(carte_selectionner).setBorder(BorderFactory.createLineBorder(Color.black,5)); //;
-            	}
-	        	((Bouton)(e.getSource())).setBorder(BorderFactory.createLineBorder(Color.GREEN,5)); //;
-	    		carte_selectionner = file;
-        	}
+        	setSelected(file);
         }
     }
+	
+	private void setSelected(File file) {
+
+    	if (carte_selectionner != file) {
+    		if (carte_selectionner != null) {
+        		cartes.get(carte_selectionner).setBorder(BorderFactory.createLineBorder(Color.black,5)); //;
+        	}
+    		cartes.get(file).setBorder(BorderFactory.createLineBorder(Color.GREEN,5)); //;
+    		carte_selectionner = file;
+    	}
+	}
 	
 	public JButton getButtonRetour() {
 		return bouton_retour;

@@ -13,20 +13,18 @@ public class Regles extends JPanel{
 	private Bouton boutonRetour;
 	
 
-	private static class ReglesHolder
-    {       
-        /** Instance unique non préinitialisée */
-        private final static Regles INSTANCE = new Regles();
-    }
- 
+	private static Regles INSTANCE = null;
+    
     /** Point d'accès pour l'instance unique du singleton */
-    public static Regles getInstance(ActionListener actionRetour)
-    {
-    	ReglesHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
-	    return ReglesHolder.INSTANCE;
+    public static synchronized Regles getInstance(ActionListener actionRetour)
+    {           
+        if (INSTANCE == null){
+        	INSTANCE = new Regles(actionRetour); 
+        }
+        return INSTANCE;
     }
 	
-	private Regles() {      
+	private Regles(ActionListener actionRetour) {      
 		north = new JPanel(new FlowLayout());
 		title = new JLabel("Regles");
 		south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -39,6 +37,8 @@ public class Regles extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.add(north,BorderLayout.NORTH);
 		this.add(south, BorderLayout.SOUTH);
+		
+		this.getButtonRetour().addActionListener(actionRetour);
 	}
 	
 	/**

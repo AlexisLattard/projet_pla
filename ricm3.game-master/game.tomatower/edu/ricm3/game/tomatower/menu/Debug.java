@@ -19,20 +19,18 @@ public class Debug extends JPanel{
 	private JPanel centre;
 	
 
-	private static class DebugHolder
-    {       
-        /** Instance unique non préinitialisée */
-        private final static Debug INSTANCE = new Debug();
-    }
- 
+	private static Debug INSTANCE = null;
+    
     /** Point d'accès pour l'instance unique du singleton */
-    public static Debug getInstance(ActionListener actionRetour)
-    {
-    	DebugHolder.INSTANCE.getButtonRetour().addActionListener(actionRetour);
-	    return DebugHolder.INSTANCE;
+    public static synchronized Debug getInstance(ActionListener actionRetour)
+    {           
+        if (INSTANCE == null){
+        	INSTANCE = new Debug(actionRetour); 
+        }
+        return INSTANCE;
     }
 	
-	private Debug() {      
+	private Debug(ActionListener actionRetour) {      
 		valider= new Bouton("Envoyé");
 		retour = new Bouton("Retour");
 		titre = new JLabel("Debug");
@@ -64,6 +62,7 @@ public class Debug extends JPanel{
 		this.add(sud,BorderLayout.SOUTH);
 		this.add(centre,BorderLayout.CENTER);
 		
+		this.getButtonRetour().addActionListener(actionRetour);
 	}
 
 

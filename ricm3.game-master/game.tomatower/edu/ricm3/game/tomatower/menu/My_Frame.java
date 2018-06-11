@@ -41,18 +41,19 @@ public class My_Frame extends JFrame
     private void setupJFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setName("PLA");
-        this.setContentPane(Menu.getInstance());
         this.setResizable(false);
     	if(!this.getOptionDemarage()) {
 	        this.setSize(400, 400);
         }
 		this.setLocationRelativeTo(null);
-        Menu.getInstance().getButtonScore().addActionListener(new ScoreListener());
-        Menu.getInstance().getButtonQuitter().addActionListener(new QuitterListener());
-        Menu.getInstance().getButtonRegles().addActionListener(new ReglesListener());
-        Menu.getInstance().getButtonDebug().addActionListener(new DebugListener());
-        Menu.getInstance().getButtonJouer().addActionListener(new JouerListener());
-        Menu.getInstance().getButtonOption().addActionListener(new OptionListener());
+		Menu menu = Menu.getInstance();
+		menu.getButtonScore().addActionListener(new ScoreListener());
+		menu.getButtonQuitter().addActionListener(new QuitterListener());
+		menu.getButtonRegles().addActionListener(new ReglesListener());
+		menu.getButtonDebug().addActionListener(new DebugListener());
+		menu.getButtonJouer().addActionListener(new JouerListener());
+		menu.getButtonOption().addActionListener(new OptionListener());
+        this.getContentPane().add(menu);
     }
     
     private boolean getOptionDemarage() {
@@ -109,7 +110,8 @@ public class My_Frame extends JFrame
         {
         	JFrame frame = My_Frame.getInstance();
         	JPanel panel = Score.getInstance(new RetourListener());
-        	frame.setContentPane(panel);
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
         	panel.repaint();
         	frame.setVisible(true);
         }   
@@ -122,7 +124,8 @@ public class My_Frame extends JFrame
         {
         	JFrame frame = My_Frame.getInstance();
         	JPanel panel = Option.getInstance(new RetourListener());
-        	frame.setContentPane(panel);
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
         	panel.repaint();
         	frame.setVisible(true);
         }   
@@ -136,7 +139,8 @@ public class My_Frame extends JFrame
         {
         	JFrame frame = My_Frame.getInstance();
         	JPanel panel = Menu.getInstance();
-        	frame.setContentPane(panel);
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
         	panel.repaint();
         	frame.setVisible(true);
         }   
@@ -159,7 +163,8 @@ public class My_Frame extends JFrame
         {
         	JFrame frame = My_Frame.getInstance();
         	JPanel panel = Regles.getInstance(new RetourListener());
-        	frame.setContentPane(panel);
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
         	panel.repaint();
         	frame.setVisible(true);
         }   
@@ -173,7 +178,8 @@ public class My_Frame extends JFrame
         {
         	JFrame frame = My_Frame.getInstance();
         	JPanel panel = Debug.getInstance(new RetourListener());
-        	frame.setContentPane(panel);
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
         	panel.repaint();
         	frame.setVisible(true);
         }   
@@ -186,7 +192,8 @@ public class My_Frame extends JFrame
         {
         	JFrame frame = My_Frame.getInstance();
         	JPanel panel = Jouer.getInstance(new RetourListener());
-        	frame.setContentPane(panel);
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
         	panel.repaint();
         	frame.setVisible(true);
         }   
