@@ -28,6 +28,7 @@ public class Crystal extends Inert {
 			this.hp -= power;
 		else
 			main_instance.damage(power);
+		System.out.println(this.hp);
 	}
 
 	public void paint(Graphics g) {

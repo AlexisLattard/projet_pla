@@ -16,7 +16,7 @@ public class Player extends Living {
 
 	private ArrayList<Tower> bag;
 	private Tower hand = null;
-	private int money = 25000000;
+	private int money = 2500000;
 	public final int MAX_LIFE = 150;
 
 	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,
@@ -31,17 +31,21 @@ public class Player extends Living {
 	public static ArrayList<Class<?>> initColisions() {
 		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
 		res.add(Portal.class);
-		res.add(Product.class);
-		res.add(Upgrade.class);
 		return res;
 	}
 
-	public void getBagEntity() {
-		if (this.bag.size() >= 1) {
-			if (hand == null) {
-				hand = this.bag.remove(0);
+	public void getBagEntity(Kind_Weapon kw) {
+		for(int i=0; i<this.bag.size();i++) {
+			if(this.bag.get(i).getWeapon().getKindWeapon().equals(kw) && hand == null) {
+				hand = this.bag.remove(i);
+				break;
 			}
 		}
+//		if (this.bag.size() >= 1) {
+//			if (hand == null) {
+//				hand = this.bag.remove(0);
+//			}
+//		}
 	}
 
 	public void throwAction() {
@@ -62,7 +66,11 @@ public class Player extends Living {
 				this.bag.add(hand);
 			entity.removeEntityFromCell();
 			hand = (Tower) (entity);
+		} else if(entity instanceof Buyable) {
+			((Buyable) entity).action();
 		}
+		
+		// Ajout Product
 	}
 
 	public void store() {
@@ -120,4 +128,6 @@ public class Player extends Living {
 	public void increaseMoney(int money) {
 		this.money += money;
 	}
+
+	
 }

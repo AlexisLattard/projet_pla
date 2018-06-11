@@ -9,18 +9,17 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-
 public abstract class Living extends Entity {
 
 	protected int hp;
 	protected Direction direction;
 	protected Weapon weapon;
 	BufferedImage sprite[];
-	//TEST
-		long last_action = 0;
+	// TEST
+	long last_action = 0;
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
-			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions ) {
+			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions) {
 		super(c_model, c_movement, c_scale, c_collisions, c_cell);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
@@ -47,16 +46,16 @@ public abstract class Living extends Entity {
 
 	public void step(long now) {
 		super.step(now);
-		
-		if(this.hp <= 0) {
-			
+
+		if (this.hp <= 0) {
+
 			this.cell.removeEntity(this);
-		}	
+		}
 	}
 
-	public void move(Direction d) {
-		this.turn(d);
-		this.addEntityOnCell(getFrontCell());
+	public void move(Direction d) {		
+			this.turn(d);
+			this.addEntityOnCell(getFrontCell());
 	}
 
 	public void turn(Direction d) {
@@ -84,14 +83,14 @@ public abstract class Living extends Entity {
 		default:
 			return null;
 		}
-		
+
 		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
 
 	public boolean isAlive() {
 		return hp > 0;
 	}
-	
+
 	public BufferedImage[] getSprite() {
 		return this.sprite;
 	}
@@ -123,15 +122,15 @@ public abstract class Living extends Entity {
 	public void throwAction() {
 
 	}
-	
+
 	public Direction getDirection() {
-	    	return this.direction;
+		return this.direction;
 	}
-	
+
 	public Weapon getWeapon() {
 		return this.weapon;
 	}
-	
+
 	public int getHp() {
 		return this.hp;
 	}

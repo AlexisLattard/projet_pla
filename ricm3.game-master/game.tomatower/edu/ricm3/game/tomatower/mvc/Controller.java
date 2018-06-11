@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -44,7 +45,7 @@ public class Controller extends GameController implements ActionListener {
 	public Controller(Model m) {
 		this.model = m;
 	}
-	
+
 	/**
 	 * Simulation step. Warning: the model has already executed its step.
 	 * 
@@ -62,8 +63,6 @@ public class Controller extends GameController implements ActionListener {
 
 	}
 
-
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
@@ -75,11 +74,11 @@ public class Controller extends GameController implements ActionListener {
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_KP_RIGHT:
-            long start0 = System.nanoTime();
+			long start0 = System.nanoTime();
 			model.getPlayer().move(Direction.RIGHT);
-            long end0 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-                System.out.println("Move action time" + (end0 - start0));
+			long end0 = System.nanoTime();
+			if (Options.ECHO_PERFORMANCE)
+				System.out.println("Move action time" + (end0 - start0));
 			break;
 		case KeyEvent.VK_KP_LEFT:
 		case KeyEvent.VK_LEFT:
@@ -89,32 +88,51 @@ public class Controller extends GameController implements ActionListener {
 		case KeyEvent.VK_KP_UP:
 			model.getPlayer().move(Direction.UP);
 			break;
-        case KeyEvent.VK_T:
+		case KeyEvent.VK_T:
 			long start1 = System.nanoTime();
 			System.out.println("PICK");
-            this.model.getPlayer().pick();
-            this.model.getPlayer().store();
-            long end1 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-            	System.out.println("Take action time: " + (end1 - start1));
-            break;
-        case KeyEvent.VK_P:
-            long start2 = System.nanoTime();
-            this.model.getPlayer().getBagEntity();
-            this.model.getPlayer().throwAction();
-            long end2 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-            	System.out.println("Put action time : " + (end2 - start2));
-            break;
-        case KeyEvent.VK_H:
-        	this.model.getPlayer().pick();
-        	break;
-        case KeyEvent.VK_J:
-        	this.model.getPlayer().throwAction();
-        	break;
-        case KeyEvent.VK_SPACE:
-        	this.model.getPlayer().hit();        	
-        	break;
+			this.model.getPlayer().pick();
+			this.model.getPlayer().store();
+			long end1 = System.nanoTime();
+			if (Options.ECHO_PERFORMANCE)
+				System.out.println("Take action time: " + (end1 - start1));
+			break;
+		case KeyEvent.VK_A:
+			long start2 = System.nanoTime();
+			this.model.getPlayer().getBagEntity(Kind_Weapon.Red);
+			this.model.getPlayer().throwAction();
+			long end2 = System.nanoTime();
+			if (Options.ECHO_PERFORMANCE)
+				System.out.println("Put action time : " + (end2 - start2));
+			break;
+		case KeyEvent.VK_Z:
+			// long start2 = System.nanoTime();
+			this.model.getPlayer().getBagEntity(Kind_Weapon.Blue);
+			this.model.getPlayer().throwAction();
+			/*
+			 * long end2 = System.nanoTime(); if (Options.ECHO_PERFORMANCE)
+			 * System.out.println("Put action time : " + (end2 - start2));
+			 */
+			break;
+		case KeyEvent.VK_E:
+			// long start2 = System.nanoTime();
+			this.model.getPlayer().getBagEntity(Kind_Weapon.Yellow);
+			this.model.getPlayer().throwAction();
+			break;
+		case KeyEvent.VK_R:
+			// long start2 = System.nanoTime();
+			this.model.getPlayer().getBagEntity(Kind_Weapon.Purple);
+			this.model.getPlayer().throwAction();
+			break;
+		case KeyEvent.VK_H:
+			this.model.getPlayer().pick();
+			break;
+		case KeyEvent.VK_J:
+			this.model.getPlayer().throwAction();
+			break;
+		case KeyEvent.VK_SPACE:
+			this.model.getPlayer().hit();
+			break;
 		}
 	}
 
@@ -167,12 +185,12 @@ public class Controller extends GameController implements ActionListener {
 	}
 
 	public void notifyVisible() {
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
 
 }
