@@ -48,7 +48,6 @@ public abstract class Living extends Entity {
 		if (this.isVisible()) {
 			int cell_size = this.model.getCurrentMap().getCellSize();
 			int[] pos = this.getPosition();
-
 			int d = (int) (cell_size * scale);
 			int x = pos[0] * cell_size;
 			int y = pos[1] * cell_size;

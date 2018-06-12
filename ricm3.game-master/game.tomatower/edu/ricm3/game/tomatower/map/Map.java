@@ -167,7 +167,7 @@ public class Map {
 						break;
 
 					case "Ol":
-						new Obstacle(this.model, this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
+						new Water(this.model, this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
 						break;
 
 					case "Ow":
@@ -180,12 +180,11 @@ public class Map {
 
 					case "C":
 						if (main_crystal == null) {
-							main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal[0], 2, cell,
-									ObstaclesKind.CRYSTAL, null);
+							main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell,
+									null);
 							this.model.setCrystal(main_crystal);
 						} else {
-							new Crystal(this.model, this.model.getSprites().sprite_crystal[0], 0, cell,
-									ObstaclesKind.CRYSTAL, main_crystal);
+							new Crystal(this.model, this.model.getSprites().sprite_crystal, 0, cell, main_crystal);
 						}
 
 						break;

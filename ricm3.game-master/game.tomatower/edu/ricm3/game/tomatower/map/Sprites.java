@@ -24,7 +24,7 @@ public class Sprites {
 
 	public BufferedImage sprite_cailloux;
 	public BufferedImage sprite_arbre;
-	public BufferedImage sprite_lac;
+	public BufferedImage sprite_lac[];
 	public BufferedImage sprite_mur;
 	public BufferedImage sprite_portal;
 	public BufferedImage sprite_portal_in;
@@ -197,7 +197,8 @@ public class Sprites {
 
 		imageFile = new File("game.tomatower/sprites/obstacles/water.png");
 		try {
-			sprite_lac = ImageIO.read(imageFile);
+			tmp_sprite = ImageIO.read(imageFile);
+			sprite_lac = this.splitSprite(tmp_sprite, 2, 8);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
