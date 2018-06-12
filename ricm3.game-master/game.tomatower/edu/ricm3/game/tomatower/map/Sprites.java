@@ -218,5 +218,14 @@ public class Sprites {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
+
+		// Sprite de fond
+		imageFile = new File("game.tomatower/sprites/grass.png");
+		try {
+			sprite_background = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
 	}
 }

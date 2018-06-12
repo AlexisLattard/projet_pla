@@ -18,10 +18,10 @@
 package edu.ricm3.game.tomatower.mvc;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
-
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
 import edu.ricm3.game.tomatower.entities.Player;
@@ -68,8 +68,18 @@ public class View extends GameView {
 		// erase background
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
-
-		this.model.getCurrentMap().paint(g);
+		Map map = this.model.getCurrentMap();
+		Iterator<Cell> iter_cells = map.getCellsIterator();
+		Cell c;
+		while (iter_cells.hasNext()) {
+			c = iter_cells.next();
+			int d = map.getCellSize();
+			int[] pos = c.getPosition();
+			int x = pos[0] * d;
+			int y = pos[1] * d;
+			g.drawImage(model.getSprites().sprite_background, x, y, d, d, null);
+		}
+		map.paint(g);
 
 		hud.paint(g);
 	}

@@ -82,12 +82,10 @@ public class Controller extends GameController implements ActionListener {
 			this.keyPressed = "FU";
 			break;
 		case KeyEvent.VK_KP_DOWN:
-
 		case KeyEvent.VK_DOWN:
 			this.keyPressed = "FD";
 			break;
 		case KeyEvent.VK_KP_RIGHT:
-
 		case KeyEvent.VK_RIGHT:
 			this.keyPressed = "FR";
 			break;
