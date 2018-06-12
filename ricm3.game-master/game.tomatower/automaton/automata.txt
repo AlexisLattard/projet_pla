@@ -1,0 +1,188 @@
+MoverSquare(Un){
+    * (Un): True ? Move(S) : (Deux)
+    * (Deux) : True ? Move(E) : (Trois)
+    * (Trois) : True ? Move(N) : (Quatre)
+    * (Quatre) : True ? Move(O) : (Un)
+}
+
+MoverRandom(Init) {
+    * (Init): True ? Move(E) / Move(O) : (Init)
+}
+
+Hiter(Init) {
+    *(Init): 
+     | Cell(N, T) ? Hit(N) : (Init)
+     | True ? Jump : (Init)
+}
+
+HiterTower(Init) {
+    *(Init): True ? Hit(N) : (Init)
+}
+
+FollowTheWalls(Bump){
+
+	* (Bump):
+		| Cell(S,D)/Cell(N,D)/Cell(E,D)/Cell(O,D) ? Pop	:(X)
+		| Cell(F,V) ? Move(F)	:(Bump)
+		| True ? Turn(L)	:(FollowWalls)
+
+	* (FollowWalls):
+		| Cell(S,D)/Cell(N,D)/Cell(E,D)/Cell(O,D) ? Pop	:(X)
+		| Cell(R,V) ? Turn(R)	:(Step)
+		| Cell(F,V) ? Move(F)	:(FollowWalls)
+		| Cell(L,V) ? Turn(L)	:(Step)
+		| True ? Turn(B)	:(Step)
+
+	* (Step): True ? Move(F)	:(FollowWalls)
+}
+
+Perso(Init) {
+    *(Init):
+     | Key(FU) ? Move(N) : (Init)
+     | Key(FD) ? Move(S) : (Init)
+     | Key(FR) ? Move(E) : (Init)
+     | Key(FL) ? Move(O) : (Init)
+     | Key(SPACE) ? Hit : (Init)
+     | Key(a) ? Pick : (Init)
+     | Key(z) ? Store : (Init)
+     | Key(q) ? Throw : (Init)
+     | Key(s) ? Get : (Init)
+     | Key(p) ? Pop : (Init)
+}
+
+Explorer(Explore){
+
+* (Explore):
+  | Cell(F,V) ? Move    :(Explore)
+  | Cell(R,V) ? Turn(R) :(Explore)
+  | Cell(L,V) ? Turn(L) :(Explore)
+  | True ? Turn(B) :(Exploreb)
+
+* (Exploreb):
+    | Cell(F,V) ? Move    :(Exploreb)
+    | Cell(L,V) ? Turn(L) :(Exploreb)
+    | Cell(R,V) ? Turn(R) :(Exploreb)
+    | True ? Turn(B) :(Explore)
+}
+
+ExplorerBIS(Explore_R){
+
+* (Explore_R):
+  | Cell(F,V) ? Move    :(Explore_R)
+  | Cell(R,V) ? Turn(R) :(Explore_R)
+  | Cell(L,V) ? Turn(L) :(Explore_R)
+  | True ? Turn(B) :(Explore_L)
+
+* (Explore_L):
+    | Cell(F,V) ? Move    :(Explore_L)
+    | Cell(L,V) ? Turn(L) :(Explore_L)
+    | Cell(R,V) ? Turn(R) :(Explore_L)
+    | True ? Turn(B) :(Explore_R)
+}
+
+FollowTheWalls(Bump){
+
+	* (Bump):
+		| Cell(F,V) ? Move(F)	:(Bump)
+		| True ? Turn(L)	:(FollowWalls)
+
+	* (FollowWalls):
+		| Cell(R,V) ? Turn(R)	:(Step)
+		| Cell(F,V) ? Move(F)	:(FollowWalls)
+		| Cell(L,V) ? Turn(L)	:(_)
+		| True ? Turn(B)	:(Step)
+
+	* (Step): True ? Move(F)	:(FollowWalls)
+	}
+
+Turner(Turn_0){
+  * (Turn_0): True ? Turn(R) :(Turn_1)
+  * (Turn_1): True ? Turn(R) :(Turn_2)
+  * (Turn_2): True ? Turn(R) :(Turn_3)
+  * (Turn_3): True ? Turn(R) :(Turn_4)
+  * (Turn_4): True ? Get :(X)
+}
+
+Atest(Init) {
+    * (Init) : True ? Move(E) : (Init)
+}
+
+OmegaTest(Test_1) {
+
+	* (Test_1):
+		| Cell(F,V) ? Move(F)	:(Test_2)
+		| True ? Power			:(Test_2)
+		
+	* (Test_2):
+		| Cell(L,V) ? Move(L)	:(Test_3)
+		| True ? Power			:(Test_3)
+		
+	* (Test_3):
+		| Cell(R,V) ? Move(R)	:(Test_4)
+		| True ? Power			:(Test_4)
+		
+	* (Test_4):
+		| Cell(B,V) ? Move(B)	:(Test_5)
+		| True ? Power			:(Test_5)
+		
+	* (Test_5): True ? Turn(R)	:(Test_6)
+	
+	* (Test_6): True ? Turn(L)	:(Test_7)
+	
+	* (Test_7): True ? Turn(B)	:(Test_8)
+	
+	* (Test_8):
+		| Cell(F,V) ? Jump(F)	:(Test_9)
+		| True ? Power			:(Test_9)
+		
+	* (Test_9):
+		| Cell(L,V) ? Jump(L)	:(Test_10)
+		| True ? Power			:(Test_10)
+		
+	* (Test_10):
+		| Cell(R,V) ? Jump(R)	:(Test_11)
+		| True ? Power			:(Test_11)
+		
+	* (Test_11):
+		| Cell(B,V) ? Jump(B)	:(Test_12)
+		| True ? Power			:(Test_12)
+		
+	* (Test_12):
+		| Key(SPACE) ? Hit(F)	:(Test_13)
+		| Key(a) ? Hit(F)		:(Test_13)
+		| Key(9) ? Hit(F)		:(Test_13)
+		| Key(FU) ? Hit(F)		:(Test_13)
+		| not(Key(a)) ? Hit(F)	:(Test_13)
+		
+	* (Test_13): 
+		| MyDir(N) ? Pick(N)	:(Test_14)
+		| MyDir(S) ? Pick(S)	:(Test_14)
+		| MyDir(E) ? Pick(E)	:(Test_14)
+		| MyDir(O) ? Pick(O)	:(Test_14)
+		| True ? Pick(B)		:(Test_14)
+		
+	* (Test_14):
+		| Cell(F,T) / Cell(F,A) / Cell(F,D) / Cell(F,P) / Cell(F,J) / Cell(F,G) / Cell(F,M) ? Store		:(Test_15)
+		| True ? Store																					:(Test_15)
+		
+	* (Test_15):
+		| Closest(V,N) ? Get				:(Test_16)
+		| True & not(Closest(V,N)) ? Get	:(Test_16)
+		
+	* (Test_16):
+		| Cell(d,V) ? Move(d)	:(Test_17)
+		| True ? Power			:(Test_17)
+		
+	* (Test_17): True ? Turn(R) / Turn(L)	:(Test_18)
+	
+	* (Test_18): True ? Pop(B)	:(Test_19)
+	
+	* (Test_19): True ? Pop		:(Test_20)
+	
+	* (Test_20): True ? Wizz(B)	:(Test_21)
+	
+	* (Test_21): True ? Wizz	:(Test_22)
+	
+	* (Test_22): True ? Kamikaze	:(Turner)
+}
+

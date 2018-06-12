@@ -19,6 +19,7 @@ package edu.ricm3.game;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -29,114 +30,121 @@ import java.awt.image.BufferedImage;
  * 
  * It extends the AWT canvas, a widget that is essentially an area of pixels,
  * suited to draw on it. You can draw pixels or shapes such as lines, polygones,
- * or circles. Look for these capabilitis in the class java.awt.Graphics.
- * You can also draw images and therefore you can do animations.
+ * or circles. Look for these capabilitis in the class java.awt.Graphics. You
+ * can also draw images and therefore you can do animations.
  * 
- * We extended the AWT canvas to have an efficient double buffering.
- * You can read https://en.wikipedia.org/wiki/Multiple_buffering
- * as an introduction.
+ * We extended the AWT canvas to have an efficient double buffering. You can
+ * read https://en.wikipedia.org/wiki/Multiple_buffering as an introduction.
  * 
  * Note that you can turn double buffering off in Options.USE_DOUBLE_BUFFERING.
  * We suggest that you leave it on.
- *  
+ * 
  * @author Pr. Olivier Gruber
  *
  */
 public abstract class GameView extends Canvas {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  protected GameUI m_game;
-  protected Color m_background = Color.gray;
-  
-  private Image m_buffer1, m_buffer2;
-  private Image m_renderBuffer;
-  private Image m_drawBuffer;
-  private int m_width, m_height;
-  private boolean m_swap;
+	protected GameUI m_game;
+	protected Color m_background = Color.gray;
 
-  private void initDoubleBuffering(int width, int height) {
+	private Image m_buffer1, m_buffer2;
+	private Image m_renderBuffer;
+	private Image m_drawBuffer;
+	private int m_width, m_height;
+	private boolean m_swap;
 
-    if (width != m_width || height != m_height) {
-      m_width = width;
-      m_height = height;
-      m_buffer1 = new BufferedImage(m_width, m_height, BufferedImage.TYPE_INT_RGB);
-      if (Options.USE_DOUBLE_BUFFERING)
-        m_buffer2 = new BufferedImage(m_width, m_height, BufferedImage.TYPE_INT_RGB);
-      else
-        m_buffer2 = m_buffer1;
+	private void initDoubleBuffering(int width, int height) {
 
-      Graphics gc = m_buffer1.getGraphics();
-      gc.setColor(Color.GRAY);
-      gc.fillRect(0, 0, m_width, m_height);
-      gc = m_buffer2.getGraphics();
-      gc.setColor(Color.GRAY);
-      gc.fillRect(0, 0, m_width, m_height);
-      m_renderBuffer = m_buffer2;
-      m_drawBuffer = m_buffer1;
-    }
-  }
+		if (width != m_width || height != m_height) {
+			m_width = width;
+			m_height = height;
+			m_buffer1 = new BufferedImage(m_width, m_height, BufferedImage.TYPE_INT_RGB);
+			if (Options.USE_DOUBLE_BUFFERING)
+				m_buffer2 = new BufferedImage(m_width, m_height, BufferedImage.TYPE_INT_RGB);
+			else
+				m_buffer2 = m_buffer1;
 
-  private void swap() {
-    if (m_renderBuffer == m_buffer1) {
-      m_renderBuffer = m_buffer2;
-      m_drawBuffer = m_buffer1;
-    } else {
-      m_renderBuffer = m_buffer1;
-      m_drawBuffer = m_buffer2;
-    }
-  }
+			Graphics gc = m_buffer1.getGraphics();
+			gc.setColor(Color.GRAY);
+			gc.fillRect(0, 0, m_width, m_height);
+			gc = m_buffer2.getGraphics();
+			gc.setColor(Color.GRAY);
+			gc.fillRect(0, 0, m_width, m_height);
+			m_renderBuffer = m_buffer2;
+			m_drawBuffer = m_buffer1;
+		}
+	}
 
-  protected GameView() {
-  }
-  
-  public GameUI getGameUI() {
-    return m_game;
-  }
-  
-  public int getWidth() {
-    return m_width;
-  }
+	private void swap() {
+		if (m_renderBuffer == m_buffer1) {
+			m_renderBuffer = m_buffer2;
+			m_drawBuffer = m_buffer1;
+		} else {
+			m_renderBuffer = m_buffer1;
+			m_drawBuffer = m_buffer2;
+		}
+	}
 
-  public int getHeight() {
-    return m_height;
-  }
+	protected GameView() {
+	}
 
-  public void setBounds(int x, int y, int width, int height) {
-    initDoubleBuffering(width, height);
-    super.setBounds(x, y, width, height);
-  }
+	public GameUI getGameUI() {
+		return m_game;
+	}
 
-  public GameModel getModel() {
-    return m_game.getModel();
-  }
+	public int getWidth() {
+		return m_width;
+	}
 
-  public GameController getController() {
-    return m_game.getController();
-  }
+	public int getHeight() {
+		return m_height;
+	}
+	
+	public void setWidth(int width) {
+		m_width = width;
+	}
 
-  public final void paint() {
-    Graphics g = m_drawBuffer.getGraphics();
-    g.draw3DRect(10, 10, 100, 100, true);
-    _paint(g);
-    m_swap = true;
-    repaint();
-  }
+	public void setHeight(int height) {
+		m_height = height;
+	}
 
-  @Override
-  public final void paint(Graphics g) {
-    if (m_swap) {
-      swap();
-      m_swap = false;
-    }
-    g.drawImage(m_renderBuffer, 0, 0, this);
-    Toolkit.getDefaultToolkit().sync();
-  }
+	public void setBounds(int x, int y, int width, int height) {
+		initDoubleBuffering(width, height);
+		super.setBounds(x, y, width, height);
+	}
 
-  @Override
-  public final void update(Graphics g) {
-    paint(g);
-  }
+	public GameModel getModel() {
+		return m_game.getModel();
+	}
 
-  protected abstract void _paint(Graphics g);
+	public GameController getController() {
+		return m_game.getController();
+	}
+
+	public final void paint() {
+		Graphics g = m_drawBuffer.getGraphics();
+		g.draw3DRect(10, 10, 100, 100, true);
+		_paint(g);
+		m_swap = true;
+		repaint();
+	}
+
+	@Override
+	public final void paint(Graphics g) {
+		if (m_swap) {
+			swap();
+			m_swap = false;
+		}
+		g.drawImage(m_renderBuffer, 0, 0, this);
+		Toolkit.getDefaultToolkit().sync();
+	}
+
+	@Override
+	public final void update(Graphics g) {
+		paint(g);
+	}
+
+	protected abstract void _paint(Graphics g);
 }

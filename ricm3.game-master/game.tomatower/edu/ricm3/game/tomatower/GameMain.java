@@ -27,19 +27,23 @@ import edu.ricm3.game.tomatower.mvc.View;
 public class GameMain {
 
   public static void main(String[] args) {
+	  
+
 
     // construct the game elements: model, controller, and view.
     Model model = new Model();
     Controller controller = new Controller(model);
     View view = new View(model,controller);
+    model.initModel(controller);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = (int)screenSize.getWidth();
     int height = (int)screenSize.getHeight();
     System.out.println("Screen resolution : " + width + " x " + height);
 
-    Dimension d = new Dimension(700,730);
-    new GameUI(model,view,controller,d);
+    Dimension d = new Dimension(1000,768);
+    view.setGameUI(new GameUI(model,view,controller,d));
+    
     
     // notice that the main thread will exit here,
     // but not your program... hence the hooking
