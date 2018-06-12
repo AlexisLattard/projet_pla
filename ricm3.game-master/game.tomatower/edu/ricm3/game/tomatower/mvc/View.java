@@ -21,51 +21,57 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
+import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
+import edu.ricm3.game.tomatower.entities.Tower;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.map.Hud;
 
 public class View extends GameView {
 
-    private static final long serialVersionUID = 1L;
-    Color m_background = Color.white;
-    long last;
-    int npaints;
-    int fps;
-    Model model;
-    Controller ctr;
+	private static final long serialVersionUID = 1L;
+	Color m_background = Color.white;
+	long last;
+	int npaints;
+	int fps;
+	Model model;
+	Controller ctr;
+	GameUI gameUI;
+	Hud hud;
 
-    public View(Model m, Controller c) {
-        model = m;
-        ctr = c;
-    }
+	public View(Model m, Controller c) {
+		model = m;
+		ctr = c;
+		hud = new Hud(m);
+	}
 
-    private void computeFPS() {
-        long now = System.currentTimeMillis();
-        if (now - last > 1000L) {
-            fps = npaints;
-            last = now;
-            npaints = 0;
-        }
-        m_game.setFPS(fps, "npaints=" + npaints);
-        npaints++;
-    }
+	private void computeFPS() {
+		long now = System.currentTimeMillis();
+		if (now - last > 1000L) {
+			fps = npaints;
+			last = now;
+			npaints = 0;
+		}
+		m_game.setFPS(fps, "npaints=" + npaints);
+		npaints++;
+	}
 
-    @Override
-    protected void _paint(Graphics g) {
-        computeFPS();
+	@Override
+	protected void _paint(Graphics g) {
+		computeFPS();
 
+		// erase background
+		g.setColor(m_background);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		this.model.getCurrentMap().paint(g);
 
-        // erase background
-        g.setColor(m_background);
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-        Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
-        while(iter_cells.hasNext()) {
-            Cell c = iter_cells.next();
-            c.paint(g);
-        }
-    }
-
-
+		hud.paint(g);
+	}
+	
+	public void setGameUI(GameUI gameUI) {
+		this.gameUI = gameUI;
+	}
 
 }

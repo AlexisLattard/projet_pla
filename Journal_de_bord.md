@@ -1,5 +1,28 @@
 # Journal de bord
 
+## Jeudi 7 juin
+- HUD du jeu
+
+## Merdeci 6 juin
+- Matin : Soutenance pour établir un contrat
+- Modification de certain aspect du jeu en fonction de la soutenance du matin
+- Amélioration du changement de map et des téléporteur en conséquence
+- Amélioration de la maquette du HUD 
+
+![](./Image/gif_6juin.gif)
+
+## Mardi 5juin
+- Préparation de la soutenance
+- Amélioration de la boutique
+- Développement du menu
+
+## Lundi 4 juin
+- Gestion des sprites / animation
+- Implémentation de la boutique : achat d'amélioration, et de tourelle
+- Début d'implémentation du système de Weapon
+- Développement du menu
+- Prise en main / réflexion du système d'automate
+
 ## Dimanche 3 juin
 - Organisation du projet en sous-dossier
 - Développement d'une nouvelle implémentation pour la gestion de la grille (classe Cell et Map)  

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="ricm3.game-master/game.framework"/>
+	<classpathentry kind="src" path="ricm3.game-master/game.tomatower"/>
+	<classpathentry kind="lib" path="ricm3.game-master/jmf-2.1.1e.jar"/>
+	<classpathentry kind="lib" path="ricm3.game-master/mediaplayer-2.1.1e.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
