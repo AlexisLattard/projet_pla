@@ -151,6 +151,7 @@ public class Map {
             ArrayList<ArrayList<Cell>> cells = new ArrayList<>();
             Iterator<String[]> iter_map = map_langugage.iterator();
             Crystal main_crystal = null;
+            MobSpawn main_mobSpawn = null;
 
             while (iter_map.hasNext()) {
                 String[] line_elements = iter_map.next();
@@ -160,9 +161,6 @@ public class Map {
                     Cell cell = new Cell(col, row, this);
                     cells_line.add(cell);
                     switch (line_elements[col]) {
-                        case "E":
-                        	
-                            break;
                         case "P":
                             // TEST
                             Weapon w = new Weapon(this.model, 1, 7, Kind_Weapon.Yellow);
@@ -187,13 +185,20 @@ public class Map {
                             
                         case "C":
                             if(main_crystal == null) {
-                                main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal[0], 2, cell, ObstaclesKind.CRYSTAL, null);
+                                main_crystal = new Crystal(this.model, this.model.getSprites().sprite_crystal, 2, cell, null);
                                 this.model.setCrystal(main_crystal);
                             } else {
-                                new Crystal(this.model, this.model.getSprites().sprite_crystal[0], 0, cell, ObstaclesKind.CRYSTAL, main_crystal);
+                                new Crystal(this.model, this.model.getSprites().sprite_crystal, 0, cell, main_crystal);
                             }                            
 
                             break;
+                            
+                        case "Ms":
+                        	if(main_mobSpawn == null) {
+                        		main_mobSpawn = new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 2, cell, null);
+                            } else {
+                                new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 0, cell, main_mobSpawn);
+                            } 
                         case "Pc":
                             new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell, ObstaclesKind.PORTAL_TO_CHALLENGE);
                             break;

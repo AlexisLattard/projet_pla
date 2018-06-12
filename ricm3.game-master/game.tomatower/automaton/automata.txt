@@ -6,7 +6,11 @@ MoverSquare(Un){
 }
 
 MoverRandom(Init) {
-    * (Init): True ? Move(E) / Move(O) : (Init)
+    * (Init): True ? Move(O) / Move(E) / Move(S) / Move(N) : (Init)
+}
+
+MoverBottom(Init) {
+    * (Init): True ? Move(S) : (Init)
 }
 
 Hiter(Init) {
@@ -80,7 +84,7 @@ ExplorerBIS(Explore_R){
     | True ? Turn(B) :(Explore_R)
 }
 
-FollowTheWalls(Bump){
+FollowTheWallsTest(Bump){
 
 	* (Bump):
 		| Cell(F,V) ? Move(F)	:(Bump)

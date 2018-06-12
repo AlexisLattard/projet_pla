@@ -136,7 +136,11 @@ public abstract class Entity {
 	
 	public boolean cell(Direction d, Kind k) {
 		Cell cell = this.getCellDirection(d, 1);
-		return cell.containEntityKind(k);
+		if(cell != null){
+			return cell.containEntityKind(k);
+		} else {
+			return false;
+		}
 	}
 	
     
