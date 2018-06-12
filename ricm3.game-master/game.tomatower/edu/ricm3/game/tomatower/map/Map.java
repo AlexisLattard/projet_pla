@@ -135,21 +135,21 @@ public class Map {
             long start1 = System.nanoTime();
             BufferedReader reader = new BufferedReader(new FileReader(map_file));
             
-            ArrayList<String[]> map_langugage = new ArrayList<>();
+            ArrayList<String[]> map_language = new ArrayList<>();
             String line;
 
             int row = 0;
             while ((line = reader.readLine()) != null && line != "") {
-                map_langugage.add(line.split(" "));
+                map_language.add(line.split(" "));
                 row++;
             }
 
             this.nb_cell_vertical = row;
-            this.nb_cell_horizontal = map_langugage.get(0).length;
+            this.nb_cell_horizontal = map_language.get(0).length;
 
             row = 0;
             ArrayList<ArrayList<Cell>> cells = new ArrayList<>();
-            Iterator<String[]> iter_map = map_langugage.iterator();
+            Iterator<String[]> iter_map = map_language.iterator();
             Crystal main_crystal = null;
 
             while (iter_map.hasNext()) {

@@ -21,11 +21,12 @@ public abstract class Inert extends Entity {
 	}
 
 	public void paint(Graphics g) {
+		int cell_size = this.model.getCurrentMap().getCellSize();
 		if (this.isVisible()) {
 			int d = (int) (this.getMap().getCellSize() * scale);
 			int[] pos = this.getPosition();
-			int x = pos[0] * model.getCurrentMap().getCellSize();
-			int y = pos[1] * model.getCurrentMap().getCellSize();
+			int x = pos[0] * cell_size;
+			int y = pos[1] * cell_size;
 			g.drawImage(sprite, x, y, d, d, null);
 		}
 	}
