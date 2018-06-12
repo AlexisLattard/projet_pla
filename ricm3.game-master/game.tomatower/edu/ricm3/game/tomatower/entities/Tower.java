@@ -1,6 +1,7 @@
 package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -37,38 +38,59 @@ public class Tower extends Living {
 	 * @param enemies
 	 * @return true s'il y en a un, false sinon
 	 */
-	// public boolean enemyInRange(Entity[] enemies) {
-	// Cell c_cell = this.getCell();
-	// int c_abscisse = c_cell.getPosition()[0];
-	// int c_ordonnee = c_cell.getPosition()[1];
-	// int range = this.weapon.getRange();
-	//
-	// int x = 0;
-	// for (int i = c_abscisse - range; i <= c_abscisse; i++) {
-	// for (int j = c_ordonnee - x; j <c_ordonnee + x; j++) {
-	// for (int ent = 0; ent < enemies.length; ent++) {
-	// if (this.model.getCurrentMap().getCell(j,
-	// i).getEntities().contains(enemies[ent])) {
-	// return true;
-	// }
-	// }
-	// x++;
-	// }
-	// }
-	// for (int i = c_abscisse + 1; i < c_abscisse + range; i++) {
-	// for (int j = c_ordonnee - x; j <c_ordonnee + x; j++) {
-	// for (int ent = 0; ent < enemies.length; ent++) {
-	// if (this.model.getCurrentMap().getCell(j,
-	// i).getEntities().contains(enemies[ent])) {
-	// return true;
-	// }
-	// }
-	// x--;
-	// }
-	// }
-	//
-	// return false;
-	// }
+	public boolean enemyInRange(Entity enemy, Direction dir) {
+		Cell c_cell = this.getCell();
+		int c_abscisse = c_cell.getPosition()[0];
+		int c_ordonnee = c_cell.getPosition()[1];
+		int range = this.weapon.getRange();
+		Map map = this.model.getCurrentMap();
+		int abs = 0, ord = 0;
+		boolean enemyNotFound = true;
+		for (int k = 1; k <= range && enemyNotFound; k++) {
+			for (abs = k, ord = 0; abs > 0 && enemyNotFound; abs--, ord++) {
+				if (map.getCell(c_abscisse + abs, c_ordonnee + ord).getEntities().contains(enemy)) {
+					enemyNotFound = false;
+				}
+			}
+			for (; ord > 0 && enemyNotFound; abs--, ord--) {
+				if (map.getCell(c_abscisse + abs, c_ordonnee + ord).getEntities().contains(enemy)) {
+					enemyNotFound = false;
+				}
+			}
+			for (; abs < 0 && enemyNotFound; abs++, ord--) {
+				if (map.getCell(c_abscisse + abs, c_ordonnee + ord).getEntities().contains(enemy)) {
+					enemyNotFound = false;
+				}
+			}
+			for (; ord < 0 && enemyNotFound; abs++, ord++) {
+				if (map.getCell(c_abscisse + abs, c_ordonnee + ord).getEntities().contains(enemy)) {
+					enemyNotFound = false;
+				}
+			}
+		}
+		if (!enemyNotFound) {
+			if (abs >= 0) {
+				if (abs >= Math.abs(ord)) {
+					return dir == Direction.RIGHT;
+				} else {
+					if (ord > 0)
+						return dir == Direction.UP;
+					else
+						return dir == Direction.DOWN;
+				}
+			} else {
+				if (Math.abs(abs) >= Math.abs(ord)) {
+					return dir == Direction.LEFT;
+				} else {
+					if (ord > 0)
+						return dir == Direction.UP;
+					else
+						return dir == Direction.DOWN;
+				}
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Fonction pour tester si un ennemi est dans la range de la tour en ligne
@@ -78,7 +100,7 @@ public class Tower extends Living {
 	 * @param enemies
 	 * @return true s'il y en a un, false sinon
 	 */
-	public boolean enemyInRange(Direction c_direction, Entity[] enemies) {
+	public boolean Closest(Direction c_direction, Entity enemy) {
 		int c_abscisse = this.getCell().getPosition()[0];
 		int c_ordonnee = this.getCell().getPosition()[1];
 		int range = this.weapon.getRange();
@@ -89,10 +111,8 @@ public class Tower extends Living {
 		case 0:
 			for (int i = c_ordonnee; i < c_ordonnee - range; i--) {
 				ArrayList<Entity> tabEntites = c_map.getCell(c_abscisse, i).getEntities();
-				for (int ent = 0; ent < enemies.length; ent++) {
-					if (tabEntites.contains(enemies[ent])) {
-						return true;
-					}
+				if (tabEntites.contains(enemy)) {
+					return true;
 				}
 			}
 			break;
@@ -100,10 +120,8 @@ public class Tower extends Living {
 		case 1:
 			for (int i = c_ordonnee; i < c_ordonnee + range; i++) {
 				ArrayList<Entity> tabEntites = c_map.getCell(c_abscisse, i).getEntities();
-				for (int ent = 0; ent < enemies.length; ent++) {
-					if (tabEntites.contains(enemies[ent])) {
-						return true;
-					}
+				if (tabEntites.contains(enemy)) {
+					return true;
 				}
 			}
 			break;
@@ -111,10 +129,8 @@ public class Tower extends Living {
 		case 2:
 			for (int i = c_abscisse; i < c_abscisse + range; i++) {
 				ArrayList<Entity> tabEntites = c_map.getCell(i, c_ordonnee).getEntities();
-				for (int ent = 0; ent < enemies.length; ent++) {
-					if (tabEntites.contains(enemies[ent])) {
-						return true;
-					}
+				if (tabEntites.contains(enemy)) {
+					return true;
 				}
 			}
 			break;
@@ -122,10 +138,8 @@ public class Tower extends Living {
 		case 3:
 			for (int i = c_abscisse; i < c_abscisse - range; i--) {
 				ArrayList<Entity> tabEntites = c_map.getCell(i, c_ordonnee).getEntities();
-				for (int ent = 0; ent < enemies.length; ent++) {
-					if (tabEntites.contains(enemies[ent])) {
-						return true;
-					}
+				if (tabEntites.contains(enemy)) {
+					return true;
 				}
 			}
 			break;
