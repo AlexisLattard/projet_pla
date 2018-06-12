@@ -2,6 +2,7 @@ package edu.ricm3.game.tomatower.map;
 
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
+import edu.ricm3.game.tomatower.entities.Mobs;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 
 import java.awt.*;

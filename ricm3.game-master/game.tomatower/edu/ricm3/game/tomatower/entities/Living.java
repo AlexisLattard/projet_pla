@@ -23,22 +23,15 @@ public abstract class Living extends Entity {
 	BufferedImage sprite[];
 	protected Kind_Weapon tower_selected = Kind_Weapon.Red;
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[],
-			double c_scale, Cell c_cell, Direction c_direction,
-			Weapon c_weapon, ArrayList<Class<?>> c_collisions,
-			A_Automaton c_automaton, Kind c_kind) {
-		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_cell,
-				c_kind);
+	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind) {
+		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_cell, c_kind);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
 		bag = new ArrayList<>();
 	}
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[],
-			double c_scale, Direction c_direction, Weapon c_weapon,
-			ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
-			Kind c_kind) {
+	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind) {
 		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
@@ -78,8 +71,7 @@ public abstract class Living extends Entity {
 	@Override
 	public void pick(Direction d) {
 		if (this.canTake) {
-			Entity entity = this.getMap().getEntityCell(
-					this.getCellDirection(d, 1));
+			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
 
 			if (entity instanceof Tower) {
 				if (hand != null) // On a déjà quelque chose en main, on le
@@ -107,9 +99,7 @@ public abstract class Living extends Entity {
 			store();
 
 			int i = 0;
-			while (i < this.bag.size()
-					&& !this.bag.get(i).getWeapon().getKindWeapon()
-							.equals(this.tower_selected)) {
+			while (i < this.bag.size() && !this.bag.get(i).getWeapon().getKindWeapon().equals(this.tower_selected)) {
 				i++;
 			}
 
@@ -129,8 +119,7 @@ public abstract class Living extends Entity {
 		if (Options.ECHO_GAME_STATE && this.hand == null)
 			System.out.println("Rien dans la main");
 
-		if (this.canTake && this.hand != null
-				&& this.hand.addEntityOnCell(this.getCellDirection(d, 1))) {
+		if (this.canTake && this.hand != null && this.hand.addEntityOnCell(this.getCellDirection(d, 1))) {
 			// Si vrai, alors la tourelle a été posée, donc plus rien en main
 			hand = null;
 		}

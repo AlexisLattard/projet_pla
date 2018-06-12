@@ -145,6 +145,8 @@ public abstract class Entity {
 	// Getter - Setter - Attribute modification
 	
 	public boolean addEntityOnCell(Cell c) {
+		System.out.println("Taille ArrayList : "+this.entities_destination_allowed.size());
+
 		if (c != null && c.getMap().freeCell(c, this)) {
 			if (this.cell != null) {
 				this.cell.removeEntity(this);
@@ -155,6 +157,7 @@ public abstract class Entity {
 			this.visible = true;
 			return true;
 		} else {
+			System.out.println("Je suis un monstre qui bug");
 			return false;
 		}
 	}

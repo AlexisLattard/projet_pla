@@ -6,7 +6,11 @@ MoverSquare(Un){
 }
 
 MoverRandom(Init) {
-    * (Init): True ? Move(E) / Move(O) : (Init)
+    * (Init): True ? Move(O) / Move(E) / Move(S) / Move(N) : (Init)
+}
+
+MoverBottom(Init) {
+    * (Init): True ? Move(S) : (Init)
 }
 
 Hiter(Init) {
