@@ -65,50 +65,13 @@ public class View extends GameView {
 
 		computeFPS();
 
-		// g.fillRect(0, 0, getWidth(), getHeight());
-		Map map = this.model.getCurrentMap();
-		Iterator<Cell> iter_cells = map.getCellsIterator();
-		int d = (int) (map.getCellSize());
-		Cell c;
-		while (iter_cells.hasNext()) {
-			c = iter_cells.next();
-			int[] pos = c.getPosition();
-			int x = pos[0] * d;
-			int y = pos[1] * d;
-			g.drawImage(this.model.getSprites().sprite_background, x, y, d, d, null);
-		}
+		// erase background
+		g.setColor(m_background);
+		g.fillRect(0, 0, getWidth(), getHeight());
 
-		iter_cells = map.getCellsIterator();
-		while (iter_cells.hasNext()) {
-			c = iter_cells.next();
-			c.paint(g);
-		}
+		this.model.getCurrentMap().paint(g);
 
 		hud.paint(g);
-
-		// Affichage de la main du personnage sur la cellule devant lui
-		Player player = this.model.getPlayer();
-		Tower hand = player.getHand();
-		if (hand != null) {
-			Cell dest = player.getFrontCell();
-			if (dest != null) {
-				int[] pos = dest.getPosition();
-				int x = pos[0] * d;
-				int y = pos[1] * d;
-				if (dest.isFree(hand)) {
-					g.setColor(new Color(0, 255, 0, 100));
-				} else {
-					g.setColor(new Color(255, 0, 0, 100));
-				}
-				g.fillRect(x, y, d, d);
-				g.drawImage(((Tower) hand).getSprite()[player.getDirection().getValue()], x, y, d, d, null);
-			}
-		}
-	}
-
-	public void animate(Cell origin, Direction direction, Player p, double time, Graphics g) {
-		System.out.println(time);
-		p.animate(origin, direction.getValue(), g);
 	}
 
 	public void setGameUI(GameUI gameUI) {

@@ -7,6 +7,8 @@ import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.mvc.Model;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,6 +26,44 @@ public class Map {
 	public Map(Model c_model) {
 		this.model = c_model;
 		this.cells = new ArrayList<>();
+	}
+
+	public void step(long now) {
+		Iterator<Cell> iter_cells_mainmap = this.getCellsIterator();
+		while (iter_cells_mainmap.hasNext()) {
+			Cell c = iter_cells_mainmap.next();
+			c.step(now);
+		}
+	}
+
+	public void paint(Graphics g) {
+		Iterator<Cell> iter_cells = this.getCellsIterator();
+		while (iter_cells.hasNext()) {
+			Cell c = iter_cells.next();
+			c.paint(g);
+		}
+
+		// Affichage de la main du personnage sur la cellule devant lui
+		Player player = this.model.getPlayer();
+		Tower hand = player.getHand();
+		if (hand != null) {
+			Cell dest = player.getCellDirection(Direction.FRONT, 1);
+			if (dest != null) {
+				int dest_position[] = dest.getPosition();
+				int cell_size = this.model.getCurrentMap().getCellSize();
+				int x = dest_position[0] * cell_size;
+				int y = dest_position[1] * cell_size;
+
+				if (dest.isFree(hand)) {
+					g.setColor(new Color(0, 255, 0, 100));
+				} else {
+					g.setColor(new Color(255, 0, 0, 100));
+				}
+				g.fillRect(x, y, cell_size, cell_size);
+				g.drawImage(((Tower) hand).getSprite()[player.getDirection().getValue()], x, y, cell_size, cell_size,
+						null);
+			}
+		}
 	}
 
 	public int getCellSize() {
@@ -67,18 +107,6 @@ public class Map {
 			return null;
 	}
 
-	public void step(long now) {
-		Iterator<Cell> iter_cells_mainmap = this.getCellsIterator();
-		while (iter_cells_mainmap.hasNext()) {
-			Cell c = iter_cells_mainmap.next();
-			c.step(now);
-		}
-	}
-
-	public void setCellIn(Cell cell) {
-		this.cell_portal_in = cell;
-	}
-
 	public Cell getCellIn() {
 		return this.cell_portal_in;
 	}
@@ -93,7 +121,6 @@ public class Map {
 		 * Faire verification de map avec compteur Principal : Joueur, spawn ennemi,
 		 * spawn joueur Defis : portal to principal, spawn ennemi
 		 */
-		System.out.println(path);
 		File map_file = new File("game.tomatower/maps/" + path);
 
 		try {
@@ -129,11 +156,10 @@ public class Map {
 
 						break;
 					case "P":
-						System.out.println("PERSO");
 						// TEST
-						Weapon w = new Weapon(this.model, 1, 7, Direction.UP, Kind_Weapon.Yellow);
+						Weapon w = new Weapon(this.model, 1, 7, Kind_Weapon.Yellow);
 						this.model.setPlayer(new Player(this.model, this.model.getSprites().sprite_player, 1, cell,
-								Direction.UP, w, this.model.getSprites().sprite_player_run));
+								Direction.NORTH, w, this.model.getAutomatons().get("Perso")));
 						break;
 					case "Os":
 						// System.out.println("Stone");
@@ -149,7 +175,7 @@ public class Map {
 						break;
 
 					case "Ot":
-						new Obstacle(this.model, this.model.getSprites().sprite_arbre, 2, cell, ObstaclesKind.Lake);
+						new Obstacle(this.model, this.model.getSprites().sprite_arbre, 1, cell, ObstaclesKind.Lake);
 						break;
 
 					case "C":
@@ -180,18 +206,41 @@ public class Map {
 						new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell,
 								ObstaclesKind.PORTAL_TO_GAME);
 						break;
-					case "Suy":
-						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow[0], 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Yellow), 200);
+
+					case "Str":
+						new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell,
+								ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Red), 1000);
 						break;
+					case "Stb":
+						new Product(this.model, this.model.getSprites().sprite_tower_blue[0], 1, cell,
+								ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Blue), 1000);
+						break;
+					case "Sty":
+						new Product(this.model, this.model.getSprites().sprite_tower_yellow[0], 1, cell,
+								ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Yellow), 1000);
+						break;
+					case "Stp":
+						new Product(this.model, this.model.getSprites().sprite_tower_purple[0], 1, cell,
+								ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Purple), 1000);
+						break;
+
 					case "Sur":
 						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell,
 								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Red), 200);
 						break;
-					case "Str":
-						new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Red), 1000);
+					case "Sub":
+						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_blue[0], 1, cell,
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Blue), 200);
 						break;
+					case "Suy":
+						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow[0], 1, cell,
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Yellow), 200);
+						break;
+					case "Sup":
+						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_purple[0], 1, cell,
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Purple), 200);
+						break;
+
 					}
 				}
 				cells.add(cells_line);
@@ -210,5 +259,4 @@ public class Map {
 		}
 
 	}
-
 }

@@ -1,13 +1,16 @@
 package edu.ricm3.game.tomatower.map;
 
 import edu.ricm3.game.tomatower.Options;
+
 import edu.ricm3.game.tomatower.entities.Entity;
+import edu.ricm3.game.tomatower.entities.enums.Kind;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Cell {
+
 	private int col;
 	private int row;
 	private Map map;
@@ -21,38 +24,44 @@ public class Cell {
 		this.entities = new ArrayList<>();
 	}
 
-	public ArrayList<Entity> getEntities() {
-		return this.entities;
+	public void paint(Graphics g) {
+		for (Entity e : this.entities) {
+			if (e.isVisible())
+				e.paint(g);
+		}
 	}
 
-	public void addEntity(Entity e) {
-		this.getEntities().add(e);
+	public void step(long now) {
+
+		Entity e;
+		for (int i = 0; i < this.entities.size(); i++) { // Pas d'itérateur car certaine actions modifient entities
+			e = this.entities.get(i);
+			e.step(now);
+		}
 	}
 
-	public int[] getPosition() {
-		return new int[] { this.col, this.row };
-	}
+	public boolean containEntityKind(Kind k) {
+		if (k.equals(Kind.Void) && this.entities.size() == 0) {
+			return true;
+		}
 
-	public Iterator<Entity> getEntitiesIterator() {
-		return this.entities.iterator();
+		boolean found = false;
+		Iterator<Entity> iterator = this.entities.iterator();
+		while (iterator.hasNext() && !found) {
+			Entity entity = iterator.next();
+			if (entity.getKind().equals(k))
+				found = true;
+		}
+		return found;
 	}
 
 	public void damage(int power) {
-		// Si on considère que un hit est une nombre (fait des dégats sur toutes les
+		// Si on considère que un hit est une bombre (fait des dégats sur toutes les
 		// entités)
 		for (Entity e : this.entities) {
 			System.out.println("Hit sur la case (" + this.col + ", " + this.row + "), d'une puissance de " + power);
 			e.damage(power);
 		}
-
-		/*
-		 * Si on considère que le hit est une balle (dégat sur une entité)
-		 * if(!this.entites.isEmpty()) { e.damage(power); }
-		 */
-	}
-
-	public void removeEntity(Entity e) {
-		this.entities.remove(e);
 	}
 
 	/*
@@ -92,26 +101,28 @@ public class Cell {
 		}
 	}
 
-	public void paint(Graphics g) {
-
-		for (Entity e : this.entities) {
-			if (e.isVisible())
-				e.paint(g);
-		}
+	public ArrayList<Entity> getEntities() {
+		return this.entities;
 	}
 
-	public void step(long now) {
+	public void addEntity(Entity e) {
+		this.entities.add(e);
+	}
 
-		Entity e;
-		for (int i = 0; i < this.entities.size(); i++) { // Pas d'itérateur car certaine actions modifient entities
-			e = this.entities.get(i);
-			// if(e.isVisible())
-			e.step(now);
-		}
+	public int[] getPosition() {
+		return new int[] { this.col, this.row };
 	}
 
 	public Map getMap() {
 		return this.map;
+	}
+
+	public Iterator<Entity> getEntitiesIterator() {
+		return this.entities.iterator();
+	}
+
+	public void removeEntity(Entity e) {
+		this.entities.remove(e);
 	}
 
 }

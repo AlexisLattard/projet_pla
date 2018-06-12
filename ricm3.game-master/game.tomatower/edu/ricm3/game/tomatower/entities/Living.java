@@ -1,129 +1,146 @@
 package edu.ricm3.game.tomatower.entities;
 
+import edu.ricm3.game.tomatower.Options;
+import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind;
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Living extends Entity {
 
 	protected int hp;
-	protected Direction direction;
+	protected boolean canTake;
+	protected ArrayList<Tower> bag;
+	protected Tower hand = null;
 	protected Weapon weapon;
+	public int MAX_LIFE;
 	BufferedImage sprite[];
-	// TEST
-	long last_action = 0;
+
+	protected Kind_Weapon tower_selected = Kind_Weapon.Red;
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
-			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions) {
-		super(c_model, c_movement, c_scale, c_collisions, c_cell);
+			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
+			Kind c_kind) {
+		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_cell, c_kind);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
+		bag = new ArrayList<>();
 	}
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Direction c_direction,
-			Weapon c_weapon, ArrayList<Class<?>> c_collisions) {
-		super(c_model, c_movement, c_scale, c_collisions);
+			Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind) {
+		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind);
 		this.direction = c_direction;
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
+		bag = new ArrayList<>();
 	}
 
-	// public void paint(Graphics g) {
-	// if (this.isVisible()) {
-	// int d = (int) (this.getMap().getCellSize() * scale);
-	// int[] pos = this.getPosition();
-	// int x = pos[0] * model.getCurrentMap().getCellSize();
-	// int y = pos[1] * model.getCurrentMap().getCellSize();
-	// g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
-	// }
-	// }
+	@Override
+	public void paint(Graphics g) {
+		if (this.isVisible()) {
+			int cell_size = this.model.getCurrentMap().getCellSize();
+			int[] pos = this.getPosition();
 
+			int d = (int) (cell_size * scale);
+			int x = pos[0] * cell_size;
+			int y = pos[1] * cell_size;
+			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+		}
+	}
+
+	@Override
 	public void step(long now) {
 		super.step(now);
-
 		if (this.hp <= 0) {
-
 			this.cell.removeEntity(this);
 		}
 	}
 
-	public void move(Direction d) {
-		this.turn(d);
+	// Actions
 
-		if (this.canMove()) {
+	@Override
+	public void hit(Direction d) {
+		this.weapon.hit(this, d);
+	}
 
-			this.addEntityOnCell(getFrontCell());
+	@Override
+	public void pick(Direction d) {
+		if (this.canTake) {
+			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
+
+			if (entity instanceof Tower) {
+				if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac
+					this.bag.add(hand);
+				entity.removeEntityFromCell();
+				hand = (Tower) (entity);
+			} else if (entity instanceof Buyable) {
+				((Buyable) entity).action();
+			}
 		}
 	}
 
-	public void turn(Direction d) {
-		this.direction = d;
-	}
-
-	public Cell getFrontCell() {
-		int[] current_pos = this.getPosition();
-		int pos_front_cell_x = current_pos[0];
-		int pos_front_cell_y = current_pos[1];
-
-		switch (this.direction) {
-		case LEFT:
-			pos_front_cell_x = current_pos[0] - 1;
-			break;
-		case RIGHT:
-			pos_front_cell_x = current_pos[0] + 1;
-			break;
-		case UP:
-			pos_front_cell_y = current_pos[1] - 1;
-			break;
-		case DOWN:
-			pos_front_cell_y = current_pos[1] + 1;
-			break;
-		default:
-			return null;
+	@Override
+	public void store() {
+		if (hand != null) {
+			bag.add(hand);
+			hand = null;
 		}
-
-		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
 
-	public boolean isAlive() {
-		return hp > 0;
+	@Override
+	public void getBagEntity() {
+		if (this.canTake && this.bag.size() >= 1) {
+			for (int i = 0; i < this.bag.size(); i++) {
+				if (this.bag.get(i).getWeapon().getKindWeapon().equals(this.tower_selected) && hand == null) {
+					hand = this.bag.remove(i);
+					break;
+				}
+			}
+		}
 	}
 
-	public BufferedImage[] getSprite() {
-		return this.sprite;
+	@Override
+	public void power() {
+		this.hp += MAX_LIFE / 10; // On recupere 1/10 de sa maximale
 	}
+
+	@Override
+	public void throwAction(Direction d) {
+		if (Options.ECHO_GAME_STATE && this.hand == null)
+			System.out.println("Rien dans la main");
+
+		if (this.canTake && this.hand != null && this.hand.addEntityOnCell(this.getCellDirection(d, 1))) {
+			// Si vrai, alors la tourelle a été posée, donc plus rien en main
+			hand = null;
+		}
+	}
+
+	@Override
 
 	public void damage(int power) {
 		this.hp -= power;
 	}
 
-	public void hit() {
-		this.weapon.hit(this);
+	// Conditions
+	@Override
+	public boolean isAlive() {
+		return hp > 0;
 	}
 
-	public void pick() {
-
+	@Override
+	public boolean gotStuff() {
+		return canTake && this.bag.size() > 0;
 	}
 
-	public void store() {
-
-	}
-
-	public void getBagEntity() {
-
-	}
-
-	public void power(int power) {
-		this.hp += power;
-	}
-
-	public void throwAction() {
-
-	}
+	// Getters - setters
 
 	public Direction getDirection() {
 		return this.direction;
@@ -135,6 +152,28 @@ public abstract class Living extends Entity {
 
 	public int getHp() {
 		return this.hp;
+	}
+
+	public BufferedImage[] getSprite() {
+		return this.sprite;
+	}
+
+	public Tower getHand() {
+		return this.hand;
+	}
+
+	public void addBagProduct(Tower tower) {
+		if (tower instanceof Tower) {
+			this.bag.add(tower);
+		}
+	}
+
+	public void setTowerSelected(Kind_Weapon kw) {
+		this.tower_selected = kw;
+	}
+
+	public Kind_Weapon getTowerSelected() {
+		return this.tower_selected;
 	}
 
 }

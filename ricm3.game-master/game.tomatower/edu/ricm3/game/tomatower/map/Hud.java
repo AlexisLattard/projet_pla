@@ -37,6 +37,7 @@ public class Hud {
 	public BufferedImage sprite_tower_purple;
 	public BufferedImage sprite_health_player;
 	public BufferedImage sprite_health_crystal;
+	public BufferedImage sprite_arrow;
 
 	public Hud(Model model) {
 		this.model = model;
@@ -155,6 +156,15 @@ public class Hud {
 			System.exit(-1);
 		}
 
+		// Sprite component tower
+		imageFile = new File("game.tomatower/sprites/hud/hud_arrow.png");
+		try {
+			sprite_arrow = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
 	}
 
 	public void paint(Graphics g) {
@@ -206,9 +216,26 @@ public class Hud {
 		g.setColor(Color.decode("#094d49"));
 		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40, 15, 150, 10, 10);
 		g.setColor(Color.decode("#8ccfcb"));
+
 		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15,
 				(int) h_life, 10, 10);
 		g.drawImage(sprite_health_crystal, x + 73, height_money + 4 * height_component_tower + 6 * MARGIN, null);
+
+		// Arrow de selection
+		switch (this.model.getPlayer().getTowerSelected()) {
+		case Red:
+			g.drawImage(sprite_arrow, x, height_money + 2 * MARGIN + 16, null);
+			break;
+		case Blue:
+			g.drawImage(sprite_arrow, x, height_component_tower + height_money + 3 * MARGIN + 16, null);
+			break;
+		case Yellow:
+			g.drawImage(sprite_arrow, x, 2 * height_component_tower + height_money + 4 * MARGIN + 16, null);
+			break;
+		case Purple:
+			g.drawImage(sprite_arrow, x, 3 * height_component_tower + height_money + 5 * MARGIN + 16, null);
+			break;
+		}
 
 	}
 
