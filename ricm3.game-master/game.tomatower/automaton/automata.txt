@@ -90,7 +90,7 @@ ExplorerBIS(Explore_R){
     | True ? Turn(B) :(Explore_R)
 }
 
-FollowTheWalls(Bump){
+FollowTheWallsTest(Bump){
 
 	* (Bump):
 		| Cell(F,V) ? Move(F)	:(Bump)

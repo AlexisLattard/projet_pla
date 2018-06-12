@@ -136,7 +136,11 @@ public abstract class Entity {
 	
 	public boolean cell(Direction d, Kind k) {
 		Cell cell = this.getCellDirection(d, 1);
-		return cell.containEntityKind(k);
+		if(cell != null){
+			return cell.containEntityKind(k);
+		} else {
+			return false;
+		}
 	}
 	
     
@@ -145,8 +149,6 @@ public abstract class Entity {
 	// Getter - Setter - Attribute modification
 	
 	public boolean addEntityOnCell(Cell c) {
-		System.out.println("Taille ArrayList : "+this.entities_destination_allowed.size());
-
 		if (c != null && c.getMap().freeCell(c, this)) {
 			if (this.cell != null) {
 				this.cell.removeEntity(this);
@@ -157,7 +159,6 @@ public abstract class Entity {
 			this.visible = true;
 			return true;
 		} else {
-			System.out.println("Je suis un monstre qui bug");
 			return false;
 		}
 	}
