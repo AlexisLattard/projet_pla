@@ -63,7 +63,8 @@ public class Model extends GameModel {
         //TEST
         new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red), this.automatons.get("Atest"));
         new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 8), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("FollowTheWalls"));
-        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(4, 4), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("MoverRandom"));
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(2, 1), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("MoverRandom"));
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(2, 1), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("MoverRandom"));
 
     }
     
