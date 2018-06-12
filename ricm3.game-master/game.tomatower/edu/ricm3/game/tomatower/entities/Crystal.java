@@ -10,9 +10,11 @@ import java.awt.image.BufferedImage;
 
 public class Crystal extends Inert {
 
+//	int idx;
 	private int hp = 100;
 	private Crystal main_instance;
 	public final int MAX_LIFE = 1000;
+//	private BufferedImage sprite;
 
 	public Crystal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind,
 			Crystal c_main_instance) {
@@ -38,4 +40,12 @@ public class Crystal extends Inert {
 	public int getHp() {
 		return this.hp;
 	}
+
+//	public void step(long now) {
+//		super.step(now);
+//		if (now - last_action > 250L) {
+//			last_action = now;
+//			idx = (idx + 1) % this.sprite.length;
+//		}
+//	}
 }

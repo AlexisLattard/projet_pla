@@ -32,6 +32,14 @@ public class Tower extends Living {
 		// TODO
 	}
 
+	public void step(long now) {
+		super.step(now);
+		if (now - last_action > 250L) {
+			last_action = now;
+			idx = (idx + 1) % this.sprite.length;
+		}
+	}
+
 	// On pourrai simplement faire appelle à celle défini dans Entity, mais c'est
 	// plus clair d'indiquer clairement la gestion de colision aussi ici
 
