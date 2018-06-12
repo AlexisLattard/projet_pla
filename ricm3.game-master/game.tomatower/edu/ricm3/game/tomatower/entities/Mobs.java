@@ -17,10 +17,7 @@ public class Mobs extends Living {
 	public Mobs(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction, Weapon c_weapon, A_Automaton c_automaton) {
 		super(c_model, true, c_sprite, c_scale, c_cell, c_direction,c_weapon,initColisions(), c_automaton, Kind.Ennemis);
 		this.canTake = false;
-				
-		if(this.automaton == null)
-			System.out.println("ULLL");
-		
+
 		this.hp = 20;
 	}
 	
