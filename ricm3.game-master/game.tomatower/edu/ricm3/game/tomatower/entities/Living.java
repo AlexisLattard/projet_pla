@@ -55,9 +55,10 @@ public abstract class Living extends Entity {
 	@Override
 	public void step(long now) {
 		super.step(now);
-
-		if (this.hp <= 0) {
-			this.cell.removeEntity(this);
+		
+		if(this.hp <= 0) {
+			this.model.removeEntity(this);
+			this.removeEntityFromCell();
 		}
 	}
 

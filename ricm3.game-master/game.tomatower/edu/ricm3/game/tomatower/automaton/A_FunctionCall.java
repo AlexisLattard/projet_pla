@@ -224,8 +224,12 @@ public class A_FunctionCall extends A_Expression {
 	
 	
 	public boolean closest(Entity e) {
-		// TODO
-		return false;
+		if(this.parameters.size() != 2 || !(this.parameters.get(0) instanceof A_EntityParameter) || !(this.parameters.get(1) instanceof A_DirectionParameter)) {
+			if(Options.ECHO_GAME_STATE)
+				System.out.println("Invalid parameters for freeCell function");
+			return false;
+		}
+		return e.closest((((A_EntityParameter)this.parameters.get(0)).value), (((A_DirectionParameter)this.parameters.get(1)).value));
 	}
 	
 	
