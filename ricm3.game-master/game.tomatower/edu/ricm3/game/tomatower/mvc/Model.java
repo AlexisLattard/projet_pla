@@ -168,6 +168,7 @@ public class Model extends GameModel {
     	    	
     }
     
+    
     public void initAutomatons(Controller c) {
     	this.automatons = new HashMap<>();
     	

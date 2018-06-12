@@ -23,5 +23,11 @@ public abstract class Buyable extends InertAction {
 		
 		}
 		
+	}
+	
+	public void action() {
+	
+	}
+
 }
 

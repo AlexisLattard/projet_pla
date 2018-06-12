@@ -19,7 +19,22 @@ HiterTower(Init) {
     *(Init): True ? Hit(N) : (Init)
 }
 
+FollowTheWalls(Bump){
 
+	* (Bump):
+		| Cell(S,D)/Cell(N,D)/Cell(E,D)/Cell(O,D) ? Pop	:(X)
+		| Cell(F,V) ? Move(F)	:(Bump)
+		| True ? Turn(L)	:(FollowWalls)
+
+	* (FollowWalls):
+		| Cell(S,D)/Cell(N,D)/Cell(E,D)/Cell(O,D) ? Pop	:(X)
+		| Cell(R,V) ? Turn(R)	:(Step)
+		| Cell(F,V) ? Move(F)	:(FollowWalls)
+		| Cell(L,V) ? Turn(L)	:(Step)
+		| True ? Turn(B)	:(Step)
+
+	* (Step): True ? Move(F)	:(FollowWalls)
+}
 
 Perso(Init) {
     *(Init):
@@ -32,6 +47,7 @@ Perso(Init) {
      | Key(z) ? Store : (Init)
      | Key(q) ? Throw : (Init)
      | Key(s) ? Get : (Init)
+     | Key(p) ? Pop : (Init)
 }
 
 Explorer(Explore){
