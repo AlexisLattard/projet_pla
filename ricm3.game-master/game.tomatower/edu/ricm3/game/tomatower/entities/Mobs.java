@@ -22,12 +22,14 @@ public class Mobs extends Living {
 			System.out.println("ULLL");
 		
 		this.hp = 20;
+		this.action_time = 100L;
 	}
 	
 	
 	@Override
 	public void pop() {
 		// TODO
+		System.out.println("POP");
 	}
 	
 	

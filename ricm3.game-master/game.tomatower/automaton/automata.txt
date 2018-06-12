@@ -22,12 +22,18 @@ HiterTower(Init) {
 FollowTheWalls(Bump){
 
 	* (Bump):
-		| Cell(S,D)/Cell(N,D)/Cell(E,D)/Cell(O,D) ? Pop	:(X)
+		| Cell(S,D)? Pop	: (X)
+		| Cell(N,D)? Pop	: (X)
+		| Cell(O,D)? Pop	: (X)
+		| Cell(E,D)? Pop	: (X)
 		| Cell(F,V) ? Move(F)	:(Bump)
 		| True ? Turn(L)	:(FollowWalls)
 
 	* (FollowWalls):
-		| Cell(S,D)/Cell(N,D)/Cell(E,D)/Cell(O,D) ? Pop	:(X)
+		| Cell(S,D)? Pop	: (X)
+		| Cell(N,D)? Pop	: (X)
+		| Cell(O,D)? Pop	: (X)
+		| Cell(E,D)? Pop	: (X)
 		| Cell(R,V) ? Turn(R)	:(Step)
 		| Cell(F,V) ? Move(F)	:(FollowWalls)
 		| Cell(L,V) ? Turn(L)	:(Step)
