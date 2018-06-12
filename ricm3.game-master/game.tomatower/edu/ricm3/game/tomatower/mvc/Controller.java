@@ -115,6 +115,8 @@ public class Controller extends GameController implements ActionListener {
 		default:
 			this.keyPressed = String.valueOf(e.getKeyChar());
 		}
+		System.out.println("KeyPressed: " + e.getKeyChar() + " code="
+				+ e.getKeyCode());
 
 	}
 
