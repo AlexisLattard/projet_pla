@@ -7,7 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
 /**
@@ -58,9 +60,10 @@ public class Score extends JPanel
         // TITRE //
         
         // TABLEAU //
-        data =  fillData();
+        data = new Vector<Vector<Object>>();
+		fillData();
         columnNames=new Vector<String>();
-        columnNames.add("Psuedo");columnNames.add("Scores");columnNames.add("Date");
+        columnNames.add("Pseudo");columnNames.add("Scores");columnNames.add("Date");
         tableauDesScore = new Tableau(data,columnNames);
         scrollTableau = new JScrollPane(tableauDesScore,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         // TABLEAU //
@@ -82,25 +85,31 @@ public class Score extends JPanel
         return boutonRetour;
     }
     
-    public Vector<Vector<Object>> fillData(){
+    public void fillData(){
+    	data.removeAllElements();
     	File file = new File("./Autres/Score");
-    	Vector<Vector<Object>> newdata = new Vector<Vector<Object>>();
     	Scanner scanner;
 		try {
 			scanner = new Scanner(file);
+			String line;
+			String[] split;
+			Vector<Object> row;
+			long seconde;
+			Date date;
+	        DateFormat dfl = DateFormat.getDateTimeInstance(DateFormat.FULL,DateFormat.DEFAULT);
+	        while (scanner.hasNextLine()) {
+	        	line = scanner.nextLine();
+	            split = line.split(";");
+	            row = new Vector<Object>();
+	            seconde = new Long(split[2]);
+	            date = new Date(seconde);
+	            row.add(split[0]);row.add(new Integer(split[1]));row.add(dfl.format(date));
+	            data.add(row);
+	        }
+	        scanner.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] split = line.split(";");
-            Vector<Object> row = new Vector<Object>();
-            row.add(split[0]);row.add(new Integer(split[1]));//row.add(new Long(split[2]));
-            newdata.add(row);
-        }
-        scanner.close();
-        return newdata;
     }
 }

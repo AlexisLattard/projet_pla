@@ -2,7 +2,8 @@ package edu.ricm3.game.tomatower.menu;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-
+import edu.ricm3.game.GameUI;
+import edu.ricm3.game.tomatower.mvc.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 public class Jouer extends JPanel{
 
+	private GameUI instanceJeu;
 	// AUTRES //
 		// COMPORTEMENT //
 	private File comportement_tours;
@@ -263,9 +265,9 @@ public class Jouer extends JPanel{
         public void actionPerformed(ActionEvent e)
         {
             if (comportement_tours != null && comportement_sbires != null && carte_selectionner != null) {
-            	My_Frame frame = My_Frame.getInstance();
-            	frame.setVisible(false);
-            	new RunGame();
+            	My_Frame.getInstance().setVisible(true);
+            	instanceJeu = null;
+            	createInstanceJeu();
             }else {
             	if (comportement_tours == null) {
         			bouton_tours.setText("*Choisir un automate*"); 
@@ -325,5 +327,13 @@ public class Jouer extends JPanel{
 			bouton_mobs.setForeground(Color.BLACK);
 		}
 		comportement_sbires = file;
+	}
+	
+	private void createInstanceJeu() {
+		instanceJeu = null;
+        Model model = new Model();
+        Controller controller = new Controller(model);
+        View view = new View(model,controller);
+        instanceJeu = new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
 }

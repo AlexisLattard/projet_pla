@@ -33,7 +33,7 @@ public class WindowListener implements java.awt.event.WindowListener {
   @Override
   public void windowClosing(WindowEvent e) {
 	  // TODO A finir
-	  m_model.m_game = null;
+	  m_model.m_game.getFrame().dispose();
 	  My_Frame.getInstance().setVisible(true);
   }
 
