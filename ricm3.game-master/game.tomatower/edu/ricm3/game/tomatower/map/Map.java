@@ -45,20 +45,23 @@ public class Map {
 		}
 		
 		// Affichage de la main du personnage sur la cellule devant lui
-		Tower hand = this.model.getPlayer().getHand();
+		Player player = this.model.getPlayer();
+		Tower hand = player.getHand();
 		if(hand != null) {
-    		Cell dest = this.model.getPlayer().getCellDirection(Direction.FRONT, 1);
+    		Cell dest = player.getCellDirection(Direction.FRONT, 1);
     		if(dest != null) {
-    			int d = (int) (this.model.getPlayer().getMap().getCellSize());
-    			int x = dest.getPosition()[0] * model.getPlayer().getMap().getCellSize();
-    			int y = dest.getPosition()[1] * model.getPlayer().getMap().getCellSize();
+    			int dest_position[] = dest.getPosition();
+    			int cell_size = this.model.getCurrentMap().getCellSize();
+    			int x = dest_position[0] * cell_size;
+    			int y = dest_position[1] * cell_size;
+    			
         		if(dest.isFree(hand)) {
         			g.setColor(new Color(0, 255, 0, 100)); 
         		}else {
         			g.setColor(new Color(255, 0, 0, 100)); 
         		}
-        		g.fillRect(x,y,d,d);
-        		g.drawImage(((Tower)hand).getSprite()[this.model.getPlayer().getDirection().getValue()], x, y, d, d, null);
+        		g.fillRect(x, y, cell_size, cell_size);
+        		g.drawImage(((Tower)hand).getSprite()[player.getDirection().getValue()], x, y, cell_size, cell_size, null);
     		}	
     	}
     }
@@ -109,9 +112,6 @@ public class Map {
 
     
 
-    public void setCellIn(Cell cell) {
-        this.cell_portal_in = cell;
-    }
     
     public Cell getCellIn() {
     	return this.cell_portal_in;

@@ -8,49 +8,53 @@ import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.PrimitiveIterator.OfDouble;
 
-public class Portal extends InertAction {
+public class Portal extends Inert {
 
 	public Portal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind) {
 		super(c_model, false, c_sprite, c_scale, c_cell, c_kind, Kind.Gate);
-		this.canActive = c_kind != ObstaclesKind.PORTAL_DESTINATION;
+		this.action_time = 500L;
 	}
+	
 
 	@Override
 	public void step(long now) {
-		super.step(now);
 		
-		if (!canActive && this.model.getCurrentMap() == this.model.getMainMap() && this.cell.getEntities().size() == 1
-				&& this.obstacles_kind != ObstaclesKind.PORTAL_DESTINATION) {
-			this.canActive = true;
+		if(now - last_action > action_time) {
+			last_action = now;
+			
+			ArrayList<Entity> cell_entities = this.getCell().getEntities();
+			if(cell_entities.size() > 1 && !this.obstacles_kind.equals(ObstaclesKind.PORTAL_DESTINATION)) {
+				this.action(cell_entities.get(1));
+			}
 		}
 	}
+	
 
 	public void action(Entity e) {
 		if (Options.ECHO_GAME_STATE)
 			System.out.println("Portal : " + this.obstacles_kind + " ...");
-
-		super.action(e);
+		
 		Map dest = null;
 		
 		switch (this.obstacles_kind) {
-		case PORTAL_TO_GAME:
-			dest = this.model.getMainMap();
-			break;
-		case PORTAL_TO_STORE:
-			this.model.getMainMap().setCellIn(this.cell); // Le joueur reviendra sur la téléporteur qui l'a téléporté
-			dest = this.model.getStoreMap();
-			break;
-		default:
-			if (Options.ECHO_GAME_STATE)
-				System.out.println("... this portal is not supported.");
-			return;
+			case PORTAL_TO_GAME:
+				dest = this.model.getMainMap();
+				break;
+			case PORTAL_TO_STORE:
+				dest = this.model.getStoreMap();
+				break;
+			default:
+				if (Options.ECHO_GAME_STATE)
+					System.out.println("... this portal is not supported.");
+				return;
 		}
 		
-		if(dest.getCellIn().isFree(e)) {
+		if(e.addEntityOnCell(dest.getCellIn())) { 
 			if(e instanceof Player)
 				this.model.setCurrentMap(dest);
-			e.addEntityOnCell(dest.getCellIn());
 		}else {
 			if(Options.ECHO_GAME_STATE)
 				System.out.println("Une entité est occupe déjà le téléporteur d'entrée");

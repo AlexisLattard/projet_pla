@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -41,13 +42,13 @@ import edu.ricm3.game.tomatower.entities.enums.Direction;
 public class Controller extends GameController implements ActionListener {
 
 	Model model;
-	String keyPressed ;
+	String keyPressed;
 
 	public Controller(Model m) {
 		keyPressed = "";
 		this.model = m;
 	}
-	
+
 	/**
 	 * Simulation step. Warning: the model has already executed its step.
 	 * 
@@ -57,7 +58,7 @@ public class Controller extends GameController implements ActionListener {
 	@Override
 	public void step(long now) {
 	}
-	
+
 	public String getKeyPressed() {
 		return this.keyPressed;
 	}
@@ -69,65 +70,82 @@ public class Controller extends GameController implements ActionListener {
 
 	}
 
-
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
-			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-		
+			System.out.println("KeyPressed: " + e.getKeyChar() + " code="
+					+ e.getKeyCode());
+
 		switch (e.getKeyCode()) {
-			case KeyEvent.VK_KP_UP:
-			case KeyEvent.VK_UP:
-				this.keyPressed = "FU";
-				break;
-			case KeyEvent.VK_KP_DOWN:
-			case KeyEvent.VK_DOWN:
-				this.keyPressed = "FD";
-				break;
-			case KeyEvent.VK_KP_RIGHT:
-			case KeyEvent.VK_RIGHT:
-				this.keyPressed = "FR";
-				break;
-			case KeyEvent.VK_KP_LEFT:
-			case KeyEvent.VK_LEFT:
-				this.keyPressed ="FL";
-				break;
-			case KeyEvent.VK_SPACE:
-				this.keyPressed = "SPACE";
-				break;
-			default:
-				this.keyPressed = String.valueOf(e.getKeyChar());
+		case KeyEvent.VK_KP_UP:
+		case KeyEvent.VK_UP:
+			this.keyPressed = "FU";
+			break;
+		case KeyEvent.VK_KP_DOWN:
+		case KeyEvent.VK_DOWN:
+			this.keyPressed = "FD";
+			break;
+		case KeyEvent.VK_KP_RIGHT:
+		case KeyEvent.VK_RIGHT:
+			this.keyPressed = "FR";
+			break;
+		case KeyEvent.VK_KP_LEFT:
+		case KeyEvent.VK_LEFT:
+			this.keyPressed = "FL";
+			break;
+		case KeyEvent.VK_SPACE:
+			this.keyPressed = "SPACE";
+			break;
+		case KeyEvent.VK_NUMPAD1:
+		case KeyEvent.VK_AMPERSAND:
+			this.model.getPlayer().setTowerSelected(Kind_Weapon.Red);
+			break;
+		case KeyEvent.VK_NUMPAD2:
+		case KeyEvent.VK_UNDEFINED:
+			this.model.getPlayer().setTowerSelected(Kind_Weapon.Blue);
+			break;
+		case KeyEvent.VK_NUMPAD3:
+		case KeyEvent.VK_QUOTEDBL:
+			this.model.getPlayer().setTowerSelected(Kind_Weapon.Yellow);
+			break;
+		case KeyEvent.VK_NUMPAD4:
+		case KeyEvent.VK_QUOTE:
+			this.model.getPlayer().setTowerSelected(Kind_Weapon.Purple);
+			break;
+		default:
+			this.keyPressed = String.valueOf(e.getKeyChar());
 		}
-		
-		
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
-			System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
-		
+			System.out.println("KeyReleased: " + e.getKeyChar() + " code="
+					+ e.getKeyCode());
+
 		this.keyPressed = "";
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (Options.ECHO_MOUSE)
-			System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+			System.out.println("MouseClicked: (" + e.getX() + "," + e.getY()
+					+ ") button=" + e.getButton());
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (Options.ECHO_MOUSE)
-			System.out.println("MousePressed: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+			System.out.println("MousePressed: (" + e.getX() + "," + e.getY()
+					+ ") button=" + e.getButton());
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (Options.ECHO_MOUSE)
-			System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
+			System.out.println("MouseReleased: (" + e.getX() + "," + e.getY()
+					+ ") button=" + e.getButton());
 	}
 
 	@Override
@@ -155,12 +173,12 @@ public class Controller extends GameController implements ActionListener {
 	}
 
 	public void notifyVisible() {
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
 
 }

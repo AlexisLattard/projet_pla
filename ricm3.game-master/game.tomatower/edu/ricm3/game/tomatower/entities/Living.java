@@ -4,6 +4,7 @@ import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
+import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -20,6 +21,8 @@ public abstract class Living extends Entity {
 	protected Weapon weapon;
 	public int MAX_LIFE;
 	BufferedImage sprite[];
+
+	protected Kind_Weapon tower_selected = Kind_Weapon.Red;
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
 			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
@@ -43,10 +46,12 @@ public abstract class Living extends Entity {
 	@Override
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
-			int d = (int) (this.getMap().getCellSize() * scale);
+			int cell_size = this.model.getCurrentMap().getCellSize();
 			int[] pos = this.getPosition();
-			int x = pos[0] * model.getCurrentMap().getCellSize();
-			int y = pos[1] * model.getCurrentMap().getCellSize();
+
+			int d = (int) (cell_size * scale);
+			int x = pos[0] * cell_size;
+			int y = pos[1] * cell_size;
 			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
 		}
 	}
@@ -56,7 +61,6 @@ public abstract class Living extends Entity {
 		super.step(now);
 		if (this.hp <= 0) {
 			this.cell.removeEntity(this);
-
 		}
 	}
 
@@ -77,6 +81,8 @@ public abstract class Living extends Entity {
 					this.bag.add(hand);
 				entity.removeEntityFromCell();
 				hand = (Tower) (entity);
+			} else if (entity instanceof Buyable) {
+				((Buyable) entity).action();
 			}
 		}
 	}
@@ -92,8 +98,11 @@ public abstract class Living extends Entity {
 	@Override
 	public void getBagEntity() {
 		if (this.canTake && this.bag.size() >= 1) {
-			if (hand == null) {
-				hand = this.bag.remove(0);
+			for (int i = 0; i < this.bag.size(); i++) {
+				if (this.bag.get(i).getWeapon().getKindWeapon().equals(this.tower_selected) && hand == null) {
+					hand = this.bag.remove(i);
+					break;
+				}
 			}
 		}
 	}
@@ -115,11 +124,7 @@ public abstract class Living extends Entity {
 	}
 
 	@Override
-	public void kamikaze() {
-		this.hp = 0;
-	}
 
-	@Override
 	public void damage(int power) {
 		this.hp -= power;
 	}
@@ -161,6 +166,14 @@ public abstract class Living extends Entity {
 		if (tower instanceof Tower) {
 			this.bag.add(tower);
 		}
+	}
+
+	public void setTowerSelected(Kind_Weapon kw) {
+		this.tower_selected = kw;
+	}
+
+	public Kind_Weapon getTowerSelected() {
+		return this.tower_selected;
 	}
 
 }

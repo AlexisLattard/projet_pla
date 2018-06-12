@@ -13,7 +13,6 @@ import edu.ricm3.game.tomatower.mvc.Model;
 
 public class Player extends Living {
 
-	
 	private int money = 25000000;
 	
 
@@ -29,14 +28,16 @@ public class Player extends Living {
 		this.action_time = 150L;
 		
 	}
-	
 
 	
 	// Actions
 	
 	@Override
 	public void pop() {
-		// TODO
+		if(this.model.getCurrentMap().equals(this.model.getStoreMap())){
+			this.model.getPlayer().pick(Direction.FRONT);
+			this.model.getPlayer().store();
+		}		
 	}
 	
 	@Override
@@ -73,18 +74,18 @@ public class Player extends Living {
 
 		for (Tower t : this.bag) {
 			switch (t.getWeapon().getKindWeapon()) {
-			case Yellow:
-				numbertowers.put(Kind_Weapon.Yellow, numbertowers.get(Kind_Weapon.Yellow) + 1);
-				break;
-			case Red:
-				numbertowers.put(Kind_Weapon.Red, numbertowers.get(Kind_Weapon.Red) + 1);
-				break;
-			case Blue:
-				numbertowers.put(Kind_Weapon.Blue, numbertowers.get(Kind_Weapon.Blue) + 1);
-				break;
-			case Purple:
-				numbertowers.put(Kind_Weapon.Purple, numbertowers.get(Kind_Weapon.Purple) + 1);
-				break;
+				case Yellow:
+					numbertowers.put(Kind_Weapon.Yellow, numbertowers.get(Kind_Weapon.Yellow) + 1);
+					break;
+				case Red:
+					numbertowers.put(Kind_Weapon.Red, numbertowers.get(Kind_Weapon.Red) + 1);
+					break;
+				case Blue:
+					numbertowers.put(Kind_Weapon.Blue, numbertowers.get(Kind_Weapon.Blue) + 1);
+					break;
+				case Purple:
+					numbertowers.put(Kind_Weapon.Purple, numbertowers.get(Kind_Weapon.Purple) + 1);
+					break;
 			}
 		}
 		
@@ -94,8 +95,13 @@ public class Player extends Living {
 	public static ArrayList<Class<?>> initColisions() {
 		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
 		res.add(Portal.class);
-		res.add(Product.class);
-		res.add(Upgrade.class);
+//		res.add(Product.class);
+//		res.add(Upgrade.class);
 		return res;
 	}
+	
+	
+
+
+	
 }

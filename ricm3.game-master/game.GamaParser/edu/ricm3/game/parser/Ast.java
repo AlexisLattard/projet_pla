@@ -109,6 +109,7 @@ public class Ast {
 
 	public static class Underscore extends Parameter {
 		Underscore(){
+			System.out.println("UNDERSCORE");
 			this.kind = "Any" ;
 		}
 		public String tree_edges() {

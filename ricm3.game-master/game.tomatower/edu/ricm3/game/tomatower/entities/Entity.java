@@ -18,11 +18,12 @@ public abstract class Entity {
     protected boolean movement;
     protected Direction direction; // absolute direction North, south, east, west
     protected boolean visible;
-    protected long last_action = 0;
+    
 	protected A_Automaton automaton = null;
     protected ArrayList<Class<?>> entities_destination_allowed; 	// Utile pour determiner sur quelle cases l'entité peut se trouver
     double scale = 1;
     Kind kind;
+    protected long last_action = 0;
     protected long action_time = 1000L;
     															
 
@@ -115,7 +116,9 @@ public abstract class Entity {
 
 	public abstract void power();
 	
-	public abstract void kamikaze();
+	public void kamikaze() {
+		this.removeEntityFromCell();
+	}
 	
 	public abstract void damage(int power);
 	
@@ -238,6 +241,9 @@ public abstract class Entity {
     	return this.kind;
     }
    
+    public void removeAutomaton() {
+    	this.automaton = null;
+    }
     
    
     

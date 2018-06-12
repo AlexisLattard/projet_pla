@@ -18,6 +18,7 @@ public class A_Behavior {
 	
 	public boolean exec(A_Automaton a, Entity e) throws Exception {
 		
+		
 		boolean transition_executed = false;
 		Iterator<A_Transition> iter_transition = this.a_Transitions.iterator();
 		while(iter_transition.hasNext() && !transition_executed) {
