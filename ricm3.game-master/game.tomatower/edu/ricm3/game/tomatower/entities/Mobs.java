@@ -43,6 +43,7 @@ public class Mobs extends Living {
 		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
 		res.add(Mobs.class);
 		res.add(Portal.class);
+		res.add(MobSpawn.class);
 		return res;
 	}
 	
