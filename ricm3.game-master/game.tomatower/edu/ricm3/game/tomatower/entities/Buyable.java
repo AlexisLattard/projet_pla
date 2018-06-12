@@ -7,7 +7,7 @@ import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
-public abstract class Buyable extends InertAction {
+public abstract class Buyable extends Inert {
 
 	Weapon weapon;
 	int price;
@@ -21,9 +21,8 @@ public abstract class Buyable extends InertAction {
 	@Override
 	public void step(long now) {
 		
-		}
-		
 	}
+		
 	
 	public void action() {
 	
