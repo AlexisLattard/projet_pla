@@ -324,7 +324,7 @@ public class A_Builder {
 				kind = Kind.Danger;
 				break;				
 			default:
-				kind = Kind.Unknwon;
+				kind = Kind.Obstacle;
 		}
 		return kind;
 	}
