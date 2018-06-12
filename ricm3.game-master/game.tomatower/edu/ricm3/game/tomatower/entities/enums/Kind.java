@@ -8,5 +8,6 @@ public enum Kind {
 	Unknwon,
 	Gate,
 	Takable,
-	Void
+	Void,
+	Danger
 }

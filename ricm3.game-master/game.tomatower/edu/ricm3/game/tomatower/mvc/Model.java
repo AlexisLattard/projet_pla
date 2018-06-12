@@ -61,8 +61,8 @@ public class Model extends GameModel {
         this.initAutomatons(c);
         this.initMaps();
         //TEST
-        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red), this.automatons.get("Hiter"));
-        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 8), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("ExplorerBIS"));
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red), this.automatons.get("Atest"));
+        new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 8), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("FollowTheWalls"));
         new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(4, 4), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("MoverRandom"));
 
     }
@@ -167,6 +167,7 @@ public class Model extends GameModel {
     	weapons.put(weapons4.getKindWeapon(), weapons4);   
     	    	
     }
+    
     
     public void initAutomatons(Controller c) {
     	this.automatons = new HashMap<>();

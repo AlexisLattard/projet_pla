@@ -22,6 +22,12 @@ public class A_Transition {
 		
 		this.action.exec(e);
 		a.state = state;
+		
+		if(a.state.equals("X")) {
+			e.removeAutomaton();
+		}
+		
+		
 	}
 
 }

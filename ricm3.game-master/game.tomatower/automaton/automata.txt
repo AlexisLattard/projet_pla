@@ -19,7 +19,22 @@ HiterTower(Init) {
     *(Init): True ? Hit(N) : (Init)
 }
 
+FollowTheWalls(Bump){
 
+	* (Bump):
+		| Cell(S,D)/Cell(N,D)/Cell(E,D)/Cell(O,D) ? Pop	:(X)
+		| Cell(F,V) ? Move(F)	:(Bump)
+		| True ? Turn(L)	:(FollowWalls)
+
+	* (FollowWalls):
+		| Cell(S,D)/Cell(N,D)/Cell(E,D)/Cell(O,D) ? Pop	:(X)
+		| Cell(R,V) ? Turn(R)	:(Step)
+		| Cell(F,V) ? Move(F)	:(FollowWalls)
+		| Cell(L,V) ? Turn(L)	:(Step)
+		| True ? Turn(B)	:(Step)
+
+	* (Step): True ? Move(F)	:(FollowWalls)
+}
 
 Perso(Init) {
     *(Init):
@@ -32,6 +47,7 @@ Perso(Init) {
      | Key(z) ? Store : (Init)
      | Key(q) ? Throw : (Init)
      | Key(s) ? Get : (Init)
+     | Key(p) ? Pop : (Init)
 }
 
 Explorer(Explore){
@@ -63,3 +79,31 @@ ExplorerBIS(Explore_R){
     | Cell(R,V) ? Turn(R) :(Explore_L)
     | True ? Turn(B) :(Explore_R)
 }
+
+FollowTheWalls(Bump){
+
+	* (Bump):
+		| Cell(F,V) ? Move(F)	:(Bump)
+		| True ? Turn(L)	:(FollowWalls)
+
+	* (FollowWalls):
+		| Cell(R,V) ? Turn(R)	:(Step)
+		| Cell(F,V) ? Move(F)	:(FollowWalls)
+		| Cell(L,V) ? Turn(L)	:(_)
+		| True ? Turn(B)	:(Step)
+
+	* (Step): True ? Move(F)	:(FollowWalls)
+	}
+
+Turner(Turn_0){
+  * (Turn_0): True ? Turn(R) :(Turn_1)
+  * (Turn_1): True ? Turn(R) :(Turn_2)
+  * (Turn_2): True ? Turn(R) :(Turn_3)
+  * (Turn_3): True ? Turn(R) :(Turn_4)
+  * (Turn_4): True ? Get :(X)
+}
+
+Atest(Init) {
+    * (Init) : True ? Move(E) : (Init)
+}
+
