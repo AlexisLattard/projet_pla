@@ -80,11 +80,12 @@ public class Cell {
     		} else {
     			
     			Iterator<Entity> iter_entity = this.entities.iterator();
-    			Iterator<Class<?>> iter_class = e.getEntitiesDestinationAllowed().iterator();
+    			
     			boolean allowed = true;
     			while(iter_entity.hasNext() && allowed) {
     				Entity entity = iter_entity.next();
     				allowed = false;
+    				Iterator<Class<?>> iter_class = e.getEntitiesDestinationAllowed().iterator();
     				while(iter_class.hasNext() && !allowed) {
     					Class<?> class_colision = iter_class.next();
     					if(entity.isVisible() && entity.getClass().equals(class_colision) && !allowed) {
