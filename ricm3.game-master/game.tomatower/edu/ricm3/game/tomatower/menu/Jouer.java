@@ -19,7 +19,9 @@ public class Jouer extends JPanel{
 	private File comportement_tours;
 	private File comportement_sbires;
 	private File carte_selectionner;
-	private JFileChooser fileChoser;
+	
+	private ChoixComportement comportement_Tours;
+	private ChoixComportement comportement_Monstres;
 		// COMPORTEMENT //
 	// AUTRES //	
 	
@@ -91,13 +93,19 @@ public class Jouer extends JPanel{
 		this.setLayout(new BorderLayout());
 		// INSTANCIATION //
 			// AUTRES //
-		comportement_tours = null;
-		comportement_sbires = null;
 		carte_selectionner = null;
-
-
-		UIManager.put("FileChooser.readOnly", Boolean.TRUE);   
-		fileChoser = new JFileChooser();
+		//TEST//
+		HashMap<String,Object> listAutomates = new HashMap<String,Object>();
+		listAutomates.put(new String("Automates1"), new String("Automates1"));
+		listAutomates.put(new String("Automates2"), new String("Automates2"));
+		listAutomates.put(new String("Automates4"), new String("Automates3"));
+		listAutomates.put(new String("Automates5"), new String("Automates4"));
+		listAutomates.put(new String("Automates6"), new String("Automates5"));
+		listAutomates.put(new String("Automates7"), new String("Automates6"));
+		listAutomates.put(new String("Automates8"), new String("Automates7"));
+		//TEST//
+		comportement_Tours = new ChoixComportement(listAutomates,3);
+		comportement_Monstres = new ChoixComportement(listAutomates,3);
 		
 		cartes = new HashMap<File,Bouton>();
 			// AUTRES //
@@ -107,8 +115,8 @@ public class Jouer extends JPanel{
 		bouton_retour = new Bouton("RETOUR");
 				// SOUTH //
 				// COMPORTEMENT //
-		bouton_mobs = new Bouton("Choisir un automate");
-		bouton_tours = new Bouton("Choisir un automate");
+		bouton_mobs = new Bouton("Comportements des monstres");
+		bouton_tours = new Bouton("Comportements des tours");
 				// COMPORTEMENT //
 			// BOUTON //
 
@@ -241,17 +249,10 @@ public class Jouer extends JPanel{
         public void actionPerformed(ActionEvent e)
         {
             //In response to a button click:
-            int returnVal = fileChoser.showOpenDialog(panel);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                if (e.getSource() == bouton_mobs) {
-                	setComportementSbires(fileChoser.getSelectedFile());
-                }else {
-                	setComportementTours(fileChoser.getSelectedFile());
-                }
-                
-            	System.out.println("fichier recuperer");
-            } else {
-            	System.out.println("fichier non recuperer");
+            if (e.getSource() == bouton_mobs) {
+            	comportement_Monstres.setVisible(true);
+            }else {
+            	comportement_Tours.setVisible(true);
             }
         }
     }
@@ -305,26 +306,6 @@ public class Jouer extends JPanel{
 	
 	public JButton getButtonRetour() {
 		return bouton_retour;
-	}
-	
-	private void setComportementTours(File file) {
-		if (file == null) {
-			bouton_tours.setText("Choisir un automate");
-		}else {
-			bouton_tours.setText(file.getName());
-			bouton_tours.setForeground(Color.BLACK);
-		}
-		comportement_tours = file;
-	}
-	
-	private void setComportementSbires(File file) {
-		if (file == null) {
-			bouton_mobs.setText("Choisir un automate");
-		}else {
-			bouton_mobs.setText(file.getName());
-			bouton_mobs.setForeground(Color.BLACK);
-		}
-		comportement_sbires = file;
 	}
 	
 	private void createInstanceJeu() {
