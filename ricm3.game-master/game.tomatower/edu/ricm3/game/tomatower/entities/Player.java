@@ -47,6 +47,32 @@ public class Player extends Living {
 		}
 	}
 
+	public void animate(Cell origin, int direction, Graphics g) {
+		if (this.isVisible()) {
+			int cellsize = this.getMap().getCellSize();
+			int pos[] = this.getPosition();
+			int x = pos[0] * cellsize;
+			int y = pos[1] * cellsize;
+			switch (direction) {
+			case 0:
+				g.drawImage(sprite_run[direction][0], x, y + (cellsize / 2), cellsize, cellsize, null);
+				break;
+			case 1:
+				g.drawImage(sprite_run[direction][0], x, y - (cellsize / 2), cellsize, cellsize, null);
+				break;
+			case 2:
+				g.drawImage(sprite_run[direction][0], x + (cellsize / 2), y, cellsize, cellsize, null);
+				break;
+			case 3:
+				g.drawImage(sprite_run[direction][0], x - (cellsize / 2), y, cellsize, cellsize, null);
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+
 	public void getBagEntity() {
 		if (this.bag.size() >= 1) {
 			if (hand == null) {

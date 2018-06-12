@@ -163,8 +163,6 @@ public class Model extends GameModel {
 		main_map = new Map(this);
 		this.setCurrentMap(main_map);
 		this.main_map.initMap("game.txt");
-		
-		
 
 		// Maps défis
 		/*

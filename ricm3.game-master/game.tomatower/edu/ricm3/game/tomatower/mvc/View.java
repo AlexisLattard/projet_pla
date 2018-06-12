@@ -24,9 +24,12 @@ import java.util.Iterator;
 
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
+import edu.ricm3.game.tomatower.entities.Player;
 import edu.ricm3.game.tomatower.entities.Tower;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Hud;
+import edu.ricm3.game.tomatower.map.Map;
 
 public class View extends GameView {
 
@@ -59,22 +62,23 @@ public class View extends GameView {
 
 	@Override
 	protected void _paint(Graphics g) {
+
 		computeFPS();
 
-		g.fillRect(0, 0, getWidth(), getHeight());
-
-		Iterator<Cell> iter_cells = this.model.getCurrentMap().getCellsIterator();
+		// g.fillRect(0, 0, getWidth(), getHeight());
+		Map map = this.model.getCurrentMap();
+		Iterator<Cell> iter_cells = map.getCellsIterator();
+		int d = (int) (map.getCellSize());
 		Cell c;
 		while (iter_cells.hasNext()) {
 			c = iter_cells.next();
-			int d = (int) (this.model.getCurrentMap().getCellSize());
 			int[] pos = c.getPosition();
-			int x = pos[0] * this.model.getCurrentMap().getCellSize();
-			int y = pos[1] * this.model.getCurrentMap().getCellSize();
+			int x = pos[0] * d;
+			int y = pos[1] * d;
 			g.drawImage(this.model.getSprites().sprite_background, x, y, d, d, null);
 		}
 
-		iter_cells = this.model.getCurrentMap().getCellsIterator();
+		iter_cells = map.getCellsIterator();
 		while (iter_cells.hasNext()) {
 			c = iter_cells.next();
 			c.paint(g);
@@ -83,23 +87,28 @@ public class View extends GameView {
 		hud.paint(g);
 
 		// Affichage de la main du personnage sur la cellule devant lui
-		Tower hand = this.model.getPlayer().getHand();
+		Player player = this.model.getPlayer();
+		Tower hand = player.getHand();
 		if (hand != null) {
-			Cell dest = this.model.getPlayer().getFrontCell();
+			Cell dest = player.getFrontCell();
 			if (dest != null) {
-				int d = (int) (this.model.getPlayer().getMap().getCellSize());
-				int x = dest.getPosition()[0] * model.getCurrentMap().getCellSize();
-				int y = dest.getPosition()[1] * model.getCurrentMap().getCellSize();
+				int[] pos = dest.getPosition();
+				int x = pos[0] * d;
+				int y = pos[1] * d;
 				if (dest.isFree(hand)) {
 					g.setColor(new Color(0, 255, 0, 100));
 				} else {
 					g.setColor(new Color(255, 0, 0, 100));
 				}
 				g.fillRect(x, y, d, d);
-				g.drawImage(((Tower) hand).getSprite()[this.model.getPlayer().getDirection().getValue()], x, y, d, d,
-						null);
+				g.drawImage(((Tower) hand).getSprite()[player.getDirection().getValue()], x, y, d, d, null);
 			}
 		}
+	}
+
+	public void animate(Cell origin, Direction direction, Player p, double time, Graphics g) {
+		System.out.println(time);
+		p.animate(origin, direction.getValue(), g);
 	}
 
 	public void setGameUI(GameUI gameUI) {

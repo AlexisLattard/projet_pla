@@ -159,7 +159,6 @@ public class Hud {
 
 	public void paint(Graphics g) {
 		int x = this.model.getCurrentMap().getMapDimention()[0];
-		int y = this.model.getCurrentMap().getMapDimention()[1];
 		g.setFont(font);
 
 		g.drawImage(sprite_background, x, 0, null);
@@ -207,7 +206,8 @@ public class Hud {
 		g.setColor(Color.decode("#094d49"));
 		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40, 15, 150, 10, 10);
 		g.setColor(Color.decode("#8ccfcb"));
-		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15, (int) h_life, 10, 10);
+		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15,
+				(int) h_life, 10, 10);
 		g.drawImage(sprite_health_crystal, x + 73, height_money + 4 * height_component_tower + 6 * MARGIN, null);
 
 	}

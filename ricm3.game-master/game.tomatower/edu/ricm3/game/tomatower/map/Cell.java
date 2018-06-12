@@ -4,7 +4,6 @@ import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -13,7 +12,7 @@ public class Cell {
 	private int row;
 	private Map map;
 	private ArrayList<Entity> entities;
-//	private BufferedImage sprite;
+	// private BufferedImage sprite;
 
 	public Cell(int c_col, int c_row, Map c_map) {
 		this.col = c_col;
@@ -94,7 +93,7 @@ public class Cell {
 	}
 
 	public void paint(Graphics g) {
-		
+
 		for (Entity e : this.entities) {
 			if (e.isVisible())
 				e.paint(g);

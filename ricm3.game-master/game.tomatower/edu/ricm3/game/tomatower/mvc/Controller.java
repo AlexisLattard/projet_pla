@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
+import edu.ricm3.game.tomatower.entities.Player;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 
 /**
@@ -44,7 +45,7 @@ public class Controller extends GameController implements ActionListener {
 	public Controller(Model m) {
 		this.model = m;
 	}
-	
+
 	/**
 	 * Simulation step. Warning: the model has already executed its step.
 	 * 
@@ -59,62 +60,63 @@ public class Controller extends GameController implements ActionListener {
 	public void keyTyped(KeyEvent e) {
 		// if (Options.ECHO_KEYBOARD)
 		// System.out.println("KeyTyped: " + e);
-
 	}
-
-
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
 			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		Player player = model.getPlayer();
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_KP_DOWN:
-			model.getPlayer().move(Direction.DOWN);
+			// le controller declanche l'animation. La vue est notifiée, on lui passe:
+			// origine, arrivée, direction, animation, temps d'input
+
+			player.move(Direction.DOWN);
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_KP_RIGHT:
-            long start0 = System.nanoTime();
-			model.getPlayer().move(Direction.RIGHT);
-            long end0 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-                System.out.println("Move action time" + (end0 - start0));
+			long start0 = System.nanoTime();
+			player.move(Direction.RIGHT);
+			long end0 = System.nanoTime();
+			if (Options.ECHO_PERFORMANCE)
+				System.out.println("Move action time" + (end0 - start0));
 			break;
 		case KeyEvent.VK_KP_LEFT:
 		case KeyEvent.VK_LEFT:
-			model.getPlayer().move(Direction.LEFT);
+			player.move(Direction.LEFT);
 			break;
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_KP_UP:
-			model.getPlayer().move(Direction.UP);
+			player.move(Direction.UP);
 			break;
-        case KeyEvent.VK_T:
+		case KeyEvent.VK_T:
 			long start1 = System.nanoTime();
 			System.out.println("PICK");
-            this.model.getPlayer().pick();
-            this.model.getPlayer().store();
-            long end1 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-            	System.out.println("Take action time: " + (end1 - start1));
-            break;
-        case KeyEvent.VK_P:
-            long start2 = System.nanoTime();
-            this.model.getPlayer().getBagEntity();
-            this.model.getPlayer().throwAction();
-            long end2 = System.nanoTime();
-            if(Options.ECHO_PERFORMANCE)
-            	System.out.println("Put action time : " + (end2 - start2));
-            break;
-        case KeyEvent.VK_H:
-        	this.model.getPlayer().pick();
-        	break;
-        case KeyEvent.VK_J:
-        	this.model.getPlayer().throwAction();
-        	break;
-        case KeyEvent.VK_SPACE:
-        	this.model.getPlayer().hit();        	
-        	break;
+			player.pick();
+			player.store();
+			long end1 = System.nanoTime();
+			if (Options.ECHO_PERFORMANCE)
+				System.out.println("Take action time: " + (end1 - start1));
+			break;
+		case KeyEvent.VK_P:
+			long start2 = System.nanoTime();
+			player.getBagEntity();
+			player.throwAction();
+			long end2 = System.nanoTime();
+			if (Options.ECHO_PERFORMANCE)
+				System.out.println("Put action time : " + (end2 - start2));
+			break;
+		case KeyEvent.VK_H:
+			player.pick();
+			break;
+		case KeyEvent.VK_J:
+			player.throwAction();
+			break;
+		case KeyEvent.VK_SPACE:
+			player.hit();
+			break;
 		}
 	}
 
@@ -167,12 +169,12 @@ public class Controller extends GameController implements ActionListener {
 	}
 
 	public void notifyVisible() {
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
 
 }
