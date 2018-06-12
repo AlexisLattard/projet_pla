@@ -86,3 +86,8 @@ Turner(Turn_0){
   * (Turn_3): True ? Turn(R) :(Turn_4)
   * (Turn_4): True ? Get :(X)
 }
+
+Atest(Init) {
+    * (Init) : True ? Move(E) : (Init)
+}
+

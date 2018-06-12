@@ -24,7 +24,6 @@ public class A_Transition {
 		a.state = state;
 		
 		if(a.state.equals("X")) {
-			System.out.println(a.state);
 			e.removeAutomaton();
 		}
 		

@@ -43,10 +43,12 @@ public abstract class Living extends Entity {
 	@Override
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
-			int d = (int) (this.getMap().getCellSize() * scale);
+			int cell_size = this.model.getCurrentMap().getCellSize();
 			int[] pos = this.getPosition();
-			int x = pos[0] * model.getCurrentMap().getCellSize();
-			int y = pos[1] * model.getCurrentMap().getCellSize();
+			
+			int d = (int) (cell_size * scale);
+			int x = pos[0] * cell_size;
+			int y = pos[1] * cell_size;
 			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
 		}
 	}
@@ -113,11 +115,6 @@ public abstract class Living extends Entity {
 			// Si vrai, alors la tourelle a été posée, donc plus rien en main			
 			hand = null;
 		}
-	}
-	
-	@Override
-	public void kamikaze() {
-		this.hp = 0;
 	}
 	
 	@Override

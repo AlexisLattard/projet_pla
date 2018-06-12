@@ -73,18 +73,18 @@ public class Player extends Living {
 
 		for (Tower t : this.bag) {
 			switch (t.getWeapon().getKindWeapon()) {
-			case Yellow:
-				numbertowers.put(Kind_Weapon.Yellow, numbertowers.get(Kind_Weapon.Yellow) + 1);
-				break;
-			case Red:
-				numbertowers.put(Kind_Weapon.Red, numbertowers.get(Kind_Weapon.Red) + 1);
-				break;
-			case Blue:
-				numbertowers.put(Kind_Weapon.Blue, numbertowers.get(Kind_Weapon.Blue) + 1);
-				break;
-			case Purple:
-				numbertowers.put(Kind_Weapon.Purple, numbertowers.get(Kind_Weapon.Purple) + 1);
-				break;
+				case Yellow:
+					numbertowers.put(Kind_Weapon.Yellow, numbertowers.get(Kind_Weapon.Yellow) + 1);
+					break;
+				case Red:
+					numbertowers.put(Kind_Weapon.Red, numbertowers.get(Kind_Weapon.Red) + 1);
+					break;
+				case Blue:
+					numbertowers.put(Kind_Weapon.Blue, numbertowers.get(Kind_Weapon.Blue) + 1);
+					break;
+				case Purple:
+					numbertowers.put(Kind_Weapon.Purple, numbertowers.get(Kind_Weapon.Purple) + 1);
+					break;
 			}
 		}
 		
