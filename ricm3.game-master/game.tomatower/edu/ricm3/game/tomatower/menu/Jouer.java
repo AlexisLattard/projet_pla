@@ -201,7 +201,6 @@ public class Jouer extends JPanel{
 		Border border = BorderFactory.createLineBorder(Color.black,5);
 		for (File child : file.listFiles()) {
 			if (child.isFile()) {
-				System.out.println("EDT1:"+SwingUtilities.isEventDispatchThread());
 				Bouton bouton = new Bouton(image);
 				bouton.setBorder(border);
 			    bouton.addActionListener(new CarteListener(child));
@@ -214,7 +213,6 @@ public class Jouer extends JPanel{
 		panel_cartes.removeAll();
 		if (!cartes.isEmpty()) {
 			for (Map.Entry<File, Bouton> entry : cartes.entrySet()) {
-				System.out.println("EDT2:"+SwingUtilities.isEventDispatchThread());
 			    File key = entry.getKey();
 			    Bouton value = entry.getValue();
 			    
