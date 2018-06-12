@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import edu.ricm3.game.parser.Ast;
+import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
 import edu.ricm3.game.tomatower.entities.Mobs;
 
@@ -47,9 +48,14 @@ public class A_Automaton {
 				}
 			}
 			
+			if(e instanceof Mobs)
 			
-			if(behavior == null)
-				throw new Exception("Unable to find a behavior");
+			
+			if(behavior == null) {
+				if(Options.ECHO_GAME_STATE)
+					System.out.println("Problem with the entity behavior : unable to find a bahavior (no state corresponding). Automaton deleted from the entity");
+				e.removeAutomaton();
+			}
 			
 			return behavior.exec(this, e);
 			

@@ -6,20 +6,34 @@ import edu.ricm3.game.tomatower.entities.Mobs;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import com.sun.glass.ui.Size;
 
 public class Cell {
     private int col;
     private int row;
     private Map map;
     private ArrayList<Entity> entities;
-
+    
+    //TEST
+    boolean displayed_damage = false;
+    int id_explosion = 0;
+    int id_last_explosion = 8;
+    long time_damage = 0;
+    long last_paint = 0;
+    long speed = 300L;
+    BufferedImage[] explosion_sprite;
+    
+    
     public Cell(int c_col, int c_row, Map c_map) {
         this.col = c_col;
         this.row = c_row;
         this.map = c_map;
         this.entities = new ArrayList<>();
+        explosion_sprite = this.map.model.getSprites().sprite_explosion;
     }
     
     public void paint(Graphics g) {
@@ -27,7 +41,25 @@ public class Cell {
         	if(e.isVisible())
         		e.paint(g);
         }
+        
+        if(displayed_damage) {
+        	paintExplosion(g);
+        }
+        
+        
     }
+    
+    public void paintExplosion(Graphics g) {
+    	if(id_explosion < id_last_explosion && last_paint + speed > time_damage) {
+        	g.drawImage(explosion_sprite[id_explosion], col*50, row*50, 50, 50, null);
+        	last_paint = time_damage;
+        	id_explosion++;
+        }else {
+        	displayed_damage = false;
+        	id_explosion = 0;
+        }
+    }
+    
 
     public void step(long now) {
   
@@ -35,6 +67,10 @@ public class Cell {
     	for(int i = 0; i < this.entities.size(); i++) {  // Pas d'itérateur car certaine actions modifient entities
     		e = this.entities.get(i);
     		e.step(now);
+    	}
+    	if(displayed_damage) {
+    		time_damage = now;
+    		last_paint = now;
     	}
     }
     
@@ -55,10 +91,13 @@ public class Cell {
 
     public void damage(int power) {
         // Si on considère que un hit est une bombre (fait des dégats sur toutes les entités)
-        for (Entity e : this.entities) {
-        	System.out.println("Hit sur la case ("+this.col + ", "+this.row +"), d'une puissance de " + power);
-            e.damage(power);
-        }
+    	int nb_entities = entities.size();
+    	if(nb_entities > 0)
+    		entities.get(nb_entities-1).damage(power);
+    	
+    	//TEST
+    	displayed_damage = true;
+    	
     }
 
     
@@ -93,13 +132,13 @@ public class Cell {
     					}	
     				}
     			}
-    			if(Options.ECHO_GAME_STATE && !allowed) {
-    				System.out.println("Cell destination not free");
-    			}
+    			
     			return allowed;
     		}
     	}
     }
+    
+    
     
 
     

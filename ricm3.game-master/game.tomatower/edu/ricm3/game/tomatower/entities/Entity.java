@@ -57,8 +57,7 @@ public abstract class Entity {
 
     	
     	if(automaton != null && now - last_action > action_time) {
-        	if(this instanceof Mobs)
-        		System.out.println("Ok");
+
     		if(this.automaton.step(this))
     			last_action = now;
     	}
@@ -125,9 +124,7 @@ public abstract class Entity {
 
 	public abstract void power();
 	
-	public void kamikaze() {
-		this.removeEntityFromCell();
-	}
+	public abstract void kamikaze();
 	
 	public abstract void damage(int power);
 	
