@@ -6,9 +6,12 @@ import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
+import sun.reflect.generics.tree.VoidDescriptor;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import com.sun.org.apache.bcel.internal.util.SecuritySupport;
 
 
 
@@ -25,6 +28,8 @@ public abstract class Entity {
     Kind kind;
     protected long last_action = 0;
     protected long action_time = 1000L;
+	protected String current_state = null;
+
     															
 
 	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Cell c_cell, Kind c_kind) {
@@ -49,7 +54,11 @@ public abstract class Entity {
 
     
     public void step(long now) {
+
+    	
     	if(automaton != null && now - last_action > action_time) {
+        	if(this instanceof Mobs)
+        		System.out.println("Ok");
     		if(this.automaton.step(this))
     			last_action = now;
     	}
@@ -69,7 +78,7 @@ public abstract class Entity {
 	public void move(Direction d) {
 		this.turn(d);
 		if(this.movement)
-			this.addEntityOnCell(this.getCellDirection(d, 1));
+			this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
 	}
 	
 	public void jump() {} // No entity can jump
@@ -212,32 +221,33 @@ public abstract class Entity {
 		int pos_front_cell_x = current_pos[0];
 		int pos_front_cell_y = current_pos[1];
 		
-		if((d == Direction.NORTH) ||
-				(direction == Direction.NORTH && d == Direction.FRONT) ||
-				(direction == Direction.SOUTH && d == Direction.BACK ) ||
-				(direction == Direction.EAST && d == Direction.ONTHELEFT) ||
-				(direction == Direction.WEST && d == Direction.ONTHERIGHT)) {
+		if(d.equals(Direction.NORTH) ||
+				(direction.equals(Direction.NORTH) && d.equals(Direction.FRONT)) ||
+				(direction.equals(Direction.SOUTH) && d.equals(Direction.BACK)) ||
+				(direction.equals( Direction.EAST) && d.equals(Direction.ONTHELEFT)) ||
+				(direction.equals(Direction.WEST) && d.equals(Direction.ONTHERIGHT))) {
 			pos_front_cell_y -= range;
 		} else if((d == Direction.SOUTH) ||
-				(direction == Direction.NORTH && d == Direction.BACK) ||
-				(direction == Direction.SOUTH && d == Direction.FRONT ) ||
-				(direction == Direction.EAST && d == Direction.ONTHERIGHT) ||
-				(direction == Direction.WEST && d == Direction.ONTHELEFT)) {
+				(direction.equals(Direction.NORTH) && d.equals(Direction.BACK)) ||
+				(direction.equals( Direction.SOUTH) && d.equals(Direction.FRONT) ) ||
+				(direction.equals(Direction.EAST) && d.equals(Direction.ONTHERIGHT)) ||
+				(direction.equals(Direction.WEST) && d.equals(Direction.ONTHELEFT))) {
 			pos_front_cell_y += range;
 		} else if((d == Direction.EAST) ||
-				(direction == Direction.NORTH && d == Direction.ONTHERIGHT) ||
-				(direction == Direction.SOUTH && d == Direction.ONTHELEFT ) ||
-				(direction == Direction.EAST && d == Direction.FRONT) ||
-				(direction == Direction.WEST && d == Direction.BACK)) {
+				(direction.equals(Direction.NORTH) && d.equals(Direction.ONTHERIGHT)) ||
+				(direction.equals(Direction.SOUTH) && d.equals(Direction.ONTHELEFT )) ||
+				(direction.equals(Direction.EAST) && d.equals(Direction.FRONT)) ||
+				(direction.equals(Direction.WEST) && d.equals(Direction.BACK))) {
 			pos_front_cell_x += range;
 		} else if((d == Direction.WEST) ||
-				(direction == Direction.NORTH && d == Direction.ONTHELEFT) ||
-				(direction == Direction.SOUTH && d == Direction.ONTHERIGHT ) ||
-				(direction == Direction.EAST && d == Direction.BACK) ||
-				(direction == Direction.WEST && d == Direction.FRONT)) {
+				(direction.equals(Direction.NORTH) && d.equals(Direction.ONTHELEFT)) ||
+				(direction.equals(Direction.SOUTH) && d.equals(Direction.ONTHERIGHT) ) ||
+				(direction.equals(Direction.EAST) && d.equals(Direction.BACK)) ||
+				(direction.equals(Direction.WEST) && d.equals(Direction.FRONT))) {
 			pos_front_cell_x -= range;
 		}
-		
+
+
 		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
     
@@ -249,6 +259,12 @@ public abstract class Entity {
     	this.automaton = null;
     }
     
+    public String getCurrentState() {
+    	return this.current_state;
+    }
+    public void setCurrentState(String state) {
+    	this.current_state = state;
+    }
    
     
 

@@ -19,7 +19,7 @@ public class Mobs extends Living {
 		this.canTake = false;
 
 		this.hp = 20;
-		this.action_time = 100L;
+		this.action_time = 1500L;
 	}
 	
 	
