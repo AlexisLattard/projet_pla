@@ -107,82 +107,50 @@ Atest(Init) {
     * (Init) : True ? Move(E) : (Init)
 }
 
-OmegaTest(Test_1) {
+SemiIntelligent(Rush){
 
-	* (Test_1):
-		| Cell(F,V) ? Move(F)	:(Test_2)
-		| True ? Power			:(Test_2)
-		
-	* (Test_2):
-		| Cell(L,V) ? Move(L)	:(Test_3)
-		| True ? Power			:(Test_3)
-		
-	* (Test_3):
-		| Cell(R,V) ? Move(R)	:(Test_4)
-		| True ? Power			:(Test_4)
-		
-	* (Test_4):
-		| Cell(B,V) ? Move(B)	:(Test_5)
-		| True ? Power			:(Test_5)
-		
-	* (Test_5): True ? Turn(R)	:(Test_6)
+	* (Rush):
+		| Cell(N,D) ? Pop			:(Rush)
+		| Cell(S,D) ? Pop			:(Rush)
+		| Cell(E,D) ? Pop			:(Rush)
+		| Cell(O,D) ? Pop			:(Rush)
+		| Closest(D,N) & Cell(N,V) ? Turn(N)	:(Turner)
+		| Closest(D,S) & Cell(S,V) ? Turn(S)	:(Turner)
+		| Closest(D,E) & Cell(E,V) ? Turn(E)	:(Turner)
+		| Closest(D,O) & Cell(O,V) ? Turn(O)	:(Turner)
+		| True ? Turn(R) / Turn(L)		:(Pathfinding)
+
+	* (Turner): True ? Move(F)	:(Rush)
+
+	* (Pathfinding):
+		| Cell(F,V) ? Move(F)	:(Rush)
+		| Cell(B,V) ? Turn(B)	:(Turner)
+		| True ? Turn(R)	:(Blocked)
+
+	* (Blocked):
+		| Cell(F,V) ? Move(F)	:(Panic)
+		| True ? Turn(R)	:(Blocked)
+
+	* (Panic_1): True ? Move(F)	:(Panic_2)
+
+	* (Panic_2):
+		| Cell(F,V) ? Move(F)	:(Panic_3)
+		| True ? Power	:(Panic_3)
+
+	* (Panic_3): True ? Turn(R) / Turn(L)	:(Panic_4)
+
+	* (Panic_4):
+		| Cell(F,V) ? Move(F)	:(Turner)
+		| True ? Power	:(Rush)
+	}
+
+Ninja(Ninja){
+	* (Ninja) : 
+	| Closest(D,N) ? Move(N) :(Ninja)
+	| Closest(D,S) ? Move(S) :(Ninja)
+	| Closest(D,E) ? Move(E) :(Ninja)
+	| Closest(D,O) ? Move(O) :(Ninja)
+	| True ? Pop :(Ninja)
 	
-	* (Test_6): True ? Turn(L)	:(Test_7)
-	
-	* (Test_7): True ? Turn(B)	:(Test_8)
-	
-	* (Test_8):
-		| Cell(F,V) ? Jump(F)	:(Test_9)
-		| True ? Power			:(Test_9)
-		
-	* (Test_9):
-		| Cell(L,V) ? Jump(L)	:(Test_10)
-		| True ? Power			:(Test_10)
-		
-	* (Test_10):
-		| Cell(R,V) ? Jump(R)	:(Test_11)
-		| True ? Power			:(Test_11)
-		
-	* (Test_11):
-		| Cell(B,V) ? Jump(B)	:(Test_12)
-		| True ? Power			:(Test_12)
-		
-	* (Test_12):
-		| Key(SPACE) ? Hit(F)	:(Test_13)
-		| Key(a) ? Hit(F)		:(Test_13)
-		| Key(9) ? Hit(F)		:(Test_13)
-		| Key(FU) ? Hit(F)		:(Test_13)
-		| not(Key(a)) ? Hit(F)	:(Test_13)
-		
-	* (Test_13): 
-		| MyDir(N) ? Pick(N)	:(Test_14)
-		| MyDir(S) ? Pick(S)	:(Test_14)
-		| MyDir(E) ? Pick(E)	:(Test_14)
-		| MyDir(O) ? Pick(O)	:(Test_14)
-		| True ? Pick(B)		:(Test_14)
-		
-	* (Test_14):
-		| Cell(F,T) / Cell(F,A) / Cell(F,D) / Cell(F,P) / Cell(F,J) / Cell(F,G) / Cell(F,M) ? Store		:(Test_15)
-		| True ? Store																					:(Test_15)
-		
-	* (Test_15):
-		| Closest(V,N) ? Get				:(Test_16)
-		| True & not(Closest(V,N)) ? Get	:(Test_16)
-		
-	* (Test_16):
-		| Cell(d,V) ? Move(d)	:(Test_17)
-		| True ? Power			:(Test_17)
-		
-	* (Test_17): True ? Turn(R) / Turn(L)	:(Test_18)
-	
-	* (Test_18): True ? Pop(B)	:(Test_19)
-	
-	* (Test_19): True ? Pop		:(Test_20)
-	
-	* (Test_20): True ? Wizz(B)	:(Test_21)
-	
-	* (Test_21): True ? Wizz	:(Test_22)
-	
-	* (Test_22): True ? Kamikaze	:(Turner)
 }
 
