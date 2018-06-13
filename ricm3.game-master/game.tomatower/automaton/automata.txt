@@ -23,14 +23,19 @@ HiterTower(Un) {
     *(Un) : True ? Pop : (Un)
 }
 
-FollowTheWalls(Bump){
+FollowTheRightWall(Bump){
 
 	* (Bump):
 		| Cell(S,D)? Pop	: (X)
 		| Cell(N,D)? Pop	: (X)
 		| Cell(O,D)? Pop	: (X)
 		| Cell(E,D)? Pop	: (X)
+		| Cell(S,T)? Hit(S)	: (Bump)
+		| Cell(N,T)? Hit(N)	: (Bump)
+		| Cell(O,T)? Hit(O)	: (Bump)
+		| Cell(E,T)? Hit(E)	: (Bump)
 		| Cell(F,V) ? Move(F)	:(Bump)
+		| Cell(F,A) ? Move(F)	:(Bump)
 		| True ? Turn(L)	:(FollowWalls)
 
 	* (FollowWalls):
@@ -38,15 +43,118 @@ FollowTheWalls(Bump){
 		| Cell(N,D)? Pop	: (X)
 		| Cell(O,D)? Pop	: (X)
 		| Cell(E,D)? Pop	: (X)
-		| Cell(R,V) ? Turn(R)	:(Step)
+		| Cell(S,T)? Hit(S)	: (FollowWalls)
+		| Cell(N,T)? Hit(N)	: (FollowWalls)
+		| Cell(O,T)? Hit(O)	: (FollowWalls)
+		| Cell(E,T)? Hit(E)	: (FollowWalls)
+		| Cell(R,V) ? Move(R)	:(FollowWalls)
+		| Cell(R,A) ? Move(R)	:(FollowWalls)
 		| Cell(F,V) ? Move(F)	:(FollowWalls)
-		| Cell(L,V) ? Turn(L)	:(Step)
-		| True ? Turn(B)	:(Step)
+		| Cell(F,A) ? Move(F)	:(FollowWalls)
+		| Cell(L,V) ? Move(L)	:(FollowWalls)
+		| Cell(L,A) ? Move(L)	:(FollowWalls)
+		| True ? Move(B)	:(FollowWalls)
 
-	* (Step): True ? Move(F)	:(FollowWalls)
 }
 
+FollowTheLeftWall(Bump){
 
+	* (Bump):
+		| Cell(S,D)? Pop	: (X)
+		| Cell(N,D)? Pop	: (X)
+		| Cell(O,D)? Pop	: (X)
+		| Cell(E,D)? Pop	: (X)
+		| Cell(S,T)? Hit(S)	: (Bump)
+		| Cell(N,T)? Hit(N)	: (Bump)
+		| Cell(O,T)? Hit(O)	: (Bump)
+		| Cell(E,T)? Hit(E)	: (Bump)
+		| Cell(F,V) ? Move(F)	:(Bump)
+		| Cell(F,A) ? Move(F)	:(Bump)
+		| True ? Turn(R)	:(FollowWalls)
+
+	* (FollowWalls):
+		| Cell(S,D)? Pop	: (X)
+		| Cell(N,D)? Pop	: (X)
+		| Cell(O,D)? Pop	: (X)
+		| Cell(E,D)? Pop	: (X)
+		| Cell(S,T)? Hit(S)	: (FollowWalls)
+		| Cell(N,T)? Hit(N)	: (FollowWalls)
+		| Cell(O,T)? Hit(O)	: (FollowWalls)
+		| Cell(E,T)? Hit(E)	: (FollowWalls)
+		| Cell(L,V) ? Move(L)	:(FollowWalls)
+		| Cell(L,A) ? Move(L)	:(FollowWalls)
+		| Cell(F,V) ? Move(F)	:(FollowWalls)
+		| Cell(F,A) ? Move(F)	:(FollowWalls)
+		| Cell(R,V) ? Move(R)	:(FollowWalls)
+		| Cell(R,A) ? Move(R)	:(FollowWalls)
+		| True ? Move(B)	:(FollowWalls)
+
+}
+
+Rusher(Rush){
+
+	* (Rush):
+		| Cell(N,D) ? Pop			:(X)
+		| Cell(S,D) ? Pop			:(X)
+		| Cell(E,D) ? Pop			:(X)
+		| Cell(O,D) ? Pop			:(X)
+		| Closest(D,N) & Cell(N,V) ? Turn(N)	:(Turner)
+		| Closest(D,N) & Cell(N,A) ? Turn(N)	:(Turner)
+		| Closest(D,S) & Cell(S,V) ? Turn(S)	:(Turner)
+		| Closest(D,S) & Cell(S,A) ? Turn(S)	:(Turner)
+		| Closest(D,E) & Cell(E,V) ? Turn(E)	:(Turner)
+		| Closest(D,E) & Cell(E,A) ? Turn(E)	:(Turner)
+		| Closest(D,O) & Cell(O,V) ? Turn(O)	:(Turner)
+		| Closest(D,O) & Cell(O,A) ? Turn(O)	:(Turner)
+		| True ? Turn(R) / Turn(L)		:(Pathfinding)
+
+	* (Turner): True ? Move(F)	:(Rush)
+
+	* (Pathfinding):
+		| Cell(F,V) ? Turn(F)	:(Turner)
+		| Cell(F,A) ? Turn(F)	:(Turner)
+		| Cell(B,V) ? Turn(B)	:(Turner)
+		| Cell(B,A) ? Turn(B)	:(Turner)
+		| True ? Turn(R)	:(Blocked)
+
+	* (Blocked):
+		| Cell(F,V) ? Move(F)	:(Panic)
+		| True ? Turn(R)	:(Blocked)
+
+	* (Panic_1): True ? Move(F)	:(Panic_2)
+
+	* (Panic_2):
+		| Cell(F,V) ? Move(F)	:(Panic_3)
+		| True ? Jump(F)	:(Panic_3)
+
+	* (Panic_3): True ? Turn(R) / Turn(L)	:(Panic_4)
+
+	* (Panic_4):
+		| Cell(F,V) ? Move(F)	:(Turner)
+		| True ? Jump(F)	:(Rush)
+	}
+
+Agressiv(Chase) {
+	* (Chase):
+		| Cell(S,T)? Hit(S)	: (Chase)
+		| Cell(N,T)? Hit(N)	: (Chase)
+		| Cell(O,T)? Hit(O)	: (Chase)
+		| Cell(E,T)? Hit(E)	: (Chase)
+		| Closest(T,N) & Cell(N,V) ? Move(N)	:(Chase)
+		| Closest(T,N) & Cell(N,A) ? Move(N)	:(Chase)
+		| Closest(T,N) ? Move(E) / Move(O)	:(Chase)
+		| Closest(T,S) & Cell(S,V) ? Move(S)	:(Chase)
+		| Closest(T,S) & Cell(S,A) ? Move(S)	:(Chase)
+		| Closest(T,S) ? Move(E) / Move(O)	:(Chase)
+		| Closest(T,E) & Cell(E,V) ? Move(E)	:(Chase)
+		| Closest(T,E) & Cell(E,A) ? Move(E)	:(Chase)
+		| Closest(T,E) ? Move(N) / Move(S)	:(Chase)
+		| Closest(T,O) & Cell(O,V) ? Move(O)	:(Chase)
+		| Closest(T,O) & Cell(O,A) ? Move(O)	:(Chase)
+		| Closest(T,O) ? Move(S) / Move(N)	:(Chase)
+		| True ? Pop : (X)
+		
+}
 
 
 Perso(Init) {

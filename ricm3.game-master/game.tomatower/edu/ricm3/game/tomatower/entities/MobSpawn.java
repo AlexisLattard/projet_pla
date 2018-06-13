@@ -39,10 +39,10 @@ public class MobSpawn extends Inert {
 		
 		//Test
 		behaviors = new HashMap<>();
-		behaviors.put(this.model.getSprites().sprite_mob_plug,this.model.getAutomatons().get("MoverRandom"));
-		behaviors.put(this.model.getSprites().sprite_mob_hungry,this.model.getAutomatons().get("FollowTheWalls"));
-		behaviors.put(this.model.getSprites().sprite_mob_lantern,this.model.getAutomatons().get("MoverRandom"));
-		behaviors.put(this.model.getSprites().sprite_mob_ghost,this.model.getAutomatons().get("FollowTheWalls"));
+		behaviors.put(this.model.getSprites().sprite_mob_plug,this.model.getAutomatons().get("Agressiv"));
+		behaviors.put(this.model.getSprites().sprite_mob_hungry,this.model.getAutomatons().get("FollowTheRightWall"));
+		behaviors.put(this.model.getSprites().sprite_mob_lantern,this.model.getAutomatons().get("Rusher"));
+		behaviors.put(this.model.getSprites().sprite_mob_ghost,this.model.getAutomatons().get("FollowTheLeftWall"));
 
 	}
 
