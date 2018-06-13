@@ -66,8 +66,8 @@ public class View extends GameView {
 		computeFPS();
 
 		// erase background
-		g.setColor(m_background);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		// g.setColor(m_background);
+		// g.fillRect(0, 0, getWidth(), getHeight());
 		Map map = this.model.getCurrentMap();
 		Iterator<Cell> iter_cells = map.getCellsIterator();
 		Cell c;
@@ -77,8 +77,13 @@ public class View extends GameView {
 			int[] pos = c.getPosition();
 			int x = pos[0] * d;
 			int y = pos[1] * d;
-			g.drawImage(model.getSprites().sprite_background, x, y, d, d, null);
+			if (map == model.getMainMap()) {
+				g.drawImage(model.getSprites().sprite_grass, x, y, d, d, null);
+			} else {
+				g.drawImage(model.getSprites().sprite_plank, x, y, d, d, null);
+			}
 		}
+
 		map.paint(g);
 
 		hud.paint(g);

@@ -28,7 +28,8 @@ public class Sprites {
 	public BufferedImage sprite_mur;
 	public BufferedImage sprite_portal;
 	public BufferedImage sprite_portal_in;
-	public BufferedImage sprite_background;
+	public BufferedImage sprite_grass;
+	public BufferedImage sprite_plank;
 
 	public Sprites() {
 		loadSprites();
@@ -223,7 +224,15 @@ public class Sprites {
 		// Sprite de fond
 		imageFile = new File("game.tomatower/sprites/grass.png");
 		try {
-			sprite_background = ImageIO.read(imageFile);
+			sprite_grass = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.tomatower/sprites/plank.png");
+		try {
+			sprite_plank = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
