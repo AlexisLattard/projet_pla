@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.PrimitiveIterator.OfDouble;
 
 public class Portal extends Inert {
+	
+	Entity last_entity_on_portal_destination;
+	long time_arrived;
+	long timer_portal_purge = 5000L;
 
 	public Portal(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind) {
 		super(c_model, false, c_sprite, c_scale, c_cell, c_kind, Kind.Gate);
@@ -29,6 +33,7 @@ public class Portal extends Inert {
 			if(cell_entities.size() > 1 && !this.obstacles_kind.equals(ObstaclesKind.PORTAL_DESTINATION)) {
 				this.action(cell_entities.get(1));
 			}
+			purgePortalDestination(cell_entities, now);
 		}
 	}
 	
@@ -61,6 +66,22 @@ public class Portal extends Inert {
 		}
 		
 		
+	}
+	
+	public void purgePortalDestination(ArrayList<Entity> cell_entities, long now) {
+		if(this.obstacles_kind.equals(ObstaclesKind.PORTAL_DESTINATION)) {
+			if(cell_entities.size() == 1) {
+				last_entity_on_portal_destination = null;
+			}else {
+				Entity entity_on_portal = cell_entities.get(1	);
+				if(this.last_entity_on_portal_destination == null) {
+					this.last_entity_on_portal_destination = entity_on_portal;
+					time_arrived = now;
+				} else if(now - time_arrived > timer_portal_purge) {
+					entity_on_portal.kamikaze();
+				}
+			}
+		}
 	}
 
 }

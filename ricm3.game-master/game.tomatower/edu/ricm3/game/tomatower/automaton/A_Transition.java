@@ -21,9 +21,9 @@ public class A_Transition {
 	public void exec(A_Automaton a, Entity e) throws Exception {
 		
 		this.action.exec(e);
-		a.state = state;
+		e.setCurrentState(state);
 		
-		if(a.state.equals("X")) {
+		if(e.getCurrentState().equals("X")) {
 			e.removeAutomaton();
 		}
 		
