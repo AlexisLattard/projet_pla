@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JComboBox;
@@ -15,8 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+import edu.ricm3.game.tomatower.automaton.A_Automaton;
+import edu.ricm3.game.tomatower.entities.enums.Entity_Name;
+
 public class ChoixComportement extends JDialog{
-	private HashMap<String,Object> listAutomates;
+	private HashMap<String, A_Automaton> automates;
 	private Vector<JComboBox<Object>> choix;
 	
 	private JPanel grille;
@@ -32,19 +36,19 @@ public class ChoixComportement extends JDialog{
 	private Bouton aleatoire_bouton;
 	
 	
-	public ChoixComportement(HashMap<String,Object> listAutomates,int nbElements,ActionListener actionretour) {
+	public ChoixComportement( HashMap<String, A_Automaton> automates) {
 		super(My_Frame.getInstance());
-		this.listAutomates = listAutomates;
+		this.automates = automates;
 		this.setLayout(new BorderLayout());
 		this.setSize(400,200);
-		initCentre(nbElements);
-		initSud(actionretour);
+		initCentre();
+		initSud();
 		initNord();
 	}
 	
-	private void initSud(ActionListener actionretour) {
+	private void initSud() {
 		this.valider_bouton = new Bouton("Valider");
-		this.valider_bouton.addActionListener(actionretour);
+		this.valider_bouton.addActionListener(new ValiderComportementListener());
 		this.aleatoire_bouton = new Bouton("Aleatoire");
 		this.aleatoire_bouton.addActionListener(new ComportementAleatoireListener());
 		
@@ -68,28 +72,29 @@ public class ChoixComportement extends JDialog{
 		this.add(this.titre_panel,BorderLayout.NORTH);
 	}
 	
-	private void initCentre(int nbElements) {
+	private void initCentre() {
+		int nbElements = Entity_Name.values().length;
 		this.choix = new Vector<JComboBox<Object>>(nbElements);
 		this.grille = new JPanel(new GridLayout(nbElements,1));
 		this.scrollGrille = new JScrollPane(this.grille,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 										JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		remplirChoix(this.listAutomates,nbElements);
-		remplirGrille(this.listAutomates,nbElements);
+		remplirChoix(this.automates);
+		remplirGrille(this.automates);
 		this.add(this.scrollGrille, BorderLayout.CENTER);
 	}
 	
-	private void remplirChoix(HashMap<String,Object> listAutomates,int nbElements) {
-		Object keys[] = listAutomates.keySet().toArray();
-		for(int i=0;i<nbElements;i++) {
+	private void remplirChoix(HashMap<String,A_Automaton> listAutomates) {
+		Object keys[] = this.automates.keySet().toArray();
+		for(int i=0;i<Entity_Name.values().length;i++) {
 			choix.add(new JComboBox<Object>(keys));
 		}
 		
 	}
 	
-	private void remplirGrille(HashMap<String,Object> listAutomates,int nbElements) {
+	private void remplirGrille(HashMap<String,A_Automaton> listAutomates) {
 		for (int i=0;i<this.choix.size();i++) {			
 			JPanel panel = new JPanel(new FlowLayout());
-			panel.add(new JLabel("Item n°"+i));
+			panel.add(new JLabel(Entity_Name.values()[i].name()));
 			panel.add(this.choix.get(i));
 			this.grille.add(panel);
 		}
@@ -97,20 +102,22 @@ public class ChoixComportement extends JDialog{
 
 	public void aleatoire() {
 		if (SwingUtilities.isEventDispatchThread()) {
-			int size = this.listAutomates.size();
-			for(int i=0;i<this.choix.capacity();i++) {
-				int indice = ThreadLocalRandom.current().nextInt(0, size);
-				this.choix.get(i).setSelectedIndex(indice);
+			int nb_automates = this.automates.size();
+			if (nb_automates > 0) {
+				int size = this.automates.size();
+				for(int i=0;i<this.choix.capacity();i++) {
+					int indice = ThreadLocalRandom.current().nextInt(0, size);
+					this.choix.get(i).setSelectedIndex(indice);
+				}
 			}
 		}
 	}
 	
-	public  HashMap<Integer,Object> getComportements() {
+	public  HashMap<Integer,A_Automaton> getComportements() {
 		// TODO Renvoyer la correspondance Entité-Automates
-		HashMap<Integer,Object> comportement = new HashMap<Integer,Object>();
-		
+		HashMap<Integer,A_Automaton> comportement = new HashMap<Integer,A_Automaton>();
 		for (int i=0;i<this.choix.size();i++) {
-			comportement.put(new Integer(i), choix.get(i).getSelectedItem());
+			comportement.put(new Integer(i), this.automates.get(choix.get(i).getSelectedItem()));
 		}
 		
 		return comportement;
@@ -124,6 +131,17 @@ public class ChoixComportement extends JDialog{
 			// TODO Auto-generated method stub
 			aleatoire();
 		}
+	}
+	
+	private class ValiderComportementListener implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			Jouer.getInstance().setComportement(getComportements());
+			setVisible(false);
+		}
+		
 	}
 	// Listener//
 }

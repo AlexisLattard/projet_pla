@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import edu.ricm3.game.GameUI;
+import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.mvc.Controller;
 import edu.ricm3.game.tomatower.mvc.Model;
 import edu.ricm3.game.tomatower.mvc.View;
@@ -25,19 +26,17 @@ public class Jouer extends JPanel{
 
 	// AUTRES //
 		// COMPORTEMENT //
-	private HashMap<Integer,Object> comportement_Tours;
-	private HashMap<Integer,Object> comportement_Monstres;
+	private HashMap<Integer,A_Automaton> comportement;
+	private HashMap<String, A_Automaton> automates;
 	private File carte_selectionner;
 	
-	private ChoixComportement choix_Comportement_Tours;
-	private ChoixComportement choix_Comportement_Monstres;
+	private ChoixComportement choix_Comportement;
 		// COMPORTEMENT //
 	// AUTRES //	
 	
 	// BOUTON //
 		// COMPORTEMENT //
-	private Bouton bouton_mobs;
-	private Bouton bouton_tours;
+	private Bouton bouton_comportement;
 		// COMPORTEMENT //
 		// SOUTH //
 	private Bouton bouton_lancer;
@@ -50,9 +49,6 @@ public class Jouer extends JPanel{
 	
 	// JLABEL //
 		// COMPORTEMENT //
-	private JLabel label_mobs;
-	private JLabel label_towers;
-	private JLabel label_comportement;
 		// COMPORTEMENT //
 		// MAP //
 	private	 JLabel label_choix_carte;
@@ -67,11 +63,7 @@ public class Jouer extends JPanel{
 	private JPanel sud_retour;
 		// SOUTH //
 		// COMPORTEMENT //
-	private JPanel panel_mobs;
-	private JPanel panel_towers;
-	private JPanel panel_mobs_towers;
 	private JPanel panel_comportement;
-	private JPanel panel_title;
 	private JPanel panel_nord;
 		// COMPORTEMENT //
 		// MAP //
@@ -105,18 +97,10 @@ public class Jouer extends JPanel{
 			// AUTRES //
 		this.carte_selectionner = null;
 		//TEST//
-		HashMap<String,Object> listAutomates = new HashMap<String,Object>();
-		listAutomates.put(new String("Automates1"), new String("Automates1"));
-		listAutomates.put(new String("Automates2"), new String("Automates2"));
-		listAutomates.put(new String("Automates4"), new String("Automates3"));
-		listAutomates.put(new String("Automates5"), new String("Automates4"));
-		listAutomates.put(new String("Automates6"), new String("Automates5"));
-		listAutomates.put(new String("Automates7"), new String("Automates6"));
-		listAutomates.put(new String("Automates8"), new String("Automates7"));
+		this.automates = new HashMap<String, A_Automaton>();
 		//TEST//
-		this.choix_Comportement_Tours = new ChoixComportement(listAutomates,3,new ValiderComportementToursListener());
-		this.choix_Comportement_Monstres = new ChoixComportement(listAutomates,3,new ValiderComportementMonstreListener());
 		
+		this.choix_Comportement = new ChoixComportement(this.automates);
 		this.cartes = new HashMap<File,Bouton>();
 			// AUTRES //
 			// BOUTON //
@@ -125,16 +109,12 @@ public class Jouer extends JPanel{
 		this.bouton_retour = new Bouton("RETOUR");
 				// SOUTH //
 				// COMPORTEMENT //
-		this.bouton_mobs = new Bouton("Comportements des monstres");
-		this.bouton_tours = new Bouton("Comportements des tours");
+		this.bouton_comportement = new Bouton("Comportements");
 				// COMPORTEMENT //
 			// BOUTON //
 
 			// LABEL //
 				// COMPORTEMENT //
-		this.label_mobs = new JLabel("Image de mobs");
-		this.label_towers= new JLabel("Image de tours");
-		this.label_comportement = new JLabel("Comportement");
 				// COMPORTEMENT //
 				// MAP //
 		this.label_choix_carte = new JLabel("Cartes");
@@ -148,11 +128,7 @@ public class Jouer extends JPanel{
 		this.sud = new JPanel(new GridLayout(1,2));
 				// SOUTH //
 				// COMPORTEMENT //
-		this.panel_mobs = new JPanel(new FlowLayout());
-		this.panel_towers = new JPanel(new FlowLayout());
-		this.panel_mobs_towers = new JPanel(new GridLayout(2,1));
 		this.panel_comportement = new JPanel(new BorderLayout());
-		this.panel_title = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		this.panel_nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 				// COMPORTEMENT //
 				// MAP //
@@ -182,21 +158,11 @@ public class Jouer extends JPanel{
 	
 	private void initComportement() {
 		// COMPORTEMENT //		
-		this.panel_mobs.add(this.label_mobs);
-		this.panel_mobs.add(this.bouton_mobs);
-		this.panel_towers.add(this.label_towers);
-		this.panel_towers.add(this.bouton_tours);
-		this.panel_mobs_towers.add(this.panel_towers);
-		this.panel_mobs_towers.add(this.panel_mobs);
-		this.panel_title.add(this.label_comportement);
-		this.panel_comportement.add(this.panel_title,BorderLayout.NORTH);
-		this.panel_comportement.add(this.panel_mobs_towers,BorderLayout.CENTER);
+		this.panel_comportement.add(this.bouton_comportement,BorderLayout.CENTER);
 		this.panel_comportement.setBorder(BorderFactory.createLineBorder(Color.black)); //
 		this.panel_nord.add(this.panel_comportement);
-		this.bouton_tours.addActionListener(new ComportementListener());
-		this.bouton_mobs.addActionListener(new ComportementListener());
-		setComportementTours(choix_Comportement_Tours.getComportements());
-		setComportementMonstres(choix_Comportement_Monstres.getComportements());
+		this.bouton_comportement.addActionListener(new ComportementListener());
+		setComportement(choix_Comportement.getComportements());
 		this.add(this.panel_nord,BorderLayout.NORTH);
 		// COMPORTEMENT //
 	}
@@ -251,11 +217,7 @@ public class Jouer extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if (e.getSource() == bouton_mobs) {
-            	choix_Comportement_Monstres.setVisible(true);
-            }else {
-            	choix_Comportement_Tours.setVisible(true);
-            }
+        	choix_Comportement.setVisible(true);
         }
     }
 
@@ -296,46 +258,19 @@ public class Jouer extends JPanel{
 	
 	
 	// Listener //
-	private class ValiderComportementToursListener implements ActionListener{
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			Jouer.getInstance().setComportementTours(choix_Comportement_Tours.getComportements());
-			choix_Comportement_Tours.setVisible(false);
-			System.out.println(comportement_Tours.get(0));
-		}
-		
-	}
-	
-	private class ValiderComportementMonstreListener implements ActionListener{
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			Jouer.getInstance().setComportementMonstres(choix_Comportement_Monstres.getComportements());
-			choix_Comportement_Monstres.setVisible(false);
-			System.out.println(comportement_Monstres.get(0));
-		}
-		
-	}
 	
 	public class LancerLaPartieListener implements ActionListener{	
 		
 	    @Override
 	    public void actionPerformed(ActionEvent e)
 	    {
-	        if (!comportement_Tours.isEmpty() && !comportement_Monstres.isEmpty() && carte_selectionner != null) {
+	        if (!comportement.isEmpty() && carte_selectionner != null) {
 	        	My_Frame.getInstance().setVisible(false);
 	        	Jouer.getInstance().createInstanceJeu();
 	        }else {
-	        	if (choix_Comportement_Tours == null) {
-	        		bouton_tours.setText("*Choisir un automate*"); 
-	        		bouton_tours.setForeground(Color.RED);        			
-	        	}
-	        	if (choix_Comportement_Monstres == null) {
-	        		bouton_mobs.setText("*Choisir un automate*");
-	        		bouton_mobs.setForeground(Color.RED);
+	        	if (choix_Comportement == null) {
+	        		bouton_comportement.setText("*Choisir un automate*"); 
+	        		bouton_comportement.setForeground(Color.RED);        			
 	        	}
 	        	
 	        }
@@ -343,27 +278,15 @@ public class Jouer extends JPanel{
 	}
 	// Listener
 
-	private void setComportementTours(HashMap<Integer,Object> comportements_Tours) {
-		this.comportement_Tours = comportements_Tours;
-	}
-	
-	private void setComportementMonstres(HashMap<Integer,Object> comportements_Monstres) {
-		this.comportement_Monstres = comportements_Monstres;
+	protected void setComportement(HashMap<Integer,A_Automaton> comportements) {
+		this.comportement = comportements;
 	}
 
-	public Bouton getBoutonMonstres() {
-		return bouton_mobs;
+	public Bouton getBoutonComportement() {
+		return bouton_comportement;
 	}
 	
-	public Bouton getBoutonTours() {
-		return bouton_tours;
-	}
-	
-	public ChoixComportement getChoixComportementTours() {
-		return choix_Comportement_Tours;
-	}
-	
-	public ChoixComportement getChoixComportementMonstres() {
-		return choix_Comportement_Monstres;
+	public ChoixComportement getChoixComportement() {
+		return choix_Comportement;
 	}
 }
