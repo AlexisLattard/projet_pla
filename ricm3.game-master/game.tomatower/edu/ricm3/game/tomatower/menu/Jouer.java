@@ -195,6 +195,8 @@ public class Jouer extends JPanel{
 		this.panel_nord.add(this.panel_comportement);
 		this.bouton_tours.addActionListener(new ComportementListener());
 		this.bouton_mobs.addActionListener(new ComportementListener());
+		setComportementTours(choix_Comportement_Tours.getComportements());
+		setComportementMonstres(choix_Comportement_Monstres.getComportements());
 		this.add(this.panel_nord,BorderLayout.NORTH);
 		// COMPORTEMENT //
 	}
@@ -264,8 +266,8 @@ public class Jouer extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if (choix_Comportement_Tours != null && comportement_Monstres != null && carte_selectionner != null) {
-            	My_Frame.getInstance().setVisible(true);
+            if (!comportement_Tours.isEmpty() && !comportement_Monstres.isEmpty() && carte_selectionner != null) {
+            	My_Frame.getInstance().setVisible(false);
             	createInstanceJeu();
             }else {
             	if (choix_Comportement_Tours == null) {
@@ -312,6 +314,7 @@ public class Jouer extends JPanel{
 		Model model = new Model();
         Controller controller = new Controller(model);
         View view = new View(model,controller);
+        model.initModel(controller);
         new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
 	

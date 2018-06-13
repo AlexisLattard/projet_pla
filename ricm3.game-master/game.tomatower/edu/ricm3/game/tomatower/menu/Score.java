@@ -92,28 +92,11 @@ public class Score extends JPanel
     public void fillData(){
     	données.removeAllElements();
     	File file = new File("./Autres/Score");
-    	Scanner scanner;
-		try {
-			scanner = new Scanner(file);
-			String line;
-			String[] split;
-			Vector<Object> row;
-			long seconde;
-			Date date;
-	        DateFormat dfl = DateFormat.getDateTimeInstance(DateFormat.FULL,DateFormat.DEFAULT);
-	        while (scanner.hasNextLine()) {
-	        	line = scanner.nextLine();
-	            split = line.split(";");
-	            row = new Vector<Object>();
-	            seconde = new Long(split[2]);
-	            date = new Date(seconde);
-	            row.add(split[0]);row.add(new Integer(split[1]));row.add(dfl.format(date));
-	            données.add(row);
-	        }
-	        scanner.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	LecteurDeFichier lecteur= new LecteurDeFichier(file);
+        while (lecteur.estFin()) {
+            Vector<Object> row = lecteur.getNextLineCSV_Score(";");
+            données.add(row);
+        }
+        lecteur.fermeFichier();
     }
 }

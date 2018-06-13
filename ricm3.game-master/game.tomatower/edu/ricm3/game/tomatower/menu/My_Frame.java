@@ -61,26 +61,18 @@ public class My_Frame extends JFrame
 
         System.out.println("=====Start_Setup=====");
     	File file = new File("./Autres/Options");
-    	Scanner scanner;
-		try {
-			scanner = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            if (line.charAt(0) != '#') {
-	            String[] row = line.split("=");
+    	LecteurDeFichier lecteur = new LecteurDeFichier(file);
+        while (lecteur.estFin()) {
+        	String[] row = lecteur.getNextLineCSV("=");
+        	if (row != null) {
 	            if(!this.setOption(row)) {
 	            	System.out.println("Fail to setup "+row[0]);
 	            }else {
-	            	System.out.println("Sucessfully setup "+line);
+	            	System.out.println("Sucessfully setup "+row[0]+" = "+row[1]);
 	            }
-            }
+        	}
         }
-        scanner.close();
+        lecteur.fermeFichier();
         System.out.println("=====End_Setup=====");
         return true;
 	}
@@ -88,20 +80,14 @@ public class My_Frame extends JFrame
 	private boolean setOption(String[] split) {
 		switch (split[0]) {
 			case "Size":
-				try {
-					String[] values = split[1].split("x");
-					Integer width = new Integer(values[0]);
-					Integer height = new Integer(values[1]);
-					this.setSize(width, height);
-				}catch(Exception e) {
-					e.printStackTrace();
-					return false;
-				}
-				break;
+				String[] values = split[1].split("x");
+				Integer width = new Integer(values[0]);
+				Integer height = new Integer(values[1]);
+				this.setSize(width, height);
+				return true;
 			default:
 				return false;
 		}
-		return true;
 	}
 
 	private class ScoreListener implements ActionListener
