@@ -55,9 +55,9 @@ public abstract class Living extends Entity {
 	@Override
 	public void step(long now) {
 		super.step(now);
-
-		if (this.hp <= 0) {
-			this.cell.removeEntity(this);
+		
+		if(this.hp <= 0) {
+			this.removeEntityFromCell();
 		}
 	}
 
@@ -124,12 +124,19 @@ public abstract class Living extends Entity {
 			hand = null;
 		}
 	}
+	
+	@Override
+	public void kamikaze() {
+		this.hp = 0;
+	}
 
 	@Override
 	public void damage(int power) {
 		this.hp -= power;
 	}
 
+	
+	
 	// Conditions
 	@Override
 	public boolean isAlive() {

@@ -33,6 +33,9 @@ public class Sprites {
 	public BufferedImage sprite_mur;
 	public BufferedImage sprite_portal;
 	public BufferedImage sprite_portal_in;
+	
+	//TEST
+	public BufferedImage[] sprite_explosion;
 
 	public Sprites() {
 		loadSprites();
@@ -253,6 +256,16 @@ public class Sprites {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
+		
+		// Sprite du joueur
+		imageFile = new File("game.tomatower/sprites/explosion.png");
+		try {
+			tmp_sprite = ImageIO.read(imageFile);
+			sprite_explosion = this.splitSprite(tmp_sprite,1, 8);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}		
 
 		
 	}

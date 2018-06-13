@@ -73,8 +73,7 @@ public class Controller extends GameController implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
-			System.out.println("KeyPressed: " + e.getKeyChar() + " code="
-					+ e.getKeyCode());
+			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_KP_UP:
@@ -115,16 +114,13 @@ public class Controller extends GameController implements ActionListener {
 		default:
 			this.keyPressed = String.valueOf(e.getKeyChar());
 		}
-		System.out.println("KeyPressed: " + e.getKeyChar() + " code="
-				+ e.getKeyCode());
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
-			System.out.println("KeyReleased: " + e.getKeyChar() + " code="
-					+ e.getKeyCode());
+			System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
 
 		this.keyPressed = "";
 	}
@@ -132,22 +128,19 @@ public class Controller extends GameController implements ActionListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (Options.ECHO_MOUSE)
-			System.out.println("MouseClicked: (" + e.getX() + "," + e.getY()
-					+ ") button=" + e.getButton());
+			System.out.println("MouseClicked: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (Options.ECHO_MOUSE)
-			System.out.println("MousePressed: (" + e.getX() + "," + e.getY()
-					+ ") button=" + e.getButton());
+			System.out.println("MousePressed: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (Options.ECHO_MOUSE)
-			System.out.println("MouseReleased: (" + e.getX() + "," + e.getY()
-					+ ") button=" + e.getButton());
+			System.out.println("MouseReleased: (" + e.getX() + "," + e.getY() + ") button=" + e.getButton());
 	}
 
 	@Override
