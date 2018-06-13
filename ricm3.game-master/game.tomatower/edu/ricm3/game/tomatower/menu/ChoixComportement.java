@@ -46,7 +46,7 @@ public class ChoixComportement extends JDialog{
 		this.valider_bouton = new Bouton("Valider");
 		this.valider_bouton.addActionListener(actionretour);
 		this.aleatoire_bouton = new Bouton("Aleatoire");
-		this.aleatoire_bouton.addActionListener(new ComportementAleatoireListener(this));
+		this.aleatoire_bouton.addActionListener(new ComportementAleatoireListener());
 		
 		this.valider_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.valider_panel.add(this.valider_bouton);
@@ -118,17 +118,11 @@ public class ChoixComportement extends JDialog{
 	
 	// Listener//
 	private class ComportementAleatoireListener implements ActionListener{
-		private ChoixComportement comportement;
-		
-		public ComportementAleatoireListener(ChoixComportement comportement) {
-			super();
-			this.comportement = comportement;
-		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			comportement.aleatoire();
+			aleatoire();
 		}
 	}
 	// Listener//

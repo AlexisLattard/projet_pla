@@ -13,9 +13,8 @@ import javax.swing.SwingUtilities;
  * 
  * @author https://gist.github.com/jirkapenzes/4560255
  * 
- * Bon ça c'est du code recupérer a 100% de gitHub ... Bon ok on peut dire que je l'ai volé.
- * Me regarde pas comme ça fait pas genre que t'as jamais fait ça , En plus j'ai mis le lien du git du pelo.
- * Donc je suis vraiment le bro quoi.
+ * Bon ça c'est du code recupérer a 100% de gitHub ... Bon ok on peut dire que je l'ai volé
+ *	.... Me regarde pas comme ça fait pas genre que t'as jamais fait ça .
  * 
  *
  */

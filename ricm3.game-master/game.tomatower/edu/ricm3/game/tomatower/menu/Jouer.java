@@ -99,6 +99,7 @@ public class Jouer extends JPanel{
     }
 	
 	private Jouer() {
+		super();
 		this.setLayout(new BorderLayout());
 		// INSTANCIATION //
 			// AUTRES //
@@ -340,7 +341,6 @@ public class Jouer extends JPanel{
 	        }
 	    }
 	}
-
 	// Listener
 
 	private void setComportementTours(HashMap<Integer,Object> comportements_Tours) {

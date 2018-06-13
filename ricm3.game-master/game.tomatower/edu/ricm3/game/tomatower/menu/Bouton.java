@@ -47,8 +47,7 @@ public class Bouton extends JButton
     public Bouton(ImageIcon icon)
     {
         // initialise instance variables
-    	super();
-    	this.setIcon(icon);
+    	super(icon);
         this.setBackground(new Color(255,255,255));
         this.setFocusPainted(false);
     }
