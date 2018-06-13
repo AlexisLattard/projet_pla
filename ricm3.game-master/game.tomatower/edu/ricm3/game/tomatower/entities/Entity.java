@@ -53,11 +53,7 @@ public abstract class Entity {
 
 	}
 
-    
-
-    	
-
-    
+    public abstract void paint(Graphics g);
 
 	public void step(long now) {
 		if (automaton != null && now - last_action > action_time) {
@@ -309,14 +305,5 @@ public abstract class Entity {
     	this.current_state = state;
     }
    
-    
-
-	public Kind getKind() {
-		return this.kind;
-	}
-
-	public void removeAutomaton() {
-		this.automaton = null;
-	}
-
+  
 }
