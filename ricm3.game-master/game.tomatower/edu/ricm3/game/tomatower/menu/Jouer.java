@@ -24,15 +24,14 @@ import java.util.Map;
 
 public class Jouer extends JPanel{
 
-	private GameUI instanceJeu;
 	// AUTRES //
 		// COMPORTEMENT //
-	private File comportement_tours;
-	private File comportement_sbires;
+	private HashMap<Integer,Object> comportement_Tours;
+	private HashMap<Integer,Object> comportement_Monstres;
 	private File carte_selectionner;
 	
-	private ChoixComportement comportement_Tours;
-	private ChoixComportement comportement_Monstres;
+	private ChoixComportement choix_Comportement_Tours;
+	private ChoixComportement choix_Comportement_Monstres;
 		// COMPORTEMENT //
 	// AUTRES //	
 	
@@ -115,8 +114,8 @@ public class Jouer extends JPanel{
 		listAutomates.put(new String("Automates7"), new String("Automates6"));
 		listAutomates.put(new String("Automates8"), new String("Automates7"));
 		//TEST//
-		this.comportement_Tours = new ChoixComportement(listAutomates,3);
-		this.comportement_Monstres = new ChoixComportement(listAutomates,3);
+		this.choix_Comportement_Tours = new ChoixComportement(listAutomates,3,new ValiderComportementToursListener());
+		this.choix_Comportement_Monstres = new ChoixComportement(listAutomates,3,new ValiderComportementMonstreListener());
 		
 		this.cartes = new HashMap<File,Bouton>();
 			// AUTRES //
@@ -252,9 +251,9 @@ public class Jouer extends JPanel{
         {
             //In response to a button click:
             if (e.getSource() == bouton_mobs) {
-            	comportement_Monstres.setVisible(true);
+            	choix_Comportement_Monstres.setVisible(true);
             }else {
-            	comportement_Tours.setVisible(true);
+            	choix_Comportement_Tours.setVisible(true);
             }
         }
     }
@@ -265,16 +264,15 @@ public class Jouer extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if (comportement_tours != null && comportement_sbires != null && carte_selectionner != null) {
+            if (choix_Comportement_Tours != null && comportement_Monstres != null && carte_selectionner != null) {
             	My_Frame.getInstance().setVisible(true);
-            	instanceJeu = null;
             	createInstanceJeu();
             }else {
-            	if (comportement_tours == null) {
+            	if (choix_Comportement_Tours == null) {
         			bouton_tours.setText("*Choisir un automate*"); 
         			bouton_tours.setForeground(Color.RED);        			
             	}
-            	if (comportement_sbires == null) {
+            	if (comportement_Monstres == null) {
         			bouton_mobs.setText("*Choisir un automate*");
         			bouton_mobs.setForeground(Color.RED);
             	}
@@ -311,10 +309,42 @@ public class Jouer extends JPanel{
 	}
 	
 	private void createInstanceJeu() {
-		this.instanceJeu = null;
-        Model model = new Model();
+		Model model = new Model();
         Controller controller = new Controller(model);
         View view = new View(model,controller);
-        this.instanceJeu = new GameUI(model,view,controller,My_Frame.getInstance().getSize());
+        new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
+	
+	private class ValiderComportementToursListener implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			Jouer.getInstance(null).setComportementTours(choix_Comportement_Tours.getComportements());
+			choix_Comportement_Tours.setVisible(false);
+			System.out.println(comportement_Tours.get(0));
+		}
+		
+	}
+	
+	private class ValiderComportementMonstreListener implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			Jouer.getInstance(null).setComportementMonstres(choix_Comportement_Monstres.getComportements());
+			choix_Comportement_Monstres.setVisible(false);
+			System.out.println(comportement_Monstres.get(0));
+		}
+		
+	}
+
+	private void setComportementTours(HashMap<Integer,Object> comportements_Tours) {
+		this.comportement_Tours = comportements_Tours;
+	}
+	
+	private void setComportementMonstres(HashMap<Integer,Object> comportements_Monstres) {
+		this.comportement_Monstres = comportements_Monstres;
+	}
+
 }

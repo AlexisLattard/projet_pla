@@ -32,19 +32,19 @@ public class ChoixComportement extends JDialog{
 	private Bouton aleatoire_bouton;
 	
 	
-	public ChoixComportement(HashMap<String,Object> listAutomates,int nbElements) {
+	public ChoixComportement(HashMap<String,Object> listAutomates,int nbElements,ActionListener actionretour) {
 		super(My_Frame.getInstance());
 		this.listAutomates = listAutomates;
 		this.setLayout(new BorderLayout());
 		this.setSize(400,200);
 		initCentre(nbElements);
-		initSud();
+		initSud(actionretour);
 		initNord();
 	}
 	
-	private void initSud() {
+	private void initSud(ActionListener actionretour) {
 		this.valider_bouton = new Bouton("Valider");
-		this.valider_bouton.addActionListener(new ValiderListener(this));
+		this.valider_bouton.addActionListener(actionretour);
 		this.aleatoire_bouton = new Bouton("Aleatoire");
 		this.aleatoire_bouton.addActionListener(new AleatoireListener());
 		
@@ -115,19 +115,14 @@ public class ChoixComportement extends JDialog{
 		
 	}
 	
-	private class ValiderListener implements ActionListener{
-		JDialog dialog;
+	public  HashMap<Integer,Object> getComportements() {
+		// TODO Renvoyer la correspondance Entité-Automates
+		HashMap<Integer,Object> comportement = new HashMap<Integer,Object>();
 		
-		public ValiderListener(JDialog dialog) {
-			this.dialog = dialog;
+		for (int i=0;i<this.choix.size();i++) {
+			comportement.put(new Integer(i), choix.get(i).getSelectedItem());
 		}
 		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			this.dialog.setVisible(false);
-		}
-		
+		return comportement;
 	}
-	
 }
