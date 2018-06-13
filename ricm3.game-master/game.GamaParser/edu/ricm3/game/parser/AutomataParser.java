@@ -702,15 +702,17 @@ Entity
       System.out.println("ERROR: Second call to constructor of static parser. ");
       System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
       System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
-    jj_input_stream = new SimpleCharStream(stream, 1, 1);
-    token_source = new AutomataParserTokenManager(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
+      //throw new Error();
+      ReInit(stream);
+	 }else {
+	    jj_initialized_once = true;
+	    jj_input_stream = new SimpleCharStream(stream, 1, 1);
+	    token_source = new AutomataParserTokenManager(jj_input_stream);
+	    token = new Token();
+	    jj_ntk = -1;
+	    jj_gen = 0;
+	    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
+	 }
   }
 
   /** Reinitialise. */

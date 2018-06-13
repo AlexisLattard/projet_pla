@@ -18,7 +18,6 @@
 package edu.ricm3.game.tomatower.mvc;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,12 +25,10 @@ import java.util.HashMap;
 import edu.ricm3.game.GameModel;
 import edu.ricm3.game.parser.Ast;
 import edu.ricm3.game.parser.AutomataParser;
-import edu.ricm3.game.parser.ParseException;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.automaton.A_Builder;
 import edu.ricm3.game.tomatower.entities.*;
-import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.map.Sprites;
 
@@ -59,7 +56,7 @@ public class Model extends GameModel {
     
     public void initModel(Controller c) {
     	
-        this.initWeapons();  
+        this.initWeapons();
         this.initAutomatons(c);
         this.initMaps();
         
