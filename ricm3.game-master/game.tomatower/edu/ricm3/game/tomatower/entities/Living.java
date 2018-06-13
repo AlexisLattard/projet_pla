@@ -57,6 +57,7 @@ public abstract class Living extends Entity {
 		super.step(now);
 		
 		if(this.hp <= 0) {
+			this.model.removeEntity(this);
 			this.removeEntityFromCell();
 		}
 	}
