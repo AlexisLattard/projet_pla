@@ -125,12 +125,19 @@ public abstract class Living extends Entity {
 			hand = null;
 		}
 	}
+	
+	@Override
+	public void kamikaze() {
+		this.hp = 0;
+	}
 
 	@Override
 	public void damage(int power) {
 		this.hp -= power;
 	}
 
+	
+	
 	// Conditions
 	@Override
 	public boolean isAlive() {

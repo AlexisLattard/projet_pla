@@ -95,7 +95,7 @@ public class A_Builder {
 				break;
 			
 			case "UnaryOp" :
-				expression = makeBinaryOp((BinaryOp)condition.expression);
+				expression = makeUnaryOp((UnaryOp)condition.expression);
 				break;
 	
 			default:

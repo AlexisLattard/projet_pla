@@ -19,18 +19,27 @@ public class Mobs extends Living {
 		this.canTake = false;
 
 		this.hp = 20;
+		this.action_time = 500L;
 	}
 	
 	
 	@Override
 	public void pop() {
 		// TODO
+		if(this.getMap().equals(this.model.getMainMap())) {
+			this.getCellDirection(Direction.NORTH, 1).damage(50);
+			this.getCellDirection(Direction.SOUTH, 1).damage(50);
+			this.getCellDirection(Direction.EAST, 1).damage(50);
+			this.getCellDirection(Direction.WEST, 1).damage(50);
+			kamikaze();
+		}
+		
 	}
 	
 	
 	@Override
 	public void wizz() {
-		// TODO
+		
 	}
 	
 	
