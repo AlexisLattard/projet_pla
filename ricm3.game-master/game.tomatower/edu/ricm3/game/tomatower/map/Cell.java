@@ -54,7 +54,7 @@ public class Cell {
         	g.drawImage(explosion_sprite[id_explosion], col*50, row*50, 50, 50, null);
         	last_paint = time_damage;
         	id_explosion++;
-        }else {
+        }else { // fin de l'explosion
         	displayed_damage = false;
         	id_explosion = 0;
         }

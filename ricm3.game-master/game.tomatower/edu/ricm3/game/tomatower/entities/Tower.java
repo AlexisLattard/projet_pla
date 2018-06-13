@@ -19,7 +19,9 @@ public class Tower extends Living {
 		super(c_model, false, c_sprite, 1, Direction.WEST, c_weapon, initColisions(), c_automaton, Kind.Team);
 		this.canTake = false;
 		
-		this.hp = 50;
+		//TEST
+		this.MAX_LIFE = 50;
+		this.hp = MAX_LIFE;
 	}
 	
 	
@@ -27,7 +29,15 @@ public class Tower extends Living {
 	
 	@Override
 	public void pop() {
-		// TODO
+		System.out.println("POP " + this.hp + " "+ this.MAX_LIFE);
+		
+		if(this.hp < this.MAX_LIFE / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
+			this.getCellDirection(Direction.NORTH, 1).damage(50);
+			this.getCellDirection(Direction.SOUTH, 1).damage(50);
+			this.getCellDirection(Direction.EAST, 1).damage(50);
+			this.getCellDirection(Direction.WEST, 1).damage(50);
+			kamikaze();
+		}
 	}
 	
 	@Override

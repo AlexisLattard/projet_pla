@@ -19,8 +19,8 @@ Hiter(Init) {
      | True ? Jump : (Init)
 }
 
-HiterTower(Init) {
-    *(Init): True ? Hit(N) : (Init)
+HiterTower(Un) {
+    *(Un) : True ? Pop : (Un)
 }
 
 FollowTheWalls(Bump){
