@@ -1,16 +1,7 @@
 package edu.ricm3.game.tomatower.menu;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import edu.ricm3.game.tomatower.listeners.GoRegleListener;
-import edu.ricm3.game.tomatower.listeners.GoScoreListener;
-import edu.ricm3.game.tomatower.listeners.QuitterListener;
 /**
  * Write a description of class My_Frame here.
  * 

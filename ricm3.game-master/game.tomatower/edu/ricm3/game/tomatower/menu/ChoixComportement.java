@@ -46,7 +46,7 @@ public class ChoixComportement extends JDialog{
 		this.valider_bouton = new Bouton("Valider");
 		this.valider_bouton.addActionListener(actionretour);
 		this.aleatoire_bouton = new Bouton("Aleatoire");
-		this.aleatoire_bouton.addActionListener(new AleatoireListener());
+		this.aleatoire_bouton.addActionListener(new ComportementAleatoireListener(this));
 		
 		this.valider_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.valider_panel.add(this.valider_bouton);
@@ -95,7 +95,7 @@ public class ChoixComportement extends JDialog{
 		}
 	}
 
-	private void aleatoire() {
+	public void aleatoire() {
 		if (SwingUtilities.isEventDispatchThread()) {
 			int size = this.listAutomates.size();
 			for(int i=0;i<this.choix.capacity();i++) {
@@ -103,16 +103,6 @@ public class ChoixComportement extends JDialog{
 				this.choix.get(i).setSelectedIndex(indice);
 			}
 		}
-	}
-
-	private class AleatoireListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			aleatoire();
-		}
-		
 	}
 	
 	public  HashMap<Integer,Object> getComportements() {
@@ -125,4 +115,22 @@ public class ChoixComportement extends JDialog{
 		
 		return comportement;
 	}
+	
+	
+	// Listener//
+	private class ComportementAleatoireListener implements ActionListener{
+		private ChoixComportement comportement;
+		
+		public ComportementAleatoireListener(ChoixComportement comportement) {
+			super();
+			this.comportement = comportement;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			comportement.aleatoire();
+		}
+	}
+	// Listener//
 }

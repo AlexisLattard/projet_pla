@@ -11,8 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import edu.ricm3.game.tomatower.listeners.RetourMenuListener;
-
 public class Debug extends JPanel{
 
 	private Bouton valider;

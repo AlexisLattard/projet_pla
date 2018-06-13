@@ -8,11 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import edu.ricm3.game.GameUI;
-import edu.ricm3.game.tomatower.listeners.RetourMenuListener;
 import edu.ricm3.game.tomatower.mvc.Controller;
 import edu.ricm3.game.tomatower.mvc.Model;
 import edu.ricm3.game.tomatower.mvc.View;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -176,7 +174,7 @@ public class Jouer extends JPanel{
 		this.sud_retour.add(this.bouton_retour);
 		this.sud.add(this.sud_lancer);
 		this.sud.add(this.sud_retour);
-		this.bouton_lancer.addActionListener(new LancerListener());
+		this.bouton_lancer.addActionListener(new LancerLaPartieListener());
 		this.add(sud,BorderLayout.SOUTH);
 	    // SOUTH //
 	}
@@ -259,29 +257,6 @@ public class Jouer extends JPanel{
             }
         }
     }
-	
-	private class LancerListener implements ActionListener
-    {
-		
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            if (!comportement_Tours.isEmpty() && !comportement_Monstres.isEmpty() && carte_selectionner != null) {
-            	My_Frame.getInstance().setVisible(false);
-            	createInstanceJeu();
-            }else {
-            	if (choix_Comportement_Tours == null) {
-        			bouton_tours.setText("*Choisir un automate*"); 
-        			bouton_tours.setForeground(Color.RED);        			
-            	}
-            	if (comportement_Monstres == null) {
-        			bouton_mobs.setText("*Choisir un automate*");
-        			bouton_mobs.setForeground(Color.RED);
-            	}
-            	
-            }
-        }
-    }
 
 	private class CarteListener implements ActionListener
     {
@@ -318,6 +293,8 @@ public class Jouer extends JPanel{
         new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
 	
+	
+	// Listener //
 	private class ValiderComportementToursListener implements ActionListener{
 		
 		@Override
@@ -341,6 +318,31 @@ public class Jouer extends JPanel{
 		}
 		
 	}
+	
+	public class LancerLaPartieListener implements ActionListener{	
+		
+	    @Override
+	    public void actionPerformed(ActionEvent e)
+	    {
+	    	Jouer jouer = Jouer.getInstance();
+	        if (!comportement_Tours.isEmpty() && !comportement_Monstres.isEmpty() && carte_selectionner != null) {
+	        	My_Frame.getInstance().setVisible(false);
+	        	jouer.createInstanceJeu();
+	        }else {
+	        	if (choix_Comportement_Tours == null) {
+	        		bouton_tours.setText("*Choisir un automate*"); 
+	        		bouton_tours.setForeground(Color.RED);        			
+	        	}
+	        	if (choix_Comportement_Monstres == null) {
+	        		bouton_mobs.setText("*Choisir un automate*");
+	        		bouton_mobs.setForeground(Color.RED);
+	        	}
+	        	
+	        }
+	    }
+	}
+
+	// Listener
 
 	private void setComportementTours(HashMap<Integer,Object> comportements_Tours) {
 		this.comportement_Tours = comportements_Tours;
@@ -350,4 +352,19 @@ public class Jouer extends JPanel{
 		this.comportement_Monstres = comportements_Monstres;
 	}
 
+	public Bouton getBoutonMonstres() {
+		return bouton_mobs;
+	}
+	
+	public Bouton getBoutonTours() {
+		return bouton_tours;
+	}
+	
+	public ChoixComportement getChoixComportementTours() {
+		return choix_Comportement_Tours;
+	}
+	
+	public ChoixComportement getChoixComportementMonstres() {
+		return choix_Comportement_Monstres;
+	}
 }

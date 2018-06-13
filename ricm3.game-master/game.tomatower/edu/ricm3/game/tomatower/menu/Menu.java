@@ -3,17 +3,13 @@ package edu.ricm3.game.tomatower.menu;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import edu.ricm3.game.tomatower.listeners.GoDebugListener;
-import edu.ricm3.game.tomatower.listeners.GoJouerListener;
-import edu.ricm3.game.tomatower.listeners.GoOptionListener;
-import edu.ricm3.game.tomatower.listeners.GoRegleListener;
-import edu.ricm3.game.tomatower.listeners.GoScoreListener;
-import edu.ricm3.game.tomatower.listeners.QuitterListener;
 
 /**
  * Write a description of class Menu here.
@@ -106,6 +102,96 @@ public class Menu extends JPanel
         this.add(this.panel_nord,BorderLayout.NORTH);
         
     }
+    
+    // Listener//
+    public class GoDebugListener implements ActionListener{
+
+        
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Debug.getInstance();
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
+        }
+    }
+
+    public class GoJouerListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Jouer.getInstance();
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
+        }
+    }
+    
+    public class GoOptionListener implements ActionListener{
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		// TODO Auto-generated method stub
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Option.getInstance();
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
+    	}
+
+    }
+    
+    public class GoRegleListener implements ActionListener{
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		// TODO Auto-generated method stub
+        	JFrame frame = My_Frame.getInstance();
+        	JPanel panel = Regles.getInstance();
+        	frame.getContentPane().removeAll();
+        	frame.getContentPane().add(panel);
+        	panel.repaint();
+        	frame.setVisible(true);
+    	}
+
+    }
+    
+
+    public class GoScoreListener implements ActionListener{
+	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+	    	JFrame frame = My_Frame.getInstance();
+	    	JPanel panel = Score.getInstance();
+	    	frame.getContentPane().removeAll();
+	    	frame.getContentPane().add(panel);
+	    	panel.repaint();
+	    	frame.setVisible(true);
+		}
+
+    }
+    
+    public class QuitterListener implements ActionListener{
+
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		// TODO Auto-generated method stub
+        	My_Frame.getInstance().dispose();
+            System.exit(0);
+    	}
+
+    }
+    // Listener//
+    
+    
         
     public JButton getButtonScore(){
         return this.boutonScore;

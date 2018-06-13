@@ -8,8 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import edu.ricm3.game.tomatower.listeners.RetourMenuListener;
-
 public class Regles extends JPanel{
 
 	
