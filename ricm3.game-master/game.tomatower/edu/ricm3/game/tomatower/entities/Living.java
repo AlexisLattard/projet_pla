@@ -59,8 +59,10 @@ public abstract class Living extends Entity {
 	@Override
 	public void step(long now) {
 		super.step(now);
+
 		if (this.hp <= 0) {
-			this.cell.removeEntity(this);
+			this.model.removeEntity(this);
+			this.removeEntityFromCell();
 		}
 	}
 
@@ -77,7 +79,8 @@ public abstract class Living extends Entity {
 			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
 
 			if (entity instanceof Tower) {
-				if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac
+				if (hand != null) // On a déjà quelque chose en main, on le
+									// remet dans le sac
 					this.bag.add(hand);
 				entity.removeEntityFromCell();
 				hand = (Tower) (entity);
@@ -98,11 +101,16 @@ public abstract class Living extends Entity {
 	@Override
 	public void getBagEntity() {
 		if (this.canTake && this.bag.size() >= 1) {
-			for (int i = 0; i < this.bag.size(); i++) {
-				if (this.bag.get(i).getWeapon().getKindWeapon().equals(this.tower_selected) && hand == null) {
-					hand = this.bag.remove(i);
-					break;
-				}
+
+			store();
+
+			int i = 0;
+			while (i < this.bag.size() && !this.bag.get(i).getWeapon().getKindWeapon().equals(this.tower_selected)) {
+				i++;
+			}
+
+			if (i < this.bag.size()) {
+				hand = this.bag.remove(i);
 			}
 		}
 	}

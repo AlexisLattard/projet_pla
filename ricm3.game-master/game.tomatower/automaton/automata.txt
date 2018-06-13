@@ -6,7 +6,11 @@ MoverSquare(Un){
 }
 
 MoverRandom(Init) {
-    * (Init): True ? Move(E) / Move(O) : (Init)
+    * (Init): True ? Move(O) / Move(E) / Move(S) / Move(N) : (Init)
+}
+
+MoverBottom(Init) {
+    * (Init): True ? Move(S) : (Init)
 }
 
 Hiter(Init) {
@@ -80,7 +84,7 @@ ExplorerBIS(Explore_R){
     | True ? Turn(B) :(Explore_R)
 }
 
-FollowTheWalls(Bump){
+FollowTheWallsTest(Bump){
 
 	* (Bump):
 		| Cell(F,V) ? Move(F)	:(Bump)
@@ -108,5 +112,50 @@ Atest(Init) {
 }
 
 
+SemiIntelligent(Rush){
 
+	* (Rush):
+		| Cell(N,D) ? Pop			:(Rush)
+		| Cell(S,D) ? Pop			:(Rush)
+		| Cell(E,D) ? Pop			:(Rush)
+		| Cell(O,D) ? Pop			:(Rush)
+		| Closest(D,N) & Cell(N,V) ? Turn(N)	:(Turner)
+		| Closest(D,S) & Cell(S,V) ? Turn(S)	:(Turner)
+		| Closest(D,E) & Cell(E,V) ? Turn(E)	:(Turner)
+		| Closest(D,O) & Cell(O,V) ? Turn(O)	:(Turner)
+		| True ? Turn(R) / Turn(L)		:(Pathfinding)
+
+	* (Turner): True ? Move(F)	:(Rush)
+
+	* (Pathfinding):
+		| Cell(F,V) ? Move(F)	:(Rush)
+		| Cell(B,V) ? Turn(B)	:(Turner)
+		| True ? Turn(R)	:(Blocked)
+
+	* (Blocked):
+		| Cell(F,V) ? Move(F)	:(Panic)
+		| True ? Turn(R)	:(Blocked)
+
+	* (Panic_1): True ? Move(F)	:(Panic_2)
+
+	* (Panic_2):
+		| Cell(F,V) ? Move(F)	:(Panic_3)
+		| True ? Power	:(Panic_3)
+
+	* (Panic_3): True ? Turn(R) / Turn(L)	:(Panic_4)
+
+	* (Panic_4):
+		| Cell(F,V) ? Move(F)	:(Turner)
+		| True ? Power	:(Rush)
+	}
+
+Ninja(Ninja){
+	* (Ninja) : 
+	| Closest(D,N) ? Move(N) :(Ninja)
+	| Closest(D,S) ? Move(S) :(Ninja)
+	| Closest(D,E) ? Move(E) :(Ninja)
+	| Closest(D,O) ? Move(O) :(Ninja)
+	| True ? Pop :(Ninja)
+	
+}
 
