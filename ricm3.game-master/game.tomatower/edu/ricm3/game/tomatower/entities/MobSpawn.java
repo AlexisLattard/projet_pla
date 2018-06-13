@@ -32,13 +32,15 @@ public class MobSpawn extends Inert {
 		super(c_model, false, c_sprite, c_scale, c_cell, ObstaclesKind.MOBSPAWN, Kind.MobSpawn);
 		this.main_instance = c_main_instance;
 		this.wave_id = 0;
-		this.wave_delay = 100;		
+		this.wave_delay = 10000;		
 		initWaves();
 		
 		//Test
 		behaviors = new HashMap<>();
-		behaviors.put(this.model.getSprites().sprite_mob1,this.model.getAutomatons().get("MoverRandom"));
-		behaviors.put(this.model.getSprites().sprite_mob2,this.model.getAutomatons().get("FollowTheWalls"));
+		behaviors.put(this.model.getSprites().sprite_mob_plug,this.model.getAutomatons().get("MoverRandom"));
+		behaviors.put(this.model.getSprites().sprite_mob_hungry,this.model.getAutomatons().get("FollowTheWalls"));
+		behaviors.put(this.model.getSprites().sprite_mob_lantern,this.model.getAutomatons().get("MoverRandom"));
+		behaviors.put(this.model.getSprites().sprite_mob_ghost,this.model.getAutomatons().get("FollowTheWalls"));
 
 	}
 

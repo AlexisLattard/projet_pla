@@ -32,179 +32,173 @@ import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.automaton.A_Builder;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
+import edu.ricm3.game.tomatower.entities.enums.Entity_Name;
 import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.map.Sprites;
 
 public class Model extends GameModel {
 
-    private Sprites game_sprites;
-    private Map main_map;
-    private Map map_store;
-    private Map current_map;
+	private Sprites game_sprites;
+	private Map main_map;
+	private Map map_store;
+	private Map current_map;
 
-    private Player player;
-    private Crystal crystal;
+	private Player player;
+	private Crystal crystal;
 
-    private HashMap<Kind_Weapon, Weapon> weapons;
-    private HashMap<String, A_Automaton> automatons;
-    private ArrayList<Entity> entities;
-    
+	private HashMap<Kind_Weapon, Weapon> weapons;
+	private HashMap<String, A_Automaton> automatons;
+	private ArrayList<Entity> entities;
 
+	public Model() {
+		game_sprites = new Sprites();
+		entities = new ArrayList<Entity>();
+	}
 
-    public Model() {
-    	game_sprites = new Sprites();
-    	entities = new ArrayList<Entity>();
-    }
-    
-    public void initModel(Controller c) {
-    	
-        this.initWeapons();  
-        this.initAutomatons(c);
-        this.initMaps();
-        
-        //TEST
+	public void initModel(Controller c) {
 
-//        new Mobs(this, this.getSprites().sprite_mob1, 1, this.getMainMap().getCell(2, 2), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red), this.getAutomatons().get("MoverRandom"));
-//        new Mobs(this, this.getSprites().sprite_mob1, 1, this.getMainMap().getCell(2, 2), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red), this.getAutomatons().get("MoverRandom"));
-//        new Mobs(this, this.getSprites().sprite_mob2, 1, this.getMainMap().getCell(2, 2), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red), this.automatons.get("Atest"));
-//        new Mobs(this, this.getSprites().sprite_mob2, 1, this.getMainMap().getCell(6, 8), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("FollowTheWalls"));
-//        new Mobs(this, this.getSprites().sprite_mob1, 1, this.getMainMap().getCell(4, 4), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("MoverRandom"));
+		this.initWeapons();
+		this.initAutomatons(c);
+		this.initMaps();
 
-    }
-    
+		// TEST
 
-    @Override
-    public void shutdown() {
+		// new Mobs(this, this.getSprites().sprite_mob1, 1, this.getMainMap().getCell(2,
+		// 2), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red),
+		// this.getAutomatons().get("MoverRandom"));
+		// new Mobs(this, this.getSprites().sprite_mob1, 1, this.getMainMap().getCell(2,
+		// 2), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red),
+		// this.getAutomatons().get("MoverRandom"));
+		// new Mobs(this, this.getSprites().sprite_mob2, 1, this.getMainMap().getCell(2,
+		// 2), Direction.WEST, this.getWeapons().get(Kind_Weapon.Red),
+		// this.automatons.get("Atest"));
+		// new Mobs(this, this.getSprites().sprite_mob2, 1, this.getMainMap().getCell(6,
+		// 8), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow),
+		// this.automatons.get("FollowTheWalls"));
+		// new Mobs(this, this.getSprites().sprite_mob1, 1, this.getMainMap().getCell(4,
+		// 4), Direction.WEST, this.getWeapons().get(Kind_Weapon.Yellow),
+		// this.automatons.get("MoverRandom"));
 
-    }
-    
-    /**
-     * Simulation step.
-     *
-     * @param now is the current time in milliseconds.
-     */
-    @Override
-    public void step(long now) {
-    	for(Map m : this.getAllMaps()) {
-    		m.step(now);
-    	}
-    }
-    
+	}
 
+	@Override
+	public void shutdown() {
 
-    public Player getPlayer() {
-        return this.player;
-    }
+	}
 
-    public void setPlayer(Player p) {
-        this.player = p;
-    }
-    
-    public Crystal getCrystal() {
-    	return this.crystal;
-    }
-    
-    public void setCrystal(Crystal c) {
-    	this.crystal = c;
-    }
+	/**
+	 * Simulation step.
+	 *
+	 * @param now
+	 *            is the current time in milliseconds.
+	 */
+	@Override
+	public void step(long now) {
+		for (Map m : this.getAllMaps()) {
+			m.step(now);
+		}
+	}
 
-    public Sprites getSprites() {
-        return this.game_sprites;
-    }
+	public Player getPlayer() {
+		return this.player;
+	}
 
-    public Map getMainMap() {
-        return this.main_map;
-    }
+	public void setPlayer(Player p) {
+		this.player = p;
+	}
 
-    public Map getStoreMap() {
-        return this.map_store;
-    }    
-    
-    public ArrayList<Map> getAllMaps() {
-    	ArrayList<Map> res = new ArrayList<>();
-    	res.add(this.main_map);
-    	res.add(this.map_store);
-    	return res;
-    }
+	public Crystal getCrystal() {
+		return this.crystal;
+	}
 
-    public void setCurrentMap(Map m) {
-        this.current_map = m;
-    }
+	public void setCrystal(Crystal c) {
+		this.crystal = c;
+	}
 
-    public Map getCurrentMap() {
-        return this.current_map;
-    }
-    
-    public HashMap<Kind_Weapon,Weapon> getWeapons(){
-    	return this.weapons;
-    }
-    
-    public HashMap<String, A_Automaton> getAutomatons() {
-    	return this.automatons;
-    }
-    
-    public ArrayList<Entity> getEntities() {
-    	return this.entities;
-    }
+	public Sprites getSprites() {
+		return this.game_sprites;
+	}
 
-    public void addEntity(Entity e) {
-    	this.entities.add(e);
-    }
-    
-    public void removeEntity(Entity e) {
-    	this.entities.remove(e);
-    }
+	public Map getMainMap() {
+		return this.main_map;
+	}
 
-   
-    public void initMaps() {
-        // Map principale
-        main_map = new Map(this);
-        this.setCurrentMap(main_map);
-        this.main_map.initMap("game.txt");
-        
+	public Map getStoreMap() {
+		return this.map_store;
+	}
 
-        // Map store
-        this.map_store = new Map(this);
-        this.map_store.initMap("store.txt");
-    }
-    
-    public void initWeapons() {
-    	this.weapons = new HashMap<>();
-    	Weapon weapons1 = new Weapon(this,3,10,Kind_Weapon.Yellow); 
-    	Weapon weapons2 = new Weapon(this,1,15, Kind_Weapon.Red); 
-    	Weapon weapons3 = new Weapon(this,2,13, Kind_Weapon.Blue); 
-    	Weapon weapons4 = new Weapon(this,4,8, Kind_Weapon.Purple); 
-    	
-    	weapons.put(weapons1.getKindWeapon(), weapons1);
-    	weapons.put(weapons2.getKindWeapon(), weapons2);
-    	weapons.put(weapons3.getKindWeapon(), weapons3);
-    	weapons.put(weapons4.getKindWeapon(), weapons4);   
-    	    	
-    }
-    
-    
-    public void initAutomatons(Controller c) {
-    	this.automatons = new HashMap<>();
-    	
-    	try {
+	public ArrayList<Map> getAllMaps() {
+		ArrayList<Map> res = new ArrayList<>();
+		res.add(this.main_map);
+		res.add(this.map_store);
+		return res;
+	}
+
+	public void setCurrentMap(Map m) {
+		this.current_map = m;
+	}
+
+	public Map getCurrentMap() {
+		return this.current_map;
+	}
+
+	public HashMap<Kind_Weapon, Weapon> getWeapons() {
+		return this.weapons;
+	}
+
+	public HashMap<String, A_Automaton> getAutomatons() {
+		return this.automatons;
+	}
+
+	public ArrayList<Entity> getEntities() {
+		return this.entities;
+	}
+
+	public void addEntity(Entity e) {
+		this.entities.add(e);
+	}
+
+	public void removeEntity(Entity e) {
+		this.entities.remove(e);
+	}
+
+	public void initMaps() {
+		// Map principale
+		main_map = new Map(this);
+		this.setCurrentMap(main_map);
+		this.main_map.initMap("game.txt");
+
+		// Map store
+		this.map_store = new Map(this);
+		this.map_store.initMap("store.txt");
+	}
+
+	public void initWeapons() {
+		this.weapons = new HashMap<>();
+		Weapon weapons1 = new Weapon(this, 3, 10, Kind_Weapon.Yellow);
+		Weapon weapons2 = new Weapon(this, 1, 15, Kind_Weapon.Red);
+		Weapon weapons3 = new Weapon(this, 2, 13, Kind_Weapon.Blue);
+		Weapon weapons4 = new Weapon(this, 4, 8, Kind_Weapon.Purple);
+
+		weapons.put(weapons1.getKindWeapon(), weapons1);
+		weapons.put(weapons2.getKindWeapon(), weapons2);
+		weapons.put(weapons3.getKindWeapon(), weapons3);
+		weapons.put(weapons4.getKindWeapon(), weapons4);
+
+	}
+
+	public void initAutomatons(Controller c) {
+		this.automatons = new HashMap<>();
+
+		try {
 			new AutomataParser(new BufferedReader(new FileReader("game.tomatower/automaton/automata.txt")));
 			Ast ast = AutomataParser.Run();
-			A_Builder builder = new  A_Builder(ast, c);
+			A_Builder builder = new A_Builder(ast, c);
 			this.automatons = builder.makeAutomatonsFromAst();
 			System.out.println(automatons.keySet());
-    	} catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
