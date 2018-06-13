@@ -29,7 +29,6 @@ import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.automaton.A_Builder;
 import edu.ricm3.game.tomatower.entities.*;
-import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 import edu.ricm3.game.tomatower.map.Sprites;
 
@@ -58,17 +57,6 @@ public class Model extends GameModel {
 		this.initWeapons();
 		this.initAutomatons(c);
 		this.initMaps();
-
-		// TEST
-
-		new Mobs(this, this.getSprites().sprite_mob_ghost, 1, this.getMainMap().getCell(2, 2), Direction.WEST,
-				this.getWeapons().get(Kind_Weapon.Red), this.getAutomatons().get("MoverRandom"));
-		new Mobs(this, this.getSprites().sprite_mob_hungry, 1, this.getMainMap().getCell(2, 2), Direction.WEST,
-				this.getWeapons().get(Kind_Weapon.Red), this.getAutomatons().get("MoverRandom"));
-		new Mobs(this, this.getSprites().sprite_mob_plug, 1, this.getMainMap().getCell(2, 2), Direction.WEST,
-				this.getWeapons().get(Kind_Weapon.Red), this.automatons.get("Atest"));
-		new Mobs(this, this.getSprites().sprite_mob_lantern, 1, this.getMainMap().getCell(6, 8), Direction.WEST,
-				this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("FollowTheWalls"));
 
 	}
 

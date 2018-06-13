@@ -50,7 +50,7 @@ public class Map {
 			Cell dest = player.getCellDirection(Direction.FRONT, 1);
 			if (dest != null) {
 				int dest_position[] = dest.getPosition();
-				int cell_size = this.model.getCurrentMap().getCellSize();
+				int cell_size = this.getCellSize();
 				int x = dest_position[0] * cell_size;
 				int y = dest_position[1] * cell_size;
 
@@ -163,7 +163,6 @@ public class Map {
 								Direction.NORTH, w, this.model.getAutomatons().get("Perso")));
 						break;
 					case "Os":
-						// System.out.println("Stone");
 						new Obstacle(this.model, this.model.getSprites().sprite_cailloux, 1, cell, ObstaclesKind.Stone);
 						break;
 

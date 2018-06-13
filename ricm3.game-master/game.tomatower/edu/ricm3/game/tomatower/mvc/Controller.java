@@ -21,12 +21,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
-import edu.ricm3.game.tomatower.entities.Player;
-import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 
 /**

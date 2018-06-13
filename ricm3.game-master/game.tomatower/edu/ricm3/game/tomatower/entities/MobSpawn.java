@@ -88,8 +88,9 @@ public class MobSpawn extends Inert {
 				waves.add(stringToInt(line.split(","), nb_type));
 			}
 
-		} catch (IOException e) {
-
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
 		}
 	}
 

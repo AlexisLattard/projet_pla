@@ -17,16 +17,11 @@
  */
 package edu.ricm3.game.tomatower.mvc;
 
-import java.awt.Color;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
-import edu.ricm3.game.tomatower.entities.Player;
-import edu.ricm3.game.tomatower.entities.Tower;
-import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Hud;
 import edu.ricm3.game.tomatower.map.Map;
@@ -66,8 +61,8 @@ public class View extends GameView {
 		computeFPS();
 
 		// erase background
-		 g.setColor(m_background);
-		 g.fillRect(0, 0, getWidth(), getHeight());
+		g.setColor(m_background);
+		g.fillRect(0, 0, getWidth(), getHeight());
 		Map map = this.model.getCurrentMap();
 		Iterator<Cell> iter_cells = map.getCellsIterator();
 		Cell c;
@@ -92,4 +87,5 @@ public class View extends GameView {
 	public void setGameUI(GameUI gameUI) {
 		this.gameUI = gameUI;
 	}
+
 }

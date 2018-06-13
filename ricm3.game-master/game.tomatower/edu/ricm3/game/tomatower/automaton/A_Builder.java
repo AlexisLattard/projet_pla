@@ -2,7 +2,6 @@ package edu.ricm3.game.tomatower.automaton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import edu.ricm3.game.parser.Ast;

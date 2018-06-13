@@ -1,11 +1,8 @@
 package edu.ricm3.game.tomatower.automaton;
 
 import edu.ricm3.game.tomatower.entities.Entity;
-import sun.reflect.generics.tree.VoidDescriptor;
 
-public class A_NotOp extends A_UnaryOp{
-
-	
+public class A_NotOp extends A_UnaryOp {
 
 	public A_NotOp(A_Expression e) {
 		super(e);
@@ -20,7 +17,5 @@ public class A_NotOp extends A_UnaryOp{
 	public void exec(Entity entity) throws Exception {
 		throw new Exception("Cannot execute a not expression");
 	}
-	
-	
 
 }

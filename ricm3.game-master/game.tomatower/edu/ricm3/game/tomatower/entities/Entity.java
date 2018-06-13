@@ -6,7 +6,6 @@ import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
-import sun.reflect.generics.tree.VoidDescriptor;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -191,9 +190,7 @@ public abstract class Entity {
 		if (d.equals(Direction.NORTH) || (direction.equals(Direction.NORTH) && d.equals(Direction.FRONT))
 				|| (direction.equals(Direction.SOUTH) && d.equals(Direction.BACK))
 				|| (direction.equals(Direction.EAST) && d.equals(Direction.ONTHELEFT))
-				|| (direction.equals(Direction.WEST) && d.equals(Direction.ONTHERIGHT)))
-
-		{
+				|| (direction.equals(Direction.WEST) && d.equals(Direction.ONTHERIGHT))) {
 			pos_front_cell_y -= range;
 		} else if ((d == Direction.SOUTH) || (direction.equals(Direction.NORTH) && d.equals(Direction.BACK))
 				|| (direction.equals(Direction.SOUTH) && d.equals(Direction.FRONT))
