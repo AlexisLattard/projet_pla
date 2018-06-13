@@ -8,6 +8,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import edu.ricm3.game.tomatower.listeners.GoDebugListener;
+import edu.ricm3.game.tomatower.listeners.GoJouerListener;
+import edu.ricm3.game.tomatower.listeners.GoOptionListener;
+import edu.ricm3.game.tomatower.listeners.GoRegleListener;
+import edu.ricm3.game.tomatower.listeners.GoScoreListener;
+import edu.ricm3.game.tomatower.listeners.QuitterListener;
+
 /**
  * Write a description of class Menu here.
  * 
@@ -86,6 +93,15 @@ public class Menu extends JPanel
         this.boutonsCentre.add(this.boutonCredit);
         this.boutonsCentre.add(this.boutonQuitter);
         // Ajout des boutons dans le conteneur//
+        
+        // Ajout des Listeners//
+        this.getButtonScore().addActionListener(new GoScoreListener());
+		this.getButtonOption().addActionListener(new GoOptionListener());
+		this.getButtonQuitter().addActionListener(new QuitterListener());
+		this.getButtonRegles().addActionListener(new GoRegleListener());
+		this.getButtonDebug().addActionListener(new GoDebugListener());
+		this.getButtonJouer().addActionListener(new GoJouerListener());
+        // Ajout des Listeners//
         this.add(this.panel_centre,BorderLayout.CENTER);
         this.add(this.panel_nord,BorderLayout.NORTH);
         

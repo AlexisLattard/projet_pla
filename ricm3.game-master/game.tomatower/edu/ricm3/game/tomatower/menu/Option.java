@@ -15,6 +15,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.ricm3.game.tomatower.listeners.RetourMenuListener;
+
 
 /**
  * 
@@ -41,15 +43,15 @@ public class Option extends JPanel{
     private static Option INSTANCE = null;
      
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Option getInstance(ActionListener actionRetour)
+    public static synchronized Option getInstance()
     {           
         if (INSTANCE == null){
-        	INSTANCE = new Option(actionRetour); 
+        	INSTANCE = new Option(); 
         }
         return INSTANCE;
     }
     
-	private Option(ActionListener actionRetour) {
+	private Option() {
 		this.setLayout(new BorderLayout());
 		this.centre = new JPanel(new GridLayout(2,1));
 		this.add(centre, BorderLayout.CENTER);
@@ -57,7 +59,7 @@ public class Option extends JPanel{
 		initSud();
 		initResolution();
 		initOptionFenetre();
-		this.bouton_retour.addActionListener(actionRetour);
+		this.bouton_retour.addActionListener(new RetourMenuListener());
 		this.bouton_valider.addActionListener(new ValiderListener(this));
 	}
 	

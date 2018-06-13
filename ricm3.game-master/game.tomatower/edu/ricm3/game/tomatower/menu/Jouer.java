@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import edu.ricm3.game.GameUI;
+import edu.ricm3.game.tomatower.listeners.RetourMenuListener;
 import edu.ricm3.game.tomatower.mvc.Controller;
 import edu.ricm3.game.tomatower.mvc.Model;
 import edu.ricm3.game.tomatower.mvc.View;
@@ -91,15 +92,15 @@ public class Jouer extends JPanel{
 	private static Jouer INSTANCE = null;
     
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Jouer getInstance(ActionListener actionRetour)
+    public static synchronized Jouer getInstance()
     {           
         if (INSTANCE == null){
-        	INSTANCE = new Jouer(actionRetour); 
+        	INSTANCE = new Jouer(); 
         }
         return INSTANCE;
     }
 	
-	private Jouer(ActionListener actionRetour) {
+	private Jouer() {
 		this.setLayout(new BorderLayout());
 		// INSTANCIATION //
 			// AUTRES //
@@ -166,7 +167,7 @@ public class Jouer extends JPanel{
 		initSouth()	;
 		initComportement();
 		initMap();
-		this.getButtonRetour().addActionListener(actionRetour);
+		this.getButtonRetour().addActionListener(new RetourMenuListener());
 	}
 	
 	private void initSouth() {
@@ -251,7 +252,6 @@ public class Jouer extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            //In response to a button click:
             if (e.getSource() == bouton_mobs) {
             	choix_Comportement_Monstres.setVisible(true);
             }else {
@@ -323,7 +323,7 @@ public class Jouer extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			Jouer.getInstance(null).setComportementTours(choix_Comportement_Tours.getComportements());
+			Jouer.getInstance().setComportementTours(choix_Comportement_Tours.getComportements());
 			choix_Comportement_Tours.setVisible(false);
 			System.out.println(comportement_Tours.get(0));
 		}
@@ -335,7 +335,7 @@ public class Jouer extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			Jouer.getInstance(null).setComportementMonstres(choix_Comportement_Monstres.getComportements());
+			Jouer.getInstance().setComportementMonstres(choix_Comportement_Monstres.getComportements());
 			choix_Comportement_Monstres.setVisible(false);
 			System.out.println(comportement_Monstres.get(0));
 		}

@@ -7,6 +7,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import edu.ricm3.game.tomatower.listeners.GoRegleListener;
+import edu.ricm3.game.tomatower.listeners.GoScoreListener;
+import edu.ricm3.game.tomatower.listeners.QuitterListener;
 /**
  * Write a description of class My_Frame here.
  * 
@@ -47,14 +51,7 @@ public class My_Frame extends JFrame
 	        this.setSize(400, 400);
         }
 		this.setLocationRelativeTo(null);
-		Menu menu = Menu.getInstance();
-		menu.getButtonScore().addActionListener(new ScoreListener());
-		menu.getButtonQuitter().addActionListener(new QuitterListener());
-		menu.getButtonRegles().addActionListener(new ReglesListener());
-		menu.getButtonDebug().addActionListener(new DebugListener());
-		menu.getButtonJouer().addActionListener(new JouerListener());
-		menu.getButtonOption().addActionListener(new OptionListener());
-        this.getContentPane().add(menu);
+        this.getContentPane().add(Menu.getInstance());
     }
     
     private boolean getOptionDemarage() {
@@ -89,100 +86,5 @@ public class My_Frame extends JFrame
 				return false;
 		}
 	}
-
-	private class ScoreListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-        	JFrame frame = My_Frame.getInstance();
-        	JPanel panel = Score.getInstance(new RetourListener());
-        	frame.getContentPane().removeAll();
-        	frame.getContentPane().add(panel);
-        	panel.repaint();
-        	frame.setVisible(true);
-        }   
-    }
     
-    private class OptionListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-        	JFrame frame = My_Frame.getInstance();
-        	JPanel panel = Option.getInstance(new RetourListener());
-        	frame.getContentPane().removeAll();
-        	frame.getContentPane().add(panel);
-        	panel.repaint();
-        	frame.setVisible(true);
-        }   
-    }
-    
-    private class RetourListener implements ActionListener
-    {
-        
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-        	JFrame frame = My_Frame.getInstance();
-        	JPanel panel = Menu.getInstance();
-        	frame.getContentPane().removeAll();
-        	frame.getContentPane().add(panel);
-        	panel.repaint();
-        	frame.setVisible(true);
-        }   
-    }
-    
-    private class QuitterListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-        	My_Frame.getInstance().dispose();
-            System.exit(0);
-        }   
-    }
-    
-    private class ReglesListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-        	JFrame frame = My_Frame.getInstance();
-        	JPanel panel = Regles.getInstance(new RetourListener());
-        	frame.getContentPane().removeAll();
-        	frame.getContentPane().add(panel);
-        	panel.repaint();
-        	frame.setVisible(true);
-        }   
-    }
-    
-    private class DebugListener implements ActionListener
-    {
-        
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-        	JFrame frame = My_Frame.getInstance();
-        	JPanel panel = Debug.getInstance(new RetourListener());
-        	frame.getContentPane().removeAll();
-        	frame.getContentPane().add(panel);
-        	panel.repaint();
-        	frame.setVisible(true);
-        }   
-    }
-    
-    private class JouerListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-        	JFrame frame = My_Frame.getInstance();
-        	JPanel panel = Jouer.getInstance(new RetourListener());
-        	frame.getContentPane().removeAll();
-        	frame.getContentPane().add(panel);
-        	panel.repaint();
-        	frame.setVisible(true);
-        }   
-    }
 }

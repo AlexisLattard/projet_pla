@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import edu.ricm3.game.tomatower.listeners.RetourMenuListener;
+
 public class Debug extends JPanel{
 
 	private Bouton valider;
@@ -28,15 +30,15 @@ public class Debug extends JPanel{
 	private static Debug INSTANCE = null;
     
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Debug getInstance(ActionListener actionRetour)
+    public static synchronized Debug getInstance()
     {           
         if (INSTANCE == null){
-        	INSTANCE = new Debug(actionRetour); 
+        	INSTANCE = new Debug(); 
         }
         return INSTANCE;
     }
 	
-	private Debug(ActionListener actionRetour) {      
+	private Debug() {      
 		this.valider= new Bouton("Envoyé");
 		this.retour = new Bouton("Retour");
 		this.titre = new JLabel("Debug");
@@ -68,7 +70,7 @@ public class Debug extends JPanel{
 		this.add(this.sud,BorderLayout.SOUTH);
 		this.add(this.centre,BorderLayout.CENTER);
 		
-		this.getButtonRetour().addActionListener(actionRetour);
+		this.getButtonRetour().addActionListener(new RetourMenuListener());
 	}
 
 

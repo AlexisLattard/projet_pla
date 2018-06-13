@@ -4,6 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import edu.ricm3.game.tomatower.listeners.RetourMenuListener;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -38,15 +41,15 @@ public class Score extends JPanel
     private static Score INSTANCE = null;
     
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Score getInstance(ActionListener actionRetour)
+    public static synchronized Score getInstance()
     {           
         if (INSTANCE == null){
-        	INSTANCE = new Score(actionRetour); 
+        	INSTANCE = new Score(); 
         }
         return INSTANCE;
     }
 
-	private Score(ActionListener retourListener)
+	private Score()
     {
     	// BOUTON RETOUR //
         this.boutonRetour = new Bouton("retour");
@@ -77,7 +80,7 @@ public class Score extends JPanel
         this.add(this.scrollTableauDesScores,BorderLayout.CENTER);
         this.add(this.sud,BorderLayout.SOUTH);
         this.add(this.nord,BorderLayout.NORTH);
-        this.getButtonRetour().addActionListener(retourListener);
+        this.getButtonRetour().addActionListener(new RetourMenuListener());
     }
     
     /**
