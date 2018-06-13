@@ -21,8 +21,10 @@ public class Sprites {
 	public BufferedImage sprite_upgrade_yellow[];
 	public BufferedImage sprite_upgrade_purple[];
 	
-	public BufferedImage sprite_mob1[];
-	public BufferedImage sprite_mob2[];
+	public BufferedImage sprite_mob_ghost[];
+	public BufferedImage sprite_mob_hungry[];
+	public BufferedImage sprite_mob_lantern[];
+	public BufferedImage sprite_mob_plug[];
 	public BufferedImage sprite_spawn_mobs;
 
 	public BufferedImage sprite_cailloux;
@@ -166,19 +168,37 @@ public class Sprites {
 			System.exit(-1);
 		}
 		
-		imageFile = new File("game.tomatower/sprites/mobs/mob_1.png");
+		imageFile = new File("game.tomatower/sprites/mobs/Mob_Ghost.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
-			sprite_mob1 = this.splitSprite(tmp_sprite,1, 4);
+			sprite_mob_ghost = this.splitSprite(tmp_sprite,1, 6);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
 		
-		imageFile = new File("game.tomatower/sprites/mobs/mob_2.png");
+		imageFile = new File("game.tomatower/sprites/mobs/Mob_Hungry.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
-			sprite_mob2 = this.splitSprite(tmp_sprite,1, 4);
+			sprite_mob_hungry = this.splitSprite(tmp_sprite,1, 6);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.tomatower/sprites/mobs/Mob_Lantern.png");
+		try {
+			tmp_sprite = ImageIO.read(imageFile);
+			sprite_mob_lantern = this.splitSprite(tmp_sprite,1, 4);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.tomatower/sprites/mobs/Mob_Plug.png");
+		try {
+			tmp_sprite = ImageIO.read(imageFile);
+			sprite_mob_plug = this.splitSprite(tmp_sprite,1, 4);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
