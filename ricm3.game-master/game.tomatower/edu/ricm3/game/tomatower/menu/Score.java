@@ -1,14 +1,15 @@
 package edu.ricm3.game.tomatower.menu;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
@@ -23,12 +24,12 @@ public class Score extends JPanel
     private JPanel south;
     private JLabel titre;
     private JPanel north;    
-    private JTable tableauDesScore;
+    private Tableau tableauDesScore;
     private JScrollPane scrollTableau;
     
     private Vector<String> columnNames;
     private Vector<Vector<Object>> data;
-    private JButton boutonRetour;
+    private Bouton boutonRetour;
         
     /**
      * Constructor for objects of class Score
@@ -61,18 +62,19 @@ public class Score extends JPanel
         
         // TABLEAU //
         data = new Vector<Vector<Object>>();
-		fillData();
         columnNames=new Vector<String>();
         columnNames.add("Pseudo");columnNames.add("Scores");columnNames.add("Date");
         tableauDesScore = new Tableau(data,columnNames);
-        scrollTableau = new JScrollPane(tableauDesScore,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollTableau = new JScrollPane(tableauDesScore,
+        								JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		fillData();
+        
         // TABLEAU //
         
         this.setLayout(new BorderLayout());
         this.add(scrollTableau,BorderLayout.CENTER);
         this.add(south,BorderLayout.SOUTH);
         this.add(north,BorderLayout.NORTH);
-        
         this.getButtonRetour().addActionListener(retourListener);
     }
     

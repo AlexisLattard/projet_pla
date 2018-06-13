@@ -41,7 +41,7 @@ public class ChoixComportement extends JDialog{
 		this.listAutomates = listAutomates;
 		this.setLayout(new BorderLayout());
 		this.setSize(400,200);
-		initCentre(this.listAutomates,nbElements);
+		initCentre(nbElements);
 		initSud();
 		initNord();
 	}
@@ -71,12 +71,13 @@ public class ChoixComportement extends JDialog{
 		this.add(titre_panel,BorderLayout.NORTH);
 	}
 	
-	private void initCentre(HashMap<String,Object> listAutomates,int nbElements) {
+	private void initCentre(int nbElements) {
 		choix = new Vector<JComboBox<Object>>(nbElements);
 		grille = new JPanel(new GridLayout(nbElements,1));
+		scrollGrille = new JScrollPane(grille,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+										JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		remplirChoix(listAutomates,nbElements);
 		remplirGrille(listAutomates,nbElements);
-		scrollGrille = new JScrollPane(grille,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.add(scrollGrille, BorderLayout.CENTER);
 	}
 	
