@@ -4,7 +4,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -36,15 +35,16 @@ public class Score extends JPanel
      * Constructor for objects of class Score
      */
     
-    private static Score INSTANCE = null;
-    
+    private static class ScoreHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Score INSTANCE = new Score();
+    }
+ 
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Score getInstance()
-    {           
-        if (INSTANCE == null){
-        	INSTANCE = new Score(); 
-        }
-        return INSTANCE;
+    public static Score getInstance()
+    {
+	    return ScoreHolder.INSTANCE;
     }
 
 	private Score()

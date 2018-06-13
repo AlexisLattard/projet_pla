@@ -3,7 +3,6 @@ package edu.ricm3.game.tomatower.menu;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,15 +16,16 @@ public class Regles extends JPanel{
 	private Bouton boutonRetour;
 	
 
-	private static Regles INSTANCE = null;
-    
+	private static class ReglesHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Regles INSTANCE = new Regles();
+    }
+ 
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Regles getInstance()
-    {           
-        if (INSTANCE == null){
-        	INSTANCE = new Regles(); 
-        }
-        return INSTANCE;
+    public static Regles getInstance()
+    {
+	    return ReglesHolder.INSTANCE;
     }
 	
 	private Regles() {      

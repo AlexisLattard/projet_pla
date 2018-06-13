@@ -25,15 +25,16 @@ public class Debug extends JPanel{
 	private JPanel centre;
 	
 
-	private static Debug INSTANCE = null;
-    
+	private static class DebugHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Debug INSTANCE = new Debug();
+    }
+ 
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Debug getInstance()
-    {           
-        if (INSTANCE == null){
-        	INSTANCE = new Debug(); 
-        }
-        return INSTANCE;
+    public static Debug getInstance()
+    {
+	    return DebugHolder.INSTANCE;
     }
 	
 	private Debug() {      

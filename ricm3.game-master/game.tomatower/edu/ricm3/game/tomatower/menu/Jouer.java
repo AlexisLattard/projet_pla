@@ -324,10 +324,9 @@ public class Jouer extends JPanel{
 	    @Override
 	    public void actionPerformed(ActionEvent e)
 	    {
-	    	Jouer jouer = Jouer.getInstance();
 	        if (!comportement_Tours.isEmpty() && !comportement_Monstres.isEmpty() && carte_selectionner != null) {
 	        	My_Frame.getInstance().setVisible(false);
-	        	jouer.createInstanceJeu();
+	        	Jouer.getInstance().createInstanceJeu();
 	        }else {
 	        	if (choix_Comportement_Tours == null) {
 	        		bouton_tours.setText("*Choisir un automate*"); 

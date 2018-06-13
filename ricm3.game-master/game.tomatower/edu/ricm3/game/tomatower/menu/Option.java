@@ -38,15 +38,17 @@ public class Option extends JPanel{
 	private JLabel titre;
 	
 	/** Instance unique non préinitialisée */
-    private static Option INSTANCE = null;
-     
+
+    private static class OptionHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Option INSTANCE = new Option();
+    }
+ 
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Option getInstance()
-    {           
-        if (INSTANCE == null){
-        	INSTANCE = new Option(); 
-        }
-        return INSTANCE;
+    public static Option getInstance()
+    {
+	    return OptionHolder.INSTANCE;
     }
     
 	private Option() {

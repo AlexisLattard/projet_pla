@@ -116,7 +116,6 @@ public class ChoixComportement extends JDialog{
 		return comportement;
 	}
 	
-	
 	// Listener//
 	private class ComportementAleatoireListener implements ActionListener{
 		private ChoixComportement comportement;
