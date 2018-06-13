@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
@@ -22,6 +23,7 @@ import edu.ricm3.game.tomatower.entities.enums.Entity_Name;
 public class ChoixComportement extends JDialog{
 	private HashMap<String, A_Automaton> automates;
 	private Vector<JComboBox<Object>> choix;
+	private int nbElements ;
 	
 	private JPanel grille;
 	private JScrollPane scrollGrille;
@@ -39,6 +41,7 @@ public class ChoixComportement extends JDialog{
 	public ChoixComportement( HashMap<String, A_Automaton> automates) {
 		super(My_Frame.getInstance());
 		this.automates = automates;
+		this.nbElements = Entity_Name.values().length;
 		this.setLayout(new BorderLayout());
 		this.setSize(400,200);
 		initCentre();
@@ -73,9 +76,8 @@ public class ChoixComportement extends JDialog{
 	}
 	
 	private void initCentre() {
-		int nbElements = Entity_Name.values().length;
-		this.choix = new Vector<JComboBox<Object>>(nbElements);
-		this.grille = new JPanel(new GridLayout(nbElements,1));
+		this.choix = new Vector<JComboBox<Object>>(this.nbElements);
+		this.grille = new JPanel(new GridLayout(this.nbElements,1));
 		this.scrollGrille = new JScrollPane(this.grille,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 										JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		remplirChoix(this.automates);
@@ -85,14 +87,14 @@ public class ChoixComportement extends JDialog{
 	
 	private void remplirChoix(HashMap<String,A_Automaton> listAutomates) {
 		Object keys[] = this.automates.keySet().toArray();
-		for(int i=0;i<Entity_Name.values().length;i++) {
+		for(int i=0;i<this.nbElements;i++) {
 			choix.add(new JComboBox<Object>(keys));
 		}
 		
 	}
 	
 	private void remplirGrille(HashMap<String,A_Automaton> listAutomates) {
-		for (int i=0;i<this.choix.size();i++) {			
+		for (int i=0;i<this.nbElements;i++) {			
 			JPanel panel = new JPanel(new FlowLayout());
 			panel.add(new JLabel(Entity_Name.values()[i].name()));
 			panel.add(this.choix.get(i));
@@ -104,20 +106,20 @@ public class ChoixComportement extends JDialog{
 		if (SwingUtilities.isEventDispatchThread()) {
 			int nb_automates = this.automates.size();
 			if (nb_automates > 0) {
-				int size = this.automates.size();
-				for(int i=0;i<this.choix.capacity();i++) {
-					int indice = ThreadLocalRandom.current().nextInt(0, size);
+				for(int i=0;i<this.nbElements;i++) {
+					int indice = ThreadLocalRandom.current().nextInt(0, nb_automates);
 					this.choix.get(i).setSelectedIndex(indice);
 				}
 			}
 		}
 	}
 	
-	public  HashMap<Integer,A_Automaton> getComportements() {
+	public  HashMap<Entity_Name,A_Automaton> getComportements() {
 		// TODO Renvoyer la correspondance Entité-Automates
-		HashMap<Integer,A_Automaton> comportement = new HashMap<Integer,A_Automaton>();
-		for (int i=0;i<this.choix.size();i++) {
-			comportement.put(new Integer(i), this.automates.get(choix.get(i).getSelectedItem()));
+		HashMap<Entity_Name,A_Automaton> comportement = new HashMap<Entity_Name,A_Automaton>();
+		for (int i=0;i<Entity_Name.values().length;i++) {
+			A_Automaton automate = this.automates.get(choix.get(i).getSelectedItem());
+			comportement.put(Entity_Name.values()[i], automate);
 		}
 		
 		return comportement;
@@ -138,7 +140,8 @@ public class ChoixComportement extends JDialog{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			Jouer.getInstance().setComportement(getComportements());
+			HashMap<Entity_Name,A_Automaton> map = getComportements();
+			Jouer.getInstance().setComportement(map);
 			setVisible(false);
 		}
 		

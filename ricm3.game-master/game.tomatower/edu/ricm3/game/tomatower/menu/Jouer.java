@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
+import edu.ricm3.game.tomatower.entities.enums.Entity_Name;
 import edu.ricm3.game.tomatower.mvc.Controller;
 import edu.ricm3.game.tomatower.mvc.Model;
 import edu.ricm3.game.tomatower.mvc.View;
@@ -26,12 +27,13 @@ public class Jouer extends JPanel{
 
 	// AUTRES //
 		// COMPORTEMENT //
-	private HashMap<Integer,A_Automaton> comportement;
-	private HashMap<String, A_Automaton> automates;
+	private HashMap<Entity_Name,A_Automaton> comportement;
 	private File carte_selectionner;
-	
 	private ChoixComportement choix_Comportement;
 		// COMPORTEMENT //
+	Model model ;
+    Controller controller ;
+    View view ;
 	// AUTRES //	
 	
 	// BOUTON //
@@ -95,12 +97,15 @@ public class Jouer extends JPanel{
 		this.setLayout(new BorderLayout());
 		// INSTANCIATION //
 			// AUTRES //
+		//TEST//
+		this.model = new Model();
+		this.controller = new Controller(model);
+		this.model.initAutomatons(controller);
 		this.carte_selectionner = null;
 		//TEST//
-		this.automates = new HashMap<String, A_Automaton>();
 		//TEST//
 		
-		this.choix_Comportement = new ChoixComportement(this.automates);
+		this.choix_Comportement = new ChoixComportement(model.getAutomatons());
 		this.cartes = new HashMap<File,Bouton>();
 			// AUTRES //
 			// BOUTON //
@@ -249,9 +254,7 @@ public class Jouer extends JPanel{
 	}
 	
 	private void createInstanceJeu() {
-		Model model = new Model();
-        Controller controller = new Controller(model);
-        View view = new View(model,controller);
+        view = new View(model,controller);
         model.initModel(controller);
         new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
@@ -278,7 +281,7 @@ public class Jouer extends JPanel{
 	}
 	// Listener
 
-	protected void setComportement(HashMap<Integer,A_Automaton> comportements) {
+	protected void setComportement(HashMap<Entity_Name,A_Automaton> comportements) {
 		this.comportement = comportements;
 	}
 
