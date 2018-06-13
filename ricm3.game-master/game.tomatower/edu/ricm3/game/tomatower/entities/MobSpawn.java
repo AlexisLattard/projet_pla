@@ -13,10 +13,12 @@ import java.util.List;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
-import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
+
 
 public class MobSpawn extends Inert {
 
@@ -32,7 +34,7 @@ public class MobSpawn extends Inert {
 		super(c_model, false, c_sprite, c_scale, c_cell, ObstaclesKind.MOBSPAWN, Kind.MobSpawn);
 		this.main_instance = c_main_instance;
 		this.wave_id = 0;
-		this.wave_delay = 10000;		
+		this.wave_delay = ACTION_TIME_MOBSPAWN;		
 		initWaves();
 		
 		//Test
@@ -67,7 +69,7 @@ public class MobSpawn extends Inert {
 			sprites = (BufferedImage[]) tab_sprites[j];
 			if (behavior != null && sprites != null) {
 				for (int i = 0; i < nb_monstre[j]; i++) {
-					new Mobs(this.model, sprites, 1, this.model.getMainMap().getCell(2, 2), Direction.WEST, this.model.getWeapons().get(Kind_Weapon.Red), behavior);
+					new Mobs(this.model, sprites, 1, this.model.getMainMap().getCell(2, 2), this.model.getWeapons().get(EntityName.Tower_Red), behavior,MAX_LIFE_MOB_PLUG);
 				}
 			}
 		}
@@ -89,6 +91,7 @@ public class MobSpawn extends Inert {
 				waves.add(stringToInt(line.split(","), nb_type));
 			}
 
+			reader.close();
 		} catch (IOException e) {
 
 		}
