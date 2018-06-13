@@ -1,15 +1,19 @@
 package edu.ricm3.game.tomatower.menu;
 
-import javax.swing.*;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Regles extends JPanel{
 
 	
-	private JPanel north;
-	private JLabel title;
-	private JPanel south;
+	private JPanel nord;
+	private JLabel titre;
+	private JPanel sud;
 	private Bouton boutonRetour;
 	
 
@@ -25,18 +29,18 @@ public class Regles extends JPanel{
     }
 	
 	private Regles(ActionListener actionRetour) {      
-		north = new JPanel(new FlowLayout());
-		title = new JLabel("Regles");
-		south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		boutonRetour = new Bouton("Retour");
+		this.nord = new JPanel(new FlowLayout());
+		this.titre = new JLabel("Regles");
+		this.sud = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.boutonRetour = new Bouton("Retour");
 		
-		north.add(title);
-		south.add(boutonRetour);
+		this.nord.add(titre);
+		this.sud.add(boutonRetour);
 		
 		
 		this.setLayout(new BorderLayout());
-		this.add(north,BorderLayout.NORTH);
-		this.add(south, BorderLayout.SOUTH);
+		this.add(nord,BorderLayout.NORTH);
+		this.add(sud, BorderLayout.SOUTH);
 		
 		this.getButtonRetour().addActionListener(actionRetour);
 	}
@@ -47,6 +51,6 @@ public class Regles extends JPanel{
      * @return JButton
      */
     public JButton getButtonRetour(){
-        return boutonRetour;
+        return this.boutonRetour;
     }
 }

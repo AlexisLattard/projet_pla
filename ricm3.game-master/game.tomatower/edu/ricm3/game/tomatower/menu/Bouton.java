@@ -1,7 +1,11 @@
 package edu.ricm3.game.tomatower.menu;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 /**
  * Write a description of class Bouton here.
  * 
@@ -26,7 +30,6 @@ public class Bouton extends JButton
     public Bouton(String name)
     {
         // initialise instance variables
-    	
         super(name);
         this.setBackground(new Color(255,255,255));
         this.setFocusPainted(false);

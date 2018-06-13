@@ -1,9 +1,5 @@
 package edu.ricm3.game.tomatower.menu;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.tomatower.mvc.Controller;
 import edu.ricm3.game.tomatower.mvc.Model;

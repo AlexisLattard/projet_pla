@@ -14,8 +14,8 @@ public class Tableau extends JTable{
 	public Tableau(Vector data,Vector column) {
 		super(data,column);
 		
-		centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		this.centerRenderer = new DefaultTableCellRenderer();
+		this.centerRenderer.setHorizontalAlignment( JLabel.CENTER );
 		this.setDefaultRenderer(String.class, centerRenderer);
 		this.setDefaultRenderer(Integer.class, centerRenderer);
 		this.setDefaultRenderer(Date.class, centerRenderer);

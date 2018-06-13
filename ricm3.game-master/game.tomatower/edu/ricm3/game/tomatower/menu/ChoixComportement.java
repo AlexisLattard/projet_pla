@@ -6,14 +6,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
-
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -47,38 +43,39 @@ public class ChoixComportement extends JDialog{
 	}
 	
 	private void initSud() {
-		valider_bouton = new Bouton("Valider");
-		valider_bouton.addActionListener(new ValiderListener(this));
-		aleatoire_bouton = new Bouton("Aleatoire");
-		aleatoire_bouton.addActionListener(new AleatoireListener());
+		this.valider_bouton = new Bouton("Valider");
+		this.valider_bouton.addActionListener(new ValiderListener(this));
+		this.aleatoire_bouton = new Bouton("Aleatoire");
+		this.aleatoire_bouton.addActionListener(new AleatoireListener());
 		
-		valider_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		valider_panel.add(valider_bouton);
-		aleatoire_panel= new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		aleatoire_panel.add(aleatoire_bouton);
+		this.valider_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		this.valider_panel.add(this.valider_bouton);
+		this.aleatoire_panel= new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.aleatoire_panel.add(this.aleatoire_bouton);
 		
 		
-		sud_panel = new JPanel(new GridLayout(1,2));
-		sud_panel.add(valider_panel);sud_panel.add(aleatoire_panel);
-		this.add(sud_panel, BorderLayout.SOUTH);
+		this.sud_panel = new JPanel(new GridLayout(1,2));
+		this.sud_panel.add(this.valider_panel);
+		this.sud_panel.add(this.aleatoire_panel);
+		this.add(this.sud_panel, BorderLayout.SOUTH);
 		
 	}
 	
 	private void initNord() {
-		titre_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		titre_label = new JLabel("Comportement");
-		titre_panel.add(titre_label);
-		this.add(titre_panel,BorderLayout.NORTH);
+		this.titre_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.titre_label = new JLabel("Comportement");
+		this.titre_panel.add(this.titre_label);
+		this.add(this.titre_panel,BorderLayout.NORTH);
 	}
 	
 	private void initCentre(int nbElements) {
-		choix = new Vector<JComboBox<Object>>(nbElements);
-		grille = new JPanel(new GridLayout(nbElements,1));
-		scrollGrille = new JScrollPane(grille,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		this.choix = new Vector<JComboBox<Object>>(nbElements);
+		this.grille = new JPanel(new GridLayout(nbElements,1));
+		this.scrollGrille = new JScrollPane(this.grille,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 										JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		remplirChoix(listAutomates,nbElements);
-		remplirGrille(listAutomates,nbElements);
-		this.add(scrollGrille, BorderLayout.CENTER);
+		remplirChoix(this.listAutomates,nbElements);
+		remplirGrille(this.listAutomates,nbElements);
+		this.add(this.scrollGrille, BorderLayout.CENTER);
 	}
 	
 	private void remplirChoix(HashMap<String,Object> listAutomates,int nbElements) {
@@ -90,20 +87,20 @@ public class ChoixComportement extends JDialog{
 	}
 	
 	private void remplirGrille(HashMap<String,Object> listAutomates,int nbElements) {
-		for (int i=0;i<choix.size();i++) {			
+		for (int i=0;i<this.choix.size();i++) {			
 			JPanel panel = new JPanel(new FlowLayout());
 			panel.add(new JLabel("Item n°"+i));
-			panel.add(choix.get(i));
-			grille.add(panel);
+			panel.add(this.choix.get(i));
+			this.grille.add(panel);
 		}
 	}
 
 	private void aleatoire() {
 		if (SwingUtilities.isEventDispatchThread()) {
-			int size = listAutomates.size();
-			for(int i=0;i<choix.capacity();i++) {
+			int size = this.listAutomates.size();
+			for(int i=0;i<this.choix.capacity();i++) {
 				int indice = ThreadLocalRandom.current().nextInt(0, size);
-				choix.get(i).setSelectedIndex(indice);
+				this.choix.get(i).setSelectedIndex(indice);
 			}
 		}
 	}
@@ -128,7 +125,7 @@ public class ChoixComportement extends JDialog{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			dialog.setVisible(false);
+			this.dialog.setVisible(false);
 		}
 		
 	}

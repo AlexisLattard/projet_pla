@@ -4,22 +4,24 @@ package edu.ricm3.game.tomatower.menu;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Vector;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-
+/**
+ * 
+ * 
+ * @author (Lordey A.K.A the thief) 
+ *
+ */
 public class Option extends JPanel{
 	
 	private Bouton bouton_retour;
@@ -29,7 +31,6 @@ public class Option extends JPanel{
 	private JPanel sud_retour;
 	private JComboBox<Object> resolution_list;
 	private JComboBox<Object> optionFenetre_list;
-	
 	private JPanel centre;
 	private JPanel resolution_panel;
 	private JPanel optionFentre_panel;
@@ -56,49 +57,49 @@ public class Option extends JPanel{
 		initSud();
 		initResolution();
 		initOptionFenetre();
-		bouton_retour.addActionListener(actionRetour);
-		bouton_valider.addActionListener(new ValiderListener(this));
+		this.bouton_retour.addActionListener(actionRetour);
+		this.bouton_valider.addActionListener(new ValiderListener(this));
 	}
 	
 	private void initResolution() {
-		resolution_list = new JComboBox<Object>();
+		this.resolution_list = new JComboBox<Object>();
 		FillCombobox();
 		
-		resolution_panel = new JPanel(new FlowLayout());
-		resolution_panel.add(new JLabel("Resolution de l'écran:"));
-		resolution_panel.add(resolution_list);
+		this.resolution_panel = new JPanel(new FlowLayout());
+		this.resolution_panel.add(new JLabel("Resolution de l'écran:"));
+		this.resolution_panel.add(this.resolution_list);
 		
-		centre.add(resolution_panel);
+		this.centre.add(this.resolution_panel);
 	}
 	
 	private void initOptionFenetre() {
-		optionFenetre_list = new JComboBox<Object>(new String[] {"Plein écran","Fenetrer","Sans rebord"});
+		this.optionFenetre_list = new JComboBox<Object>(new String[] {"Plein écran","Fenetrer","Sans rebord"});
 		
-		optionFentre_panel = new JPanel(new FlowLayout());
-		optionFentre_panel.add(new JLabel("Option de l'écran:"));
-		optionFentre_panel.add(optionFenetre_list);
+		this.optionFentre_panel = new JPanel(new FlowLayout());
+		this.optionFentre_panel.add(new JLabel("Option de l'écran:"));
+		this.optionFentre_panel.add(this.optionFenetre_list);
 		
-		centre.add(optionFentre_panel);
+		this.centre.add(this.optionFentre_panel);
 	}
 	
 	private void initSud() {
-		bouton_retour = new Bouton("Retour");
-		bouton_valider = new Bouton("Valider");
-		sud= new JPanel(new GridLayout(1,2));
-		sud_valider = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		sud_valider.add(bouton_valider);
-		sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		sud_retour.add(bouton_retour);
-		sud.add(sud_valider);
-		sud.add(sud_retour);
-		this.add(sud,BorderLayout.SOUTH);
+		this.bouton_retour = new Bouton("Retour");
+		this.bouton_valider = new Bouton("Valider");
+		this.sud= new JPanel(new GridLayout(1,2));
+		this.sud_valider = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		this.sud_valider.add(this.bouton_valider);
+		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.sud_retour.add(this.bouton_retour);
+		this.sud.add(this.sud_valider);
+		this.sud.add(this.sud_retour);
+		this.add(this.sud,BorderLayout.SOUTH);
 	}
 	
 	private void initTitre() {
-		titre = new JLabel("Options");
-		titre_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		titre_panel.add(titre);
-		this.add(titre_panel, BorderLayout.NORTH);
+		this.titre = new JLabel("Options");
+		this.titre_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.titre_panel.add(this.titre);
+		this.add(this.titre_panel, BorderLayout.NORTH);
 	}
 	
 	private Vector<Vector<Object>> getResolutionAvailable() {
@@ -127,13 +128,13 @@ public class Option extends JPanel{
 		Vector<Vector<Object>> resolution = getResolutionAvailable();
 		if (resolution != null) {
 			for (Vector<Object> row : resolution) {
-				resolution_list.addItem(new String(row.get(1)+"x"+row.get(2)));
+				this.resolution_list.addItem(new String(row.get(1)+"x"+row.get(2)));
 			}
 		}
 	}
 	
 	public JButton getButtonRetour() {
-		return bouton_retour;
+		return this.bouton_retour;
 	}
 	
 	private class ValiderListener implements ActionListener

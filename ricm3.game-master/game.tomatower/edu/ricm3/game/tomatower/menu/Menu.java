@@ -55,61 +55,61 @@ public class Menu extends JPanel
         // initialise instance variables
         this.setLayout(new BorderLayout());
         // Initialisation des bouton//
-        boutonJouer = new Bouton("Jouer");
-        boutonScore = new Bouton("Score");
-        boutonRegles = new Bouton("Regles");
-        boutonQuitter = new Bouton("Quitter");
-        boutonCredit = new Bouton("Credit");
-        boutonOption = new Bouton();
-        boutonDebug = new Bouton();
-        boutonOption.setIcon(new ImageIcon("./Image/Option.png"),30,30);
-        boutonDebug.setIcon(new ImageIcon("./Image/Debug.png"),30,30);
+        this.boutonJouer = new Bouton("Jouer");
+        this.boutonScore = new Bouton("Score");
+        this.boutonRegles = new Bouton("Regles");
+        this.boutonQuitter = new Bouton("Quitter");
+        this.boutonCredit = new Bouton("Credit");
+        this.boutonOption = new Bouton();
+        this.boutonDebug = new Bouton();
+        this.boutonOption.setIcon(new ImageIcon("./Image/Option.png"),30,30);
+        this.boutonDebug.setIcon(new ImageIcon("./Image/Debug.png"),30,30);
         // Initialisation des bouton//
         
         // Initialisation du conteneur des boutons//
-        boutonsCentre = new JPanel(new GridLayout(5,1));
+        this.boutonsCentre = new JPanel(new GridLayout(5,1));
         // Initialisation du conteneur des boutons//
         
         
         //Initialisation du conteneur des boutons//
-        panel_centre = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panel_nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        panel_nord.add(boutonDebug);
-        panel_nord.add(boutonOption);
-        panel_centre.add(boutonsCentre);
+        this.panel_centre = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        this.panel_nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        this.panel_nord.add(this.boutonDebug);
+        this.panel_nord.add(this.boutonOption);
+        this.panel_centre.add(this.boutonsCentre);
         //Initialisation du conteneur des boutons//
         
         // Ajout des boutons dans le conteneur//
-        boutonsCentre.add(boutonJouer);
-        boutonsCentre.add(boutonRegles);
-        boutonsCentre.add(boutonScore);
-        boutonsCentre.add(boutonCredit);
-        boutonsCentre.add(boutonQuitter);
+        this.boutonsCentre.add(this.boutonJouer);
+        this.boutonsCentre.add(this.boutonRegles);
+        this.boutonsCentre.add(this.boutonScore);
+        this.boutonsCentre.add(this.boutonCredit);
+        this.boutonsCentre.add(this.boutonQuitter);
         // Ajout des boutons dans le conteneur//
-        this.add(panel_centre,BorderLayout.CENTER);
-        this.add(panel_nord,BorderLayout.NORTH);
+        this.add(this.panel_centre,BorderLayout.CENTER);
+        this.add(this.panel_nord,BorderLayout.NORTH);
         
     }
         
     public JButton getButtonScore(){
-        return boutonScore;
+        return this.boutonScore;
     }
     
     public JButton getButtonQuitter(){
-        return boutonQuitter;
+        return this.boutonQuitter;
     }
     
     public JButton getButtonRegles(){
-        return boutonRegles;
+        return this.boutonRegles;
     }
     
     public JButton getButtonDebug(){
-        return boutonDebug;
+        return this.boutonDebug;
     }
     public JButton getButtonJouer(){
-        return boutonJouer;
+        return this.boutonJouer;
     }
     public JButton getButtonOption(){
-        return boutonOption;
+        return this.boutonOption;
     }
 }

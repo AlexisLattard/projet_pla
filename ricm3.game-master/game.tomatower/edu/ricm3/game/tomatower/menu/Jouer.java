@@ -1,10 +1,21 @@
 package edu.ricm3.game.tomatower.menu;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import edu.ricm3.game.GameUI;
-import edu.ricm3.game.tomatower.mvc.*;
-import java.awt.*;
+import edu.ricm3.game.tomatower.mvc.Controller;
+import edu.ricm3.game.tomatower.mvc.Model;
+import edu.ricm3.game.tomatower.mvc.View;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -93,7 +104,7 @@ public class Jouer extends JPanel{
 		this.setLayout(new BorderLayout());
 		// INSTANCIATION //
 			// AUTRES //
-		carte_selectionner = null;
+		this.carte_selectionner = null;
 		//TEST//
 		HashMap<String,Object> listAutomates = new HashMap<String,Object>();
 		listAutomates.put(new String("Automates1"), new String("Automates1"));
@@ -104,51 +115,51 @@ public class Jouer extends JPanel{
 		listAutomates.put(new String("Automates7"), new String("Automates6"));
 		listAutomates.put(new String("Automates8"), new String("Automates7"));
 		//TEST//
-		comportement_Tours = new ChoixComportement(listAutomates,3);
-		comportement_Monstres = new ChoixComportement(listAutomates,3);
+		this.comportement_Tours = new ChoixComportement(listAutomates,3);
+		this.comportement_Monstres = new ChoixComportement(listAutomates,3);
 		
-		cartes = new HashMap<File,Bouton>();
+		this.cartes = new HashMap<File,Bouton>();
 			// AUTRES //
 			// BOUTON //
 				// SOUTH //
-		bouton_lancer = new Bouton("LANCER");
-		bouton_retour = new Bouton("RETOUR");
+		this.bouton_lancer = new Bouton("LANCER");
+		this.bouton_retour = new Bouton("RETOUR");
 				// SOUTH //
 				// COMPORTEMENT //
-		bouton_mobs = new Bouton("Comportements des monstres");
-		bouton_tours = new Bouton("Comportements des tours");
+		this.bouton_mobs = new Bouton("Comportements des monstres");
+		this.bouton_tours = new Bouton("Comportements des tours");
 				// COMPORTEMENT //
 			// BOUTON //
 
 			// LABEL //
 				// COMPORTEMENT //
-		label_mobs = new JLabel("Image de mobs");
-		label_towers= new JLabel("Image de tours");
-		label_comportement = new JLabel("Comportement");
+		this.label_mobs = new JLabel("Image de mobs");
+		this.label_towers= new JLabel("Image de tours");
+		this.label_comportement = new JLabel("Comportement");
 				// COMPORTEMENT //
 				// MAP //
-		label_choix_carte = new JLabel("Cartes");
+		this.label_choix_carte = new JLabel("Cartes");
 				// MAP //
 			// LABEL //
 		
 			// PANEL //
 				// SOUTH //
-		sud_lancer = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		sud = new JPanel(new GridLayout(1,2));
+		this.sud_lancer = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.sud = new JPanel(new GridLayout(1,2));
 				// SOUTH //
 				// COMPORTEMENT //
-		panel_mobs = new JPanel(new FlowLayout());
-		panel_towers = new JPanel(new FlowLayout());
-		panel_mobs_towers = new JPanel(new GridLayout(2,1));
-		panel_comportement = new JPanel(new BorderLayout());
-		panel_title = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		panel_nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.panel_mobs = new JPanel(new FlowLayout());
+		this.panel_towers = new JPanel(new FlowLayout());
+		this.panel_mobs_towers = new JPanel(new GridLayout(2,1));
+		this.panel_comportement = new JPanel(new BorderLayout());
+		this.panel_title = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.panel_nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 				// COMPORTEMENT //
 				// MAP //
-		panel_choix_carte = new JPanel(new BorderLayout());
-		panel_titre_carte = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		panel_cartes = new JPanel(new WrapLayout());
+		this.panel_choix_carte = new JPanel(new BorderLayout());
+		this.panel_titre_carte = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.panel_cartes = new JPanel(new WrapLayout());
 		
 				// MAP //
 		// INSTANCIATION //
@@ -161,49 +172,49 @@ public class Jouer extends JPanel{
 	
 	private void initSouth() {
 		// SOUTH //
-		sud_lancer.add(bouton_lancer);
-		sud_retour.add(bouton_retour);
-		sud.add(sud_lancer);
-		sud.add(sud_retour);
-		bouton_lancer.addActionListener(new LancerListener());
+		this.sud_lancer.add(this.bouton_lancer);
+		this.sud_retour.add(this.bouton_retour);
+		this.sud.add(this.sud_lancer);
+		this.sud.add(this.sud_retour);
+		this.bouton_lancer.addActionListener(new LancerListener());
 		this.add(sud,BorderLayout.SOUTH);
 	    // SOUTH //
 	}
 	
 	private void initComportement() {
 		// COMPORTEMENT //		
-		panel_mobs.add(label_mobs);
-		panel_mobs.add(bouton_mobs);
-		panel_towers.add(label_towers);
-		panel_towers.add(bouton_tours);
-		panel_mobs_towers.add(panel_towers);
-		panel_mobs_towers.add(panel_mobs);
-		panel_title.add(label_comportement);
-		panel_comportement.add(panel_title,BorderLayout.NORTH);
-		panel_comportement.add(panel_mobs_towers,BorderLayout.CENTER);
-		panel_comportement.setBorder(BorderFactory.createLineBorder(Color.black)); //
-		panel_nord.add(panel_comportement);
-		bouton_tours.addActionListener(new ComportementListener(this));
-		bouton_mobs.addActionListener(new ComportementListener(this));
-		this.add(panel_nord,BorderLayout.NORTH);
+		this.panel_mobs.add(this.label_mobs);
+		this.panel_mobs.add(this.bouton_mobs);
+		this.panel_towers.add(this.label_towers);
+		this.panel_towers.add(this.bouton_tours);
+		this.panel_mobs_towers.add(this.panel_towers);
+		this.panel_mobs_towers.add(this.panel_mobs);
+		this.panel_title.add(this.label_comportement);
+		this.panel_comportement.add(this.panel_title,BorderLayout.NORTH);
+		this.panel_comportement.add(this.panel_mobs_towers,BorderLayout.CENTER);
+		this.panel_comportement.setBorder(BorderFactory.createLineBorder(Color.black)); //
+		this.panel_nord.add(this.panel_comportement);
+		this.bouton_tours.addActionListener(new ComportementListener());
+		this.bouton_mobs.addActionListener(new ComportementListener());
+		this.add(this.panel_nord,BorderLayout.NORTH);
 		// COMPORTEMENT //
 	}
 
 	private void initMap() {
 		// MAP //
+		this.scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		this.scrollmap.getVerticalScrollBar().setUnitIncrement(10);
+		this.panel_titre_carte.add(this.label_choix_carte);
+		this.panel_choix_carte.add(this.panel_titre_carte,BorderLayout.NORTH);
+		this.panel_choix_carte.add(this.scrollmap,BorderLayout.CENTER);
 		fillMap();
 		fillCartes();
-		scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollmap.getVerticalScrollBar().setUnitIncrement(10);
-		panel_titre_carte.add(label_choix_carte);
-		panel_choix_carte.add(panel_titre_carte,BorderLayout.NORTH);
-		panel_choix_carte.add(scrollmap,BorderLayout.CENTER);
-		this.add(panel_choix_carte, BorderLayout.CENTER);
+		this.add(this.panel_choix_carte, BorderLayout.CENTER);
 		// MAP //
 	}
 	
  	private void fillMap() {
-		cartes.clear();
+ 		this.cartes.clear();
 		File file = new File("./Map");
 		ImageIcon image = new ImageIcon("./Image/Map_Generic.png");
 		Border border = BorderFactory.createLineBorder(Color.black,5);
@@ -212,39 +223,30 @@ public class Jouer extends JPanel{
 				Bouton bouton = new Bouton(image);
 				bouton.setBorder(border);
 			    bouton.addActionListener(new CarteListener(child));
-				cartes.put(child,bouton);
+			    this.cartes.put(child,bouton);
 			}
         }
 	}
 	
 	private void fillCartes() {
-		panel_cartes.removeAll();
-		if (!cartes.isEmpty()) {
-			for (Map.Entry<File, Bouton> entry : cartes.entrySet()) {
+		this.panel_cartes.removeAll();
+		if (!this.cartes.isEmpty()) {
+			for (Map.Entry<File, Bouton> entry : this.cartes.entrySet()) {
 			    File key = entry.getKey();
 			    Bouton value = entry.getValue();
-			    
 			    JPanel panel = new JPanel(new BorderLayout());
 			    JPanel titre = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			    titre.add(new JLabel(key.getName()));
 			    panel.add(titre,BorderLayout.SOUTH);
 			    panel.add(value,BorderLayout.CENTER);
-			    panel_cartes.add(panel);
+			    this.panel_cartes.add(panel);
 			}
-			setSelected((File) cartes.keySet().toArray()[0]);			
+			setSelected((File) this.cartes.keySet().toArray()[0]);			
 		}
 	}
 	
 	private class ComportementListener implements ActionListener
     {
-		private JPanel panel;
-    
-    
-	    public ComportementListener(JPanel panel)
-	    {
-	        this.panel = panel;
-	    } 
-        
         @Override
         public void actionPerformed(ActionEvent e)
         {
@@ -305,14 +307,14 @@ public class Jouer extends JPanel{
 	}
 	
 	public JButton getButtonRetour() {
-		return bouton_retour;
+		return this.bouton_retour;
 	}
 	
 	private void createInstanceJeu() {
-		instanceJeu = null;
+		this.instanceJeu = null;
         Model model = new Model();
         Controller controller = new Controller(model);
         View view = new View(model,controller);
-        instanceJeu = new GameUI(model,view,controller,My_Frame.getInstance().getSize());
+        this.instanceJeu = new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
 }

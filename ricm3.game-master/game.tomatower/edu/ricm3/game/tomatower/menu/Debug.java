@@ -1,16 +1,22 @@
 package edu.ricm3.game.tomatower.menu;
 
-import javax.swing.*;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class Debug extends JPanel{
 
 	private Bouton valider;
 	private Bouton retour;
-	private JEditorPane textArea ;
-	private JScrollPane textArea_scroll;
+	private JEditorPane zoneTexte ;
+	private JScrollPane zoneTexte_scroll;
 	private JLabel titre;
 	private JPanel nord;
 	private JPanel sud;
@@ -31,36 +37,36 @@ public class Debug extends JPanel{
     }
 	
 	private Debug(ActionListener actionRetour) {      
-		valider= new Bouton("Envoyé");
-		retour = new Bouton("Retour");
-		titre = new JLabel("Debug");
-		textArea = new JEditorPane();
-		textArea_scroll = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		nord = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		sud = new JPanel(new GridLayout(1,2));
-		sud_valider = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		centre = new JPanel(new BorderLayout());
+		this.valider= new Bouton("Envoyé");
+		this.retour = new Bouton("Retour");
+		this.titre = new JLabel("Debug");
+		this.zoneTexte = new JEditorPane();
+		this.zoneTexte_scroll = new JScrollPane(this.zoneTexte,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		this.nord = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.sud = new JPanel(new GridLayout(1,2));
+		this.sud_valider = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.centre = new JPanel(new BorderLayout());
 		
 		// SUD //
-		sud_valider.add(valider);
-		sud_retour.add(retour);
-		sud.add(sud_valider);
-		sud.add(sud_retour);
+		this.sud_valider.add(this.valider);
+		this.sud_retour.add(this.retour);
+		this.sud.add(this.sud_valider);
+		this.sud.add(this.sud_retour);
 		// SUD //
 		
 		// NORD //
-		nord.add(titre);
+		this.nord.add(this.titre);
 		// NORD //
 		
 		// CENTRE //
-		centre.add(textArea_scroll,BorderLayout.CENTER);
+		this.centre.add(this.zoneTexte_scroll,BorderLayout.CENTER);
 		// CENTRE //		
 		
 		this.setLayout(new BorderLayout());
-		this.add(nord,BorderLayout.NORTH);
-		this.add(sud,BorderLayout.SOUTH);
-		this.add(centre,BorderLayout.CENTER);
+		this.add(this.nord,BorderLayout.NORTH);
+		this.add(this.sud,BorderLayout.SOUTH);
+		this.add(this.centre,BorderLayout.CENTER);
 		
 		this.getButtonRetour().addActionListener(actionRetour);
 	}

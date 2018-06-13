@@ -21,14 +21,14 @@ import java.util.Vector;
  */
 public class Score extends JPanel
 {
-    private JPanel south;
+    private JPanel sud;
     private JLabel titre;
-    private JPanel north;    
+    private JPanel nord;    
     private Tableau tableauDesScore;
-    private JScrollPane scrollTableau;
+    private JScrollPane scrollTableauDesScores;
     
-    private Vector<String> columnNames;
-    private Vector<Vector<Object>> data;
+    private Vector<String> colonnes;
+    private Vector<Vector<Object>> données;
     private Bouton boutonRetour;
         
     /**
@@ -49,32 +49,34 @@ public class Score extends JPanel
 	private Score(ActionListener retourListener)
     {
     	// BOUTON RETOUR //
-        boutonRetour = new Bouton("retour");
-        south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        south.add(boutonRetour);
+        this.boutonRetour = new Bouton("retour");
+        this.sud = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        this.sud.add(this.boutonRetour);
         // BOUTON RETOUR //
         
         // TITRE //
-        titre = new JLabel("TABLEAU DES SCORES");
-        north = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        north.add(titre);
+        this.titre = new JLabel("TABLEAU DES SCORES");
+        this.nord = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        this.nord.add(this.titre);
         // TITRE //
         
         // TABLEAU //
-        data = new Vector<Vector<Object>>();
-        columnNames=new Vector<String>();
-        columnNames.add("Pseudo");columnNames.add("Scores");columnNames.add("Date");
-        tableauDesScore = new Tableau(data,columnNames);
-        scrollTableau = new JScrollPane(tableauDesScore,
+        this.données = new Vector<Vector<Object>>();
+        this.colonnes=new Vector<String>();
+        this.colonnes.add("Pseudo");
+        this.colonnes.add("Scores");
+        this.colonnes.add("Date");
+        this.tableauDesScore = new Tableau(données,colonnes);
+        this.scrollTableauDesScores = new JScrollPane(this.tableauDesScore,
         								JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		fillData();
         
         // TABLEAU //
         
         this.setLayout(new BorderLayout());
-        this.add(scrollTableau,BorderLayout.CENTER);
-        this.add(south,BorderLayout.SOUTH);
-        this.add(north,BorderLayout.NORTH);
+        this.add(this.scrollTableauDesScores,BorderLayout.CENTER);
+        this.add(this.sud,BorderLayout.SOUTH);
+        this.add(this.nord,BorderLayout.NORTH);
         this.getButtonRetour().addActionListener(retourListener);
     }
     
@@ -88,7 +90,7 @@ public class Score extends JPanel
     }
     
     public void fillData(){
-    	data.removeAllElements();
+    	données.removeAllElements();
     	File file = new File("./Autres/Score");
     	Scanner scanner;
 		try {
@@ -106,7 +108,7 @@ public class Score extends JPanel
 	            seconde = new Long(split[2]);
 	            date = new Date(seconde);
 	            row.add(split[0]);row.add(new Integer(split[1]));row.add(dfl.format(date));
-	            data.add(row);
+	            données.add(row);
 	        }
 	        scanner.close();
 		} catch (FileNotFoundException e) {
