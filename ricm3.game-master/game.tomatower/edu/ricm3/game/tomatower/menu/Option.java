@@ -60,7 +60,7 @@ public class Option extends JPanel{
 		initResolution();
 		initOptionFenetre();
 		this.bouton_retour.addActionListener(new RetourMenuListener());
-		this.bouton_valider.addActionListener(new ValiderListener(this));
+		this.bouton_valider.addActionListener(new ValiderListener());
 	}
 	
 	private void initResolution() {
@@ -107,22 +107,12 @@ public class Option extends JPanel{
 	private Vector<Vector<Object>> getResolutionAvailable() {
 		File file = new File("./Autres/Resolution");
     	Vector<Vector<Object>> newResolution = new Vector<Vector<Object>>();
-    	Scanner scanner;
-		try {
-			scanner = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] split = line.split(";");
-            Vector<Object> row = new Vector<Object>();
-            row.add(split[0]);row.add(new Integer(split[1]));row.add(new Integer(split[2]));
+    	LecteurDeFichier lecteur = new LecteurDeFichier(file);
+        while (lecteur.estFin()) {
+        	Vector<Object> row = lecteur.getNextLineCSV_OptionTaille(";");
             newResolution.add(row);
         }
-        scanner.close();
+        lecteur.fermeFichier();
         return newResolution;
 	}
 
@@ -139,14 +129,10 @@ public class Option extends JPanel{
 		return this.bouton_retour;
 	}
 	
+	// Listener //
+	
 	private class ValiderListener implements ActionListener
     {
-        
-        public ValiderListener(JPanel panel)
-        {
-        	
-        } 
-        
         @Override
         public void actionPerformed(ActionEvent e)
         {
@@ -187,4 +173,6 @@ public class Option extends JPanel{
 			My_Frame.getInstance().setSize(width, height);
 		}   
     }
+	
+	// Listener //
 }

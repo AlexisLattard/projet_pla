@@ -55,6 +55,20 @@ public class LecteurDeFichier {
 		}
 	}
 	
+	public Vector<Object> getNextLineCSV_OptionTaille(String separateur){
+		if (this.lecteur != null) {
+	        Vector<Object> row = new Vector<Object>();
+	        String[] elements = getNextLineCSV(separateur);
+
+            row.add(elements[0]);
+            row.add(new Integer(elements[1]));
+            row.add(new Integer(elements[2]));
+	        return row;
+        }else {
+			return null;
+		}
+	}
+	
 	public boolean fermeFichier() {
 		if (this.lecteur != null) {
 			this.lecteur.close();
