@@ -19,6 +19,8 @@ package edu.ricm3.game;
 
 import java.awt.event.WindowEvent;
 
+import javax.swing.JFrame;
+
 import edu.ricm3.game.tomatower.menu.My_Frame;
 
 public class WindowListener implements java.awt.event.WindowListener {
@@ -33,7 +35,8 @@ public class WindowListener implements java.awt.event.WindowListener {
   @Override
   public void windowClosing(WindowEvent e) {
 	  // TODO A finir
-	  m_model.m_game.getFrame().dispose();
+	  JFrame frame = m_model.m_game.getFrame();
+	  frame.dispose();
 	  My_Frame.getInstance().setVisible(true);
   }
 
