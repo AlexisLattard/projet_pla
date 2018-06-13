@@ -10,5 +10,6 @@ public enum ObstaclesKind {
     PORTAL_DESTINATION,
     CRYSTAL,
     UPGRADE,
-    PRODUCT
+    PRODUCT,
+    MOBSPAWN
 }

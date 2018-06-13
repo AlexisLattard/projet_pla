@@ -44,6 +44,13 @@ public class Player extends Living {
 		// TODO
 	}
 
+	@Override
+	public void kamikaze() {
+		super.kamikaze();
+		this.model.setCurrentMap(this.model.getMainMap()); // Quand le joueur meurt, on regarde les monstres massacrer
+															// notre cristal sur la map principale
+	}
+
 	// Getters - setters
 
 	public int getMoney() {

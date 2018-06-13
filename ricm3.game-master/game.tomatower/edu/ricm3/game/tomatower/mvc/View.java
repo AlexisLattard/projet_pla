@@ -66,8 +66,8 @@ public class View extends GameView {
 		computeFPS();
 
 		// erase background
-		// g.setColor(m_background);
-		// g.fillRect(0, 0, getWidth(), getHeight());
+		 g.setColor(m_background);
+		 g.fillRect(0, 0, getWidth(), getHeight());
 		Map map = this.model.getCurrentMap();
 		Iterator<Cell> iter_cells = map.getCellsIterator();
 		Cell c;

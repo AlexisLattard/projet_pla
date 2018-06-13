@@ -73,7 +73,6 @@ public class Controller extends GameController implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
-
 			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 
 		switch (e.getKeyCode()) {

@@ -46,8 +46,11 @@ public class Model extends GameModel {
 	private HashMap<Kind_Weapon, Weapon> weapons;
 	private HashMap<String, A_Automaton> automatons;
 
+	private ArrayList<Entity> entities;
+
 	public Model() {
 		game_sprites = new Sprites();
+		entities = new ArrayList<Entity>();
 	}
 
 	public void initModel(Controller c) {
@@ -55,13 +58,17 @@ public class Model extends GameModel {
 		this.initWeapons();
 		this.initAutomatons(c);
 		this.initMaps();
+
 		// TEST
-		new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 10), Direction.WEST,
+
+		new Mobs(this, this.getSprites().sprite_mob_ghost, 1, this.getMainMap().getCell(2, 2), Direction.WEST,
+				this.getWeapons().get(Kind_Weapon.Red), this.getAutomatons().get("MoverRandom"));
+		new Mobs(this, this.getSprites().sprite_mob_hungry, 1, this.getMainMap().getCell(2, 2), Direction.WEST,
+				this.getWeapons().get(Kind_Weapon.Red), this.getAutomatons().get("MoverRandom"));
+		new Mobs(this, this.getSprites().sprite_mob_plug, 1, this.getMainMap().getCell(2, 2), Direction.WEST,
 				this.getWeapons().get(Kind_Weapon.Red), this.automatons.get("Atest"));
-		new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(6, 8), Direction.WEST,
+		new Mobs(this, this.getSprites().sprite_mob_lantern, 1, this.getMainMap().getCell(6, 8), Direction.WEST,
 				this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("FollowTheWalls"));
-		new Mobs(this, this.getSprites().sprite_mobs, 1, this.getMainMap().getCell(4, 4), Direction.WEST,
-				this.getWeapons().get(Kind_Weapon.Yellow), this.automatons.get("MoverRandom"));
 
 	}
 
@@ -132,6 +139,18 @@ public class Model extends GameModel {
 
 	public HashMap<String, A_Automaton> getAutomatons() {
 		return this.automatons;
+	}
+
+	public ArrayList<Entity> getEntities() {
+		return this.entities;
+	}
+
+	public void addEntity(Entity e) {
+		this.entities.add(e);
+	}
+
+	public void removeEntity(Entity e) {
+		this.entities.remove(e);
 	}
 
 	public void initMaps() {

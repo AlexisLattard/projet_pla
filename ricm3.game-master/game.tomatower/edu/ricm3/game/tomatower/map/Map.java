@@ -143,6 +143,7 @@ public class Map {
 			ArrayList<ArrayList<Cell>> cells = new ArrayList<>();
 			Iterator<String[]> iter_map = map_langugage.iterator();
 			Crystal main_crystal = null;
+			MobSpawn main_mobSpawn = null;
 
 			while (iter_map.hasNext()) {
 				String[] line_elements = iter_map.next();
@@ -188,6 +189,13 @@ public class Map {
 						}
 
 						break;
+					case "Ms":
+						if (main_mobSpawn == null) {
+							main_mobSpawn = new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 2, cell,
+									null);
+						} else {
+							new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 0, cell, main_mobSpawn);
+						}
 					case "Pc":
 						new Portal(this.model, this.model.getSprites().sprite_portal, 1, cell,
 								ObstaclesKind.PORTAL_TO_CHALLENGE);
