@@ -323,7 +323,7 @@ TowerYellow(Init){
 }
 
 TowerPurple(Init){
-* (Init) : True ? Hit(N) : (Init)
+* (Init) : Cell(N, A) ? Wizz : (Init)
 }
 
 SuperHero(Explore){
