@@ -60,8 +60,7 @@ public class Map {
 					g.setColor(new Color(255, 0, 0, 100));
 				}
 				g.fillRect(x, y, cell_size, cell_size);
-				g.drawImage(((Tower) hand).getSprite()[player.getDirection().getValue()], x, y, cell_size, cell_size,
-						null);
+				g.drawImage(((Tower) hand).getSprite()[player.getDirection().getValue()], x, y, cell_size, cell_size,null);
 			}
 		}
 	}
@@ -124,7 +123,6 @@ public class Map {
 		File map_file = new File("game.tomatower/maps/" + path);
 
 		try {
-			long start1 = System.nanoTime();
 			BufferedReader reader = new BufferedReader(new FileReader(map_file));
 
 			ArrayList<String[]> map_langugage = new ArrayList<>();
@@ -260,9 +258,6 @@ public class Map {
 				row++;
 			}
 			this.setCellsMap(cells);
-			long end1 = System.nanoTime();
-			if (Options.ECHO_GAME_STATE)
-				System.out.println("Init map finished in " + (end1 - start1) + " ns");
 
 			reader.close();
 		} catch (FileNotFoundException e) {
