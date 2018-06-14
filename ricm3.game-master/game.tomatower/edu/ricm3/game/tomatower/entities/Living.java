@@ -53,17 +53,51 @@ public abstract class Living extends Entity {
 
 	}
 
-//	@Override
-//	public void paint(Graphics g) {
-//		if (this.isVisible()) {
-//			int cell_size = this.model.getCurrentMap().getCellSize();
-//			int[] pos = this.getPosition();
-//			int d = (int) (cell_size * scale);
-//			int x = pos[0] * cell_size;
-//			int y = pos[1] * cell_size;
-//			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
-//		}
-//	}
+	@Override
+	public void paint(Graphics g) {
+		if (this.isVisible()) {
+			int cell_size = this.model.getCurrentMap().getCellSize();
+			if (moving) {
+				int[] pos = this.prev_cell.getPosition();
+				int d = (int) (cell_size * scale);
+				int x = pos[0] * cell_size;
+				int y = pos[1] * cell_size;
+				switch (this.direction) {
+				case SOUTH:
+					y += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					break;
+				case NORTH:
+					y -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					break;
+				case EAST:
+					x += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					break;
+				case WEST:
+					x -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					break;
+				default:
+					System.out.println("default paint");
+				}
+				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+				if (System.nanoTime() - last_move > (500000000 / 2) && !this.cell_changed) {
+					this.cell_changed = true;
+					this.move(this.direction);
+				}
+				if (System.nanoTime() - last_move > 500000000) {
+					this.moving = false;
+					this.cell_changed = false;
+					this.move_finished = true;
+				}
+			} else {
+				int[] pos = this.cell.getPosition();
+				int d = (int) (cell_size * scale);
+				int x = pos[0] * cell_size;
+				int y = pos[1] * cell_size;
+				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+			}
+
+		}
+	}
 
 	@Override
 	public void step(long now) {

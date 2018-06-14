@@ -73,7 +73,6 @@ public class Controller extends GameController implements ActionListener {
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
 			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-		Player p = this.model.getPlayer();
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_KP_UP:
 		case KeyEvent.VK_UP:

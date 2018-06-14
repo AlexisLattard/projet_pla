@@ -24,10 +24,10 @@ public abstract class Entity {
 	protected Kind kind;
 	protected long last_action = 0;
 	protected long action_time;
-	private boolean moving = false;
-	private boolean has_moved = false;
-	private boolean move_finished = true;
-	private long last_move = 0;
+	protected boolean moving = false;
+	protected boolean cell_changed = false;
+	protected boolean move_finished = true;
+	protected long last_move = 0;
 
 	protected A_Automaton automaton;
 	protected String current_state;
@@ -63,46 +63,11 @@ public abstract class Entity {
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
 			int cell_size = this.model.getCurrentMap().getCellSize();
-			if (moving) {
-				int[] pos = this.prev_cell.getPosition();
-				int d = (int) (cell_size * scale);
-				int x = pos[0] * cell_size;
-				int y = pos[1] * cell_size;
-				switch (this.direction) {
-				case SOUTH:
-					y += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
-					break;
-				case NORTH:
-					y -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
-					break;
-				case EAST:
-					x += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
-					break;
-				case WEST:
-					x -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
-					break;
-				default:
-					System.out.println("default paint");
-				}
-				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
-				if (System.nanoTime() - last_move > (500000000 / 2) && !this.has_moved) {
-					this.has_moved = true;
-					this.move(this.direction);
-					System.out.println("move");
-				}
-				if (System.nanoTime() - last_move > 500000000) {
-					this.moving = false;
-					this.has_moved = false;
-					this.move_finished = true;
-				}
-			} else {
-				int[] pos = this.cell.getPosition();
-				int d = (int) (cell_size * scale);
-				int x = pos[0] * cell_size;
-				int y = pos[1] * cell_size;
-				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
-			}
-
+			int[] pos = this.cell.getPosition();
+			int d = (int) (cell_size * scale);
+			int x = pos[0] * cell_size;
+			int y = pos[1] * cell_size;
+			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
 		}
 	}
 
@@ -122,13 +87,12 @@ public abstract class Entity {
 	public void move(Direction d) {
 		this.turn(d);
 		if (this.getCellDirection(d, 1).isFree(this)) {
-			if (this.move_finished) {
+			if (System.nanoTime() - last_move > 500000000) {
 				this.prev_cell = this.cell;
 				this.moving = true;
 				this.move_finished = false;
 				this.last_move = System.nanoTime();
-			}
-			if (this.can_move && this.has_moved) {
+			} else if (this.can_move && this.cell_changed) {
 				this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
 			}
 		}
