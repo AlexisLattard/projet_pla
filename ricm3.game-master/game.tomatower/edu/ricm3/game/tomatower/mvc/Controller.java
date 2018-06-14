@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
-import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 
 /**
  * This class is to illustrate the most simple game controller. It does not
@@ -97,19 +97,19 @@ public class Controller extends GameController implements ActionListener {
 			break;
 		case KeyEvent.VK_NUMPAD1:
 		case KeyEvent.VK_AMPERSAND:
-			this.model.getPlayer().setTowerSelected(Kind_Weapon.Red);
+			this.model.getPlayer().setTowerSelected(EntityName.Tower_Red);
 			break;
 		case KeyEvent.VK_NUMPAD2:
 		case KeyEvent.VK_UNDEFINED:
-			this.model.getPlayer().setTowerSelected(Kind_Weapon.Blue);
+			this.model.getPlayer().setTowerSelected(EntityName.Tower_Blue);
 			break;
 		case KeyEvent.VK_NUMPAD3:
 		case KeyEvent.VK_QUOTEDBL:
-			this.model.getPlayer().setTowerSelected(Kind_Weapon.Yellow);
+			this.model.getPlayer().setTowerSelected(EntityName.Tower_Yellow);
 			break;
 		case KeyEvent.VK_NUMPAD4:
 		case KeyEvent.VK_QUOTE:
-			this.model.getPlayer().setTowerSelected(Kind_Weapon.Purple);
+			this.model.getPlayer().setTowerSelected(EntityName.Tower_Purple);
 			break;
 		default:
 			this.keyPressed = String.valueOf(e.getKeyChar());

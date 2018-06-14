@@ -6,13 +6,9 @@ import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
-import sun.reflect.generics.tree.VoidDescriptor;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-
 
 
 public abstract class Entity {
@@ -21,27 +17,25 @@ public abstract class Entity {
     protected boolean movement;
     protected Direction direction; // absolute direction North, south, east, west
     protected boolean visible;
-    
-	protected A_Automaton automaton = null;
     protected ArrayList<Class<?>> entities_destination_allowed; 	// Utile pour determiner sur quelle cases l'entité peut se trouver
-    double scale = 1;
-    Kind kind;
+    protected double scale = 1;
+    protected Kind kind;
     protected long last_action = 0;
-    protected long action_time = 1000L;
-	protected String current_state = null;
+    protected long action_time;
+    
+    protected A_Automaton automaton;
+	protected String current_state;
+	
 
     															
 
-	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
-			Cell c_cell, Kind c_kind) {
-		this(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind);
+	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Cell c_cell, Kind c_kind, long c_action_time, Direction c_direction) {
+		this(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind, c_action_time, c_direction);
 		this.visible = true;
 		this.addEntityOnCell(c_cell);
-		this.model.addEntity(this);
 	}
 
-	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
-			Kind c_kind) {
+	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind, long c_action_time, Direction c_direction) {
 		this.model = c_model;
 		this.movement = c_movement;
 		this.scale = c_scale;
@@ -49,19 +43,23 @@ public abstract class Entity {
 		this.visible = false;
 		this.automaton = c_automaton;
 		this.kind = c_kind;
+		this.action_time = c_action_time;
+		this.direction = c_direction;
 		this.model.addEntity(this);
+		
 
 	}
 
     public abstract void paint(Graphics g);
 
 	public void step(long now) {
-		if (automaton != null && now - last_action > action_time) {
+		if (this.automaton != null && now - this.last_action > this.action_time) {
 			if (this.automaton.step(this))
-				last_action = now;
+				this.last_action = now;
 		}
 	}
 
+	
 	// Actions
 
 	public abstract void wizz();
@@ -69,34 +67,37 @@ public abstract class Entity {
 	public abstract void pop();
 
 	public void move(Direction d) {
-		this.turn(d);
+		turn(d);
 		if(this.movement)
-			this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
+			addEntityOnCell(getCellDirection(Direction.FRONT, 1));
 	}
 
-	public void jump() {
-	} // No entity can jump
+	public void jump() {} // No entity can jump
 
 	public void turn(Direction d) {
-		if ((d == Direction.NORTH) || (direction == Direction.NORTH && d == Direction.FRONT)
-				|| (direction == Direction.SOUTH && d == Direction.BACK)
-				|| (direction == Direction.EAST && d == Direction.ONTHELEFT)
-				|| (direction == Direction.WEST && d == Direction.ONTHERIGHT)) {
+		if ((d == Direction.NORTH) 
+				|| (this.direction == Direction.NORTH && d == Direction.FRONT)
+				|| (this.direction == Direction.SOUTH && d == Direction.BACK)
+				|| (this.direction == Direction.EAST && d == Direction.ONTHELEFT)
+				|| (this.direction == Direction.WEST && d == Direction.ONTHERIGHT)) {
 			this.direction = Direction.NORTH;
-		} else if ((d == Direction.SOUTH) || (direction == Direction.NORTH && d == Direction.BACK)
-				|| (direction == Direction.SOUTH && d == Direction.FRONT)
-				|| (direction == Direction.EAST && d == Direction.ONTHERIGHT)
-				|| (direction == Direction.WEST && d == Direction.ONTHELEFT)) {
+		} else if ((d == Direction.SOUTH) 
+				|| (this.direction == Direction.NORTH && d == Direction.BACK)
+				|| (this.direction == Direction.SOUTH && d == Direction.FRONT)
+				|| (this.direction == Direction.EAST && d == Direction.ONTHERIGHT)
+				|| (this.direction == Direction.WEST && d == Direction.ONTHELEFT)) {
 			this.direction = Direction.SOUTH;
-		} else if ((d == Direction.EAST) || (direction == Direction.NORTH && d == Direction.ONTHERIGHT)
-				|| (direction == Direction.SOUTH && d == Direction.ONTHELEFT)
-				|| (direction == Direction.EAST && d == Direction.FRONT)
-				|| (direction == Direction.WEST && d == Direction.BACK)) {
+		} else if ((d == Direction.EAST) 
+				|| (this.direction == Direction.NORTH && d == Direction.ONTHERIGHT)
+				|| (this.direction == Direction.SOUTH && d == Direction.ONTHELEFT)
+				|| (this.direction == Direction.EAST && d == Direction.FRONT)
+				|| (this.direction == Direction.WEST && d == Direction.BACK)) {
 			this.direction = Direction.EAST;
-		} else if ((d == Direction.WEST) || (direction == Direction.NORTH && d == Direction.ONTHELEFT)
-				|| (direction == Direction.SOUTH && d == Direction.ONTHERIGHT)
-				|| (direction == Direction.EAST && d == Direction.BACK)
-				|| (direction == Direction.WEST && d == Direction.FRONT)) {
+		} else if ((d == Direction.WEST) 
+				|| (this.direction == Direction.NORTH && d == Direction.ONTHELEFT)
+				|| (this.direction == Direction.SOUTH && d == Direction.ONTHERIGHT)
+				|| (this.direction == Direction.EAST && d == Direction.BACK)
+				|| (this.direction == Direction.WEST && d == Direction.FRONT)) {
 			this.direction = Direction.WEST;
 		}
 	}
@@ -120,6 +121,7 @@ public abstract class Entity {
 	
 	public abstract void damage(int power);
 
+	
 	// Conditions
 
 	public boolean sameDirection(Direction d) {
@@ -131,7 +133,7 @@ public abstract class Entity {
 	public abstract boolean gotStuff();
 
 	public boolean cell(Direction d, Kind k) {
-		Cell cell = this.getCellDirection(d, 1);
+		Cell cell = getCellDirection(d, 1);
 		if(cell != null){
 			return cell.containEntityKind(k);
 		} else {
@@ -200,6 +202,7 @@ public abstract class Entity {
 
 	}
 
+	
 	// Getter - Setter - Attribute modification
 
 	public boolean addEntityOnCell(Cell c) {
@@ -287,7 +290,7 @@ public abstract class Entity {
 		}
 
 
-		return this.getMap().getCell(pos_front_cell_x, pos_front_cell_y);
+		return getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
     
     public Kind getKind() {

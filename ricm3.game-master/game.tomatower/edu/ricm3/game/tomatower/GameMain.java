@@ -33,8 +33,8 @@ public class GameMain {
     // construct the game elements: model, controller, and view.
     Model model = new Model();
     Controller controller = new Controller(model);
-    View view = new View(model,controller);
     model.initModel(controller);
+    View view = new View(model,controller);
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = (int)screenSize.getWidth();
