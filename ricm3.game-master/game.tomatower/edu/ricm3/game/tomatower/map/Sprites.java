@@ -113,7 +113,7 @@ public class Sprites {
 		// }
 
 		// Sprite cristal
-		imageFile = new File("game.tomatower/sprites/Main_Cristal.png");
+		imageFile = new File("game.tomatower/sprites/misc/Main_Cristal.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
 			sprite_crystal = this.splitSprite(tmp_sprite, 1, 6);
@@ -293,7 +293,7 @@ public class Sprites {
 		}
 
 		// Sprite de fond
-		imageFile = new File("game.tomatower/sprites/grass.png");
+		imageFile = new File("game.tomatower/sprites/backgrounds/grass.png");
 		try {
 			sprite_grass = ImageIO.read(imageFile);
 		} catch (IOException ex) {
@@ -301,7 +301,7 @@ public class Sprites {
 			System.exit(-1);
 		}
 
-		imageFile = new File("game.tomatower/sprites/plank.png");
+		imageFile = new File("game.tomatower/sprites/backgrounds/plank.png");
 		try {
 			sprite_plank = ImageIO.read(imageFile);
 		} catch (IOException ex) {
@@ -310,7 +310,7 @@ public class Sprites {
 		}
 
 		// Sprite explosion
-		imageFile = new File("game.tomatower/sprites/explosion.png");
+		imageFile = new File("game.tomatower/sprites/misc/explosion.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
 			sprite_explosion = this.splitSprite(tmp_sprite, 1, 8);
