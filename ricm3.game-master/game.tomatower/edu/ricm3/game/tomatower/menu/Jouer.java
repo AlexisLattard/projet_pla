@@ -140,8 +140,8 @@ public class Jouer extends JPanel{
 		
 			// PANEL //
 				// SOUTH //
-		this.sud_lancer = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.sud_lancer = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.sud = new JPanel(new GridLayout(1,2));
 				// SOUTH //
 				// COMPORTEMENT //
@@ -171,8 +171,8 @@ public class Jouer extends JPanel{
 		// SOUTH //
 		this.sud_lancer.add(this.bouton_lancer);
 		this.sud_retour.add(this.bouton_retour);
-		this.sud.add(this.sud_lancer);
 		this.sud.add(this.sud_retour);
+		this.sud.add(this.sud_lancer);
 		this.bouton_lancer.addActionListener(new LancerLaPartieListener());
 		this.add(sud,BorderLayout.SOUTH);
 	    // SOUTH //

@@ -46,7 +46,7 @@ public class ChoixComportement extends JDialog{
 		this.automates = automates;
 		this.nbElements = EntityName.values().length;
 		this.setLayout(new BorderLayout());
-		this.setSize(400,200);
+		this.setSize(400,500);
 		initCentre();
 		initSud();
 		initNord();

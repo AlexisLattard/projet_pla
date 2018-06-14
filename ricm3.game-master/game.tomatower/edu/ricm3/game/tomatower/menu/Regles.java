@@ -31,7 +31,7 @@ public class Regles extends JPanel{
 	private Regles() {      
 		this.nord = new JPanel(new FlowLayout());
 		this.titre = new JLabel("Regles");
-		this.sud = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.sud = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.boutonRetour = new Bouton("Retour");
 		
 		this.nord.add(titre);

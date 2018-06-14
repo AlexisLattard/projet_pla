@@ -88,12 +88,12 @@ public class Option extends JPanel{
 		this.bouton_retour = new Bouton("Retour");
 		this.bouton_valider = new Bouton("Valider");
 		this.sud= new JPanel(new GridLayout(1,2));
-		this.sud_valider = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		this.sud_valider = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		this.sud_valider.add(this.bouton_valider);
-		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.sud_retour.add(this.bouton_retour);
-		this.sud.add(this.sud_valider);
 		this.sud.add(this.sud_retour);
+		this.sud.add(this.sud_valider);
 		this.add(this.sud,BorderLayout.SOUTH);
 	}
 	

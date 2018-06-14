@@ -44,14 +44,15 @@ public class LecteurDeFichier {
 			String[] elements = getNextLineCSV(separateur);
 			int longueur = elements.length;
 			Vector<Object> row = new Vector<Object>(longueur);
-			
-			long seconde = new Long(elements[2]);
-			Date date =new Date(seconde);
-	        DateFormat dfl = DateFormat.getDateTimeInstance(DateFormat.FULL,DateFormat.DEFAULT);
-			
-	        row.add(elements[0]); 				// Ajout Pseudo
-	        row.add(new Integer(elements[1]));	// Ajout Score
-	        row.add(dfl.format(date));			// Ajout Pseudo
+			if (longueur == 3) {
+				long seconde = new Long(elements[2]);
+				Date date =new Date(seconde);
+		        DateFormat dfl = DateFormat.getDateTimeInstance(DateFormat.FULL,DateFormat.DEFAULT);
+				
+		        row.add(elements[0]); 				// Ajout Pseudo
+		        row.add(new Integer(elements[1]));	// Ajout Score
+		        row.add(dfl.format(date));			// Ajout Pseudo
+			}
 			return row;		
 		}else {
 			return null;
