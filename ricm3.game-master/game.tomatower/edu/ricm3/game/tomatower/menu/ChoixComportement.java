@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -20,6 +22,7 @@ import edu.ricm3.game.tomatower.entities.enums.EntityName;
 public class ChoixComportement extends JDialog{
 	private HashMap<String, A_Automaton> automates;
 	private Vector<JComboBox<Object>> choix;
+	private Vector<JCheckBox> exclusion;
 	private int nbElements ;
 	
 	private JPanel grille;
@@ -74,27 +77,38 @@ public class ChoixComportement extends JDialog{
 	
 	private void initCentre() {
 		this.choix = new Vector<JComboBox<Object>>(this.nbElements);
+		this.exclusion = new Vector<JCheckBox>(this.nbElements);
 		this.grille = new JPanel(new GridLayout(this.nbElements,1));
-		this.scrollGrille = new JScrollPane(this.grille,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panel.add(grille);
+		this.scrollGrille = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 										JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		remplirChoix(this.automates);
+		remplirExclusion();
+		remplirChoix();
 		remplirGrille(this.automates);
 		this.add(this.scrollGrille, BorderLayout.CENTER);
 	}
 	
-	private void remplirChoix(HashMap<String,A_Automaton> listAutomates) {
+	private void remplirChoix() {
 		Object keys[] = this.automates.keySet().toArray();
 		for(int i=0;i<this.nbElements;i++) {
-			choix.add(new JComboBox<Object>(keys));
+			this.choix.add(new JComboBox<Object>(keys));
 		}
 		
 	}
 	
+	private void remplirExclusion(){
+		for(int i=0;i<this.nbElements;i++) {
+			this.exclusion.add(new JCheckBox());
+		}
+	}
+	
 	private void remplirGrille(HashMap<String,A_Automaton> listAutomates) {
 		for (int i=0;i<this.nbElements;i++) {			
-			JPanel panel = new JPanel(new FlowLayout());
+			JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 			panel.add(new JLabel(EntityName.values()[i].name()));
 			panel.add(this.choix.get(i));
+			panel.add(this.exclusion.get(i));
 			this.grille.add(panel);
 		}
 	}
@@ -104,8 +118,10 @@ public class ChoixComportement extends JDialog{
 			int nb_automates = this.automates.size();
 			if (nb_automates > 0) {
 				for(int i=0;i<this.nbElements;i++) {
-					int indice = ThreadLocalRandom.current().nextInt(0, nb_automates);
-					this.choix.get(i).setSelectedIndex(indice);
+					if (!this.exclusion.get(i).isSelected()) {
+						int indice = ThreadLocalRandom.current().nextInt(0, nb_automates);
+						this.choix.get(i).setSelectedIndex(indice);
+					}
 				}
 			}
 		}
