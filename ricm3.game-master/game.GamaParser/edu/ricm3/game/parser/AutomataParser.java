@@ -704,7 +704,7 @@ Entity
       System.out.println("       during parser generation.");
       //throw new Error();
       ReInit(stream);
-	 }else {
+    } else {
 	    jj_initialized_once = true;
 	    jj_input_stream = new SimpleCharStream(stream, 1, 1);
 	    token_source = new AutomataParserTokenManager(jj_input_stream);
@@ -712,7 +712,7 @@ Entity
 	    jj_ntk = -1;
 	    jj_gen = 0;
 	    for (int i = 0; i < 16; i++) jj_la1[i] = -1;
-	 }
+    }
   }
 
   /** Reinitialise. */

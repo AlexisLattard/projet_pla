@@ -24,22 +24,22 @@ public class Product extends Buyable {
 			switch (this.weapon.getKindWeapon()) {
 			case Tower_Yellow:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_yellow, this.weapon,
-						this.model.getAutomatons().get("HiterTower"));
+						this.model.getAutomatons().get(EntityName.Tower_Yellow));
 				this.model.getPlayer().setTowerSelected(EntityName.Tower_Yellow);
 				break;
 			case Tower_Red:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_red, this.weapon,
-						this.model.getAutomatons().get("HiterTower"));
+						this.model.getAutomatons().get(EntityName.Tower_Red));
 				this.model.getPlayer().setTowerSelected(EntityName.Tower_Red);
 				break;
 			case Tower_Blue:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_blue, this.weapon,
-						this.model.getAutomatons().get("HiterTower"));
+						this.model.getAutomatons().get(EntityName.Tower_Blue));
 				this.model.getPlayer().setTowerSelected(EntityName.Tower_Blue);
 				break;
 			case Tower_Purple:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_purple, this.weapon,
-						this.model.getAutomatons().get("HiterTower"));
+						this.model.getAutomatons().get(EntityName.Tower_Purple));
 				this.model.getPlayer().setTowerSelected(EntityName.Tower_Purple);
 				break;
 			default:

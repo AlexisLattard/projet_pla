@@ -59,7 +59,6 @@ public class Model extends GameModel {
 
 	public void initModel(Controller c) {
 		initWeapons();
-		initAutomatons(c);
 		initMaps();
 	}
 

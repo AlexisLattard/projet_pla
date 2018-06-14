@@ -156,7 +156,7 @@ public class Map {
 					case "P":
 						this.model.setPlayer(new Player(this.model, this.model.getSprites().sprite_player, 1, cell,
 								Direction.NORTH, this.model.getWeapons().get(EntityName.Player),
-								this.model.getAutomatons().get("Perso")));
+								this.model.getAutomatons().get(EntityName.Player)));
 						break;
 					case "Os":
 						// System.out.println("Stone");

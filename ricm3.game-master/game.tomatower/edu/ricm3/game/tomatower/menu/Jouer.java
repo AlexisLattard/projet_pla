@@ -273,9 +273,9 @@ public class Jouer extends JPanel{
 	}
 	
 	private void createInstanceJeu(HashMap<EntityName,A_Automaton> comportements, String pseudo) {
-        view = new View(model,controller);
-        model.initModel(controller);
         model.setHashMap(comportements);
+        model.initModel(controller);
+        view = new View(model,controller);
         new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
 
