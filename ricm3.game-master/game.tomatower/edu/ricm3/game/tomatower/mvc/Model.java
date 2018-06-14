@@ -18,7 +18,6 @@
 package edu.ricm3.game.tomatower.mvc;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +25,6 @@ import java.util.HashMap;
 import edu.ricm3.game.GameModel;
 import edu.ricm3.game.parser.Ast;
 import edu.ricm3.game.parser.AutomataParser;
-import edu.ricm3.game.parser.ParseException;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.automaton.A_Builder;
@@ -37,6 +35,7 @@ import edu.ricm3.game.tomatower.map.Sprites;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 public class Model extends GameModel {
+
 
 	private Sprites game_sprites;
 
@@ -196,7 +195,6 @@ public class Model extends GameModel {
 			Ast ast = AutomataParser.Run();
 			A_Builder builder = new A_Builder(ast, c);
 			res = builder.makeAutomatonsFromAst();
-			System.out.println(automatons.keySet());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
