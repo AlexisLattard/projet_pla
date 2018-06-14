@@ -117,7 +117,7 @@ public class ChoixComportement extends JDialog{
 		if (lecteur.lecteurisCreated()) {
 			while (!lecteur.estFin()) {
 				String[] row = lecteur.getNextLineCSV("=");
-				if (row != null ) {
+				if (row != null && row.length == 2) {
 					sauvergarde.put(row[0], row[1]);
 				}
 			}
