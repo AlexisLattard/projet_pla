@@ -87,9 +87,7 @@ public abstract class Living extends Entity {
 					this.bag.add(hand);
 				entity.removeEntityFromCell();
 				this.hand = (Tower) (entity);
-			} else if (entity instanceof Buyable) {
-				((Buyable) entity).action();
-			}
+			} 
 		}
 	}
 
@@ -159,6 +157,7 @@ public abstract class Living extends Entity {
 		removeEntityFromCell();
 		
 	}
+	 
 	// Conditions
 	@Override
 	public boolean isAlive() {

@@ -301,6 +301,11 @@ public abstract class Entity {
     	this.automaton = null;
     }
     
+    public void setAutomaton(A_Automaton automaton){
+    	this.automaton = automaton;
+    	this.current_state = automaton.getCurrentState();
+    }
+    
     public String getCurrentState() {
     	return this.current_state;
     }
