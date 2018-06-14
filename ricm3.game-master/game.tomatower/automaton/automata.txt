@@ -153,7 +153,7 @@ Rusher(Rush){
 		| True ? Turn(R)	:(Blocked)
 
 	* (Blocked):
-		| Cell(F,V) ? Move(F)	:(Panic)
+		| Cell(F,V) ? Move(F)	:(Panic_1)
 		| True ? Turn(R)	:(Blocked)
 
 	* (Panic_1): True ? Move(F)	:(Panic_2)
