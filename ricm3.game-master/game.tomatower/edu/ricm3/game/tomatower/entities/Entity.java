@@ -10,32 +10,31 @@ import edu.ricm3.game.tomatower.mvc.Model;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-
 public abstract class Entity {
-    Model model;
-    protected Cell cell;
-    protected boolean movement;
-    protected Direction direction; // absolute direction North, south, east, west
-    protected boolean visible;
-    protected ArrayList<Class<?>> entities_destination_allowed; 	// Utile pour determiner sur quelle cases l'entité peut se trouver
-    protected double scale = 1;
-    protected Kind kind;
-    protected long last_action = 0;
-    protected long action_time;
-    
-    protected A_Automaton automaton;
+	Model model;
+	protected Cell cell;
+	protected boolean movement;
+	protected Direction direction; // absolute direction North, south, east, west
+	protected boolean visible;
+	protected ArrayList<Class<?>> entities_destination_allowed; // Utile pour determiner sur quelle cases l'entité peut
+																// se trouver
+	protected double scale = 1;
+	protected Kind kind;
+	protected long last_action = 0;
+	protected long action_time;
+
+	protected A_Automaton automaton;
 	protected String current_state;
-	
 
-    															
-
-	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Cell c_cell, Kind c_kind, long c_action_time, Direction c_direction) {
+	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
+			Cell c_cell, Kind c_kind, long c_action_time, Direction c_direction) {
 		this(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind, c_action_time, c_direction);
 		this.visible = true;
 		this.addEntityOnCell(c_cell);
 	}
 
-	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind, long c_action_time, Direction c_direction) {
+	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
+			Kind c_kind, long c_action_time, Direction c_direction) {
 		this.model = c_model;
 		this.movement = c_movement;
 		this.scale = c_scale;
@@ -46,11 +45,10 @@ public abstract class Entity {
 		this.action_time = c_action_time;
 		this.direction = c_direction;
 		this.model.addEntity(this);
-		
 
 	}
 
-    public abstract void paint(Graphics g);
+	public abstract void paint(Graphics g);
 
 	public void step(long now) {
 		if (this.automaton != null && now - this.last_action > this.action_time) {
@@ -59,42 +57,38 @@ public abstract class Entity {
 		}
 	}
 
-	
 	// Actions
 
-	public abstract void wizz();
+	public abstract void wizz(Direction d);
 
-	public abstract void pop();
+	public abstract void pop(Direction d);
 
 	public void move(Direction d) {
 		turn(d);
-		if(this.movement)
+		if (this.movement)
 			addEntityOnCell(getCellDirection(Direction.FRONT, 1));
 	}
 
-	public void jump() {} // No entity can jump
+	public void jump() {
+	} // No entity can jump
 
 	public void turn(Direction d) {
-		if ((d == Direction.NORTH) 
-				|| (this.direction == Direction.NORTH && d == Direction.FRONT)
+		if ((d == Direction.NORTH) || (this.direction == Direction.NORTH && d == Direction.FRONT)
 				|| (this.direction == Direction.SOUTH && d == Direction.BACK)
 				|| (this.direction == Direction.EAST && d == Direction.ONTHELEFT)
 				|| (this.direction == Direction.WEST && d == Direction.ONTHERIGHT)) {
 			this.direction = Direction.NORTH;
-		} else if ((d == Direction.SOUTH) 
-				|| (this.direction == Direction.NORTH && d == Direction.BACK)
+		} else if ((d == Direction.SOUTH) || (this.direction == Direction.NORTH && d == Direction.BACK)
 				|| (this.direction == Direction.SOUTH && d == Direction.FRONT)
 				|| (this.direction == Direction.EAST && d == Direction.ONTHERIGHT)
 				|| (this.direction == Direction.WEST && d == Direction.ONTHELEFT)) {
 			this.direction = Direction.SOUTH;
-		} else if ((d == Direction.EAST) 
-				|| (this.direction == Direction.NORTH && d == Direction.ONTHERIGHT)
+		} else if ((d == Direction.EAST) || (this.direction == Direction.NORTH && d == Direction.ONTHERIGHT)
 				|| (this.direction == Direction.SOUTH && d == Direction.ONTHELEFT)
 				|| (this.direction == Direction.EAST && d == Direction.FRONT)
 				|| (this.direction == Direction.WEST && d == Direction.BACK)) {
 			this.direction = Direction.EAST;
-		} else if ((d == Direction.WEST) 
-				|| (this.direction == Direction.NORTH && d == Direction.ONTHELEFT)
+		} else if ((d == Direction.WEST) || (this.direction == Direction.NORTH && d == Direction.ONTHELEFT)
 				|| (this.direction == Direction.SOUTH && d == Direction.ONTHERIGHT)
 				|| (this.direction == Direction.EAST && d == Direction.BACK)
 				|| (this.direction == Direction.WEST && d == Direction.FRONT)) {
@@ -116,12 +110,11 @@ public abstract class Entity {
 	public abstract void getBagEntity();
 
 	public abstract void power();
-	
+
 	public abstract void kamikaze();
-	
+
 	public abstract void damage(int power);
 
-	
 	// Conditions
 
 	public boolean sameDirection(Direction d) {
@@ -134,7 +127,7 @@ public abstract class Entity {
 
 	public boolean cell(Direction d, Kind k) {
 		Cell cell = getCellDirection(d, 1);
-		if(cell != null){
+		if (cell != null) {
 			return cell.containEntityKind(k);
 		} else {
 			return false;
@@ -171,12 +164,11 @@ public abstract class Entity {
 					return d == Direction.EAST;
 				} else {
 					if (ord > 0) {
-						if(Math.abs(abs) == Math.abs(ord))
+						if (Math.abs(abs) == Math.abs(ord))
 							return d == Direction.SOUTH || d == Direction.EAST;
 						return d == Direction.SOUTH;
-					}
-					else {
-						if(Math.abs(abs) == Math.abs(ord))
+					} else {
+						if (Math.abs(abs) == Math.abs(ord))
 							return d == Direction.NORTH || d == Direction.EAST;
 						return d == Direction.NORTH;
 					}
@@ -186,12 +178,11 @@ public abstract class Entity {
 					return d == Direction.WEST;
 				} else {
 					if (ord > 0) {
-						if(Math.abs(abs) == Math.abs(ord))
+						if (Math.abs(abs) == Math.abs(ord))
 							return d == Direction.SOUTH || d == Direction.WEST;
 						return d == Direction.SOUTH;
-					}
-					else {
-						if(Math.abs(abs) == Math.abs(ord))
+					} else {
+						if (Math.abs(abs) == Math.abs(ord))
 							return d == Direction.NORTH || d == Direction.WEST;
 						return d == Direction.NORTH;
 					}
@@ -202,7 +193,6 @@ public abstract class Entity {
 
 	}
 
-	
 	// Getter - Setter - Attribute modification
 
 	public boolean addEntityOnCell(Cell c) {
@@ -262,51 +252,46 @@ public abstract class Entity {
 		int[] current_pos = this.getPosition();
 		int pos_front_cell_x = current_pos[0];
 		int pos_front_cell_y = current_pos[1];
-		
-		if(d.equals(Direction.NORTH) ||
-				(direction.equals(Direction.NORTH) && d.equals(Direction.FRONT)) ||
-				(direction.equals(Direction.SOUTH) && d.equals(Direction.BACK)) ||
-				(direction.equals( Direction.EAST) && d.equals(Direction.ONTHELEFT)) ||
-				(direction.equals(Direction.WEST) && d.equals(Direction.ONTHERIGHT))) {
+
+		if (d.equals(Direction.NORTH) || (direction.equals(Direction.NORTH) && d.equals(Direction.FRONT))
+				|| (direction.equals(Direction.SOUTH) && d.equals(Direction.BACK))
+				|| (direction.equals(Direction.EAST) && d.equals(Direction.ONTHELEFT))
+				|| (direction.equals(Direction.WEST) && d.equals(Direction.ONTHERIGHT))) {
 			pos_front_cell_y -= range;
-		} else if((d == Direction.SOUTH) ||
-				(direction.equals(Direction.NORTH) && d.equals(Direction.BACK)) ||
-				(direction.equals( Direction.SOUTH) && d.equals(Direction.FRONT) ) ||
-				(direction.equals(Direction.EAST) && d.equals(Direction.ONTHERIGHT)) ||
-				(direction.equals(Direction.WEST) && d.equals(Direction.ONTHELEFT))) {
+		} else if ((d == Direction.SOUTH) || (direction.equals(Direction.NORTH) && d.equals(Direction.BACK))
+				|| (direction.equals(Direction.SOUTH) && d.equals(Direction.FRONT))
+				|| (direction.equals(Direction.EAST) && d.equals(Direction.ONTHERIGHT))
+				|| (direction.equals(Direction.WEST) && d.equals(Direction.ONTHELEFT))) {
 			pos_front_cell_y += range;
-		} else if((d == Direction.EAST) ||
-				(direction.equals(Direction.NORTH) && d.equals(Direction.ONTHERIGHT)) ||
-				(direction.equals(Direction.SOUTH) && d.equals(Direction.ONTHELEFT )) ||
-				(direction.equals(Direction.EAST) && d.equals(Direction.FRONT)) ||
-				(direction.equals(Direction.WEST) && d.equals(Direction.BACK))) {
+		} else if ((d == Direction.EAST) || (direction.equals(Direction.NORTH) && d.equals(Direction.ONTHERIGHT))
+				|| (direction.equals(Direction.SOUTH) && d.equals(Direction.ONTHELEFT))
+				|| (direction.equals(Direction.EAST) && d.equals(Direction.FRONT))
+				|| (direction.equals(Direction.WEST) && d.equals(Direction.BACK))) {
 			pos_front_cell_x += range;
-		} else if((d == Direction.WEST) ||
-				(direction.equals(Direction.NORTH) && d.equals(Direction.ONTHELEFT)) ||
-				(direction.equals(Direction.SOUTH) && d.equals(Direction.ONTHERIGHT) ) ||
-				(direction.equals(Direction.EAST) && d.equals(Direction.BACK)) ||
-				(direction.equals(Direction.WEST) && d.equals(Direction.FRONT))) {
+		} else if ((d == Direction.WEST) || (direction.equals(Direction.NORTH) && d.equals(Direction.ONTHELEFT))
+				|| (direction.equals(Direction.SOUTH) && d.equals(Direction.ONTHERIGHT))
+				|| (direction.equals(Direction.EAST) && d.equals(Direction.BACK))
+				|| (direction.equals(Direction.WEST) && d.equals(Direction.FRONT))) {
 			pos_front_cell_x -= range;
 		}
 
-
 		return getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
-    
-    public Kind getKind() {
-    	return this.kind;
-    }
-   
-    public void removeAutomaton() {
-    	this.automaton = null;
-    }
-    
-    public String getCurrentState() {
-    	return this.current_state;
-    }
-    public void setCurrentState(String state) {
-    	this.current_state = state;
-    }
-   
-  
+
+	public Kind getKind() {
+		return this.kind;
+	}
+
+	public void removeAutomaton() {
+		this.automaton = null;
+	}
+
+	public String getCurrentState() {
+		return this.current_state;
+	}
+
+	public void setCurrentState(String state) {
+		this.current_state = state;
+	}
+
 }

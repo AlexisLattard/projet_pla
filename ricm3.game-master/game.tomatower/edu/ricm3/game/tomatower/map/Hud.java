@@ -21,7 +21,7 @@ import edu.ricm3.game.tomatower.mvc.Model;
 public class Hud {
 
 	public Model model;
-    private MobSpawn mobSpawn;
+	private MobSpawn mobSpawn;
 	private Font font;
 
 	public final int MARGIN = 20;
@@ -174,13 +174,13 @@ public class Hud {
 		int x = this.model.getCurrentMap().getMapDimention()[0];
 		int y = this.model.getCurrentMap().getMapDimention()[1];
 		HashMap<EntityName, Integer> towers = this.model.getPlayer().getBagNumberTower();
-		HashMap<EntityName,Weapon> weapons = this.model.getWeapons();
+		HashMap<EntityName, Weapon> weapons = this.model.getWeapons();
 		ArrayList<EntityName> entityName = new ArrayList<>();
 		entityName.add(EntityName.Tower_Red);
 		entityName.add(EntityName.Tower_Yellow);
 		entityName.add(EntityName.Tower_Blue);
 		entityName.add(EntityName.Tower_Purple);
-		
+
 		g.setFont(font);
 		g.drawImage(sprite_background, x, 0, null);
 
@@ -248,10 +248,11 @@ public class Hud {
 		default:
 			// Pas de towers selectionnées
 		}
-		
+
 		g.setColor(Color.WHITE);
-		g.drawString("Vagues Restantes", x + 2 , height_money + 4 * height_component_tower + 6 * MARGIN + 80 + h);
-		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60 , height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
+		g.drawString("Vagues Restantes", x + 2, height_money + 4 * height_component_tower + 6 * MARGIN + 80 + h);
+		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60,
+				height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
 
 	}
 
