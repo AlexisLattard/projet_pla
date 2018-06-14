@@ -137,7 +137,7 @@ public class Model extends GameModel {
 		return this.weapons;
 	}
 
-	public HashMap<String, A_Automaton> getAutomatons() {
+	public HashMap<EntityName, A_Automaton> getAutomatons() {
 		return this.automatons;
 	}
 
