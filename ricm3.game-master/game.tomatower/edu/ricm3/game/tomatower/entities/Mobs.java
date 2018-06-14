@@ -34,7 +34,6 @@ public class Mobs extends Living {
 			circleAttack(DAMAGE_DESTRUCTION_MOB);
 			kamikaze();
 		}
-
 	}
 
 	@Override
