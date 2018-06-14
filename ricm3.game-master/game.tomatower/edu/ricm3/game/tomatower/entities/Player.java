@@ -28,7 +28,7 @@ public class Player extends Living {
 	// Actions
 
 	@Override
-	public void pop() {
+	public void pop(Direction d) {
 		if (this.model.getCurrentMap().equals(this.model.getStoreMap())) {
 			Entity entity = this.getMap().getEntityCell(this.getCellDirection(Direction.FRONT, 1));
 
@@ -42,7 +42,7 @@ public class Player extends Living {
 	}
 
 	@Override
-	public void wizz() {
+	public void wizz(Direction d) {
 		if (this.model.getCurrentMap().equals(this.model.getStoreMap())) {
 			Entity entity = this.getMap().getEntityCell(this.getCellDirection(Direction.FRONT, 1));
 

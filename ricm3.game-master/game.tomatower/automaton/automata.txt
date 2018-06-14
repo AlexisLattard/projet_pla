@@ -240,8 +240,21 @@ TestCondition(Un) {
 }
 
 
+TowerRed(Init){
+* (Init) : True ? Hit(E) : (Init)
+}
 
+TowerBlue(Init){
+* (Init) : True ? Hit(O) : (Init)
+}
 
+TowerYellow(Init){
+* (Init) : True ? Hit(S) : (Init)
+}
+
+TowerPurple(Init){
+* (Init) : True ? Hit(N) : (Init)
+}
 
 SuperHero(Explore){
 

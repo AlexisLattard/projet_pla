@@ -41,20 +41,22 @@ public class Upgrade extends Buyable {
 		ArrayList<Entity> entities = this.model.getEntities();
 		Random random = new Random();
 		int nextBehavior = random.nextInt(this.behaviors.size());
-		A_Automaton behavior = this.behaviors.get(nextBehavior);
+		A_Automaton behavior = this.behaviors.get(nextBehavior);		
+		this.model.getAutomatons().put(this.weapon.getKindWeapon(), behavior);
+
 		
 		for(Entity e : entities){
 			if(e instanceof Tower && ((Tower) e).getWeapon().equals(this.weapon)){
-				System.out.println(behavior.getCurrentState());
 				System.out.println("Changement de comportement.");
 				e.setAutomaton(behavior);
 			}
 		}
+		this.model.getPlayer().decreaseMoney(PRICE_BEHAVIOR_CHANGEMENT);
 		
 	}
 	
 	public void initbehavior() {
-		HashMap<String, A_Automaton> behavior_tower = this.model.getAutomatons();
+		HashMap<EntityName, A_Automaton> behavior_tower = this.model.getAutomatons();
 		behaviors = new ArrayList<>();
 		behaviors.add(behavior_tower.get(EntityName.Tower_Red));
 		behaviors.add(behavior_tower.get(EntityName.Tower_Yellow));
