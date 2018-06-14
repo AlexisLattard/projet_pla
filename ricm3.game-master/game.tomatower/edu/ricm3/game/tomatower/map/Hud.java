@@ -253,11 +253,12 @@ public class Hud {
 			// Pas de towers selectionnées
 		}
 
+		// Affichage wave restantes
 		g.setColor(Color.WHITE);
 		g.drawString("Vagues Restantes", x + 2, height_money + 4 * height_component_tower + 6 * MARGIN + 80 + h);
 		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60,
 				height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
-
+		
 	}
 	
 	public void initPositionHud(){
