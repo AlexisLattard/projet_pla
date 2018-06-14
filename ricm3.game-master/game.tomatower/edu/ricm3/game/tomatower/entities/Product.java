@@ -23,6 +23,7 @@ public class Product extends Buyable {
 		if (buy(this.price)) {
 
 			switch (this.weapon.getKindWeapon()) {
+
 			case Tower_Yellow:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_yellow, this.weapon, this.model.getAutomatons().get(EntityName.Tower_Yellow));
 				this.model.getPlayer().setTowerSelected(EntityName.Tower_Yellow);

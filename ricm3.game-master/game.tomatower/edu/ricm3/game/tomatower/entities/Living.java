@@ -20,6 +20,7 @@ public abstract class Living extends Entity {
 	protected ArrayList<Tower> bag;
 	protected Tower hand = null;
 	protected Weapon weapon;
+
 	protected int max_life;
 	protected BufferedImage sprite[];
 	protected EntityName tower_selected;
@@ -118,7 +119,8 @@ public abstract class Living extends Entity {
 
 	@Override
 	public void power() {
-		this.hp += max_life / 10; // On recupere 1/10 de sa maximale
+		if(this.hp < max_life)
+			this.hp += max_life / 10; // On recupere 1/10 de sa maximale
 	}
 
 	@Override
@@ -138,6 +140,7 @@ public abstract class Living extends Entity {
 	}
 
 	@Override
+
 	public void damage(int power) {
 		this.hp -= power;
 	}
