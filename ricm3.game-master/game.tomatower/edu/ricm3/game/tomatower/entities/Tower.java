@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 public class Tower extends Living {
 
-	int idx;
+	private int idx;
+	private long last_sprite;
 
 	public Tower(Model c_model, BufferedImage c_sprite[], Weapon c_weapon, A_Automaton c_automaton) {
 		super(c_model, false, c_sprite, 1, Direction.WEST, c_weapon, initColisions(), c_automaton, Kind.Team);
@@ -44,8 +45,8 @@ public class Tower extends Living {
 
 	public void step(long now) {
 		super.step(now);
-		if (now - last_action > 250L) {
-			last_action = now;
+		if (now - last_sprite > 250L) {
+			last_sprite = now;
 			idx = (idx + 1) % this.sprite.length;
 		}
 	}
@@ -65,6 +66,7 @@ public class Tower extends Living {
 			int x = pos[0] * model.getCurrentMap().getCellSize();
 			int y = pos[1] * model.getCurrentMap().getCellSize();
 			g.drawImage(sprite[idx], x, y, d, d, null);
+			System.out.println(idx);
 		}
 	}
 

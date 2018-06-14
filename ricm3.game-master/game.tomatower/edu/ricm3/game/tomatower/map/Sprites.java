@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Sprites {
 	public BufferedImage sprite_crystal[];
 	public BufferedImage sprite_player[];
+	public BufferedImage sprite_player_run[][];
 
 	public BufferedImage sprite_tower_red[];
 	public BufferedImage sprite_tower_blue[];
@@ -71,8 +72,45 @@ public class Sprites {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
-
 		}
+
+		// Sprite course du joueur
+		// imageFile = new File("game.tomatower/sprites/player/player_down_run.png");
+		// try {
+		// tmp_sprite = ImageIO.read(imageFile);
+		// sprite_player_run[0] = this.splitSprite(tmp_sprite, 1, 4);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		//
+		// }
+		// imageFile = new File("game.tomatower/sprites/player/player_up_run.png");
+		// try {
+		// tmp_sprite = ImageIO.read(imageFile);
+		// sprite_player_run[1] = this.splitSprite(tmp_sprite, 1, 4);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		//
+		// }
+		// imageFile = new File("game.tomatower/sprites/player/player_right_run.png");
+		// try {
+		// tmp_sprite = ImageIO.read(imageFile);
+		// sprite_player_run[2] = this.splitSprite(tmp_sprite, 1, 4);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		//
+		// }
+		// imageFile = new File("game.tomatower/sprites/player/player_left_run.png");
+		// try {
+		// tmp_sprite = ImageIO.read(imageFile);
+		// sprite_player_run[3] = this.splitSprite(tmp_sprite, 1, 4);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		//
+		// }
 
 		// Sprite cristal
 		imageFile = new File("game.tomatower/sprites/Main_Cristal.png");

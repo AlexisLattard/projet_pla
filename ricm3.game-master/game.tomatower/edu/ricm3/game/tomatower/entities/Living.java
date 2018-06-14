@@ -16,6 +16,9 @@ public abstract class Living extends Entity {
 
 	protected int hp;
 	protected boolean canTake;
+	protected boolean moving;
+	protected boolean has_moved;
+	protected long last_action;
 	protected ArrayList<Tower> bag;
 	protected Tower hand = null;
 	protected Weapon weapon;
@@ -31,6 +34,9 @@ public abstract class Living extends Entity {
 		this.direction = c_direction;
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
+		this.moving = false;
+		this.has_moved = false;
+		this.last_action = System.nanoTime();
 		bag = new ArrayList<>();
 	}
 
@@ -40,6 +46,9 @@ public abstract class Living extends Entity {
 		this.direction = c_direction;
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
+		this.moving = false;
+		this.has_moved = false;
+		this.last_action = System.nanoTime();
 		bag = new ArrayList<>();
 	}
 
@@ -51,7 +60,35 @@ public abstract class Living extends Entity {
 			int d = (int) (cell_size * scale);
 			int x = pos[0] * cell_size;
 			int y = pos[1] * cell_size;
-			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+			if (moving) {
+				switch (this.direction) {
+				case SOUTH:
+					System.out.println((System.nanoTime() - last_action) / 250000000 + 1);
+					y += cell_size / 4 * ((System.nanoTime() - last_action) / 250000000 + 1);
+					break;
+				case NORTH:
+					y -= cell_size / 4 * ((System.nanoTime() - last_action) / 250000000 + 1);
+					break;
+				case EAST:
+					x += cell_size / 4 * ((System.nanoTime() - last_action) / 250000000 + 1);
+					break;
+				case WEST:
+					x -= cell_size / 4 * ((System.nanoTime() - last_action) / 250000000 + 1);
+					break;
+				default:
+				}
+				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+				if (System.nanoTime() - last_action > 500000000 && !this.has_moved) {
+					System.out.println("Changement de case");
+					this.has_moved = true;
+				}
+				if (System.nanoTime() - last_action > 1000000000) {
+					this.moving = false;
+					this.has_moved = false;
+				}
+			} else {
+				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+			}
 		}
 	}
 
@@ -78,7 +115,7 @@ public abstract class Living extends Entity {
 			if (entity instanceof Tower) {
 				if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac
 					this.bag.add(hand);
-				entity.removeEntityFromCell();
+				// entity.removeEntityFromCell();
 				hand = (Tower) (entity);
 			} else if (entity instanceof Buyable) {
 				((Buyable) entity).action();
@@ -121,7 +158,7 @@ public abstract class Living extends Entity {
 			hand = null;
 		}
 	}
-	
+
 	@Override
 	public void kamikaze() {
 		this.hp = 0;
@@ -133,8 +170,6 @@ public abstract class Living extends Entity {
 		this.hp -= power;
 	}
 
-	
-	
 	// Conditions
 	@Override
 	public boolean isAlive() {
@@ -154,6 +189,18 @@ public abstract class Living extends Entity {
 
 	public Weapon getWeapon() {
 		return this.weapon;
+	}
+
+	public boolean getMoving() {
+		return this.moving;
+	}
+
+	public void setMoving(Boolean m) {
+		this.moving = m;
+	}
+
+	public void setLastAction(long now) {
+		this.last_action = now;
 	}
 
 	public int getHp() {

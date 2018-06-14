@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
+import edu.ricm3.game.tomatower.entities.Player;
 import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
 
 /**
@@ -71,23 +72,39 @@ public class Controller extends GameController implements ActionListener {
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
 			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-
+		Player p = this.model.getPlayer();
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_KP_UP:
 		case KeyEvent.VK_UP:
-			this.keyPressed = "FU";
+			if (!p.getMoving()) {
+				p.setMoving(true);
+				p.setLastAction(System.nanoTime());
+				this.keyPressed = "FU";
+			}
 			break;
 		case KeyEvent.VK_KP_DOWN:
 		case KeyEvent.VK_DOWN:
-			this.keyPressed = "FD";
+			if (!p.getMoving()) {
+				p.setMoving(true);
+				p.setLastAction(System.nanoTime());
+				this.keyPressed = "FD";
+			}
 			break;
 		case KeyEvent.VK_KP_RIGHT:
 		case KeyEvent.VK_RIGHT:
-			this.keyPressed = "FR";
+			if (!p.getMoving()) {
+				p.setMoving(true);
+				p.setLastAction(System.nanoTime());
+				this.keyPressed = "FR";
+			}
 			break;
 		case KeyEvent.VK_KP_LEFT:
 		case KeyEvent.VK_LEFT:
-			this.keyPressed = "FL";
+			if (!p.getMoving()) {
+				p.setMoving(true);
+				p.setLastAction(System.nanoTime());
+				this.keyPressed = "FL";
+			}
 			break;
 		case KeyEvent.VK_SPACE:
 			this.keyPressed = "SPACE";

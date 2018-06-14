@@ -57,7 +57,6 @@ public class Cell {
 	}
 
 	public void step(long now) {
-
 		Entity e;
 		for (int i = 0; i < this.entities.size(); i++) { // Pas d'itérateur car certaine actions modifient entities
 			e = this.entities.get(i);

@@ -14,6 +14,7 @@ import edu.ricm3.game.tomatower.mvc.Model;
 public class Player extends Living {
 
 	private int money = 25000000;
+	// private BufferedImage sprite_run[][];
 
 	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,
 			Weapon c_weapon, A_Automaton c_automaton) {

@@ -12,14 +12,14 @@ public class Crystal extends Living {
 
 	private Crystal main_instance;
 
-	int idx;
+	private int idx;
+	private long last_sprite;
 
 	public Crystal(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Crystal c_main_instance) {
 		super(c_model, false, c_sprite, c_scale, c_cell, Direction.NORTH, null, initColisions(), null, Kind.Danger);
 		this.main_instance = c_main_instance;
 		this.hp = 550;
 		this.MAX_LIFE = 1000;
-
 	}
 
 	@Override
@@ -54,8 +54,8 @@ public class Crystal extends Living {
 
 	public void step(long now) {
 		super.step(now);
-		if (now - last_action > 250L) {
-			last_action = now;
+		if (now - last_sprite > 250L) {
+			last_sprite = now;
 			idx = (idx + 1) % this.sprite.length;
 		}
 	}

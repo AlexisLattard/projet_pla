@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public abstract class Entity {
 	Model model;
 	protected Cell cell;
-	protected boolean movement;
+	protected boolean can_move;
 	protected Direction direction; // absolute direction North, south, east, west
 	protected boolean visible;
 
@@ -36,7 +36,7 @@ public abstract class Entity {
 	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
 			Kind c_kind) {
 		this.model = c_model;
-		this.movement = c_movement;
+		this.can_move = c_movement;
 		this.scale = c_scale;
 		this.entities_destination_allowed = c_collisions;
 		this.visible = false;
@@ -62,7 +62,7 @@ public abstract class Entity {
 
 	public void move(Direction d) {
 		this.turn(d);
-		if (this.movement)
+		if (this.can_move)
 			this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
 	}
 
@@ -155,7 +155,7 @@ public abstract class Entity {
 	}
 
 	public boolean canMove() {
-		return this.movement;
+		return this.can_move;
 	}
 
 	public int[] getPosition() {
