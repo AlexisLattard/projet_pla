@@ -68,6 +68,13 @@ public class A_Automaton {
 	public String getCurrentState(){
 		return this.entry_state;
 	}
+
+
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return this.name;
+	}
 	
 	
 	
