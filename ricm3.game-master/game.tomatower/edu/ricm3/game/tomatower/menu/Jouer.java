@@ -276,7 +276,8 @@ public class Jouer extends JPanel{
         model.setHashMap(comportements);
         model.initModel(controller);
         view = new View(model,controller);
-        new GameUI(model,view,controller,My_Frame.getInstance().getSize());
+        
+        view.initView(new GameUI(model,view,controller,My_Frame.getInstance().getSize()));
 	}
 
 	// Listener //
