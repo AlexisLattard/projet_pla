@@ -271,7 +271,7 @@ public class Jouer extends JPanel{
 		return this.bouton_retour;
 	}
 	
-	private void createInstanceJeu() {
+	private void createInstanceJeu(HashMap<Entity_Name,A_Automaton> comportements, String pseudo) {
         view = new View(model,controller);
         model.initModel(controller);
         new GameUI(model,view,controller,My_Frame.getInstance().getSize());
@@ -286,11 +286,9 @@ public class Jouer extends JPanel{
 	    {
 	    	HashMap<Entity_Name,A_Automaton> comportements = choix_Comportement.getComportements();
 	        if (!comportements.isEmpty() && carte_selectionner != null) {
-	        	afficheComportement();
+	        	String pseudo = champPseudo.getText();
 	        	My_Frame.getInstance().setVisible(false);
-	        	Jouer.getInstance().createInstanceJeu();
-	        }else {
-	        	System.out.println("FATAL ERROR");
+	        	Jouer.getInstance().createInstanceJeu(comportements,pseudo);
 	        }
 	    }
 	}
