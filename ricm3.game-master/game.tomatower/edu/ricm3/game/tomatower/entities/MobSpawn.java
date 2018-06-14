@@ -85,7 +85,8 @@ public class MobSpawn extends Inert {
 			sprites = (BufferedImage[]) tab_sprites[j];
 			if (behavior != null && sprites != null) {
 				for (int i = 0; i < nb_monstre[j]; i++) {
-					this.current_wave.add(new Mobs(this.model, sprites, 1, this.model.getWeapons().get(EntityName.Tower_Red), behavior,MAX_LIFE_MOB_PLUG));
+					Mobs mob = new Mobs(this.model, sprites, 1, this.model.getWeapons().get(EntityName.Tower_Red), behavior,MAX_LIFE_MOB_PLUG);
+					this.current_wave.add(mob);
 				}
 			}
 		}
@@ -101,6 +102,7 @@ public class MobSpawn extends Inert {
 		}else {
 			this.id_mob_wave = 0;
 			last_wave = now;
+			this.current_wave = new ArrayList<>();
 			is_ready = false;
 		}
 	}
