@@ -3,10 +3,11 @@ package edu.ricm3.game.tomatower.entities;
 import java.awt.image.BufferedImage;
 
 import edu.ricm3.game.tomatower.Options;
-import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 public class Product extends Buyable {
 
@@ -21,25 +22,26 @@ public class Product extends Buyable {
 		if (this.model.getPlayer().getMoney() >= this.price) {
 
 			switch (this.weapon.getKindWeapon()) {
-			case Yellow:
+
+			case Tower_Yellow:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_yellow, this.weapon,
 						this.model.getAutomatons().get("HiterTower"));
-				this.model.getPlayer().setTowerSelected(Kind_Weapon.Yellow);
+				this.model.getPlayer().setTowerSelected(EntityName.Tower_Yellow);
 				break;
-			case Red:
+			case Tower_Red:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_red, this.weapon,
 						this.model.getAutomatons().get("HiterTower"));
-				this.model.getPlayer().setTowerSelected(Kind_Weapon.Red);
+				this.model.getPlayer().setTowerSelected(EntityName.Tower_Red);
 				break;
-			case Blue:
+			case Tower_Blue:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_blue, this.weapon,
 						this.model.getAutomatons().get("HiterTower"));
-				this.model.getPlayer().setTowerSelected(Kind_Weapon.Blue);
+				this.model.getPlayer().setTowerSelected(EntityName.Tower_Blue);
 				break;
-			case Purple:
+			case Tower_Purple:
 				tower = new Tower(this.model, this.model.getSprites().sprite_tower_purple, this.weapon,
 						this.model.getAutomatons().get("HiterTower"));
-				this.model.getPlayer().setTowerSelected(Kind_Weapon.Purple);
+				this.model.getPlayer().setTowerSelected(EntityName.Tower_Purple);
 				break;
 			default:
 				tower = null;
@@ -51,7 +53,7 @@ public class Product extends Buyable {
 				System.out.println("Achat ! Prix : " + this.model.getPlayer().getMoney());
 				System.out.println("Weapon : " + this.weapon.getPower() + " " + this.weapon.getRange());
 			}
-			this.price += 500;
+			this.price += INCREASES_TOWER_PRODUCT_AMOUNT;
 		}
 	}
 

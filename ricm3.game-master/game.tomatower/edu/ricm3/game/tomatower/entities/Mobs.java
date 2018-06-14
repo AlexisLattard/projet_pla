@@ -5,6 +5,8 @@ import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
+
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -12,25 +14,23 @@ import java.util.ArrayList;
 
 public class Mobs extends Living {
 	
+
+	public Mobs(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell,Weapon c_weapon, A_Automaton c_automaton, int c_max_life) {
+		super(c_model, true, c_sprite, c_scale, c_cell,c_weapon,initColisions(), c_automaton, Kind.Ennemis, ACTION_TIME_MOBS, c_max_life);
+		this.canTakeEntity = false;
+	}
 	
-
-	public Mobs(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction, Weapon c_weapon, A_Automaton c_automaton) {
-		super(c_model, true, c_sprite, c_scale, c_cell, c_direction,c_weapon,initColisions(), c_automaton, Kind.Ennemis);
-		this.canTake = false;
-
-		this.hp = 20;
-		this.action_time = 500L;
+	public Mobs(Model c_model, BufferedImage c_sprite[], double c_scale,Weapon c_weapon, A_Automaton c_automaton, int c_max_life) {
+		super(c_model, true, c_sprite, c_scale,c_weapon,initColisions(), c_automaton, Kind.Ennemis, ACTION_TIME_MOBS, c_max_life);
+		this.canTakeEntity = false;
 	}
 	
 	
 	@Override
 	public void pop() {
 		// TODO
-		if(this.getMap().equals(this.model.getMainMap())) {
-			this.getCellDirection(Direction.NORTH, 1).damage(50);
-			this.getCellDirection(Direction.SOUTH, 1).damage(50);
-			this.getCellDirection(Direction.EAST, 1).damage(50);
-			this.getCellDirection(Direction.WEST, 1).damage(50);
+		if(getMap().equals(this.model.getMainMap())) {
+			circleAttack(DAMAGE_DESTRUCTION_MOB);
 			kamikaze();
 		}
 		

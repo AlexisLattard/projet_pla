@@ -23,6 +23,7 @@ import java.util.Iterator;
 
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
+import edu.ricm3.game.tomatower.entities.MobSpawn;
 import edu.ricm3.game.tomatower.entities.Tower;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.map.Cell;
@@ -43,7 +44,7 @@ public class View extends GameView {
 	public View(Model m, Controller c) {
 		model = m;
 		ctr = c;
-		hud = new Hud(m);
+		hud = new Hud(m,m.getMobSpawn());
 	}
 
 	private void computeFPS() {

@@ -48,7 +48,6 @@ public class A_Automaton {
 				}
 			}
 			
-			if(e instanceof Mobs)
 			
 			
 			if(behavior == null) {
