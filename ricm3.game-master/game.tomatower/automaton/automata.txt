@@ -308,9 +308,9 @@ Atest(Init) {
 
 
 
+
 TestCondition(Un) {
  *(Un) : (True & !Cell(N, V) & True & !Cell(S, V) & True &  !Cell(E, V) & True & !Cell(O, V)) ? Kamikaze : (Un)
-
 }
 
 
