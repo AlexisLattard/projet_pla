@@ -27,6 +27,8 @@ public class Hud {
 	public final int MARGIN = 20;
 	public int height_money;
 	public int height_component_tower;
+	
+	private HashMap<EntityName, Integer> positions;
 
 	private BufferedImage sprite_background;
 	private BufferedImage sprite_money;
@@ -41,6 +43,7 @@ public class Hud {
 	private BufferedImage sprite_health_crystal;
 	private BufferedImage sprite_arrow;
 
+
 	public Hud(Model model, MobSpawn mobSpawn) {
 		this.model = model;
 		this.mobSpawn = mobSpawn;
@@ -52,6 +55,7 @@ public class Hud {
 			e.printStackTrace();
 		}
 		initSprite();
+		initPositionHud();
 	}
 
 	public void initSprite() {
@@ -189,28 +193,28 @@ public class Hud {
 		g.setColor(Color.decode("#e6af13"));
 		g.drawString(String.valueOf(this.model.getPlayer().getMoney()), x + 15, 43);
 
-		int j = height_money + 2 * MARGIN;
-		for (EntityName kw : entityName) {
-			g.drawImage(sprite_component_tower, x + 3, j, null);
+		//int j = height_money + 2 * MARGIN;
+		for (EntityName kw : positions.keySet()) {
+			g.drawImage(sprite_component_tower, x + 3, positions.get(kw) - 8, null);
 			g.setColor(Color.WHITE);
-			g.drawString(towers.get(kw).toString(), x + 45, j + 30);
-			g.drawImage(sprite_star, x + 75, j + 8, 16, 16, null);
-			g.drawString(String.valueOf(weapons.get(kw).getPower()), x + 95, j + 22);
-			g.drawImage(sprite_range, x + 75, j + 30, 16, 16, null);
-			g.drawString(String.valueOf(weapons.get(kw).getRange()), x + 95, j + 42);
-			j += height_component_tower + MARGIN;
+			g.drawString(towers.get(kw).toString(), x + 45, positions.get(kw) + 22);
+			g.drawImage(sprite_star, x + 75, positions.get(kw), 16, 16, null);
+			g.drawString(String.valueOf(weapons.get(kw).getPower()), x + 95, positions.get(kw) + 14);
+			g.drawImage(sprite_range, x + 75, positions.get(kw) + 24, 16, 16, null);
+			g.drawString(String.valueOf(weapons.get(kw).getRange()), x + 95, positions.get(kw) + 35);
+			//j += height_component_tower + MARGIN;
 		}
 		// Tower red
-		g.drawImage(sprite_tower_red, x + 15, height_money + 2 * MARGIN + 8, null);
+		g.drawImage(sprite_tower_red, x + 15, positions.get(EntityName.Tower_Red), null);
 
 		// Tower blue
-		g.drawImage(sprite_tower_blue, x + 15, height_component_tower + height_money + 3 * MARGIN + 8, null);
+		g.drawImage(sprite_tower_yellow, x + 15, positions.get(EntityName.Tower_Yellow), null);
 
 		// Tower yellow
-		g.drawImage(sprite_tower_yellow, x + 15, 2 * height_component_tower + height_money + 4 * MARGIN + 8, null);
+		g.drawImage(sprite_tower_blue, x + 15,positions.get(EntityName.Tower_Blue), null);
 
 		// Tower purple
-		g.drawImage(sprite_tower_purple, x + 15, 3 * height_component_tower + height_money + 5 * MARGIN + 8, null);
+		g.drawImage(sprite_tower_purple, x + 15, positions.get(EntityName.Tower_Purple) , null);
 
 		// Life
 		int h = 150;
@@ -234,16 +238,16 @@ public class Hud {
 		// Arrow de selection
 		switch (this.model.getPlayer().getTowerSelected()) {
 		case Tower_Red:
-			g.drawImage(sprite_arrow, x, height_money + 2 * MARGIN + 16, null);
-			break;
-		case Tower_Blue:
-			g.drawImage(sprite_arrow, x, height_component_tower + height_money + 3 * MARGIN + 16, null);
+			g.drawImage(sprite_arrow, x, positions.get(EntityName.Tower_Red) + 8, null);
 			break;
 		case Tower_Yellow:
-			g.drawImage(sprite_arrow, x, 2 * height_component_tower + height_money + 4 * MARGIN + 16, null);
+			g.drawImage(sprite_arrow, x, positions.get(EntityName.Tower_Yellow) + 8, null);
+			break;
+		case Tower_Blue:
+			g.drawImage(sprite_arrow, x, positions.get(EntityName.Tower_Blue) + 8, null);
 			break;
 		case Tower_Purple:
-			g.drawImage(sprite_arrow, x, 3 * height_component_tower + height_money + 5 * MARGIN + 16, null);
+			g.drawImage(sprite_arrow, x, positions.get(EntityName.Tower_Purple) + 8, null);
 			break;
 		default:
 			// Pas de towers selectionnées
@@ -254,6 +258,14 @@ public class Hud {
 		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60,
 				height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
 
+	}
+	
+	public void initPositionHud(){
+		positions = new HashMap<>();
+		positions.put(EntityName.Tower_Red,height_money + 2 * MARGIN + 8);
+		positions.put(EntityName.Tower_Yellow, height_component_tower + height_money + 3 * MARGIN + 8);
+		positions.put(EntityName.Tower_Blue, 2 * height_component_tower + height_money + 4 * MARGIN + 8);
+		positions.put(EntityName.Tower_Purple, 3 * height_component_tower + height_money + 5 * MARGIN + 8);
 	}
 
 }

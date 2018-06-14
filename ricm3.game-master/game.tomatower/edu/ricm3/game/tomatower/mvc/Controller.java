@@ -101,11 +101,11 @@ public class Controller extends GameController implements ActionListener {
 			break;
 		case KeyEvent.VK_NUMPAD2:
 		case KeyEvent.VK_UNDEFINED:
-			this.model.getPlayer().setTowerSelected(EntityName.Tower_Blue);
+			this.model.getPlayer().setTowerSelected(EntityName.Tower_Yellow);
 			break;
 		case KeyEvent.VK_NUMPAD3:
 		case KeyEvent.VK_QUOTEDBL:
-			this.model.getPlayer().setTowerSelected(EntityName.Tower_Yellow);
+			this.model.getPlayer().setTowerSelected(EntityName.Tower_Blue);
 			break;
 		case KeyEvent.VK_NUMPAD4:
 		case KeyEvent.VK_QUOTE:
