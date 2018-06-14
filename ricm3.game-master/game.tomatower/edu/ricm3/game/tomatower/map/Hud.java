@@ -27,6 +27,7 @@ public class Hud {
 	public final int MARGIN = 20;
 	public int height_money;
 	public int height_component_tower;
+	public int width = 130;
 
 	private BufferedImage sprite_background;
 	private BufferedImage sprite_money;
@@ -254,6 +255,10 @@ public class Hud {
 		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60,
 				height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
 
+	}
+	
+	public int getWidth() {
+		return this.width;
 	}
 
 }
