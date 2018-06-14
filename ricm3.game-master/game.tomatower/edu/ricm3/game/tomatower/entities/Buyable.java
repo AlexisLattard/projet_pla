@@ -24,4 +24,13 @@ public abstract class Buyable extends Inert {
 
 	}
 	
+	public boolean buy(int price){
+		if(this.model.getPlayer().getMoney() >= price){
+			this.model.getPlayer().decreaseMoney(price);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

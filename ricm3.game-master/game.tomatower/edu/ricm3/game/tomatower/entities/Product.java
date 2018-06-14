@@ -20,7 +20,7 @@ public class Product extends Buyable {
 	public void buyTower() {
 		Tower tower;
 
-		if (this.model.getPlayer().getMoney() >= this.price) {
+		if (buy(this.price)) {
 
 			switch (this.weapon.getKindWeapon()) {
 			case Tower_Yellow:
@@ -44,7 +44,6 @@ public class Product extends Buyable {
 			}
 
 			this.model.getPlayer().addBagProduct(tower);
-			this.model.getPlayer().decreaseMoney(this.price);
 			if (Options.ECHO_GAME_STATE) {
 				System.out.println("Achat ! Prix : " + this.model.getPlayer().getMoney());
 				System.out.println("Weapon : " + this.weapon.getPower() + " " + this.weapon.getRange());
