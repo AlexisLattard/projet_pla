@@ -8,6 +8,7 @@ import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class Mobs extends Living {
 			circleAttack(DAMAGE_DESTRUCTION_MOB);
 			kamikaze();
 		}
+
 		else {
 			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
 

@@ -6,6 +6,7 @@ MoverSquare(Un){
 }
 
 MoverRandom(Init) {
+
     * (Init): True ? Move(O) / Move(E) / Move(S) / Move(N) : (Init)
 }
 
@@ -248,3 +249,4 @@ Perso(Init) {
      | Key(s) ? Get : (Init)
      | Key(p) ? Pop : (Init)
 }
+

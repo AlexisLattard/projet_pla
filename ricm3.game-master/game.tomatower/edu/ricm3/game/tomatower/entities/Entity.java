@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower.entities;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
+import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public abstract class Entity {
 	Model model;
 	protected Cell cell;
-	protected boolean movement;
+	protected boolean can_move;
 	protected Direction direction; // absolute direction North, south, east, west
 	protected boolean visible;
 	protected ArrayList<Class<?>> entities_destination_allowed; // Utile pour determiner sur quelle cases l'entité peut
@@ -36,7 +37,7 @@ public abstract class Entity {
 	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
 			Kind c_kind, long c_action_time, Direction c_direction) {
 		this.model = c_model;
-		this.movement = c_movement;
+		this.can_move = c_movement;
 		this.scale = c_scale;
 		this.entities_destination_allowed = c_collisions;
 		this.visible = false;
@@ -64,9 +65,9 @@ public abstract class Entity {
 	public abstract void pop(Direction d);
 
 	public void move(Direction d) {
-		turn(d);
-		if (this.movement)
-			addEntityOnCell(getCellDirection(Direction.FRONT, 1));
+		this.turn(d);
+		if (this.can_move)
+			this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
 	}
 
 	public void jump() {
@@ -221,7 +222,7 @@ public abstract class Entity {
 	}
 
 	public boolean canMove() {
-		return this.movement;
+		return this.can_move;
 	}
 
 	public int[] getPosition() {
@@ -277,26 +278,25 @@ public abstract class Entity {
 
 		return getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
-    
-    public Kind getKind() {
-    	return this.kind;
-    }
-   
-    public void removeAutomaton() {
-    	this.automaton = null;
-    }
-    
-    public void setAutomaton(A_Automaton automaton){
-    	this.automaton = automaton;
-    	this.current_state = automaton.getCurrentState();
-    }
-    
-    public String getCurrentState() {
-    	return this.current_state;
-    }
-    public void setCurrentState(String state) {
-    	this.current_state = state;
-    }
-   
-  
+
+	public Kind getKind() {
+		return this.kind;
+	}
+
+	public void removeAutomaton() {
+		this.automaton = null;
+	}
+
+	public void setAutomaton(A_Automaton automaton) {
+		this.automaton = automaton;
+		this.current_state = automaton.getCurrentState();
+	}
+
+	public String getCurrentState() {
+		return this.current_state;
+	}
+
+	public void setCurrentState(String state) {
+		this.current_state = state;
+	}
 }

@@ -4,11 +4,11 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Sprites {
 	public BufferedImage sprite_crystal[];
 	public BufferedImage sprite_player[];
+	public BufferedImage sprite_player_run[][];
 
 	public BufferedImage sprite_tower_red[];
 	public BufferedImage sprite_tower_blue[];
@@ -28,10 +28,12 @@ public class Sprites {
 
 	public BufferedImage sprite_cailloux;
 	public BufferedImage sprite_arbre;
-	public BufferedImage sprite_lac;
+	public BufferedImage sprite_lac[];
 	public BufferedImage sprite_mur;
 	public BufferedImage sprite_portal;
 	public BufferedImage sprite_portal_in;
+	public BufferedImage sprite_grass;
+	public BufferedImage sprite_plank;
 
 	// TEST
 	public BufferedImage[] sprite_explosion;
@@ -57,12 +59,9 @@ public class Sprites {
 	}
 
 	private void loadSprites() {
-		ArrayList<String> directions = new ArrayList<>();
-		directions.add("down");
-		directions.add("up");
-		directions.add("right");
-		directions.add("left");
+
 		File imageFile;
+
 		BufferedImage tmp_sprite;
 
 		// Sprite du joueur
@@ -75,8 +74,46 @@ public class Sprites {
 			System.exit(-1);
 		}
 
+		// Sprite course du joueur
+		// imageFile = new File("game.tomatower/sprites/player/player_down_run.png");
+		// try {
+		// tmp_sprite = ImageIO.read(imageFile);
+		// sprite_player_run[0] = this.splitSprite(tmp_sprite, 1, 4);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		//
+		// }
+		// imageFile = new File("game.tomatower/sprites/player/player_up_run.png");
+		// try {
+		// tmp_sprite = ImageIO.read(imageFile);
+		// sprite_player_run[1] = this.splitSprite(tmp_sprite, 1, 4);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		//
+		// }
+		// imageFile = new File("game.tomatower/sprites/player/player_right_run.png");
+		// try {
+		// tmp_sprite = ImageIO.read(imageFile);
+		// sprite_player_run[2] = this.splitSprite(tmp_sprite, 1, 4);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		//
+		// }
+		// imageFile = new File("game.tomatower/sprites/player/player_left_run.png");
+		// try {
+		// tmp_sprite = ImageIO.read(imageFile);
+		// sprite_player_run[3] = this.splitSprite(tmp_sprite, 1, 4);
+		// } catch (IOException ex) {
+		// ex.printStackTrace();
+		// System.exit(-1);
+		//
+		// }
+
 		// Sprite cristal
-		imageFile = new File("game.tomatower/sprites/Main_Cristal.png");
+		imageFile = new File("game.tomatower/sprites/misc/Main_Cristal.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
 			sprite_crystal = this.splitSprite(tmp_sprite, 1, 6);
@@ -144,6 +181,7 @@ public class Sprites {
 		imageFile = new File("game.tomatower/sprites/upgrades/upgrade_yellow.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
+
 			sprite_upgrade_yellow = this.splitSprite(tmp_sprite, 1, 6);
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -231,7 +269,8 @@ public class Sprites {
 
 		imageFile = new File("game.tomatower/sprites/obstacles/water.png");
 		try {
-			sprite_lac = ImageIO.read(imageFile);
+			tmp_sprite = ImageIO.read(imageFile);
+			sprite_lac = this.splitSprite(tmp_sprite, 2, 8);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
@@ -253,8 +292,25 @@ public class Sprites {
 			System.exit(-1);
 		}
 
-		// Sprite du joueur
-		imageFile = new File("game.tomatower/sprites/explosion.png");
+		// Sprite de fond
+		imageFile = new File("game.tomatower/sprites/backgrounds/grass.png");
+		try {
+			sprite_grass = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		imageFile = new File("game.tomatower/sprites/backgrounds/plank.png");
+		try {
+			sprite_plank = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+
+		// Sprite explosion
+		imageFile = new File("game.tomatower/sprites/misc/explosion.png");
 		try {
 			tmp_sprite = ImageIO.read(imageFile);
 			sprite_explosion = this.splitSprite(tmp_sprite, 1, 8);

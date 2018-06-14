@@ -21,6 +21,11 @@ public abstract class Inert extends Entity {
 		this.sprite = c_sprite;
 	}
 
+	Inert(Model c_model, Boolean c_movement, double c_scale, Cell c_cell, ObstaclesKind c_kindObstacle, Kind c_kind) {
+		super(c_model, c_movement, c_scale, initColisions(), null, c_cell, c_kind, 0, Direction.NONE);
+		this.obstacles_kind = c_kindObstacle;
+	}
+
 	@Override
 	public void paint(Graphics g) {
 		if (this.isVisible()) {

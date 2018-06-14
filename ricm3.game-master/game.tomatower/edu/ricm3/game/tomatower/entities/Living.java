@@ -10,6 +10,7 @@ import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public abstract class Living extends Entity {
 
 	protected int hp;
 	protected boolean canTakeEntity;
+	protected long last_action;
 	protected ArrayList<Tower> bag;
 	protected Tower hand = null;
 	protected Weapon weapon;
@@ -31,6 +33,7 @@ public abstract class Living extends Entity {
 		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_cell, c_kind, c_action_time, Direction.NORTH);
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
+		this.last_action = System.nanoTime();
 		this.tower_selected = EntityName.Tower_Red;
 		this.max_life = c_max_life;
 		this.hp = max_life;
@@ -43,6 +46,7 @@ public abstract class Living extends Entity {
 		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind, c_action_time, Direction.NORTH);
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
+		this.last_action = System.nanoTime();
 		this.tower_selected = EntityName.Tower_Red;
 		this.max_life = c_max_life;
 		this.hp = max_life;
@@ -54,19 +58,17 @@ public abstract class Living extends Entity {
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
 			int cell_size = this.model.getCurrentMap().getCellSize();
-			int[] pos = getPosition();
-
+			int[] pos = this.getPosition();
 			int d = (int) (cell_size * scale);
 			int x = pos[0] * cell_size;
 			int y = pos[1] * cell_size;
-			g.drawImage(this.sprite[direction.getValue()], x, y, d, d, null);
+			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
 		}
 	}
 
 	@Override
 	public void step(long now) {
 		super.step(now);
-
 		if (this.hp <= 0) {
 			death();
 		}
@@ -83,13 +85,12 @@ public abstract class Living extends Entity {
 	public void pick(Direction d) {
 		if (this.canTakeEntity) {
 			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
-
 			if (entity instanceof Tower) {
 				if (this.hand != null) // On a déjà quelque chose en main, on le remet dans le sac
 					this.bag.add(hand);
 				entity.removeEntityFromCell();
 				this.hand = (Tower) (entity);
-			} 
+			}
 		}
 	}
 
@@ -103,6 +104,7 @@ public abstract class Living extends Entity {
 
 	@Override
 	public void getBagEntity() {
+
 		if (this.canTakeEntity && this.bag.size() >= 1) {
 			store();
 
@@ -161,11 +163,11 @@ public abstract class Living extends Entity {
 		removeEntityFromCell();
 
 	}
-	 
+
 	// Conditions
 	@Override
 	public boolean isAlive() {
-		return this.hp > this.max_life/5;
+		return this.hp > this.max_life / 5;
 	}
 
 	@Override
@@ -181,6 +183,10 @@ public abstract class Living extends Entity {
 
 	public Weapon getWeapon() {
 		return this.weapon;
+	}
+
+	public void setLastAction(long now) {
+		this.last_action = now;
 	}
 
 	public int getHp() {

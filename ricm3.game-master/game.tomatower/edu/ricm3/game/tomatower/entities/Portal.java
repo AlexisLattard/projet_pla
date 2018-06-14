@@ -9,7 +9,6 @@ import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.PrimitiveIterator.OfDouble;
 
 public class Portal extends Inert {
 

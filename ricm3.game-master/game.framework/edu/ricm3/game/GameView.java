@@ -19,7 +19,6 @@ package edu.ricm3.game;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -101,7 +100,7 @@ public abstract class GameView extends Canvas {
 	public int getHeight() {
 		return m_height;
 	}
-	
+
 	public void setWidth(int width) {
 		m_width = width;
 	}

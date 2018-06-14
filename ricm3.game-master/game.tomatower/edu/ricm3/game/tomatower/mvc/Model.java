@@ -29,13 +29,11 @@ import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.automaton.A_Builder;
 import edu.ricm3.game.tomatower.entities.*;
-import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.map.Sprites;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 public class Model extends GameModel {
-
 
 	private Sprites game_sprites;
 	private Map main_map;
@@ -190,7 +188,7 @@ public class Model extends GameModel {
 	}
 
 	public HashMap<String, A_Automaton> initAutomatons(Controller c) {
-		HashMap<String, A_Automaton> res  = new HashMap<>();
+		HashMap<String, A_Automaton> res = new HashMap<>();
 
 		try {
 			new AutomataParser(new BufferedReader(new FileReader("game.tomatower/automaton/automata.txt")));
@@ -202,7 +200,7 @@ public class Model extends GameModel {
 		}
 		return res;
 	}
-	
+
 	public void setHashMap(HashMap<EntityName, A_Automaton> a) {
 		this.automatons = a;
 	}

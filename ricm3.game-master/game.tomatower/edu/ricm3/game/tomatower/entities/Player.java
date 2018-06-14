@@ -18,9 +18,10 @@ public class Player extends Living {
 	private int money;
 	private int score;
 
-	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction, Weapon c_weapon, A_Automaton c_automaton) {
-		super(c_model, true, c_sprite, c_scale, c_cell, c_weapon, initColisions(), c_automaton, Kind.Team, ACTION_TIME_PLAYER, MAX_LIFE_PLAYER);
-
+	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction,
+			Weapon c_weapon, A_Automaton c_automaton) {
+		super(c_model, true, c_sprite, c_scale, c_cell, c_weapon, initColisions(), c_automaton, Kind.Team,
+				ACTION_TIME_PLAYER, MAX_LIFE_PLAYER);
 		this.canTakeEntity = true;
 		this.money = MONEY_PLAYER;
 		this.score = 0;
@@ -39,10 +40,9 @@ public class Player extends Living {
 			} else if (entity instanceof Upgrade) {
 				((Upgrade) entity).upgradeWeapon();
 			}
-		}
-		else {
+		} else {
 			Entity entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
-			while(entity == null) {
+			while (entity == null) {
 				move(d);
 				entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
 			}
@@ -55,14 +55,13 @@ public class Player extends Living {
 		Map map = this.getMap();
 		if (this.model.getCurrentMap().equals(this.model.getStoreMap())) {
 			Entity entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
-			
+
 			if (entity instanceof Upgrade) {
 				((Upgrade) entity).behaviorChangement();
 			}
-		}
-		else {
+		} else {
 			Entity entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
-			
+
 			if (entity instanceof Tower) {
 				((Tower) entity).power();
 			}
@@ -92,7 +91,6 @@ public class Player extends Living {
 	}
 
 	public HashMap<EntityName, Integer> getBagNumberTower() {
-
 		HashMap<EntityName, Integer> numbertowers = new HashMap<>();
 
 		for (EntityName kw : EntityName.values()) {
@@ -113,6 +111,9 @@ public class Player extends Living {
 			case Tower_Purple:
 				numbertowers.put(EntityName.Tower_Purple, numbertowers.get(EntityName.Tower_Purple) + 1);
 				break;
+			default:
+				break;
+
 			}
 		}
 

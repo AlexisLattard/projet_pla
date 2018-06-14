@@ -21,10 +21,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import edu.ricm3.game.GameController;
 import edu.ricm3.game.tomatower.Options;
+import edu.ricm3.game.tomatower.entities.Player;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 
@@ -67,14 +67,13 @@ public class Controller extends GameController implements ActionListener {
 	public void keyTyped(KeyEvent e) {
 		// if (Options.ECHO_KEYBOARD)
 		// System.out.println("KeyTyped: " + e);
-
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (Options.ECHO_KEYBOARD)
 			System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
-
+		Player p = this.model.getPlayer();
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_KP_UP:
 		case KeyEvent.VK_UP:

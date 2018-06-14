@@ -151,6 +151,7 @@ public class Map {
 					Cell cell = new Cell(col, row, this);
 					cells_line.add(cell);
 					switch (line_elements[col]) {
+
 					case "P":
 						this.model.setPlayer(new Player(this.model, this.model.getSprites().sprite_player, 1, cell,
 								Direction.NORTH, this.model.getWeapons().get(EntityName.Player),
@@ -162,7 +163,8 @@ public class Map {
 						break;
 
 					case "Ol":
-						new Obstacle(this.model, this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
+						new Water(this.model, this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
+
 						break;
 
 					case "Ow":
@@ -183,7 +185,6 @@ public class Map {
 						}
 
 						break;
-
 					case "Ms":
 						if (main_mobSpawn == null) {
 							main_mobSpawn = new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 2, cell,
@@ -251,6 +252,7 @@ public class Map {
 								ObstaclesKind.UPGRADE, this.model.getWeapons().get(EntityName.Tower_Purple),
 								PRICE_TOWER_UPGRADE);
 						break;
+					default:
 
 					}
 				}
@@ -267,5 +269,4 @@ public class Map {
 		}
 
 	}
-
 }

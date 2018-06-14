@@ -13,6 +13,7 @@ public class Cell {
 	private int row;
 	private Map map;
 	private ArrayList<Entity> entities;
+	// private BufferedImage sprite;
 
 	// TEST
 	boolean displayed_damage = false;
@@ -55,7 +56,6 @@ public class Cell {
 	}
 
 	public void step(long now) {
-
 		Entity e;
 		for (int i = 0; i < this.entities.size(); i++) { // Pas d'itérateur car certaine actions modifient entities
 			e = this.entities.get(i);
@@ -111,12 +111,11 @@ public class Cell {
 			} else {
 
 				Iterator<Entity> iter_entity = this.entities.iterator();
-
+				Iterator<Class<?>> iter_class = e.getEntitiesDestinationAllowed().iterator();
 				boolean allowed = true;
 				while (iter_entity.hasNext() && allowed) {
 					Entity entity = iter_entity.next();
 					allowed = false;
-					Iterator<Class<?>> iter_class = e.getEntitiesDestinationAllowed().iterator();
 					while (iter_class.hasNext() && !allowed) {
 						Class<?> class_colision = iter_class.next();
 						if (entity.isVisible() && entity.getClass().equals(class_colision) && !allowed) {

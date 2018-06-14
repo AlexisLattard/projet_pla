@@ -7,13 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
-import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
@@ -49,11 +44,12 @@ public class MobSpawn extends Inert {
 
 		behaviors = new HashMap<>();
 		behaviors.put(this.model.getSprites().sprite_mob_plug, this.model.getAutomatons().get(EntityName.Mob_Ghost));
-		behaviors.put(this.model.getSprites().sprite_mob_hungry, this.model.getAutomatons().get(EntityName.Mob_Lantern));
-		behaviors.put(this.model.getSprites().sprite_mob_lantern, this.model.getAutomatons().get(EntityName.Mob_Hungry));
+		behaviors.put(this.model.getSprites().sprite_mob_hungry,
+				this.model.getAutomatons().get(EntityName.Mob_Lantern));
+		behaviors.put(this.model.getSprites().sprite_mob_lantern,
+				this.model.getAutomatons().get(EntityName.Mob_Hungry));
 		behaviors.put(this.model.getSprites().sprite_mob_ghost, this.model.getAutomatons().get(EntityName.Mob_Plug));
 	}
-	
 
 	@Override
 	public void step(long now) {
@@ -80,7 +76,8 @@ public class MobSpawn extends Inert {
 			sprites = (BufferedImage[]) tab_sprites[j];
 			if (behavior != null && sprites != null) {
 				for (int i = 0; i < nb_monstre[j]; i++) {
-					Mobs mob = new Mobs(this.model, sprites, 1, this.model.getWeapons().get(EntityName.Tower_Red), behavior,MAX_LIFE_MOB_PLUG);
+					Mobs mob = new Mobs(this.model, sprites, 1, this.model.getWeapons().get(EntityName.Tower_Red),
+							behavior, MAX_LIFE_MOB_PLUG);
 					this.current_wave.add(mob);
 				}
 			}

@@ -26,39 +26,35 @@ import edu.ricm3.game.tomatower.mvc.View;
 
 public class GameMain {
 
-  public static void main(String[] args) {
-	  
+	public static void main(String[] args) {
 
+		// construct the game elements: model, controller, and view.
+		Model model = new Model();
+		Controller controller = new Controller(model);
+		model.initModel(controller);
+		View view = new View(model, controller);
 
-    // construct the game elements: model, controller, and view.
-    Model model = new Model();
-    Controller controller = new Controller(model);
-    model.initModel(controller);
-    View view = new View(model,controller);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = (int) screenSize.getWidth();
+		int height = (int) screenSize.getHeight();
+		System.out.println("Screen resolution : " + width + " x " + height);
 
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    int width = (int)screenSize.getWidth();
-    int height = (int)screenSize.getHeight();
-    System.out.println("Screen resolution : " + width + " x " + height);
+		Dimension d = new Dimension(1000, 768);
+		view.initView(new GameUI(model, view, controller, d));
 
-    Dimension d = new Dimension(1000,768);
-    view.initView(new GameUI(model,view,controller,d));
-    
-    
-    // notice that the main thread will exit here,
-    // but not your program... hence the hooking
-    // of the window events to System.exit(0) when
-    // the window is closed. See class WindowListener.
+		// notice that the main thread will exit here,
+		// but not your program... hence the hooking
+		// of the window events to System.exit(0) when
+		// the window is closed. See class WindowListener.
 
-    /*
-     * *** WARNING *** WARNING *** WARNING *** WARNING ***
-     * If you do something here, on this "main" thread,
-     * you will have parallelism and thus race conditions.
-     * 
-     *           ONLY FOR ADVANCED DEVELOPERS
-     *           
-     * *** WARNING *** WARNING *** WARNING *** WARNING ***
-     */
-    return;
-  }
+		/*
+		 * *** WARNING *** WARNING *** WARNING *** WARNING *** If you do something here,
+		 * on this "main" thread, you will have parallelism and thus race conditions.
+		 * 
+		 * ONLY FOR ADVANCED DEVELOPERS
+		 * 
+		 * *** WARNING *** WARNING *** WARNING *** WARNING ***
+		 */
+		return;
+	}
 }
