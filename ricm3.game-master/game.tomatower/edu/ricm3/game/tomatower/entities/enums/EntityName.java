@@ -11,4 +11,3 @@ public enum EntityName {
 	Mob_Hungry,
 	Player
 }
-
