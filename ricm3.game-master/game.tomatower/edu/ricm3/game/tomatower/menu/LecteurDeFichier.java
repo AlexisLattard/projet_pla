@@ -29,7 +29,7 @@ public class LecteurDeFichier {
 			while (!estFin() && line.charAt(0) == COMMENTAIRE) {
 				line = getNextLine();
 			}
-			if (estFin() && line == null) {
+			if (( line == null || line.charAt(0) == COMMENTAIRE)) {
 				return null;
 			}else {
 				return line.split(separateur);
