@@ -24,7 +24,6 @@ public abstract class Living extends Entity {
 	protected Weapon weapon;
 
 	protected int max_life;
-	protected BufferedImage sprite[];
 	protected EntityName tower_selected;
 
 	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell, Weapon c_weapon,
@@ -54,17 +53,17 @@ public abstract class Living extends Entity {
 
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		if (this.isVisible()) {
-			int cell_size = this.model.getCurrentMap().getCellSize();
-			int[] pos = this.getPosition();
-			int d = (int) (cell_size * scale);
-			int x = pos[0] * cell_size;
-			int y = pos[1] * cell_size;
-			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
-		}
-	}
+//	@Override
+//	public void paint(Graphics g) {
+//		if (this.isVisible()) {
+//			int cell_size = this.model.getCurrentMap().getCellSize();
+//			int[] pos = this.getPosition();
+//			int d = (int) (cell_size * scale);
+//			int x = pos[0] * cell_size;
+//			int y = pos[1] * cell_size;
+//			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+//		}
+//	}
 
 	@Override
 	public void step(long now) {

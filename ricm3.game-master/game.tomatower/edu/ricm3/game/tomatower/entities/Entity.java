@@ -3,17 +3,18 @@ package edu.ricm3.game.tomatower.entities;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
-import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Entity {
 	Model model;
 	protected Cell cell;
+	protected Cell prev_cell;
 	protected boolean can_move;
 	protected Direction direction; // absolute direction North, south, east, west
 	protected boolean visible;
@@ -23,15 +24,23 @@ public abstract class Entity {
 	protected Kind kind;
 	protected long last_action = 0;
 	protected long action_time;
+	private boolean moving = false;
+	private boolean has_moved = false;
+	private boolean move_finished = true;
+	private long last_move = 0;
 
 	protected A_Automaton automaton;
 	protected String current_state;
+
+	protected BufferedImage sprite[];
 
 	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
 			Cell c_cell, Kind c_kind, long c_action_time, Direction c_direction) {
 		this(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind, c_action_time, c_direction);
 		this.visible = true;
 		this.addEntityOnCell(c_cell);
+		this.last_move = System.nanoTime();
+		this.prev_cell = this.cell;
 	}
 
 	Entity(Model c_model, Boolean c_movement, double c_scale, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
@@ -46,10 +55,56 @@ public abstract class Entity {
 		this.action_time = c_action_time;
 		this.direction = c_direction;
 		this.model.addEntity(this);
+		this.prev_cell = this.cell;
 
 	}
 
-	public abstract void paint(Graphics g);
+	// public abstract void paint(Graphics g);
+	public void paint(Graphics g) {
+		if (this.isVisible()) {
+			int cell_size = this.model.getCurrentMap().getCellSize();
+			if (moving) {
+				int[] pos = this.prev_cell.getPosition();
+				int d = (int) (cell_size * scale);
+				int x = pos[0] * cell_size;
+				int y = pos[1] * cell_size;
+				switch (this.direction) {
+				case SOUTH:
+					y += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					break;
+				case NORTH:
+					y -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					break;
+				case EAST:
+					x += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					break;
+				case WEST:
+					x -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					break;
+				default:
+					System.out.println("default paint");
+				}
+				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+				if (System.nanoTime() - last_move > (500000000 / 2) && !this.has_moved) {
+					this.has_moved = true;
+					this.move(this.direction);
+					System.out.println("move");
+				}
+				if (System.nanoTime() - last_move > 500000000) {
+					this.moving = false;
+					this.has_moved = false;
+					this.move_finished = true;
+				}
+			} else {
+				int[] pos = this.cell.getPosition();
+				int d = (int) (cell_size * scale);
+				int x = pos[0] * cell_size;
+				int y = pos[1] * cell_size;
+				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
+			}
+
+		}
+	}
 
 	public void step(long now) {
 		if (this.automaton != null && now - this.last_action > this.action_time) {
@@ -66,8 +121,17 @@ public abstract class Entity {
 
 	public void move(Direction d) {
 		this.turn(d);
-		if (this.can_move)
-			this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
+		if (this.getCellDirection(d, 1).isFree(this)) {
+			if (this.move_finished) {
+				this.prev_cell = this.cell;
+				this.moving = true;
+				this.move_finished = false;
+				this.last_move = System.nanoTime();
+			}
+			if (this.can_move && this.has_moved) {
+				this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
+			}
+		}
 	}
 
 	public void jump() {

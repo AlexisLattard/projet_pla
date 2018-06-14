@@ -33,15 +33,14 @@ public class Cell {
 	}
 
 	public void paint(Graphics g) {
-		for (Entity e : this.entities) {
+		for (int i = 0; i < this.entities.size(); i++) {
+			Entity e = entities.get(i);
 			if (e.isVisible())
 				e.paint(g);
 		}
-
 		if (displayed_damage) {
 			paintExplosion(g);
 		}
-
 	}
 
 	public void paintExplosion(Graphics g) {
