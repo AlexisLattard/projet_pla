@@ -24,37 +24,29 @@ public class Upgrade extends Buyable {
 
 	public void upgradeWeapon() {
 
-		if (this.model.getPlayer().getMoney() >= this.price) {
-			this.model.getPlayer().decreaseMoney(this.price);
+		if (buy(this.price)) {
 			this.weapon.upgrade();
-			if (Options.ECHO_GAME_STATE) {
-				System.out.println("Achat ! Prix : " + this.model.getPlayer().getMoney());
-				System.out.println("Weapon : " + this.weapon.getPower() + " " + this.weapon.getRange());
-			}
 			this.price += INCREASES_TOWER_UPGRADE_AMOUNT;
 		}
 	}
 
-	
-	
-	public void behaviorChangement(){
-		ArrayList<Entity> entities = this.model.getEntities();
-		Random random = new Random();
-		int nextBehavior = random.nextInt(this.behaviors.size());
-		A_Automaton behavior = this.behaviors.get(nextBehavior);		
-		this.model.getAutomatons().put(this.weapon.getKindWeapon(), behavior);
+	public void behaviorChangement() {
+		if (buy(PRICE_BEHAVIOR_CHANGEMENT)) {
+			ArrayList<Entity> entities = this.model.getEntities();
+			Random random = new Random();
+			int nextBehavior = random.nextInt(this.behaviors.size());
+			A_Automaton behavior = this.behaviors.get(nextBehavior);
+			this.model.getAutomatons().put(this.weapon.getKindWeapon(), behavior);
 
-		
-		for(Entity e : entities){
-			if(e instanceof Tower && ((Tower) e).getWeapon().equals(this.weapon)){
-				System.out.println("Changement de comportement.");
-				e.setAutomaton(behavior);
+			for (Entity e : entities) {
+				if (e instanceof Tower && ((Tower) e).getWeapon().equals(this.weapon)) {
+					System.out.println("Changement de comportement.");
+					e.setAutomaton(behavior);
+				}
 			}
 		}
-		this.model.getPlayer().decreaseMoney(PRICE_BEHAVIOR_CHANGEMENT);
-		
 	}
-	
+
 	public void initbehavior() {
 		HashMap<EntityName, A_Automaton> behavior_tower = this.model.getAutomatons();
 		behaviors = new ArrayList<>();

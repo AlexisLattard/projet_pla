@@ -42,7 +42,7 @@ public class GameMain {
     System.out.println("Screen resolution : " + width + " x " + height);
 
     Dimension d = new Dimension(1000,768);
-    view.setGameUI(new GameUI(model,view,controller,d));
+    view.initView(new GameUI(model,view,controller,d));
     
     
     // notice that the main thread will exit here,

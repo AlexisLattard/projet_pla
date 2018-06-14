@@ -109,7 +109,6 @@ public class Ast {
 
 	public static class Underscore extends Parameter {
 		Underscore(){
-			System.out.println("UNDERSCORE");
 			this.kind = "Any" ;
 		}
 		public String tree_edges() {
@@ -172,7 +171,6 @@ public class Ast {
 			this.kind = "UnaryOp";
 			this.operator = new Terminal(operator);
 			this.operand = operand;
-			System.out.println("UNARY OP");
 		}
 
 		public String tree_edges() {
@@ -191,7 +189,6 @@ public class Ast {
 			this.operator = new Terminal(operator);
 			this.left_operand = l;
 			this.right_operand = r;
-			System.out.println("BINARY OP");
 		}
 
 		public String tree_edges() {
@@ -230,8 +227,6 @@ public class Ast {
 		Condition(Expression expression) {
 			this.kind = "Condition";
 			this.expression = expression;
-			System.out.println("Condtion");
-			System.out.println(expression.getClass());
 		}
 
 		public String tree_edges() {
