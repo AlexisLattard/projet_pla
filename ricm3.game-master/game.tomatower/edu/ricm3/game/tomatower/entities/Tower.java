@@ -76,7 +76,7 @@ public class Tower extends Living {
 		ArrayList<Entity> tabEntities;
 
 		switch (d) {
-		case SOUTH:
+		case NORTH:
 			tabEntities = c_map.getCell(c_abscisse, c_ordonnee - range).getEntities();
 			for (Entity e : tabEntities) {
 				if (e.getKind().equals(k)) {
@@ -85,7 +85,7 @@ public class Tower extends Living {
 			}
 			break;
 
-		case NORTH:
+		case SOUTH:
 			tabEntities = c_map.getCell(c_abscisse, c_ordonnee + range).getEntities();
 			for (Entity e : tabEntities) {
 				if (e.getKind().equals(k)) {
