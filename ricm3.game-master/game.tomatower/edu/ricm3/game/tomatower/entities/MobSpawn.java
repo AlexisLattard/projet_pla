@@ -53,7 +53,6 @@ public class MobSpawn extends Inert {
 		behaviors.put(this.model.getSprites().sprite_mob_hungry, this.model.getAutomatons().get(EntityName.Mob_Lantern));
 		behaviors.put(this.model.getSprites().sprite_mob_lantern, this.model.getAutomatons().get(EntityName.Mob_Hungry));
 		behaviors.put(this.model.getSprites().sprite_mob_ghost, this.model.getAutomatons().get(EntityName.Mob_Plug));
-
 	}
 
 	@Override

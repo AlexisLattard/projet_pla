@@ -1,16 +1,12 @@
 package edu.ricm3.game.tomatower.map;
 
-import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.Entity;
-import edu.ricm3.game.tomatower.entities.Mobs;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import com.sun.glass.ui.Size;
 
 public class Cell {
 	private int col;

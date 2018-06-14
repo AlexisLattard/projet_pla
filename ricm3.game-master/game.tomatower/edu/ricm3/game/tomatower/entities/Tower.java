@@ -46,7 +46,9 @@ public class Tower extends Living {
 		}
 		for (int i = 0; i < 4; i++) {
 			if (this.cell(dir[i], Kind.Ennemis)) {
-				for (Entity e : this.getCellDirection(dir[i], 1).getEntities()) {
+				ArrayList<Entity> cell_entities = this.getCellDirection(dir[i], 1).getEntities();
+				for (int j = 0; j<cell_entities.size(); j++) {
+					Entity e = cell_entities.get(j);
 					if (e.getKind().equals(Kind.Ennemis))
 						e.wizz(dir[i]);
 				}

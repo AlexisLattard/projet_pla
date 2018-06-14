@@ -38,13 +38,13 @@ public class Model extends GameModel {
 
 
 	private Sprites game_sprites;
-
 	private Map main_map;
 	private Map map_store;
 	private Map current_map;
 
 	private Player player;
 	private Crystal crystal;
+
 	private MobSpawn mobSpawn;
 
 	private HashMap<EntityName, Weapon> weapons;
@@ -53,6 +53,7 @@ public class Model extends GameModel {
 	private ArrayList<Entity> entities;
 
 	public Model() {
+
 		this.game_sprites = new Sprites();
 		this.entities = new ArrayList<Entity>();
 	}
@@ -154,6 +155,7 @@ public class Model extends GameModel {
 	public void initMaps() {
 		// Map principale
 		main_map = new Map(this);
+
 		setCurrentMap(main_map);
 		this.main_map.initMap("game.txt");
 
@@ -164,6 +166,7 @@ public class Model extends GameModel {
 
 	public void initWeapons() {
 		this.weapons = new HashMap<>();
+
 		Weapon player = new Weapon(this, HIT_PLAYER, RANGE_PLAYER, EntityName.Player);
 		Weapon tower_red = new Weapon(this, HIT_TOWER_RED, RANGE_TOWER_RED, EntityName.Tower_Red);
 		Weapon tower_blue = new Weapon(this, HIT_TOWER_BLUE, RANGE_TOWER_BLUE, EntityName.Tower_Blue);
