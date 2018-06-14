@@ -54,7 +54,6 @@ CrazyTower(Crazy1){
 		| True ? Hit(O) : (Crazy1)
 }
 
-}
 
 FollowTheRightWall(Bump){
 
