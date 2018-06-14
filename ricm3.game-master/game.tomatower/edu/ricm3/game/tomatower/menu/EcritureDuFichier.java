@@ -62,7 +62,7 @@ public class EcritureDuFichier {
 	public void EcrireScore(String pseudo,int score) {
 		if (fichier != null) {
 			long temp = System.currentTimeMillis();
-			String newscore = new String(pseudo+";"+score+";"+temp);
+			String newscore = new String(pseudo+";"+score+";"+temp+"\n");
 			fichier.write(newscore);
 		}
 	}

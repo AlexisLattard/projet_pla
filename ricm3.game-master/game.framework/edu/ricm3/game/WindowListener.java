@@ -21,7 +21,9 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
+import edu.ricm3.game.tomatower.menu.EcritureDuFichier;
 import edu.ricm3.game.tomatower.menu.My_Frame;
+import edu.ricm3.game.tomatower.mvc.Model;
 
 public class WindowListener implements java.awt.event.WindowListener {
   GameModel m_model;
@@ -35,8 +37,8 @@ public class WindowListener implements java.awt.event.WindowListener {
   @Override
   public void windowClosing(WindowEvent e) {
 	  // TODO A finir
-	  JFrame frame = m_model.m_game.getFrame();
-	  frame.dispose();
+	  GameUI game = m_model.m_game;
+	  game.getFrame().dispose();
 	  My_Frame.getInstance().setVisible(true);
   }
 

@@ -15,7 +15,7 @@ public final class LevelDesign {
 	public static final int MAX_LIFE_MOB_LANTERN = 30; 
 	public static final int MAX_LIFE_MOB_HUNGRY = 10; 
 	public static final int MAX_LIFE_TOWER = 500; //
-	public static final int MAX_LIFE_CRYSTAL = 5000; //
+	public static final int MAX_LIFE_CRYSTAL = 500; //
 	
 	// Money
 	public static final int MONEY_PLAYER = 5000; //

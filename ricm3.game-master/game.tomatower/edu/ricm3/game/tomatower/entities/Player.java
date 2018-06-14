@@ -80,7 +80,11 @@ public class Player extends Living {
 	public int getMoney() {
 		return this.money;
 	}
-
+	
+	public int getScore() {
+		return this.score;
+	}
+	
 	public void decreaseMoney(int money) {
 		this.money -= money;
 	}

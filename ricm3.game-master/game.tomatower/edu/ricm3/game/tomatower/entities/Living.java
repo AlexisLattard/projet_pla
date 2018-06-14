@@ -6,6 +6,7 @@ import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.menu.DialogFin;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
@@ -13,6 +14,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import javax.swing.JDialog;
 
 public abstract class Living extends Entity {
 
@@ -158,6 +161,10 @@ public abstract class Living extends Entity {
 
 		if (this instanceof Mobs) {
 			this.model.getPlayer().increaseMoney(EARNED_MONEY_WHEN_MOB_DIED);
+		}else if (this instanceof Crystal){
+			System.out.println("Bsarthec");
+			DialogFin dialog = new DialogFin(false,"Pseudo",this.model);
+			dialog.setVisible(true);
 		}
 		this.model.removeEntity(this);
 		removeEntityFromCell();
