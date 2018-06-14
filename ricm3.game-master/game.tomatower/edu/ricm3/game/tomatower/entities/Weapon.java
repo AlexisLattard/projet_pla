@@ -13,7 +13,6 @@ public class Weapon {
 	Model model;
 	private int range;
 	private int power;
-
 	private EntityName kw;
 
 	public Weapon(Model c_model, int c_power, int c_range, EntityName kw) {
@@ -51,4 +50,5 @@ public class Weapon {
 	public EntityName getKindWeapon() {
 		return this.kw;
 	}
+
 }

@@ -73,7 +73,6 @@ public class Sprites {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);
-
 		}
 
 		// Sprite cristal

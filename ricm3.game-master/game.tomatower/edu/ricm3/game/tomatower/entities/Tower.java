@@ -8,7 +8,6 @@ import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -21,26 +20,38 @@ public class Tower extends Living {
 	// }
 
 	public Tower(Model c_model, BufferedImage c_sprite[], Weapon c_weapon, A_Automaton c_automaton) {
-		super(c_model, false, c_sprite, 1, c_weapon, initColisions(), c_automaton, Kind.Team,ACTION_TIME_TOWER, MAX_LIFE_TOWER);
+		super(c_model, false, c_sprite, 1, c_weapon, initColisions(), c_automaton, Kind.Team, ACTION_TIME_TOWER,
+				MAX_LIFE_TOWER);
 		this.canTakeEntity = false;
-		
+
 	}
 
 	// Actions
 
 	@Override
-	public void pop() {
-		System.out.println("POP " + this.hp + " "+ this.max_life);
-		
-		if(this.hp < this.max_life / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
+	public void pop(Direction d) {
+		System.out.println("POP " + this.hp + " " + this.max_life);
+
+		if (this.hp < this.max_life / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
 			circleAttack(DAMAGE_DESTRUCTION_TOWER);
 			kamikaze();
 		}
 	}
 
 	@Override
-	public void wizz() {
-		// TODO
+	public void wizz(Direction d) {
+		Direction[] dir = Direction.values();
+		for(Direction direction : dir) {
+			System.out.println(direction);
+		}
+		for (int i = 0; i < 4; i++) {
+			if (this.cell(dir[i], Kind.Ennemis)) {
+				for (Entity e : this.getCellDirection(dir[i], 1).getEntities()) {
+					if (e.getKind().equals(Kind.Ennemis))
+						e.wizz(dir[i]);
+				}
+			}
+		}
 	}
 
 	// On pourrai simplement faire appelle à celle défini dans Entity, mais c'est
@@ -65,7 +76,7 @@ public class Tower extends Living {
 		ArrayList<Entity> tabEntities;
 
 		switch (d) {
-		case SOUTH:
+		case NORTH:
 			tabEntities = c_map.getCell(c_abscisse, c_ordonnee - range).getEntities();
 			for (Entity e : tabEntities) {
 				if (e.getKind().equals(k)) {
@@ -74,7 +85,7 @@ public class Tower extends Living {
 			}
 			break;
 
-		case NORTH:
+		case SOUTH:
 			tabEntities = c_map.getCell(c_abscisse, c_ordonnee + range).getEntities();
 			for (Entity e : tabEntities) {
 				if (e.getKind().equals(k)) {

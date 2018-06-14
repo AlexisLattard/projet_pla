@@ -217,4 +217,8 @@ public class GameUI {
 		m_frame.setSize(new Dimension(width, height));
 	}
 
+  public JFrame getFrame() {
+	  return m_frame;
+  }
+  
 }

@@ -18,7 +18,6 @@
 package edu.ricm3.game.tomatower.mvc;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +25,6 @@ import java.util.HashMap;
 import edu.ricm3.game.GameModel;
 import edu.ricm3.game.parser.Ast;
 import edu.ricm3.game.parser.AutomataParser;
-import edu.ricm3.game.parser.ParseException;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.automaton.A_Builder;
@@ -37,6 +35,7 @@ import edu.ricm3.game.tomatower.map.Sprites;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 public class Model extends GameModel {
+
 
 	private Sprites game_sprites;
 	private Map main_map;
@@ -49,7 +48,8 @@ public class Model extends GameModel {
 	private MobSpawn mobSpawn;
 
 	private HashMap<EntityName, Weapon> weapons;
-	private HashMap<String, A_Automaton> automatons;
+	private HashMap<EntityName, A_Automaton> automatons;
+
 	private ArrayList<Entity> entities;
 
 	public Model() {
@@ -60,7 +60,6 @@ public class Model extends GameModel {
 
 	public void initModel(Controller c) {
 		initWeapons();
-		initAutomatons(c);
 		initMaps();
 	}
 
@@ -137,7 +136,7 @@ public class Model extends GameModel {
 		return this.weapons;
 	}
 
-	public HashMap<String, A_Automaton> getAutomatons() {
+	public HashMap<EntityName, A_Automaton> getAutomatons() {
 		return this.automatons;
 	}
 
@@ -190,18 +189,22 @@ public class Model extends GameModel {
 
 	}
 
-	public void initAutomatons(Controller c) {
-		this.automatons = new HashMap<>();
+	public HashMap<String, A_Automaton> initAutomatons(Controller c) {
+		HashMap<String, A_Automaton> res  = new HashMap<>();
 
 		try {
 			new AutomataParser(new BufferedReader(new FileReader("game.tomatower/automaton/automata.txt")));
 			Ast ast = AutomataParser.Run();
 			A_Builder builder = new A_Builder(ast, c);
-			this.automatons = builder.makeAutomatonsFromAst();
-			System.out.println(automatons.keySet());
+			res = builder.makeAutomatonsFromAst();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return res;
+	}
+	
+	public void setHashMap(HashMap<EntityName, A_Automaton> a) {
+		this.automatons = a;
 	}
 
 }

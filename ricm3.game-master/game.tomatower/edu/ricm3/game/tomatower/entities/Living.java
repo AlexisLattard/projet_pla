@@ -166,7 +166,7 @@ public abstract class Living extends Entity {
 	// Conditions
 	@Override
 	public boolean isAlive() {
-		return this.hp > 0;
+		return this.hp > this.max_life/5;
 	}
 
 	@Override

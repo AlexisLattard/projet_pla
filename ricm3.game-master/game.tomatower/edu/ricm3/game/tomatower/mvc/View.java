@@ -44,7 +44,7 @@ public class View extends GameView {
 	public View(Model m, Controller c) {
 		model = m;
 		ctr = c;
-		hud = new Hud(m,m.getMobSpawn());
+		hud = new Hud(m, m.getMobSpawn());
 	}
 
 	private void computeFPS() {
@@ -64,12 +64,12 @@ public class View extends GameView {
 		// erase background
 		g.setColor(m_background);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
+
 		this.model.getCurrentMap().paint(g);
 
 		hud.paint(g);
 	}
-	
+
 	public void setGameUI(GameUI gameUI) {
 		this.gameUI = gameUI;
 	}
