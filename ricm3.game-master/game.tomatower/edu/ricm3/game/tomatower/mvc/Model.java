@@ -29,8 +29,9 @@ import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.automaton.A_Builder;
 import edu.ricm3.game.tomatower.entities.*;
-import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.map.Sprites;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 public class Model extends GameModel {
 
@@ -42,22 +43,23 @@ public class Model extends GameModel {
 	private Player player;
 	private Crystal crystal;
 
-	private HashMap<Kind_Weapon, Weapon> weapons;
+	private MobSpawn mobSpawn;
+
+	private HashMap<EntityName, Weapon> weapons;
 	private HashMap<String, A_Automaton> automatons;
 
 	private ArrayList<Entity> entities;
 
 	public Model() {
-		game_sprites = new Sprites();
-		entities = new ArrayList<Entity>();
+
+		this.game_sprites = new Sprites();
+		this.entities = new ArrayList<Entity>();
 	}
 
 	public void initModel(Controller c) {
-
-		this.initWeapons();
-		this.initAutomatons(c);
-		this.initMaps();
-
+		initWeapons();
+		initAutomatons(c);
+		initMaps();
 	}
 
 	@Override
@@ -73,7 +75,7 @@ public class Model extends GameModel {
 	 */
 	@Override
 	public void step(long now) {
-		for (Map m : this.getAllMaps()) {
+		for (Map m : getAllMaps()) {
 			m.step(now);
 		}
 	}
@@ -92,6 +94,14 @@ public class Model extends GameModel {
 
 	public void setCrystal(Crystal c) {
 		this.crystal = c;
+	}
+
+	public MobSpawn getMobSpawn() {
+		return this.mobSpawn;
+	}
+
+	public void setMobSpawn(MobSpawn mobSpawn) {
+		this.mobSpawn = mobSpawn;
 	}
 
 	public Sprites getSprites() {
@@ -121,7 +131,7 @@ public class Model extends GameModel {
 		return this.current_map;
 	}
 
-	public HashMap<Kind_Weapon, Weapon> getWeapons() {
+	public HashMap<EntityName, Weapon> getWeapons() {
 		return this.weapons;
 	}
 
@@ -144,7 +154,8 @@ public class Model extends GameModel {
 	public void initMaps() {
 		// Map principale
 		main_map = new Map(this);
-		this.setCurrentMap(main_map);
+
+		setCurrentMap(main_map);
 		this.main_map.initMap("game.txt");
 
 		// Map store
@@ -154,15 +165,26 @@ public class Model extends GameModel {
 
 	public void initWeapons() {
 		this.weapons = new HashMap<>();
-		Weapon weapons1 = new Weapon(this, 3, 10, Kind_Weapon.Yellow);
-		Weapon weapons2 = new Weapon(this, 1, 15, Kind_Weapon.Red);
-		Weapon weapons3 = new Weapon(this, 2, 13, Kind_Weapon.Blue);
-		Weapon weapons4 = new Weapon(this, 4, 8, Kind_Weapon.Purple);
 
-		weapons.put(weapons1.getKindWeapon(), weapons1);
-		weapons.put(weapons2.getKindWeapon(), weapons2);
-		weapons.put(weapons3.getKindWeapon(), weapons3);
-		weapons.put(weapons4.getKindWeapon(), weapons4);
+		Weapon player = new Weapon(this, HIT_PLAYER, RANGE_PLAYER, EntityName.Player);
+		Weapon tower_red = new Weapon(this, HIT_TOWER_RED, RANGE_TOWER_RED, EntityName.Tower_Red);
+		Weapon tower_blue = new Weapon(this, HIT_TOWER_BLUE, RANGE_TOWER_BLUE, EntityName.Tower_Blue);
+		Weapon tower_purple = new Weapon(this, HIT_TOWER_PURPLE, RANGE_TOWER_PURPLE, EntityName.Tower_Purple);
+		Weapon tower_yellow = new Weapon(this, HIT_TOWER_YELLOW, RANGE_TOWER_YELLOW, EntityName.Tower_Yellow);
+		Weapon mob_hungry = new Weapon(this, HIT_MOB_HUNGRY, RANGE_MOB_HUNGRY, EntityName.Mob_Hungry);
+		Weapon mob_ghost = new Weapon(this, HIT_MOB_GHOST, RANGE_MOB_GHOST, EntityName.Mob_Ghost);
+		Weapon mob_lantern = new Weapon(this, HIT_MOB_LANTERN, RANGE_MOB_LANTERN, EntityName.Mob_Lantern);
+		Weapon mob_plug = new Weapon(this, HIT_MOB_PLUG, RANGE_MOB_PLUG, EntityName.Mob_Plug);
+
+		this.weapons.put(player.getKindWeapon(), player);
+		this.weapons.put(tower_red.getKindWeapon(), tower_red);
+		this.weapons.put(tower_blue.getKindWeapon(), tower_blue);
+		this.weapons.put(tower_yellow.getKindWeapon(), tower_yellow);
+		this.weapons.put(tower_purple.getKindWeapon(), tower_purple);
+		this.weapons.put(mob_hungry.getKindWeapon(), mob_hungry);
+		this.weapons.put(mob_ghost.getKindWeapon(), mob_ghost);
+		this.weapons.put(mob_lantern.getKindWeapon(), mob_lantern);
+		this.weapons.put(mob_plug.getKindWeapon(), mob_plug);
 
 	}
 

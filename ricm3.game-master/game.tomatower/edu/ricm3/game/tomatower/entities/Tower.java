@@ -4,6 +4,8 @@ import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.mvc.Model;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
+
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -15,25 +17,19 @@ public class Tower extends Living {
 	private long last_sprite;
 
 	public Tower(Model c_model, BufferedImage c_sprite[], Weapon c_weapon, A_Automaton c_automaton) {
-		super(c_model, false, c_sprite, 1, Direction.WEST, c_weapon, initColisions(), c_automaton, Kind.Team);
-		this.canTake = false;
+		super(c_model, false, c_sprite, 1, c_weapon, initColisions(), c_automaton, Kind.Team,ACTION_TIME_TOWER, MAX_LIFE_TOWER);
+		this.canTakeEntity = false;
 		
-		//TEST
-		this.MAX_LIFE = 50;
-		this.hp = MAX_LIFE;
 	}
 
 	// Actions
 
 	@Override
 	public void pop() {
-		System.out.println("POP " + this.hp + " "+ this.MAX_LIFE);
+		System.out.println("POP " + this.hp + " "+ this.max_life);
 		
-		if(this.hp < this.MAX_LIFE / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
-			this.getCellDirection(Direction.NORTH, 1).damage(50);
-			this.getCellDirection(Direction.SOUTH, 1).damage(50);
-			this.getCellDirection(Direction.EAST, 1).damage(50);
-			this.getCellDirection(Direction.WEST, 1).damage(50);
+		if(this.hp < this.max_life / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
+			circleAttack(DAMAGE_DESTRUCTION_TOWER);
 			kamikaze();
 		}
 	}

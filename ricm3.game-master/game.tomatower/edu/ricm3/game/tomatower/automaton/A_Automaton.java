@@ -43,14 +43,12 @@ public class A_Automaton {
 				}
 			}
 
-			if (e instanceof Mobs)
-
-				if (behavior == null) {
-					if (Options.ECHO_GAME_STATE)
-						System.out.println(
-								"Problem with the entity behavior : unable to find a bahavior (no state corresponding). Automaton deleted from the entity");
-					e.removeAutomaton();
-				}
+			if (behavior == null) {
+				if (Options.ECHO_GAME_STATE)
+					System.out.println(
+							"Problem with the entity behavior : unable to find a bahavior (no state corresponding). Automaton deleted from the entity");
+				e.removeAutomaton();
+			}
 
 			return behavior.exec(this, e);
 

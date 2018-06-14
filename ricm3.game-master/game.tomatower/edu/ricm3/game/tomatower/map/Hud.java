@@ -8,39 +8,42 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
-import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
+import edu.ricm3.game.tomatower.entities.MobSpawn;
+import edu.ricm3.game.tomatower.entities.Weapon;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 public class Hud {
 
 	public Model model;
-	int width;
-	int height;
-	Font font;
+	private MobSpawn mobSpawn;
+	private Font font;
 
 	public final int MARGIN = 20;
-
 	public int height_money;
 	public int height_component_tower;
 
-	public BufferedImage sprite_background;
-	public BufferedImage sprite_money;
-	public BufferedImage sprite_component_tower;
-	public BufferedImage sprite_star;
-	public BufferedImage sprite_range;
-	public BufferedImage sprite_tower_red;
-	public BufferedImage sprite_tower_blue;
-	public BufferedImage sprite_tower_yellow;
-	public BufferedImage sprite_tower_purple;
-	public BufferedImage sprite_health_player;
-	public BufferedImage sprite_health_crystal;
-	public BufferedImage sprite_arrow;
+	private BufferedImage sprite_background;
+	private BufferedImage sprite_money;
+	private BufferedImage sprite_component_tower;
+	private BufferedImage sprite_star;
+	private BufferedImage sprite_range;
+	private BufferedImage sprite_tower_red;
+	private BufferedImage sprite_tower_blue;
+	private BufferedImage sprite_tower_yellow;
+	private BufferedImage sprite_tower_purple;
+	private BufferedImage sprite_health_player;
+	private BufferedImage sprite_health_crystal;
+	private BufferedImage sprite_arrow;
 
-	public Hud(Model model) {
+	public Hud(Model model, MobSpawn mobSpawn) {
 		this.model = model;
+		this.mobSpawn = mobSpawn;
 		try {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.PLAIN, new File("game.tomatower/sprites/hud/Acme/Acme-Regular.ttf")));
@@ -169,8 +172,16 @@ public class Hud {
 
 	public void paint(Graphics g) {
 		int x = this.model.getCurrentMap().getMapDimention()[0];
-		g.setFont(font);
+		int y = this.model.getCurrentMap().getMapDimention()[1];
+		HashMap<EntityName, Integer> towers = this.model.getPlayer().getBagNumberTower();
+		HashMap<EntityName, Weapon> weapons = this.model.getWeapons();
+		ArrayList<EntityName> entityName = new ArrayList<>();
+		entityName.add(EntityName.Tower_Red);
+		entityName.add(EntityName.Tower_Yellow);
+		entityName.add(EntityName.Tower_Blue);
+		entityName.add(EntityName.Tower_Purple);
 
+		g.setFont(font);
 		g.drawImage(sprite_background, x, 0, null);
 
 		// Money
@@ -179,14 +190,15 @@ public class Hud {
 		g.drawString(String.valueOf(this.model.getPlayer().getMoney()), x + 15, 43);
 
 		int j = height_money + 2 * MARGIN;
-		for (Kind_Weapon kw : Kind_Weapon.values()) {
+		for (EntityName kw : entityName) {
 			g.drawImage(sprite_component_tower, x + 3, j, null);
 			g.setColor(Color.WHITE);
-			g.drawString(this.model.getPlayer().getBagNumberTower().get(kw).toString(), x + 45, j + 30);
+
+			g.drawString(towers.get(kw).toString(), x + 45, j + 30);
 			g.drawImage(sprite_star, x + 75, j + 8, 16, 16, null);
-			g.drawString(String.valueOf(this.model.getWeapons().get(kw).getPower()), x + 95, j + 22);
+			g.drawString(String.valueOf(weapons.get(kw).getPower()), x + 95, j + 22);
 			g.drawImage(sprite_range, x + 75, j + 30, 16, 16, null);
-			g.drawString(String.valueOf(this.model.getWeapons().get(kw).getRange()), x + 95, j + 42);
+			g.drawString(String.valueOf(weapons.get(kw).getRange()), x + 95, j + 42);
 			j += height_component_tower + MARGIN;
 		}
 		// Tower red
@@ -203,7 +215,8 @@ public class Hud {
 
 		// Life
 		int h = 150;
-		float h_life = h * (this.model.getPlayer().getHp() / (float) this.model.getPlayer().MAX_LIFE);
+
+		float h_life = h * (this.model.getPlayer().getHp() / (float) this.model.getPlayer().getMaxLife());
 		g.setColor(Color.decode("#4c0909"));
 		g.fillRoundRect(x + 25, height_money + 4 * height_component_tower + 6 * MARGIN + 40, 15, 150, 10, 10);
 		g.setColor(Color.decode("#d73f2e"));
@@ -212,30 +225,38 @@ public class Hud {
 		g.drawImage(sprite_health_player, x + 11, height_money + 4 * height_component_tower + 6 * MARGIN, null);
 
 		// Crystal
-		h_life = h * (this.model.getCrystal().getHp() / (float) this.model.getCrystal().MAX_LIFE);
+
+		h_life = h * (this.model.getCrystal().getHp() / (float) this.model.getCrystal().getMaxLife());
 		g.setColor(Color.decode("#094d49"));
 		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40, 15, 150, 10, 10);
 		g.setColor(Color.decode("#8ccfcb"));
-
 		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15,
 				(int) h_life, 10, 10);
 		g.drawImage(sprite_health_crystal, x + 73, height_money + 4 * height_component_tower + 6 * MARGIN, null);
 
 		// Arrow de selection
 		switch (this.model.getPlayer().getTowerSelected()) {
-		case Red:
+		case Tower_Red:
 			g.drawImage(sprite_arrow, x, height_money + 2 * MARGIN + 16, null);
 			break;
-		case Blue:
+
+		case Tower_Blue:
 			g.drawImage(sprite_arrow, x, height_component_tower + height_money + 3 * MARGIN + 16, null);
 			break;
-		case Yellow:
+		case Tower_Yellow:
 			g.drawImage(sprite_arrow, x, 2 * height_component_tower + height_money + 4 * MARGIN + 16, null);
 			break;
-		case Purple:
+		case Tower_Purple:
 			g.drawImage(sprite_arrow, x, 3 * height_component_tower + height_money + 5 * MARGIN + 16, null);
 			break;
+		default:
+			// Pas de towers selectionnées
 		}
+
+		g.setColor(Color.WHITE);
+		g.drawString("Vagues Restantes", x + 2, height_money + 4 * height_component_tower + 6 * MARGIN + 80 + h);
+		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60,
+				height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
 
 	}
 

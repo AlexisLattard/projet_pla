@@ -18,6 +18,7 @@
 package edu.ricm3.game.tomatower.mvc;
 
 import java.awt.Graphics;
+
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 import edu.ricm3.game.GameUI;
@@ -41,7 +42,7 @@ public class View extends GameView {
 	public View(Model m, Controller c) {
 		model = m;
 		ctr = c;
-		hud = new Hud(m);
+		hud = new Hud(m, m.getMobSpawn());
 	}
 
 	private void computeFPS() {

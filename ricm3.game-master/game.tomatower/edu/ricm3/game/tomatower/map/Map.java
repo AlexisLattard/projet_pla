@@ -3,9 +3,10 @@ package edu.ricm3.game.tomatower.map;
 import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.*;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
-import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.mvc.Model;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -158,7 +159,7 @@ public class Map {
 						break;
 					case "P":
 						// TEST
-						Weapon w = new Weapon(this.model, 1, 7, Kind_Weapon.Yellow);
+						Weapon w = new Weapon(this.model, 1, 7, EntityName.Tower_Yellow);
 						this.model.setPlayer(new Player(this.model, this.model.getSprites().sprite_player, 1, cell,
 								Direction.NORTH, w, this.model.getAutomatons().get("Perso")));
 						break;
@@ -192,6 +193,7 @@ public class Map {
 						if (main_mobSpawn == null) {
 							main_mobSpawn = new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 2, cell,
 									null);
+							this.model.setMobSpawn(main_mobSpawn);
 						} else {
 							new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 0, cell, main_mobSpawn);
 						}
@@ -215,37 +217,46 @@ public class Map {
 
 					case "Str":
 						new Product(this.model, this.model.getSprites().sprite_tower_red[0], 1, cell,
-								ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Red), 1000);
+								ObstaclesKind.PRODUCT, this.model.getWeapons().get(EntityName.Tower_Red),
+								PRICE_TOWER_PRODUCT);
 						break;
 					case "Stb":
 						new Product(this.model, this.model.getSprites().sprite_tower_blue[0], 1, cell,
-								ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Blue), 1000);
+								ObstaclesKind.PRODUCT, this.model.getWeapons().get(EntityName.Tower_Blue),
+								PRICE_TOWER_PRODUCT);
 						break;
 					case "Sty":
 						new Product(this.model, this.model.getSprites().sprite_tower_yellow[0], 1, cell,
-								ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Yellow), 1000);
+								ObstaclesKind.PRODUCT, this.model.getWeapons().get(EntityName.Tower_Yellow),
+								PRICE_TOWER_PRODUCT);
 						break;
 					case "Stp":
 						new Product(this.model, this.model.getSprites().sprite_tower_purple[0], 1, cell,
-								ObstaclesKind.PRODUCT, this.model.getWeapons().get(Kind_Weapon.Purple), 1000);
+								ObstaclesKind.PRODUCT, this.model.getWeapons().get(EntityName.Tower_Purple),
+								PRICE_TOWER_PRODUCT);
 						break;
 
 					case "Sur":
 						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_red[0], 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Red), 200);
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(EntityName.Tower_Red),
+								PRICE_TOWER_UPGRADE);
 						break;
 					case "Sub":
 						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_blue[0], 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Blue), 200);
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(EntityName.Tower_Blue),
+								PRICE_TOWER_UPGRADE);
 						break;
 					case "Suy":
 						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_yellow[0], 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Yellow), 200);
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(EntityName.Tower_Yellow),
+								PRICE_TOWER_UPGRADE);
 						break;
 					case "Sup":
 						new Upgrade(this.model, this.model.getSprites().sprite_upgrade_purple[0], 1, cell,
-								ObstaclesKind.UPGRADE, this.model.getWeapons().get(Kind_Weapon.Purple), 200);
+								ObstaclesKind.UPGRADE, this.model.getWeapons().get(EntityName.Tower_Purple),
+								PRICE_TOWER_UPGRADE);
 						break;
+					default:
 
 					}
 				}

@@ -16,23 +16,39 @@ public abstract class Inert extends Entity {
 
 	Inert(Model c_model, Boolean c_movement, BufferedImage c_sprite, double c_scale, Cell c_cell,
 			ObstaclesKind c_kindObstacle, Kind c_kind) {
-		super(c_model, c_movement, c_scale, initColisions(), null, c_cell, c_kind);
+		super(c_model, c_movement, c_scale, initColisions(), null, c_cell, c_kind, 0, Direction.NONE);
 		this.obstacles_kind = c_kindObstacle;
 		this.sprite = c_sprite;
 	}
 
 	Inert(Model c_model, Boolean c_movement, double c_scale, Cell c_cell, ObstaclesKind c_kindObstacle, Kind c_kind) {
-		super(c_model, c_movement, c_scale, initColisions(), null, c_cell, c_kind);
+		super(c_model, c_movement, c_scale, initColisions(), null, c_cell, c_kind, 0, Direction.NONE);
 		this.obstacles_kind = c_kindObstacle;
 	}
 
+	// public Obstacle(Model c_model, BufferedImage c_sprite, double c_scale, Cell
+	// c_cell, ObstaclesKind c_kindObstacle) {
+	// super(c_model, false, c_sprite, c_scale, c_cell, c_kindObstacle,
+	// Kind.Obstacle);
+	// }
+	//
+	// public Obstacle(Model c_model, double c_scale, Cell c_cell, ObstaclesKind
+	// c_kindObstacle, Kind c_kind) {
+	// super(c_model, false, c_scale, c_cell, c_kindObstacle, Kind.Obstacle);
+	// }
+
+	// super(c_model, false, c_scale, c_cell, c_kindObstacle, Kind.Obstacle);
+
+	@Override
 	public void paint(Graphics g) {
 		if (this.isVisible()) {
-			int d = (int) (this.getMap().getCellSize() * scale);
-			int[] pos = this.getPosition();
-			int x = pos[0] * model.getCurrentMap().getCellSize();
-			int y = pos[1] * model.getCurrentMap().getCellSize();
-			g.drawImage(sprite, x, y, d, d, null);
+			int cell_size = this.model.getCurrentMap().getCellSize();
+			int[] pos = getPosition();
+
+			int d = (int) (cell_size * this.scale);
+			int x = pos[0] * cell_size;
+			int y = pos[1] * cell_size;
+			g.drawImage(this.sprite, x, y, d, d, null);
 		}
 	}
 

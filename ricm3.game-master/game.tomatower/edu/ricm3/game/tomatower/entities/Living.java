@@ -4,52 +4,54 @@ import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
-import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Living extends Entity {
 
 	protected int hp;
-	protected boolean canTake;
-	protected boolean moving;
-	protected boolean has_moved;
+	protected boolean canTakeEntity;
 	protected long last_action;
 	protected ArrayList<Tower> bag;
 	protected Tower hand = null;
 	protected Weapon weapon;
-	public int MAX_LIFE;
-	BufferedImage sprite[];
 
-	protected Kind_Weapon tower_selected = Kind_Weapon.Red;
+	protected int max_life;
+	protected BufferedImage sprite[];
+	protected EntityName tower_selected;
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell,
-			Direction c_direction, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton,
-			Kind c_kind) {
-		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_cell, c_kind);
-		this.direction = c_direction;
+	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell, Weapon c_weapon,
+			ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind, long c_action_time,
+			int c_max_life) {
+		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_cell, c_kind, c_action_time, Direction.NORTH);
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
-		this.moving = false;
-		this.has_moved = false;
 		this.last_action = System.nanoTime();
-		bag = new ArrayList<>();
+		this.tower_selected = EntityName.Tower_Red;
+		this.max_life = c_max_life;
+		this.hp = max_life;
+		this.bag = new ArrayList<>();
 	}
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Direction c_direction,
-			Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind) {
-		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind);
-		this.direction = c_direction;
+	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Weapon c_weapon,
+			ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind, long c_action_time,
+			int c_max_life) {
+		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind, c_action_time, Direction.NORTH);
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
-		this.moving = false;
-		this.has_moved = false;
 		this.last_action = System.nanoTime();
-		bag = new ArrayList<>();
+		this.tower_selected = EntityName.Tower_Red;
+		this.max_life = c_max_life;
+		this.hp = max_life;
+		this.bag = new ArrayList<>();
+
 	}
 
 	@Override
@@ -60,43 +62,16 @@ public abstract class Living extends Entity {
 			int d = (int) (cell_size * scale);
 			int x = pos[0] * cell_size;
 			int y = pos[1] * cell_size;
-			if (moving) {
-				switch (this.direction) {
-				case SOUTH:
-					System.out.println((System.nanoTime() - last_action) / 250000000 + 1);
-					y += cell_size / 4 * ((System.nanoTime() - last_action) / 250000000 + 1);
-					break;
-				case NORTH:
-					y -= cell_size / 4 * ((System.nanoTime() - last_action) / 250000000 + 1);
-					break;
-				case EAST:
-					x += cell_size / 4 * ((System.nanoTime() - last_action) / 250000000 + 1);
-					break;
-				case WEST:
-					x -= cell_size / 4 * ((System.nanoTime() - last_action) / 250000000 + 1);
-					break;
-				default:
-				}
-				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
-				if (System.nanoTime() - last_action > 500000000 && !this.has_moved) {
-					System.out.println("Changement de case");
-					this.has_moved = true;
-				}
-				if (System.nanoTime() - last_action > 1000000000) {
-					this.moving = false;
-					this.has_moved = false;
-				}
-			} else {
-				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
-			}
+			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
 		}
+
 	}
 
 	@Override
 	public void step(long now) {
 		super.step(now);
 		if (this.hp <= 0) {
-			this.cell.removeEntity(this);
+			death();
 		}
 	}
 
@@ -109,14 +84,13 @@ public abstract class Living extends Entity {
 
 	@Override
 	public void pick(Direction d) {
-		if (this.canTake) {
+		if (this.canTakeEntity) {
 			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
-
 			if (entity instanceof Tower) {
-				if (hand != null) // On a déjà quelque chose en main, on le remet dans le sac
+				if (this.hand != null) // On a déjà quelque chose en main, on le remet dans le sac
 					this.bag.add(hand);
-				// entity.removeEntityFromCell();
-				hand = (Tower) (entity);
+				entity.removeEntityFromCell();
+				this.hand = (Tower) (entity);
 			} else if (entity instanceof Buyable) {
 				((Buyable) entity).action();
 			}
@@ -125,27 +99,32 @@ public abstract class Living extends Entity {
 
 	@Override
 	public void store() {
-		if (hand != null) {
-			bag.add(hand);
-			hand = null;
+		if (this.hand != null) {
+			this.bag.add(hand);
+			this.hand = null;
 		}
 	}
 
 	@Override
 	public void getBagEntity() {
-		if (this.canTake && this.bag.size() >= 1) {
-			for (int i = 0; i < this.bag.size(); i++) {
-				if (this.bag.get(i).getWeapon().getKindWeapon().equals(this.tower_selected) && hand == null) {
-					hand = this.bag.remove(i);
-					break;
-				}
+
+		if (this.canTakeEntity && this.bag.size() >= 1) {
+			store();
+
+			int i = 0;
+			while (i < this.bag.size() && !this.bag.get(i).getWeapon().getKindWeapon().equals(this.tower_selected)) {
+				i++;
+			}
+
+			if (i < this.bag.size()) {
+				this.hand = this.bag.remove(i);
 			}
 		}
 	}
 
 	@Override
 	public void power() {
-		this.hp += MAX_LIFE / 10; // On recupere 1/10 de sa maximale
+		this.hp += max_life / 10; // On recupere 1/10 de sa maximale
 	}
 
 	@Override
@@ -153,9 +132,9 @@ public abstract class Living extends Entity {
 		if (Options.ECHO_GAME_STATE && this.hand == null)
 			System.out.println("Rien dans la main");
 
-		if (this.canTake && this.hand != null && this.hand.addEntityOnCell(this.getCellDirection(d, 1))) {
+		if (this.canTakeEntity && this.hand != null && this.hand.addEntityOnCell(this.getCellDirection(d, 1))) {
 			// Si vrai, alors la tourelle a été posée, donc plus rien en main
-			hand = null;
+			this.hand = null;
 		}
 	}
 
@@ -170,15 +149,32 @@ public abstract class Living extends Entity {
 		this.hp -= power;
 	}
 
+	public void circleAttack(int power) {
+		this.getCellDirection(Direction.NORTH, 1).damage(power);
+		this.getCellDirection(Direction.SOUTH, 1).damage(power);
+		this.getCellDirection(Direction.EAST, 1).damage(power);
+		this.getCellDirection(Direction.WEST, 1).damage(power);
+	}
+
+	public void death() {
+
+		if (this instanceof Mobs) {
+			this.model.getPlayer().increaseMoney(EARNED_MONEY_WHEN_MOB_DIED);
+		}
+		this.model.removeEntity(this);
+		removeEntityFromCell();
+
+	}
+
 	// Conditions
 	@Override
 	public boolean isAlive() {
-		return hp > 0;
+		return this.hp > 0;
 	}
 
 	@Override
 	public boolean gotStuff() {
-		return canTake && this.bag.size() > 0;
+		return this.canTakeEntity && this.bag.size() > 0;
 	}
 
 	// Getters - setters
@@ -189,14 +185,6 @@ public abstract class Living extends Entity {
 
 	public Weapon getWeapon() {
 		return this.weapon;
-	}
-
-	public boolean getMoving() {
-		return this.moving;
-	}
-
-	public void setMoving(Boolean m) {
-		this.moving = m;
 	}
 
 	public void setLastAction(long now) {
@@ -221,12 +209,16 @@ public abstract class Living extends Entity {
 		}
 	}
 
-	public void setTowerSelected(Kind_Weapon kw) {
+	public void setTowerSelected(EntityName kw) {
 		this.tower_selected = kw;
 	}
 
-	public Kind_Weapon getTowerSelected() {
+	public EntityName getTowerSelected() {
 		return this.tower_selected;
+	}
+
+	public int getMaxLife() {
+		return this.max_life;
 	}
 
 }

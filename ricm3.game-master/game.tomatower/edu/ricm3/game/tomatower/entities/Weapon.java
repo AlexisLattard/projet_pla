@@ -1,8 +1,7 @@
 package edu.ricm3.game.tomatower.entities;
 
 import edu.ricm3.game.tomatower.entities.enums.Direction;
-
-import edu.ricm3.game.tomatower.entities.enums.Kind_Weapon;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -15,9 +14,9 @@ public class Weapon {
 	private int range;
 	private int power;
 
-	private Kind_Weapon kw;
+	private EntityName kw;
 
-	public Weapon(Model c_model, int c_range, int c_power, Kind_Weapon kw) {
+	public Weapon(Model c_model, int c_power, int c_range, EntityName kw) {
 		this.model = c_model;
 		this.range = c_range;
 		this.power = c_power;
@@ -49,7 +48,7 @@ public class Weapon {
 		return this.power;
 	}
 
-	public Kind_Weapon getKindWeapon() {
+	public EntityName getKindWeapon() {
 		return this.kw;
 	}
 }
