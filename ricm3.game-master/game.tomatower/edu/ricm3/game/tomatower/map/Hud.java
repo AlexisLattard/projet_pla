@@ -13,8 +13,12 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import edu.ricm3.game.tomatower.entities.Buyable;
+import edu.ricm3.game.tomatower.entities.Entity;
 import edu.ricm3.game.tomatower.entities.MobSpawn;
+import edu.ricm3.game.tomatower.entities.Upgrade;
 import edu.ricm3.game.tomatower.entities.Weapon;
+import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -28,7 +32,7 @@ public class Hud {
 	public int height_money;
 	public int height_component_tower;
 	public int width = 130;
-	
+
 	private HashMap<EntityName, Integer> positions;
 
 	private BufferedImage sprite_background;
@@ -43,7 +47,6 @@ public class Hud {
 	private BufferedImage sprite_health_player;
 	private BufferedImage sprite_health_crystal;
 	private BufferedImage sprite_arrow;
-
 
 	public Hud(Model model, MobSpawn mobSpawn) {
 		this.model = model;
@@ -194,7 +197,7 @@ public class Hud {
 		g.setColor(Color.decode("#e6af13"));
 		g.drawString(String.valueOf(this.model.getPlayer().getMoney()), x + 15, 43);
 
-		//int j = height_money + 2 * MARGIN;
+		// int j = height_money + 2 * MARGIN;
 		for (EntityName kw : positions.keySet()) {
 			g.drawImage(sprite_component_tower, x + 3, positions.get(kw) - 8, null);
 			g.setColor(Color.WHITE);
@@ -203,7 +206,7 @@ public class Hud {
 			g.drawString(String.valueOf(weapons.get(kw).getPower()), x + 95, positions.get(kw) + 14);
 			g.drawImage(sprite_range, x + 75, positions.get(kw) + 24, 16, 16, null);
 			g.drawString(String.valueOf(weapons.get(kw).getRange()), x + 95, positions.get(kw) + 35);
-			//j += height_component_tower + MARGIN;
+			// j += height_component_tower + MARGIN;
 		}
 		// Tower red
 		g.drawImage(sprite_tower_red, x + 15, positions.get(EntityName.Tower_Red), null);
@@ -212,10 +215,10 @@ public class Hud {
 		g.drawImage(sprite_tower_yellow, x + 15, positions.get(EntityName.Tower_Yellow), null);
 
 		// Tower yellow
-		g.drawImage(sprite_tower_blue, x + 15,positions.get(EntityName.Tower_Blue), null);
+		g.drawImage(sprite_tower_blue, x + 15, positions.get(EntityName.Tower_Blue), null);
 
 		// Tower purple
-		g.drawImage(sprite_tower_purple, x + 15, positions.get(EntityName.Tower_Purple) , null);
+		g.drawImage(sprite_tower_purple, x + 15, positions.get(EntityName.Tower_Purple), null);
 
 		// Life
 		int h = 150;
@@ -223,8 +226,7 @@ public class Hud {
 		g.setColor(Color.decode("#4c0909"));
 		g.fillRoundRect(x + 25, height_money + 4 * height_component_tower + 6 * MARGIN + 40, 15, 150, 10, 10);
 		g.setColor(Color.decode("#d73f2e"));
-		g.fillRoundRect(x + 25, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15,
-				(int) h_life, 10, 10);
+		g.fillRoundRect(x + 25, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15, (int) h_life, 10, 10);
 		g.drawImage(sprite_health_player, x + 11, height_money + 4 * height_component_tower + 6 * MARGIN, null);
 
 		// Crystal
@@ -232,8 +234,7 @@ public class Hud {
 		g.setColor(Color.decode("#094d49"));
 		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40, 15, 150, 10, 10);
 		g.setColor(Color.decode("#8ccfcb"));
-		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15,
-				(int) h_life, 10, 10);
+		g.fillRoundRect(x + 87, height_money + 4 * height_component_tower + 6 * MARGIN + 40 + (h - (int) h_life), 15, (int) h_life, 10, 10);
 		g.drawImage(sprite_health_crystal, x + 73, height_money + 4 * height_component_tower + 6 * MARGIN, null);
 
 		// Arrow de selection
@@ -257,18 +258,33 @@ public class Hud {
 		// Affichage wave restantes
 		g.setColor(Color.WHITE);
 		g.drawString("Vagues Restantes", x + 2, height_money + 4 * height_component_tower + 6 * MARGIN + 80 + h);
-		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60,
-				height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
-		
+		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60, height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
+
+		// Affichage prix tower + upgrade
+		Map map_store = this.model.getStoreMap();
+		if (this.model.getCurrentMap().equals(map_store)) {
+			g.drawString("Prix :", x + 2, height_money + 4 * height_component_tower + 6 * MARGIN + 125 + h);
+			Entity entity = map_store.getEntityCell(this.model.getPlayer().getCellDirection(Direction.FRONT, 1));
+			
+			
+			if(entity != null && entity instanceof Buyable){
+				int price = ((Buyable) entity).getPrice();
+				g.drawString(String.valueOf(price), x + 45, height_money + 4 * height_component_tower + 6 * MARGIN + 125 + h);
+				if(entity instanceof Upgrade){
+					g.drawString("Comportement :", x + 2, height_money + 4 * height_component_tower + 6 * MARGIN + 142 + h);
+					g.drawString(String.valueOf(200), x + 45, height_money + 4 * height_component_tower + 6 * MARGIN + 162 + h);
+				}
+			}
+		}
 	}
-	
+
 	public int getWidth() {
 		return this.width;
 	}
-	
-	public void initPositionHud(){
+
+	public void initPositionHud() {
 		positions = new HashMap<>();
-		positions.put(EntityName.Tower_Red,height_money + 2 * MARGIN + 8);
+		positions.put(EntityName.Tower_Red, height_money + 2 * MARGIN + 8);
 		positions.put(EntityName.Tower_Yellow, height_component_tower + height_money + 3 * MARGIN + 8);
 		positions.put(EntityName.Tower_Blue, 2 * height_component_tower + height_money + 4 * MARGIN + 8);
 		positions.put(EntityName.Tower_Purple, 3 * height_component_tower + height_money + 5 * MARGIN + 8);

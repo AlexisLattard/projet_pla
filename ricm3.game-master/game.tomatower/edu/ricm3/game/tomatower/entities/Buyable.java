@@ -24,6 +24,10 @@ public abstract class Buyable extends Inert {
 
 	}
 	
+	
+	public int getPrice(){
+		return this.price;
+	}
 	public void increasePrice(int price) {
 		this.price += price;
 	}
