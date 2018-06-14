@@ -9,8 +9,8 @@ import edu.ricm3.game.tomatower.mvc.Model;
 
 public abstract class Buyable extends Inert {
 
-	Weapon weapon;
-	int price;
+	protected Weapon weapon;
+	protected int price;
 
 	public Buyable(Model c_model, BufferedImage c_sprite, double c_scale, Cell c_cell, ObstaclesKind c_kind,
 			Weapon c_weapon, int c_price) {
@@ -22,6 +22,10 @@ public abstract class Buyable extends Inert {
 	@Override
 	public void step(long now) {
 
+	}
+	
+	public void increasePrice(int price) {
+		this.price += price;
 	}
 	
 }

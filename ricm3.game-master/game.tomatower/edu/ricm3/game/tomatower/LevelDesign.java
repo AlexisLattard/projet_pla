@@ -23,6 +23,7 @@ public final class LevelDesign {
 	public static final int PRICE_TOWER_UPGRADE = 200; //
 	public static final int INCREASES_TOWER_UPGRADE_AMOUNT = 100; //
 	public static final int INCREASES_TOWER_PRODUCT_AMOUNT = 200; //
+	public static final int INCREASES_TOWER_AMOUNT_MONSTER = 50; //
 	public static final int EARNED_MONEY_WHEN_MOB_DIED = 100; //
 	public static final int PRICE_BEHAVIOR_CHANGEMENT = 200; // 
 	
