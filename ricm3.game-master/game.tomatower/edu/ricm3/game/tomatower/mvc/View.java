@@ -19,14 +19,9 @@ package edu.ricm3.game.tomatower.mvc;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Iterator;
 
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.GameView;
-import edu.ricm3.game.tomatower.entities.MobSpawn;
-import edu.ricm3.game.tomatower.entities.Tower;
-import edu.ricm3.game.tomatower.entities.enums.Direction;
-import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Hud;
 import edu.ricm3.game.tomatower.map.Map;
 
@@ -83,11 +78,9 @@ public class View extends GameView {
 	
 	
 	private void resizeWindow(Map map) {
-		System.out.println("OKKKK");
 		this.current_map = map;
-		int cell_size = map.getCellSize();
 		int map_dimension[] = map.getMapDimention();
-		int title_bar_height = 37; // changer en brut
+		int title_bar_height = 39; // TODO V2 : Trouvez la taille de la bar title
 		this.gameUI.resizeWindow( map_dimension[0] + hud.getWidth(), map_dimension[1] + title_bar_height);
 
 	}

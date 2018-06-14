@@ -30,7 +30,6 @@ public class Tower extends Living {
 
 	@Override
 	public void pop(Direction d) {
-		System.out.println("POP " + this.hp + " " + this.max_life);
 
 		if (this.hp < this.max_life / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
 			circleAttack(DAMAGE_DESTRUCTION_TOWER);
