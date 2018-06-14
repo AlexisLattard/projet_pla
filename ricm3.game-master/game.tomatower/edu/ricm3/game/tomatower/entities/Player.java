@@ -57,7 +57,6 @@ public class Player extends Living {
 			Entity entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
 			
 			if (entity instanceof Upgrade) {
-				System.out.println("Tentative de chg de comportement.");
 				((Upgrade) entity).behaviorChangement();
 			}
 		}

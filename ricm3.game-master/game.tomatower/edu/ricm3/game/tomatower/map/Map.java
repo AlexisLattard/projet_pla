@@ -100,7 +100,7 @@ public class Map {
 
 	public Entity getEntityCell(Cell c) {
 
-		if (!c.getEntities().isEmpty())
+		if (c != null && !c.getEntities().isEmpty())
 			return c.getEntities().get(0);
 		else
 			return null;

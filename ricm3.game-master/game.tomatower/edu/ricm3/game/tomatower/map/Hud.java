@@ -266,7 +266,8 @@ public class Hud {
 			g.drawString("Prix :", x + 2, height_money + 4 * height_component_tower + 6 * MARGIN + 125 + h);
 			Entity entity = map_store.getEntityCell(this.model.getPlayer().getCellDirection(Direction.FRONT, 1));
 			
-			if(entity instanceof Buyable){
+			
+			if(entity != null && entity instanceof Buyable){
 				int price = ((Buyable) entity).getPrice();
 				g.drawString(String.valueOf(price), x + 45, height_money + 4 * height_component_tower + 6 * MARGIN + 125 + h);
 				if(entity instanceof Upgrade){
