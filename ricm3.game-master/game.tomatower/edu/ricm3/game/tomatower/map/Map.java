@@ -195,6 +195,7 @@ public class Map {
                         case "Ms":
                         	if(main_mobSpawn == null) {
                         		main_mobSpawn = new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 2, cell, null);
+                        		this.model.setMobSpawn(main_mobSpawn);
                             } else {
                                 new MobSpawn(this.model, this.model.getSprites().sprite_spawn_mobs, 0, cell, main_mobSpawn);
                             } 

@@ -16,13 +16,15 @@ import static edu.ricm3.game.tomatower.LevelDesign.*;
 public class Player extends Living {
 
 	private int money;
+	private int score;
 	
 
 	public Player(Model c_model, BufferedImage c_sprite[], double c_scale, Cell c_cell, Direction c_direction, Weapon c_weapon, A_Automaton c_automaton) {
 		super(c_model, true, c_sprite, c_scale, c_cell, c_weapon, initColisions(), c_automaton, Kind.Team, ACTION_TIME_PLAYER, MAX_LIFE_PLAYER);
 		
 		this.canTakeEntity = true;
-		this.money = MONEY_PLAYER;
+		this.money = MONEY_PLAYER; 
+		this.score = 0;
 	}
 
 	
@@ -61,6 +63,7 @@ public class Player extends Living {
 	
 	public void increaseMoney(int money) {
 		this.money += money;
+		this.score += money;
 	}
 	
 	

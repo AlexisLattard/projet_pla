@@ -20,6 +20,11 @@ public class Mobs extends Living {
 		this.canTakeEntity = false;
 	}
 	
+	public Mobs(Model c_model, BufferedImage c_sprite[], double c_scale,Weapon c_weapon, A_Automaton c_automaton, int c_max_life) {
+		super(c_model, true, c_sprite, c_scale,c_weapon,initColisions(), c_automaton, Kind.Ennemis, ACTION_TIME_MOBS, c_max_life);
+		this.canTakeEntity = false;
+	}
+	
 	
 	@Override
 	public void pop() {

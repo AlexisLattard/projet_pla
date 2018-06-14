@@ -6,9 +6,10 @@ public final class LevelDesign {
 	public static final long ACTION_TIME_TOWER = 1000L; //
 	public static final long ACTION_TIME_MOBS = 1000L; //
 	public static final long ACTION_TIME_MOBSPAWN = 20000L; //
+	public static final long ACTION_TIME_SPAWN_SAME_WAVE = 100L; 
 	
 	// HP
-	public static final int MAX_LIFE_PLAYER = 500; //
+	public static final int MAX_LIFE_PLAYER = 1000; //
 	public static final int MAX_LIFE_MOB_PLUG = 40; 
 	public static final int MAX_LIFE_MOB_GHOST = 20; 
 	public static final int MAX_LIFE_MOB_LANTERN = 30; 
@@ -48,7 +49,7 @@ public final class LevelDesign {
 	
 	// OTHER
 	public static final int DAMAGE_DESTRUCTION_MOB = 100; //
-	public static final int DAMAGE_DESTRUCTION_TOWER = 100; 
+	public static final int DAMAGE_DESTRUCTION_TOWER = 100; //
 
 	
 }

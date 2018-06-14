@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import edu.ricm3.game.tomatower.entities.MobSpawn;
 import edu.ricm3.game.tomatower.entities.Weapon;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.mvc.Model;
@@ -20,30 +21,29 @@ import edu.ricm3.game.tomatower.mvc.Model;
 public class Hud {
 
 	public Model model;
-	int width;
-	int height;
-	Font font;
+    private MobSpawn mobSpawn;
+	private Font font;
 
 	public final int MARGIN = 20;
-
 	public int height_money;
 	public int height_component_tower;
 
-	public BufferedImage sprite_background;
-	public BufferedImage sprite_money;
-	public BufferedImage sprite_component_tower;
-	public BufferedImage sprite_star;
-	public BufferedImage sprite_range;
-	public BufferedImage sprite_tower_red;
-	public BufferedImage sprite_tower_blue;
-	public BufferedImage sprite_tower_yellow;
-	public BufferedImage sprite_tower_purple;
-	public BufferedImage sprite_health_player;
-	public BufferedImage sprite_health_crystal;
-	public BufferedImage sprite_arrow;
+	private BufferedImage sprite_background;
+	private BufferedImage sprite_money;
+	private BufferedImage sprite_component_tower;
+	private BufferedImage sprite_star;
+	private BufferedImage sprite_range;
+	private BufferedImage sprite_tower_red;
+	private BufferedImage sprite_tower_blue;
+	private BufferedImage sprite_tower_yellow;
+	private BufferedImage sprite_tower_purple;
+	private BufferedImage sprite_health_player;
+	private BufferedImage sprite_health_crystal;
+	private BufferedImage sprite_arrow;
 
-	public Hud(Model model) {
+	public Hud(Model model, MobSpawn mobSpawn) {
 		this.model = model;
+		this.mobSpawn = mobSpawn;
 		try {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.PLAIN, new File("game.tomatower/sprites/hud/Acme/Acme-Regular.ttf")));
@@ -248,7 +248,11 @@ public class Hud {
 		default:
 			// Pas de towers selectionnées
 		}
-			
+		
+		g.setColor(Color.WHITE);
+		g.drawString("Vagues Restantes", x + 2 , height_money + 4 * height_component_tower + 6 * MARGIN + 80 + h);
+		g.drawString(String.valueOf(this.mobSpawn.getWaveTotal() - this.mobSpawn.getWaveId()), x + 60 , height_money + 4 * height_component_tower + 7 * MARGIN + 80 + h);
+
 	}
 
 }
