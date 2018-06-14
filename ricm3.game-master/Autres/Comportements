@@ -1,10 +1,10 @@
 #Ce fichier correspond au correspondance entité->automates
-Tower_Red=MoverSquare
-Tower_Blue=Shoper
-Tower_Yellow=EvilTower
-Tower_Purple=CrazyTower
-Mob_Ghost=Rusher
+Tower_Red=MoverRandom
+Tower_Blue=Agressiv
+Tower_Yellow=Agressiv
+Tower_Purple=FollowTheLeftWall
+Mob_Ghost=FollowTheRightWall
 Mob_Lantern=FollowTheRightWall
-Mob_Plug=Perso
+Mob_Plug=Rusher
 Mob_Hungry=MoverRandom
 Player=Perso

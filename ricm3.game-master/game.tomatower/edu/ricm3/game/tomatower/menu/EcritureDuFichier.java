@@ -1,6 +1,8 @@
 package edu.ricm3.game.tomatower.menu;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
@@ -9,6 +11,7 @@ import edu.ricm3.game.tomatower.entities.enums.EntityName;
 
 public class EcritureDuFichier {
 	public static final String FICHIER_COMPORTEMENTS = "./Autres/Comportements";
+	public static final String FICHIER_SCORE = "./Autres/Score";
 	private static final String COMPORTEMENTS = "#Ce fichier correspond au correspondance entité->automates\n";
 	
 	private PrintWriter fichier;
@@ -17,6 +20,16 @@ public class EcritureDuFichier {
 		try {
 			fichier = new PrintWriter(chemin);
 		} catch (FileNotFoundException e) {
+			System.out.println("Erreur Fichier");
+			e.printStackTrace();
+			fichier = null;
+		}
+	}
+	
+	public EcritureDuFichier(String chemin,Boolean notOverwrite) {
+		try {
+			fichier = new PrintWriter(new FileWriter(chemin, notOverwrite));
+		} catch (IOException e) {
 			System.out.println("Erreur Fichier");
 			e.printStackTrace();
 			fichier = null;
@@ -43,6 +56,14 @@ public class EcritureDuFichier {
 				String ligne = entity.name()+"="+automates.get(entity).getName()+"\n";
 				fichier.write(ligne);
 			}
+		}
+	}
+
+	public void EcrireScore(String pseudo,int score) {
+		if (fichier != null) {
+			long temp = System.currentTimeMillis();
+			String newscore = new String(pseudo+";"+score+";"+temp);
+			fichier.write(newscore);
 		}
 	}
 
