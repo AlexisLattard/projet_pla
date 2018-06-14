@@ -31,22 +31,20 @@ public class Tower extends Living {
 	@Override
 	public void pop(Direction d) {
 
-		if (this.hp < this.max_life / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
-			circleAttack(DAMAGE_DESTRUCTION_TOWER);
-			kamikaze();
-		}
+		circleAttack(DAMAGE_DESTRUCTION_TOWER);
+		kamikaze();
 	}
 
 	@Override
 	public void wizz(Direction d) {
 		Direction[] dir = Direction.values();
-		for(Direction direction : dir) {
+		for (Direction direction : dir) {
 			System.out.println(direction);
 		}
 		for (int i = 0; i < 4; i++) {
 			if (this.cell(dir[i], Kind.Ennemis)) {
 				ArrayList<Entity> cell_entities = this.getCellDirection(dir[i], 1).getEntities();
-				for (int j = 0; j<cell_entities.size(); j++) {
+				for (int j = 0; j < cell_entities.size(); j++) {
 					Entity e = cell_entities.get(j);
 					if (e.getKind().equals(Kind.Ennemis))
 						e.wizz(dir[i]);
