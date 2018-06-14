@@ -46,7 +46,7 @@ public class Map {
 		// Affichage de la main du personnage sur la cellule devant lui
 		Player player = this.model.getPlayer();
 		Tower hand = player.getHand();
-		if (hand != null) {
+		if (hand != null && this.model.getPlayer().isVisible()) {
 			Cell dest = player.getCellDirection(Direction.FRONT, 1);
 			if (dest != null) {
 				int dest_position[] = dest.getPosition();

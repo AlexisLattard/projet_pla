@@ -1,0 +1,10 @@
+#Ce fichier correspond au correspondance entité->automates
+Tower_Red=HiterTower
+Tower_Blue=Rusher
+Tower_Yellow=Perso
+Tower_Purple=MoverSquare
+Mob_Ghost=EvilTower
+Mob_Lantern=Agressiv
+Mob_Plug=HiterTower
+Mob_Hungry=HiterTower
+Player=Perso

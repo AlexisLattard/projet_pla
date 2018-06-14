@@ -50,7 +50,7 @@ public class My_Frame extends JFrame
         System.out.println("=====Start_Setup=====");
     	File file = new File("./Autres/Options");
     	LecteurDeFichier lecteur = new LecteurDeFichier(file);
-        while (lecteur.estFin()) {
+        while (!lecteur.estFin()) {
         	String[] row = lecteur.getNextLineCSV("=");
         	if (row != null) {
 	            if(!this.setOption(row)) {

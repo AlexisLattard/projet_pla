@@ -46,15 +46,15 @@ public class Debug extends JPanel{
 		this.zoneTexte_scroll = new JScrollPane(this.zoneTexte,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.nord = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		this.sud = new JPanel(new GridLayout(1,2));
-		this.sud_valider = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.sud_valider = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.sud_retour = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.centre = new JPanel(new BorderLayout());
 		
 		// SUD //
 		this.sud_valider.add(this.valider);
 		this.sud_retour.add(this.retour);
-		this.sud.add(this.sud_valider);
 		this.sud.add(this.sud_retour);
+		this.sud.add(this.sud_valider);
 		// SUD //
 		
 		// NORD //
