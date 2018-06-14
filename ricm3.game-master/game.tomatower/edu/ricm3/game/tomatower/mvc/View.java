@@ -17,6 +17,7 @@
  */
 package edu.ricm3.game.tomatower.mvc;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import java.awt.image.BufferedImage;
@@ -38,6 +39,7 @@ public class View extends GameView {
 	Controller ctr;
 	GameUI gameUI;
 	Hud hud;
+	Map current_map;
 
 	public View(Model m, Controller c) {
 		model = m;
@@ -61,10 +63,13 @@ public class View extends GameView {
 
 		computeFPS();
 
-		// erase background
-		g.setColor(m_background);
-		g.fillRect(0, 0, getWidth(), getHeight());
 		Map map = this.model.getCurrentMap();
+		if (current_map == null || !this.current_map.equals(map))
+			resizeWindow(map);
+
+		// erase background
+		g.setColor(Color.white);
+		g.fillRect(0, 0, getWidth(), getHeight());
 		Iterator<Cell> iter_cells = map.getCellsIterator();
 		Cell c;
 		while (iter_cells.hasNext()) {
@@ -85,8 +90,16 @@ public class View extends GameView {
 		hud.paint(g);
 	}
 
-	public void setGameUI(GameUI gameUI) {
+	public void initView(GameUI gameUI) {
 		this.gameUI = gameUI;
+	}
+
+	private void resizeWindow(Map map) {
+		this.current_map = map;
+		int map_dimension[] = map.getMapDimention();
+		int title_bar_height = 39; // TODO V2 : Trouvez la taille de la bar title
+		this.gameUI.resizeWindow(map_dimension[0] + hud.getWidth(), map_dimension[1] + title_bar_height);
+
 	}
 
 }

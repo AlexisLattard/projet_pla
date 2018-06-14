@@ -30,11 +30,19 @@ public class Mobs extends Living {
 
 	@Override
 	public void pop(Direction d) {
-		// TODO
 		if (getMap().equals(this.model.getMainMap())) {
 			circleAttack(DAMAGE_DESTRUCTION_MOB);
 			kamikaze();
 		}
+
+		else {
+			Entity entity = this.getMap().getEntityCell(this.getCellDirection(d, 1));
+
+			if (entity instanceof Buyable) {
+				((Buyable) entity).increasePrice(INCREASES_TOWER_AMOUNT_MONSTER);
+			}
+		}
+
 	}
 
 	@Override

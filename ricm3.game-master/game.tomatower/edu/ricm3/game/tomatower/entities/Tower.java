@@ -4,6 +4,7 @@ import edu.ricm3.game.tomatower.automaton.A_Automaton;
 
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
+import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
@@ -27,12 +28,9 @@ public class Tower extends Living {
 
 	@Override
 	public void pop(Direction d) {
-		System.out.println("POP " + this.hp + " " + this.max_life);
 
-		if (this.hp < this.max_life / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
-			circleAttack(DAMAGE_DESTRUCTION_TOWER);
-			kamikaze();
-		}
+		circleAttack(DAMAGE_DESTRUCTION_TOWER);
+		kamikaze();
 	}
 
 	@Override
@@ -44,7 +42,7 @@ public class Tower extends Living {
 		for (int i = 0; i < 4; i++) {
 			if (this.cell(dir[i], Kind.Ennemis)) {
 				ArrayList<Entity> cell_entities = this.getCellDirection(dir[i], 1).getEntities();
-				for (int j = 0; j<cell_entities.size(); j++) {
+				for (int j = 0; j < cell_entities.size(); j++) {
 					Entity e = cell_entities.get(j);
 					if (e.getKind().equals(Kind.Ennemis))
 						e.wizz(dir[i]);
@@ -93,40 +91,53 @@ public class Tower extends Living {
 		int range = this.weapon.getRange();
 		Map c_map = this.model.getCurrentMap();
 		ArrayList<Entity> tabEntities;
+		Cell c;
 
 		switch (d) {
 		case NORTH:
-			tabEntities = c_map.getCell(c_abscisse, c_ordonnee - range).getEntities();
-			for (Entity e : tabEntities) {
-				if (e.getKind().equals(k)) {
-					return true;
+			c = c_map.getCell(c_abscisse, c_ordonnee - range);
+			if(c != null) {
+				tabEntities = c.getEntities();
+				for (Entity e : tabEntities) {
+					if (e.getKind().equals(k)) {
+						return true;
+					}
 				}
 			}
 			break;
 
 		case SOUTH:
-			tabEntities = c_map.getCell(c_abscisse, c_ordonnee + range).getEntities();
-			for (Entity e : tabEntities) {
-				if (e.getKind().equals(k)) {
-					return true;
+			c = c_map.getCell(c_abscisse, c_ordonnee + range);
+			if(c != null) {
+				tabEntities = c.getEntities();
+				for (Entity e : tabEntities) {
+					if (e.getKind().equals(k)) {
+						return true;
+					}
 				}
 			}
 			break;
 
 		case EAST:
-			tabEntities = c_map.getCell(c_abscisse + range, c_ordonnee).getEntities();
-			for (Entity e : tabEntities) {
-				if (e.getKind().equals(k)) {
-					return true;
+			c = c_map.getCell(c_abscisse + range, c_ordonnee);
+			if(c != null) {
+				tabEntities = c.getEntities();
+				for (Entity e : tabEntities) {
+					if (e.getKind().equals(k)) {
+						return true;
+					}
 				}
 			}
 			break;
 
 		case WEST:
-			tabEntities = c_map.getCell(c_abscisse - range, c_ordonnee).getEntities();
-			for (Entity e : tabEntities) {
-				if (e.getKind().equals(k)) {
-					return true;
+			c = c_map.getCell(c_abscisse - range, c_ordonnee);
+			if(c != null) {
+				tabEntities = c.getEntities();
+				for (Entity e : tabEntities) {
+					if (e.getKind().equals(k)) {
+						return true;
+					}
 				}
 			}
 			break;

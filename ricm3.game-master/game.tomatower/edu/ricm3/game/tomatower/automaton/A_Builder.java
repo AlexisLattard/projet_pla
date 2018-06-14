@@ -35,7 +35,6 @@ public class A_Builder {
 	}
 
 	public HashMap<String, A_Automaton> makeAutomatonsFromAst() throws Exception {
-		System.out.println("DEBUT MAKE AUTOMATON");
 
 		HashMap<String, A_Automaton> res = new HashMap<>();
 
@@ -43,8 +42,6 @@ public class A_Builder {
 			ArrayList<A_Behavior> behaviors = makeBehavior(a.behaviours);
 			res.put(a.name.toString(), new A_Automaton(a.name.toString(), behaviors, a.entry.name.toString()));
 		}
-
-		System.out.println("END MAKE AUTOMATON");
 
 		return res;
 	}
@@ -74,9 +71,6 @@ public class A_Builder {
 		// 3 cases : Binary Op, Unary Op or directly a funCall
 
 		A_Expression expression;
-
-		System.out.println("Kind condition: " + condition.expression.kind);
-
 		switch (condition.expression.kind) {
 		case "FunCall":
 			expression = makeFunCall((FunCall) condition.expression);
@@ -205,11 +199,12 @@ public class A_Builder {
 		A_DirectionParameter res;
 
 		switch (value.kind) {
+
 		case "Constant":
 			res = new A_DirectionParameter(constantToDirection((Constant) value));
 			break;
 		case "Variable":
-			throw new Exception("TODO : variable not supported");
+			res = new A_DirectionParameter(edu.ricm3.game.tomatower.entities.enums.Direction.FRONT);
 		default:
 			throw new Exception("Unknoww value type");
 		}
@@ -220,11 +215,12 @@ public class A_Builder {
 		A_EntityParameter res;
 
 		switch (value.kind) {
+
 		case "Constant":
 			res = new A_EntityParameter(constantToEntityKind((Constant) value));
 			break;
 		case "Variable":
-			throw new Exception("TODO : variable not supported");
+			res = new A_EntityParameter(Kind.Obstacle);
 		default:
 			throw new Exception("Unknoww value type");
 		}

@@ -9,6 +9,7 @@ import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
@@ -30,6 +31,7 @@ public class Player extends Living {
 
 	@Override
 	public void pop(Direction d) {
+		Map map = this.getMap();
 		if (this.model.getCurrentMap().equals(this.model.getStoreMap())) {
 			Entity entity = this.getMap().getEntityCell(this.getCellDirection(Direction.FRONT, 1));
 
@@ -38,19 +40,31 @@ public class Player extends Living {
 			} else if (entity instanceof Upgrade) {
 				((Upgrade) entity).upgradeWeapon();
 			}
+		} else {
+			Entity entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
+			while (entity == null) {
+				move(d);
+				entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
+			}
+			hit(d);
 		}
 	}
 
 	@Override
 	public void wizz(Direction d) {
+		Map map = this.getMap();
 		if (this.model.getCurrentMap().equals(this.model.getStoreMap())) {
-			Entity entity = this.getMap().getEntityCell(this.getCellDirection(Direction.FRONT, 1));
+			Entity entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
 
 			if (entity instanceof Upgrade) {
-				System.out.println("Tentative de chg de comportement.");
 				((Upgrade) entity).behaviorChangement();
 			}
+		} else {
+			Entity entity = map.getEntityCell(this.getCellDirection(Direction.FRONT, 1));
 
+			if (entity instanceof Tower) {
+				((Tower) entity).power();
+			}
 		}
 	}
 

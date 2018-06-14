@@ -41,7 +41,7 @@ public class MobSpawn extends Inert {
 		this.current_wave = new ArrayList<>();
 		this.is_ready = false;
 		initWaves();
-		// Test
+
 		behaviors = new HashMap<>();
 		behaviors.put(this.model.getSprites().sprite_mob_plug, this.model.getAutomatons().get(EntityName.Mob_Ghost));
 		behaviors.put(this.model.getSprites().sprite_mob_hungry,
@@ -57,14 +57,11 @@ public class MobSpawn extends Inert {
 			createWave();
 			is_ready = true;
 		} else if (is_ready && now - this.last_apparition > ACTION_TIME_SPAWN_SAME_WAVE) {
-			System.out.println("Wave");
 			instanciateWaveMobs(now);
 		}
 	}
 
 	public void createWave() {
-
-		////////
 		int nb_monstre[] = waves.get(wave_id);
 
 		A_Automaton behavior;
@@ -105,7 +102,6 @@ public class MobSpawn extends Inert {
 		waves = new ArrayList<>();
 		String line;
 
-		// Lecture fichier + entete
 		try {
 
 			File wave_file = new File("game.tomatower/maps/waves.txt");

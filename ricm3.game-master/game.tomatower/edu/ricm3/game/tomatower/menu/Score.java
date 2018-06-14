@@ -51,7 +51,7 @@ public class Score extends JPanel
     {
     	// BOUTON RETOUR //
         this.boutonRetour = new Bouton("retour");
-        this.sud = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        this.sud = new JPanel(new FlowLayout(FlowLayout.LEFT));
         this.sud.add(this.boutonRetour);
         // BOUTON RETOUR //
         
@@ -94,7 +94,7 @@ public class Score extends JPanel
     	données.removeAllElements();
     	File file = new File("./Autres/Score");
     	LecteurDeFichier lecteur= new LecteurDeFichier(file);
-        while (lecteur.estFin()) {
+        while (!lecteur.estFin()) {
             Vector<Object> row = lecteur.getNextLineCSV_Score(";");
             données.add(row);
         }

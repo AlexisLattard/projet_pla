@@ -48,9 +48,10 @@ public class A_Automaton {
 					System.out.println(
 							"Problem with the entity behavior : unable to find a bahavior (no state corresponding). Automaton deleted from the entity");
 				e.removeAutomaton();
-			}
 
-			return behavior.exec(this, e);
+			} else {
+				return behavior.exec(this, e);
+			}
 
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -61,6 +62,10 @@ public class A_Automaton {
 
 	public String getCurrentState() {
 		return this.entry_state;
+	}
+
+	public String getName() {
+		return this.name;
 	}
 
 }
