@@ -277,21 +277,26 @@ public abstract class Entity {
 
 		return getMap().getCell(pos_front_cell_x, pos_front_cell_y);
 	}
-
-	public Kind getKind() {
-		return this.kind;
-	}
-
-	public void removeAutomaton() {
-		this.automaton = null;
-	}
-
-	public String getCurrentState() {
-		return this.current_state;
-	}
-
-	public void setCurrentState(String state) {
-		this.current_state = state;
-	}
-
+    
+    public Kind getKind() {
+    	return this.kind;
+    }
+   
+    public void removeAutomaton() {
+    	this.automaton = null;
+    }
+    
+    public void setAutomaton(A_Automaton automaton){
+    	this.automaton = automaton;
+    	this.current_state = automaton.getCurrentState();
+    }
+    
+    public String getCurrentState() {
+    	return this.current_state;
+    }
+    public void setCurrentState(String state) {
+    	this.current_state = state;
+    }
+   
+  
 }

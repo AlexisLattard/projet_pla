@@ -239,14 +239,11 @@ Perso(Init) {
      | Key(FL) ? Move(O) : (Init)
      | Key(SPACE) ? Hit : (Init)
      | Key(a) ? Pick : (Init)
+     | Key(w) ? Wizz : (Init)
      | Key(z) ? Store : (Init)
      | Key(q) ? Throw : (Init)
      | Key(s) ? Get : (Init)
      | Key(p) ? Pop : (Init)
-     | Key(i) ? Move(F) : (Init)
-     | Key(l) ? Move(R) : (Init)
-     | Key(k) ? Move(B) : (Init)
-     | Key(j) ? Move(L) : (Init)
 }
 
 Explorer(Explore){
@@ -317,8 +314,21 @@ TestCondition(Un) {
 }
 
 
+TowerRed(Init){
+* (Init) : True ? Hit(E) : (Init)
+}
 
+TowerBlue(Init){
+* (Init) : True ? Hit(O) : (Init)
+}
 
+TowerYellow(Init){
+* (Init) : True ? Hit(S) : (Init)
+}
+
+TowerPurple(Init){
+* (Init) : True ? Hit(N) : (Init)
+}
 
 SuperHero(Explore){
 
