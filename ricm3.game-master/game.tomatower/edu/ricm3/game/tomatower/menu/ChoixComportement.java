@@ -115,10 +115,10 @@ public class ChoixComportement extends JDialog{
 	}
 	
 	public  HashMap<Entity_Name,A_Automaton> getComportements() {
-		// TODO Renvoyer la correspondance Entité-Automates
 		HashMap<Entity_Name,A_Automaton> comportement = new HashMap<Entity_Name,A_Automaton>();
-		for (int i=0;i<Entity_Name.values().length;i++) {
-			A_Automaton automate = this.automates.get(choix.get(i).getSelectedItem());
+		for (int i=0;i<this.nbElements;i++) {
+			Object item = choix.get(i).getSelectedItem();
+			A_Automaton automate = this.automates.get(item);
 			comportement.put(Entity_Name.values()[i], automate);
 		}
 		
@@ -140,8 +140,6 @@ public class ChoixComportement extends JDialog{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			HashMap<Entity_Name,A_Automaton> map = getComportements();
-			Jouer.getInstance().setComportement(map);
 			setVisible(false);
 		}
 		

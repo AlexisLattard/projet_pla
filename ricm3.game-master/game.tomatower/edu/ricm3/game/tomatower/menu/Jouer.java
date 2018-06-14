@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
@@ -27,13 +28,14 @@ public class Jouer extends JPanel{
 
 	// AUTRES //
 		// COMPORTEMENT //
-	private HashMap<Entity_Name,A_Automaton> comportement;
 	private File carte_selectionner;
 	private ChoixComportement choix_Comportement;
 		// COMPORTEMENT //
+		// JEUX //
 	Model model ;
     Controller controller ;
     View view ;
+		// JEUX //
 	// AUTRES //	
 	
 	// BOUTON //
@@ -50,11 +52,13 @@ public class Jouer extends JPanel{
 	// BOUTON //
 	
 	// JLABEL //
-		// COMPORTEMENT //
-		// COMPORTEMENT //
 		// MAP //
 	private	 JLabel label_choix_carte;
 		// MAP //
+		// PSEUDO //
+	private JLabel pseudo;
+	private JTextField champPseudo;
+		// PSEUDO //
 	// JLABEL //
 	
 	
@@ -65,7 +69,6 @@ public class Jouer extends JPanel{
 	private JPanel sud_retour;
 		// SOUTH //
 		// COMPORTEMENT //
-	private JPanel panel_comportement;
 	private JPanel panel_nord;
 		// COMPORTEMENT //
 		// MAP //
@@ -73,6 +76,10 @@ public class Jouer extends JPanel{
 	private JPanel panel_choix_carte;
 	private JPanel panel_titre_carte;
 		// MAP //
+		// PSEUDO //
+	private JPanel panel_Pseudo;
+		// PSEUDO //
+	
 	// JPANEL //
 	
 	// JSCROLLBAR //
@@ -81,15 +88,16 @@ public class Jouer extends JPanel{
 		// MAP //
 	
 	
-	private static Jouer INSTANCE = null;
-    
+	private static class JouerHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static Jouer INSTANCE = new Jouer();
+    }
+ 
     /** Point d'accès pour l'instance unique du singleton */
-    public static synchronized Jouer getInstance()
-    {           
-        if (INSTANCE == null){
-        	INSTANCE = new Jouer(); 
-        }
-        return INSTANCE;
+    public static Jouer getInstance()
+    {
+	    return JouerHolder.INSTANCE;
     }
 	
 	private Jouer() {
@@ -119,11 +127,14 @@ public class Jouer extends JPanel{
 			// BOUTON //
 
 			// LABEL //
-				// COMPORTEMENT //
-				// COMPORTEMENT //
 				// MAP //
 		this.label_choix_carte = new JLabel("Cartes");
 				// MAP //
+				// PSEUDO //
+		this.pseudo = new JLabel("Pseudo");
+		this.champPseudo = new JTextField(20);
+		this.panel_Pseudo = new JPanel(new FlowLayout());
+				// PSEUDO //
 			// LABEL //
 		
 			// PANEL //
@@ -133,8 +144,7 @@ public class Jouer extends JPanel{
 		this.sud = new JPanel(new GridLayout(1,2));
 				// SOUTH //
 				// COMPORTEMENT //
-		this.panel_comportement = new JPanel(new BorderLayout());
-		this.panel_nord = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		this.panel_nord = new JPanel(new GridLayout(2,1));
 				// COMPORTEMENT //
 				// MAP //
 		this.panel_choix_carte = new JPanel(new BorderLayout());
@@ -144,10 +154,16 @@ public class Jouer extends JPanel{
 				// MAP //
 		// INSTANCIATION //
 		
-		initSouth()	;
-		initComportement();
+		initSouth();
+		initNord();
 		initMap();
 		this.getButtonRetour().addActionListener(new RetourMenuListener());
+	}
+	
+	private void initPseudo() {
+		this.panel_Pseudo.add(this.pseudo);
+		this.panel_Pseudo.add(this.champPseudo);
+		this.panel_nord.add(this.panel_Pseudo);
 	}
 	
 	private void initSouth() {
@@ -163,15 +179,17 @@ public class Jouer extends JPanel{
 	
 	private void initComportement() {
 		// COMPORTEMENT //		
-		this.panel_comportement.add(this.bouton_comportement,BorderLayout.CENTER);
-		this.panel_comportement.setBorder(BorderFactory.createLineBorder(Color.black)); //
-		this.panel_nord.add(this.panel_comportement);
 		this.bouton_comportement.addActionListener(new ComportementListener());
-		setComportement(choix_Comportement.getComportements());
-		this.add(this.panel_nord,BorderLayout.NORTH);
+		this.panel_nord.add(this.bouton_comportement);
 		// COMPORTEMENT //
 	}
-
+	private void initNord() {
+		initPseudo();
+		initComportement();
+		this.add(this.panel_nord,BorderLayout.NORTH);
+	}
+	
+	
 	private void initMap() {
 		// MAP //
 		this.scrollmap = new JScrollPane(panel_cartes,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -258,8 +276,7 @@ public class Jouer extends JPanel{
         model.initModel(controller);
         new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
-	
-	
+
 	// Listener //
 	
 	public class LancerLaPartieListener implements ActionListener{	
@@ -267,22 +284,30 @@ public class Jouer extends JPanel{
 	    @Override
 	    public void actionPerformed(ActionEvent e)
 	    {
-	        if (!comportement.isEmpty() && carte_selectionner != null) {
+	    	HashMap<Entity_Name,A_Automaton> comportements = choix_Comportement.getComportements();
+	        if (!comportements.isEmpty() && carte_selectionner != null) {
+	        	afficheComportement();
 	        	My_Frame.getInstance().setVisible(false);
 	        	Jouer.getInstance().createInstanceJeu();
 	        }else {
-	        	if (choix_Comportement == null) {
-	        		bouton_comportement.setText("*Choisir un automate*"); 
-	        		bouton_comportement.setForeground(Color.RED);        			
-	        	}
-	        	
+	        	System.out.println("FATAL ERROR");
 	        }
 	    }
 	}
 	// Listener
-
-	protected void setComportement(HashMap<Entity_Name,A_Automaton> comportements) {
-		this.comportement = comportements;
+	
+	public void afficheComportement() {
+		HashMap<String,A_Automaton> automates = model.getAutomatons();
+		for (Map.Entry<String, A_Automaton> automate : automates.entrySet()) {
+			System.out.println(automate.getKey()+" = "+automate.getValue());
+		}
+		System.out.println();
+    	HashMap<Entity_Name,A_Automaton> comportements = choix_Comportement.getComportements();
+		for (int i=0;i<Entity_Name.values().length;i++) {
+			String nom = Entity_Name.values()[i].name();
+			A_Automaton automate = comportements.get(Entity_Name.values()[i]);
+			System.out.println(nom+" = "+automate);
+		}
 	}
 
 	public Bouton getBoutonComportement() {
