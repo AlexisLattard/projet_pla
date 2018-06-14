@@ -101,14 +101,20 @@ public class A_FunctionCall extends A_Expression {
 	// Actions
 	
 	public void wizz(Entity e) {
-		// TODO : verifier arguments si il y en a
-		e.wizz();
+		if(parameters.size() != 1 || (parameters.size() == 1 &&  !(parameters.get(0) instanceof A_DirectionParameter))) {
+			e.wizz(Direction.FRONT);
+		} else {
+			e.wizz(((A_DirectionParameter)parameters.get(0)).value); 
+		}
 	}
 	
 	
 	public void pop(Entity e) {
-		// TODO : verifier arguments si il y en a
-		e.pop();
+		if(parameters.size() != 1 || (parameters.size() == 1 &&  !(parameters.get(0) instanceof A_DirectionParameter))) {
+			e.pop(Direction.FRONT);
+		} else {
+			e.pop(((A_DirectionParameter)parameters.get(0)).value); 
+		}
 	}
 	
 	

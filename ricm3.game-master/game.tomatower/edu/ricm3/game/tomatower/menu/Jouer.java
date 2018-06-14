@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import edu.ricm3.game.GameUI;
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
-import edu.ricm3.game.tomatower.entities.enums.Entity_Name;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.mvc.Controller;
 import edu.ricm3.game.tomatower.mvc.Model;
 import edu.ricm3.game.tomatower.mvc.View;
@@ -32,9 +32,9 @@ public class Jouer extends JPanel{
 	private ChoixComportement choix_Comportement;
 		// COMPORTEMENT //
 		// JEUX //
-	Model model ;
-    Controller controller ;
-    View view ;
+	private Model model ;
+	private Controller controller ;
+	private View view ;
 		// JEUX //
 	// AUTRES //	
 	
@@ -85,6 +85,7 @@ public class Jouer extends JPanel{
 	// JSCROLLBAR //
 		// MAP //
 	private JScrollPane scrollmap;
+	private HashMap<String, A_Automaton> automates;
 		// MAP //
 	
 	
@@ -108,12 +109,12 @@ public class Jouer extends JPanel{
 		//TEST//
 		this.model = new Model();
 		this.controller = new Controller(model);
-		this.model.initAutomatons(controller);
 		this.carte_selectionner = null;
+		this.automates = this.model.initAutomatons(controller);
 		//TEST//
 		//TEST//
 		
-		this.choix_Comportement = new ChoixComportement(model.getAutomatons());
+		this.choix_Comportement = new ChoixComportement(this.automates);
 		this.cartes = new HashMap<File,Bouton>();
 			// AUTRES //
 			// BOUTON //
@@ -271,9 +272,10 @@ public class Jouer extends JPanel{
 		return this.bouton_retour;
 	}
 	
-	private void createInstanceJeu(HashMap<Entity_Name,A_Automaton> comportements, String pseudo) {
+	private void createInstanceJeu(HashMap<EntityName,A_Automaton> comportements, String pseudo) {
         view = new View(model,controller);
         model.initModel(controller);
+        model.setHashMap(comportements);
         new GameUI(model,view,controller,My_Frame.getInstance().getSize());
 	}
 
@@ -284,7 +286,7 @@ public class Jouer extends JPanel{
 	    @Override
 	    public void actionPerformed(ActionEvent e)
 	    {
-	    	HashMap<Entity_Name,A_Automaton> comportements = choix_Comportement.getComportements();
+	    	HashMap<EntityName,A_Automaton> comportements = choix_Comportement.getComportements();
 	        if (!comportements.isEmpty() && carte_selectionner != null) {
 	        	String pseudo = champPseudo.getText();
 	        	My_Frame.getInstance().setVisible(false);
@@ -295,15 +297,14 @@ public class Jouer extends JPanel{
 	// Listener
 	
 	public void afficheComportement() {
-		HashMap<String,A_Automaton> automates = model.getAutomatons();
 		for (Map.Entry<String, A_Automaton> automate : automates.entrySet()) {
 			System.out.println(automate.getKey()+" = "+automate.getValue());
 		}
 		System.out.println();
-    	HashMap<Entity_Name,A_Automaton> comportements = choix_Comportement.getComportements();
-		for (int i=0;i<Entity_Name.values().length;i++) {
-			String nom = Entity_Name.values()[i].name();
-			A_Automaton automate = comportements.get(Entity_Name.values()[i]);
+    	HashMap<EntityName,A_Automaton> comportements = choix_Comportement.getComportements();
+		for (int i=0;i<EntityName.values().length;i++) {
+			String nom = EntityName.values()[i].name();
+			A_Automaton automate = comportements.get(EntityName.values()[i]);
 			System.out.println(nom+" = "+automate);
 		}
 	}

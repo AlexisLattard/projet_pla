@@ -14,9 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
-
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
-import edu.ricm3.game.tomatower.entities.enums.Entity_Name;
+import edu.ricm3.game.tomatower.entities.enums.EntityName;
 
 public class ChoixComportement extends JDialog{
 	private HashMap<String, A_Automaton> automates;
@@ -39,7 +38,7 @@ public class ChoixComportement extends JDialog{
 	public ChoixComportement( HashMap<String, A_Automaton> automates) {
 		super(My_Frame.getInstance());
 		this.automates = automates;
-		this.nbElements = Entity_Name.values().length;
+		this.nbElements = EntityName.values().length;
 		this.setLayout(new BorderLayout());
 		this.setSize(400,200);
 		initCentre();
@@ -94,7 +93,7 @@ public class ChoixComportement extends JDialog{
 	private void remplirGrille(HashMap<String,A_Automaton> listAutomates) {
 		for (int i=0;i<this.nbElements;i++) {			
 			JPanel panel = new JPanel(new FlowLayout());
-			panel.add(new JLabel(Entity_Name.values()[i].name()));
+			panel.add(new JLabel(EntityName.values()[i].name()));
 			panel.add(this.choix.get(i));
 			this.grille.add(panel);
 		}
@@ -112,12 +111,12 @@ public class ChoixComportement extends JDialog{
 		}
 	}
 	
-	public  HashMap<Entity_Name,A_Automaton> getComportements() {
-		HashMap<Entity_Name,A_Automaton> comportement = new HashMap<Entity_Name,A_Automaton>();
+	public  HashMap<EntityName,A_Automaton> getComportements() {
+		HashMap<EntityName,A_Automaton> comportement = new HashMap<EntityName,A_Automaton>();
 		for (int i=0;i<this.nbElements;i++) {
 			Object item = choix.get(i).getSelectedItem();
 			A_Automaton automate = this.automates.get(item);
-			comportement.put(Entity_Name.values()[i], automate);
+			comportement.put(EntityName.values()[i], automate);
 		}
 		
 		return comportement;

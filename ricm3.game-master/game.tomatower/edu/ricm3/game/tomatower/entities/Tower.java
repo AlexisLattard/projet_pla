@@ -6,6 +6,7 @@ import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -19,32 +20,35 @@ public class Tower extends Living {
 	// }
 
 	public Tower(Model c_model, BufferedImage c_sprite[], Weapon c_weapon, A_Automaton c_automaton) {
-		super(c_model, false, c_sprite, 1, Direction.WEST, c_weapon, initColisions(), c_automaton, Kind.Team);
-		this.canTake = false;
-		
-		//TEST
-		this.MAX_LIFE = 50;
-		this.hp = MAX_LIFE;
+		super(c_model, false, c_sprite, 1, c_weapon, initColisions(), c_automaton, Kind.Team, ACTION_TIME_TOWER,
+				MAX_LIFE_TOWER);
+		this.canTakeEntity = false;
+
 	}
 
 	// Actions
 
 	@Override
-	public void pop() {
-		System.out.println("POP " + this.hp + " "+ this.MAX_LIFE);
-		
-		if(this.hp < this.MAX_LIFE / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
-			this.getCellDirection(Direction.NORTH, 1).damage(50);
-			this.getCellDirection(Direction.SOUTH, 1).damage(50);
-			this.getCellDirection(Direction.EAST, 1).damage(50);
-			this.getCellDirection(Direction.WEST, 1).damage(50);
+	public void pop(Direction d) {
+		System.out.println("POP " + this.hp + " " + this.max_life);
+
+		if (this.hp < this.max_life / 5) { // Si il lui reste 1/5 de sa vie et qu'il fait un pop, il s'explose
+			circleAttack(DAMAGE_DESTRUCTION_TOWER);
 			kamikaze();
 		}
 	}
 
 	@Override
-	public void wizz() {
-		// TODO
+	public void wizz(Direction d) {
+		Direction[] dir = Direction.values();
+		for (int i = 0; i < 4; i++) {
+			if (this.cell(dir[i], Kind.Ennemis)) {
+				for (Entity e : this.getCellDirection(dir[i], 1).getEntities()) {
+					if (e.getKind().equals(Kind.Ennemis))
+						e.wizz(dir[i]);
+				}
+			}
+		}
 	}
 
 	// On pourrai simplement faire appelle à celle défini dans Entity, mais c'est

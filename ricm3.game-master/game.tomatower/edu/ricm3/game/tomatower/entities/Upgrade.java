@@ -6,6 +6,7 @@ import edu.ricm3.game.tomatower.Options;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
+import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 public class Upgrade extends Buyable {
 
@@ -23,7 +24,7 @@ public class Upgrade extends Buyable {
 				System.out.println("Achat ! Prix : " + this.model.getPlayer().getMoney());
 				System.out.println("Weapon : " + this.weapon.getPower() + " " + this.weapon.getRange());
 			}
-			this.price += 100;
+			this.price += INCREASES_TOWER_UPGRADE_AMOUNT;
 		}
 	}
 }
