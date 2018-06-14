@@ -73,40 +73,53 @@ public class Tower extends Living {
 		int range = this.weapon.getRange();
 		Map c_map = this.model.getCurrentMap();
 		ArrayList<Entity> tabEntities;
+		Cell c;
 
 		switch (d) {
 		case NORTH:
-			tabEntities = c_map.getCell(c_abscisse, c_ordonnee - range).getEntities();
-			for (Entity e : tabEntities) {
-				if (e.getKind().equals(k)) {
-					return true;
+			c = c_map.getCell(c_abscisse, c_ordonnee - range);
+			if(c != null) {
+				tabEntities = c.getEntities();
+				for (Entity e : tabEntities) {
+					if (e.getKind().equals(k)) {
+						return true;
+					}
 				}
 			}
 			break;
 
 		case SOUTH:
-			tabEntities = c_map.getCell(c_abscisse, c_ordonnee + range).getEntities();
-			for (Entity e : tabEntities) {
-				if (e.getKind().equals(k)) {
-					return true;
+			c = c_map.getCell(c_abscisse, c_ordonnee + range);
+			if(c != null) {
+				tabEntities = c.getEntities();
+				for (Entity e : tabEntities) {
+					if (e.getKind().equals(k)) {
+						return true;
+					}
 				}
 			}
 			break;
 
 		case EAST:
-			tabEntities = c_map.getCell(c_abscisse + range, c_ordonnee).getEntities();
-			for (Entity e : tabEntities) {
-				if (e.getKind().equals(k)) {
-					return true;
+			c = c_map.getCell(c_abscisse + range, c_ordonnee);
+			if(c != null) {
+				tabEntities = c.getEntities();
+				for (Entity e : tabEntities) {
+					if (e.getKind().equals(k)) {
+						return true;
+					}
 				}
 			}
 			break;
 
 		case WEST:
-			tabEntities = c_map.getCell(c_abscisse - range, c_ordonnee).getEntities();
-			for (Entity e : tabEntities) {
-				if (e.getKind().equals(k)) {
-					return true;
+			c = c_map.getCell(c_abscisse - range, c_ordonnee);
+			if(c != null) {
+				tabEntities = c.getEntities();
+				for (Entity e : tabEntities) {
+					if (e.getKind().equals(k)) {
+						return true;
+					}
 				}
 			}
 			break;
