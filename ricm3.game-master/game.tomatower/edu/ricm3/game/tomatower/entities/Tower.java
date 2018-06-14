@@ -74,7 +74,6 @@ public class Tower extends Living {
 			int x = pos[0] * model.getCurrentMap().getCellSize();
 			int y = pos[1] * model.getCurrentMap().getCellSize();
 			g.drawImage(sprite[idx], x, y, d, d, null);
-			System.out.println(idx);
 		}
 	}
 

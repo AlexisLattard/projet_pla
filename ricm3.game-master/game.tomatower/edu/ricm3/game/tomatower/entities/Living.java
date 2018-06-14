@@ -64,7 +64,6 @@ public abstract class Living extends Entity {
 			int y = pos[1] * cell_size;
 			g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
 		}
-
 	}
 
 	@Override
@@ -91,7 +90,7 @@ public abstract class Living extends Entity {
 					this.bag.add(hand);
 				entity.removeEntityFromCell();
 				this.hand = (Tower) (entity);
-			} 
+			}
 		}
 	}
 
@@ -163,11 +162,11 @@ public abstract class Living extends Entity {
 		removeEntityFromCell();
 
 	}
-	 
+
 	// Conditions
 	@Override
 	public boolean isAlive() {
-		return this.hp > this.max_life/5;
+		return this.hp > this.max_life / 5;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ public class Mobs extends Living {
 		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
 		res.add(Mobs.class);
 		res.add(Portal.class);
+		res.add(MobSpawn.class);
 		return res;
 	}
 
