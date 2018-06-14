@@ -23,9 +23,5 @@ public abstract class Buyable extends Inert {
 	public void step(long now) {
 
 	}
-
-	public void action() {
-
-	}
-
+	
 }
