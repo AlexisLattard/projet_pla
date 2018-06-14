@@ -14,16 +14,17 @@ public final class LevelDesign {
 	public static final int MAX_LIFE_MOB_GHOST = 20; 
 	public static final int MAX_LIFE_MOB_LANTERN = 30; 
 	public static final int MAX_LIFE_MOB_HUNGRY = 10; 
-	public static final int MAX_LIFE_TOWER = 250; //
+	public static final int MAX_LIFE_TOWER = 500; //
 	public static final int MAX_LIFE_CRYSTAL = 5000; //
 	
 	// Money
-	public static final int MONEY_PLAYER = 0; //
+	public static final int MONEY_PLAYER = 5000; //
 	public static final int PRICE_TOWER_PRODUCT = 500; //
 	public static final int PRICE_TOWER_UPGRADE = 200; //
 	public static final int INCREASES_TOWER_UPGRADE_AMOUNT = 100; //
 	public static final int INCREASES_TOWER_PRODUCT_AMOUNT = 200; //
 	public static final int EARNED_MONEY_WHEN_MOB_DIED = 100; //
+	public static final int PRICE_BEHAVIOR_CHANGEMENT = 200; // 
 	
 	// Hit
 	public static final int HIT_PLAYER = 20; //

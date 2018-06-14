@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Cell {
-
 	private int col;
 	private int row;
 	private Map map;

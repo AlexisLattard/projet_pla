@@ -1,5 +1,6 @@
 package edu.ricm3.game.tomatower.entities;
 
+import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.mvc.Model;
@@ -21,12 +22,11 @@ public class Crystal extends Living {
 	}
 
 	@Override
-	public void pop() {
-
+	public void pop(Direction d) {
 	}
 
 	@Override
-	public void wizz() {
+	public void wizz(Direction d) {
 
 	}
 

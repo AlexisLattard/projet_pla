@@ -46,7 +46,7 @@ public class Model extends GameModel {
 	private MobSpawn mobSpawn;
 
 	private HashMap<EntityName, Weapon> weapons;
-	private HashMap<String, A_Automaton> automatons;
+	private HashMap<EntityName, A_Automaton> automatons;
 
 	private ArrayList<Entity> entities;
 
@@ -58,7 +58,6 @@ public class Model extends GameModel {
 
 	public void initModel(Controller c) {
 		initWeapons();
-		initAutomatons(c);
 		initMaps();
 	}
 
@@ -135,7 +134,7 @@ public class Model extends GameModel {
 		return this.weapons;
 	}
 
-	public HashMap<String, A_Automaton> getAutomatons() {
+	public HashMap<EntityName, A_Automaton> getAutomatons() {
 		return this.automatons;
 	}
 
@@ -188,18 +187,22 @@ public class Model extends GameModel {
 
 	}
 
-	public void initAutomatons(Controller c) {
-		this.automatons = new HashMap<>();
+	public HashMap<String, A_Automaton> initAutomatons(Controller c) {
+		HashMap<String, A_Automaton> res = new HashMap<>();
 
 		try {
 			new AutomataParser(new BufferedReader(new FileReader("game.tomatower/automaton/automata.txt")));
 			Ast ast = AutomataParser.Run();
 			A_Builder builder = new A_Builder(ast, c);
-			this.automatons = builder.makeAutomatonsFromAst();
-			System.out.println(automatons.keySet());
+			res = builder.makeAutomatonsFromAst();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return res;
+	}
+
+	public void setHashMap(HashMap<EntityName, A_Automaton> a) {
+		this.automatons = a;
 	}
 
 }

@@ -21,7 +21,6 @@ public class Player extends Living {
 			Weapon c_weapon, A_Automaton c_automaton) {
 		super(c_model, true, c_sprite, c_scale, c_cell, c_weapon, initColisions(), c_automaton, Kind.Team,
 				ACTION_TIME_PLAYER, MAX_LIFE_PLAYER);
-
 		this.canTakeEntity = true;
 		this.money = MONEY_PLAYER;
 		this.score = 0;
@@ -30,17 +29,29 @@ public class Player extends Living {
 	// Actions
 
 	@Override
-	public void pop() {
-
+	public void pop(Direction d) {
 		if (this.model.getCurrentMap().equals(this.model.getStoreMap())) {
-			this.pick(Direction.FRONT);
-			this.store();
+			Entity entity = this.getMap().getEntityCell(this.getCellDirection(Direction.FRONT, 1));
+
+			if (entity instanceof Product) {
+				((Product) entity).buyTower();
+			} else if (entity instanceof Upgrade) {
+				((Upgrade) entity).upgradeWeapon();
+			}
 		}
 	}
 
 	@Override
-	public void wizz() {
-		// TODO
+	public void wizz(Direction d) {
+		if (this.model.getCurrentMap().equals(this.model.getStoreMap())) {
+			Entity entity = this.getMap().getEntityCell(this.getCellDirection(Direction.FRONT, 1));
+
+			if (entity instanceof Upgrade) {
+				System.out.println("Tentative de chg de comportement.");
+				((Upgrade) entity).behaviorChangement();
+			}
+
+		}
 	}
 
 	@Override
@@ -67,6 +78,7 @@ public class Player extends Living {
 
 	public HashMap<EntityName, Integer> getBagNumberTower() {
 		HashMap<EntityName, Integer> numbertowers = new HashMap<>();
+
 		for (EntityName kw : EntityName.values()) {
 			numbertowers.put(kw, 0);
 		}
@@ -87,6 +99,7 @@ public class Player extends Living {
 				break;
 			default:
 				break;
+
 			}
 		}
 

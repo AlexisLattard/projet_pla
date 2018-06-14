@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Map {
-
 	Model model;
 
 	private ArrayList<ArrayList<Cell>> cells;
@@ -51,7 +50,7 @@ public class Map {
 			Cell dest = player.getCellDirection(Direction.FRONT, 1);
 			if (dest != null) {
 				int dest_position[] = dest.getPosition();
-				int cell_size = this.getCellSize();
+				int cell_size = this.cell_size;
 				int x = dest_position[0] * cell_size;
 				int y = dest_position[1] * cell_size;
 
@@ -154,21 +153,20 @@ public class Map {
 					Cell cell = new Cell(col, row, this);
 					cells_line.add(cell);
 					switch (line_elements[col]) {
-					case "E":
 
-						break;
 					case "P":
-						// TEST
-						Weapon w = new Weapon(this.model, 1, 7, EntityName.Tower_Yellow);
 						this.model.setPlayer(new Player(this.model, this.model.getSprites().sprite_player, 1, cell,
-								Direction.NORTH, w, this.model.getAutomatons().get("Perso")));
+								Direction.NORTH, this.model.getWeapons().get(EntityName.Player),
+								this.model.getAutomatons().get(EntityName.Player)));
 						break;
 					case "Os":
+						// System.out.println("Stone");
 						new Obstacle(this.model, this.model.getSprites().sprite_cailloux, 1, cell, ObstaclesKind.Stone);
 						break;
 
 					case "Ol":
 						new Water(this.model, this.model.getSprites().sprite_lac, 1, cell, ObstaclesKind.Lake);
+
 						break;
 
 					case "Ow":

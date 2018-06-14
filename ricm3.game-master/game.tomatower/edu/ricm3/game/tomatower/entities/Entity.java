@@ -10,24 +10,6 @@ import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-//<<<<<<<HEAD
-//
-//public abstract class Entity {
-//	Model model;
-//	protected Cell cell;
-//	protected boolean can_move;
-//	protected Direction direction; // absolute direction North, south, east, west
-//	protected boolean visible;
-//
-//	protected A_Automaton automaton = null;
-//	protected ArrayList<Class<?>> entities_destination_allowed; // Utile pour determiner sur quelle cases l'entité peut
-//																// se trouver
-//	double scale = 1;
-//	Kind kind;
-//	protected long last_action = 0;
-//	protected long action_time = 1000L;
-//	protected String current_state = null;
-//
 
 public abstract class Entity {
 	Model model;
@@ -78,9 +60,9 @@ public abstract class Entity {
 
 	// Actions
 
-	public abstract void wizz();
+	public abstract void wizz(Direction d);
 
-	public abstract void pop();
+	public abstract void pop(Direction d);
 
 	public void move(Direction d) {
 		this.turn(d);
@@ -305,6 +287,11 @@ public abstract class Entity {
 		this.automaton = null;
 	}
 
+	public void setAutomaton(A_Automaton automaton) {
+		this.automaton = automaton;
+		this.current_state = automaton.getCurrentState();
+	}
+
 	public String getCurrentState() {
 		return this.current_state;
 	}
@@ -312,5 +299,4 @@ public abstract class Entity {
 	public void setCurrentState(String state) {
 		this.current_state = state;
 	}
-
 }

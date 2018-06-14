@@ -15,9 +15,41 @@ Hiter(Init) {
      | True ? Jump : (Init)
 }
 
-HiterTower(Un) {
-    *(Un) : True ? Pop : (Un)
+HiterTower(Shoot) {
+    *(Shoot) : 
+    	| !GotPower ? Pop : (X)
+    	| Closest(A,N) ? Hit(N) : (Shoot)
+    	| Closest(A,S) ? Hit(S) : (Shoot)
+    	| Closest(A,E) ? Hit(E) : (Shoot)
+    	| Closest(A,O) ? Hit(O) : (Shoot)
+    	| True ? Turn(F)	: (Shoot)
 }
+
+EvilTower(Shoot) {
+    *(Shoot) : 
+    	| !GotPower ? Pop : (X)
+    	| Closest(T,N) ? Hit(N) : (Shoot)
+    	| Closest(T,S) ? Hit(S) : (Shoot)
+    	| Closest(T,E) ? Hit(E) : (Shoot)
+    	| Closest(T,O) ? Hit(O) : (Shoot)
+    	| True ? Turn(F)	: (Shoot)
+}
+
+CrazyTower(Crazy1){
+	*(Crazy1): 
+		| !GotPower ? Pop : (X)
+		| True ? Hit(N) : (Crazy2)
+	*(Crazy2): 
+		| !GotPower ? Pop : (X)
+		| True ? Hit(E) : (Crazy3)
+	*(Crazy3):
+		| !GotPower ? Pop : (X)
+	 	| True ? Hit(S) : (Crazy4)
+	*(Crazy4): 
+		| !GotPower ? Pop : (X)
+		| True ? Hit(O) : (Crazy1)
+}
+
 
 FollowTheRightWall(Bump){
 
@@ -83,7 +115,7 @@ FollowTheLeftWall(Bump){
 		| Cell(F,A) ? Move(F)	:(FollowWalls)
 		| Cell(R,V) ? Move(R)	:(FollowWalls)
 		| Cell(R,A) ? Move(R)	:(FollowWalls)
-		| True ? Move(B)	:(FollowWalls)
+		| True ? Move(B)	:(FollowWalls) 
 
 }
 
@@ -152,6 +184,48 @@ Agressiv(Chase) {
 		
 }
 
+Shoper(Bump){
+
+	* (Bump):
+		| Cell(F,V) ? Move(F)	:(Bump)
+		| Cell(F,A) ? Move(F)	:(Bump)
+		| True ? Turn(R)	:(FollowWalls)
+
+	* (FollowWalls):
+		| Cell(L,G) ? Move(L)	:(Enter)
+		| Cell(L,V) ? Move(L)	:(FollowWalls)
+		| Cell(L,A) ? Move(L)	:(FollowWalls)
+		| Cell(F,G) ? Move(F)	:(Enter)
+		| Cell(F,V) ? Move(F)	:(FollowWalls)
+		| Cell(F,A) ? Move(F)	:(FollowWalls)
+		| Cell(R,G) ? Move(R)	:(Enter)
+		| Cell(R,V) ? Move(R)	:(FollowWalls)
+		| Cell(R,A) ? Move(R)	:(FollowWalls)
+		| True ? Move(B)	:(FollowWalls)
+		
+	* (Enter): True ? Move(N)	:(Shop)
+	
+	* (Shop):
+		| Cell(R,P) ? Turn(R)	:(Purchase1)
+		| Cell(R,V) ? Move(R)	:(Shop)
+		| Cell(R,A) ? Move(R)	:(Shop)
+		| Cell(F,P) ? Turn(F)	:(Purchase1)
+		| Cell(F,V) ? Move(F)	:(Shop)
+		| Cell(F,A) ? Move(F)	:(Shop)
+		| Cell(L,P) ? Turn(L)	:(Purchase1)
+		| Cell(L,V) ? Move(L)	:(Shop)
+		| Cell(L,A) ? Move(L)	:(Shop)
+		| True ? Move(B)	:(Shop)
+
+	* (Purchase1) : True ? Pop	:(Purchase2)
+	
+	* (Purchase2) : True ? Pop	:(Purchase3)
+	
+	* (Purchase3) : True ? Pop	:(MischiefManaged)
+	
+	* (MischiefManaged) : True ? Kamikaze :(X)
+}
+
 
 Perso(Init) {
     *(Init):
@@ -161,14 +235,11 @@ Perso(Init) {
      | Key(FL) ? Move(O) : (Init)
      | Key(SPACE) ? Hit : (Init)
      | Key(a) ? Pick : (Init)
+     | Key(w) ? Wizz : (Init)
      | Key(z) ? Store : (Init)
      | Key(q) ? Throw : (Init)
      | Key(s) ? Get : (Init)
      | Key(p) ? Pop : (Init)
-     | Key(i) ? Move(F) : (Init)
-     | Key(l) ? Move(R) : (Init)
-     | Key(k) ? Move(B) : (Init)
-     | Key(j) ? Move(L) : (Init)
 }
 
 Explorer(Explore){
@@ -234,16 +305,26 @@ Atest(Init) {
 
 
 
-TestCondition(Deux) {
- *(Un) : !(!True / !True) ? Move(E) / Move(O) : (_)
- *(Deux) : 
-  |!True ? Kamikaze : (_)
-  | True & True & True & True  ? Move(N) / Move(S) : (_)
+TestCondition(Un) {
+ *(Un) : (True & !Cell(N, V) & True & !Cell(S, V) & True &  !Cell(E, V) & True & !Cell(O, V)) ? Kamikaze : (Un)
 }
 
 
+TowerRed(Init){
+* (Init) : True ? Hit(E) : (Init)
+}
 
+TowerBlue(Init){
+* (Init) : True ? Hit(O) : (Init)
+}
 
+TowerYellow(Init){
+* (Init) : True ? Hit(S) : (Init)
+}
+
+TowerPurple(Init){
+* (Init) : True ? Hit(N) : (Init)
+}
 
 SuperHero(Explore){
 

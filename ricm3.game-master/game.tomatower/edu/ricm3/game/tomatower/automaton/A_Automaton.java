@@ -59,4 +59,8 @@ public class A_Automaton {
 		return true;
 	}
 
+	public String getCurrentState() {
+		return this.entry_state;
+	}
+
 }

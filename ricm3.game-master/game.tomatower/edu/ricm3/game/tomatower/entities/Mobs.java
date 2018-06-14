@@ -4,6 +4,7 @@ import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.map.Map;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
@@ -27,7 +28,7 @@ public class Mobs extends Living {
 	}
 
 	@Override
-	public void pop() {
+	public void pop(Direction d) {
 		// TODO
 		if (getMap().equals(this.model.getMainMap())) {
 			circleAttack(DAMAGE_DESTRUCTION_MOB);
@@ -37,8 +38,11 @@ public class Mobs extends Living {
 	}
 
 	@Override
-	public void wizz() {
-
+	public void wizz(Direction d) {
+		if (getMap().equals(this.model.getMainMap())) {
+			this.move(d);
+			this.move(d);
+		}
 	}
 
 	public static ArrayList<Class<?>> initColisions() {
