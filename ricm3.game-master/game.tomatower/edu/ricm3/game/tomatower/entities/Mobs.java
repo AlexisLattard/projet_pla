@@ -40,11 +40,8 @@ public class Mobs extends Living {
 	@Override
 	public void wizz(Direction d) {
 		if (getMap().equals(this.model.getMainMap())) {
-			this.turn(d);
-			if (this.cell(Direction.FRONT, Kind.Ennemis) || this.cell(Direction.FRONT, Kind.Void))
-				this.move(Direction.FRONT);
-			if (this.cell(Direction.FRONT, Kind.Ennemis) || this.cell(Direction.FRONT, Kind.Void))
-				this.move(Direction.FRONT);
+			this.move(d);
+			this.move(d);
 		}
 	}
 
