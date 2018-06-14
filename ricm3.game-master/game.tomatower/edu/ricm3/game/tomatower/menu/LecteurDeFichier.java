@@ -26,7 +26,10 @@ public class LecteurDeFichier {
 	public String[] getNextLineCSV(String separateur) {
 		if (this.lecteur != null) {
 			String line = getNextLine();
-			if (line.charAt(0) == COMMENTAIRE) {// Si la ligne courante est un commentaire .
+			while (!estFin() && line.charAt(0) == COMMENTAIRE) {
+				line = getNextLine();
+			}
+			if (estFin() && line == null) {
 				return null;
 			}else {
 				return line.split(separateur);
@@ -100,9 +103,14 @@ public class LecteurDeFichier {
 
 	public boolean estFin() {
 		if (lecteur != null) {
-			return lecteur.hasNext();
+			return !lecteur.hasNext();
 		}else {
-			return false;
+			return true;
 		}
+	}
+
+	public boolean lecteurisCreated() {
+		// TODO Auto-generated method stub
+		return lecteur != null;
 	}
 }

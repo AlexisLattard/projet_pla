@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
@@ -34,8 +35,10 @@ public class ChoixComportement extends JDialog{
 	private JPanel sud_panel;
 	private JPanel valider_panel;
 	private JPanel aleatoire_panel;
+	private JPanel Sauvegarde_panel;
 	private Bouton valider_bouton;
 	private Bouton aleatoire_bouton;
+	private Bouton Sauvegarde_bouton;
 	
 	
 	public ChoixComportement( HashMap<String, A_Automaton> automates) {
@@ -52,6 +55,8 @@ public class ChoixComportement extends JDialog{
 	private void initSud() {
 		this.valider_bouton = new Bouton("Valider");
 		this.valider_bouton.addActionListener(new ValiderComportementListener());
+		this.Sauvegarde_bouton = new Bouton("Sauvegarder");
+		this.Sauvegarde_bouton.addActionListener(new SauvegardeComportementListener());
 		this.aleatoire_bouton = new Bouton("Aleatoire");
 		this.aleatoire_bouton.addActionListener(new ComportementAleatoireListener());
 		
@@ -59,10 +64,13 @@ public class ChoixComportement extends JDialog{
 		this.valider_panel.add(this.valider_bouton);
 		this.aleatoire_panel= new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		this.aleatoire_panel.add(this.aleatoire_bouton);
+		this.Sauvegarde_panel= new JPanel(new FlowLayout(FlowLayout.CENTER));
+		this.Sauvegarde_panel.add(this.Sauvegarde_bouton);
 		
 		
-		this.sud_panel = new JPanel(new GridLayout(1,2));
+		this.sud_panel = new JPanel(new GridLayout(1,3));
 		this.sud_panel.add(this.valider_panel);
+		this.sud_panel.add(this.Sauvegarde_panel);
 		this.sud_panel.add(this.aleatoire_panel);
 		this.add(this.sud_panel, BorderLayout.SOUTH);
 		
@@ -91,10 +99,31 @@ public class ChoixComportement extends JDialog{
 	
 	private void remplirChoix() {
 		Object keys[] = this.automates.keySet().toArray();
+		HashMap<String,String> sauvegarde = getSauvergarde();
 		for(int i=0;i<this.nbElements;i++) {
-			this.choix.add(new JComboBox<Object>(keys));
+			JComboBox<Object> combobox = new JComboBox<Object>(keys);
+			Object selectedItem = sauvegarde.get(EntityName.values()[i].name());
+			if (selectedItem != null) {
+				combobox.setSelectedItem(selectedItem);
+			}
+			this.choix.add(combobox);
 		}
-		
+	}
+	
+	private HashMap<String,String> getSauvergarde(){
+		File file = new File(EcritureDuFichier.FICHIER_COMPORTEMENTS);
+		LecteurDeFichier lecteur = new LecteurDeFichier(file);
+		HashMap<String,String> sauvergarde = new HashMap<String,String>();
+		if (lecteur.lecteurisCreated()) {
+			while (!lecteur.estFin()) {
+				String[] row = lecteur.getNextLineCSV("=");
+				if (row != null ) {
+					sauvergarde.put(row[0], row[1]);
+				}
+			}
+		}
+		lecteur.fermeFichier();
+		return sauvergarde;
 	}
 	
 	private void remplirExclusion(){
@@ -157,5 +186,18 @@ public class ChoixComportement extends JDialog{
 		}
 		
 	}
+	
+	private class SauvegardeComportementListener implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			EcritureDuFichier ecrit =new EcritureDuFichier(EcritureDuFichier.FICHIER_COMPORTEMENTS);
+			ecrit.EcrireComportements(getComportements());
+			ecrit.fermeEcriture();
+		}
+		
+	}
+	
 	// Listener//
 }

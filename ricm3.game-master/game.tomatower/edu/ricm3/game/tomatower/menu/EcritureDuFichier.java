@@ -2,28 +2,32 @@ package edu.ricm3.game.tomatower.menu;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import edu.ricm3.game.tomatower.automaton.A_Automaton;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 
 public class EcritureDuFichier {
-	private static final String COMPORTEMENTS = "#Ce fichier correspond au correspondance entité->automates";
+	public static final String FICHIER_COMPORTEMENTS = "./Autres/Comportements";
+	private static final String COMPORTEMENTS = "#Ce fichier correspond au correspondance entité->automates\n";
+	
 	private PrintWriter fichier;
 	
 	public EcritureDuFichier(String chemin) {
 		try {
-			fichier = new PrintWriter(chemin,"w+");
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			fichier = new PrintWriter(chemin);
+		} catch (FileNotFoundException e) {
+			System.out.println("Erreur Fichier");
+			e.printStackTrace();
 			fichier = null;
 		}
 	}
 	
 	public EcritureDuFichier(String chemin,String option) {
 		try {
-			fichier = new PrintWriter(chemin,option);
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			fichier = new PrintWriter(chemin);
+		} catch (FileNotFoundException e) {
+			System.out.println("Erreur Fichier");
 			fichier = null;
 		}
 	}
@@ -36,9 +40,14 @@ public class EcritureDuFichier {
 		if (this.fichier != null) {
 			fichier.write(COMPORTEMENTS);
 			for (EntityName entity : EntityName.values()) {
-				String ligne = entity.name()+"="+automates.get(entity).getName();
-				fichier.write(COMPORTEMENTS);
+				String ligne = entity.name()+"="+automates.get(entity).getName()+"\n";
+				fichier.write(ligne);
 			}
 		}
+	}
+
+	public void fermeEcriture() {
+		// TODO Auto-generated method stub
+		fichier.close();
 	}
 }
