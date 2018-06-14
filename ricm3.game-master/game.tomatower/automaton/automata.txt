@@ -234,11 +234,9 @@ Atest(Init) {
 
 
 
-TestCondition(Deux) {
- *(Un) : !(!True / !True) ? Move(E) / Move(O) : (_)
- *(Deux) : 
-  |!True ? Kamikaze : (_)
-  | True & True & True & True  ? Move(N) / Move(S) : (_)
+TestCondition(Un) {
+ *(Un) : (True & !Cell(N, V) & True & !Cell(S, V) & True &  !Cell(E, V) & True & !Cell(O, V)) ? Kamikaze : (Un)
+
 }
 
 

@@ -23,9 +23,10 @@ public abstract class Living extends Entity {
 	protected int max_life;
 	protected BufferedImage sprite[];
 	protected EntityName tower_selected;
-	
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind, long c_action_time, int c_max_life) {
+	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Cell c_cell, Weapon c_weapon,
+			ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind, long c_action_time,
+			int c_max_life) {
 		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_cell, c_kind, c_action_time, Direction.NORTH);
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
@@ -35,7 +36,9 @@ public abstract class Living extends Entity {
 		this.bag = new ArrayList<>();
 	}
 
-	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Weapon c_weapon, ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind, long c_action_time, int c_max_life) {
+	Living(Model c_model, Boolean c_movement, BufferedImage c_sprite[], double c_scale, Weapon c_weapon,
+			ArrayList<Class<?>> c_collisions, A_Automaton c_automaton, Kind c_kind, long c_action_time,
+			int c_max_life) {
 		super(c_model, c_movement, c_scale, c_collisions, c_automaton, c_kind, c_action_time, Direction.NORTH);
 		this.sprite = c_sprite;
 		this.weapon = c_weapon;
@@ -43,7 +46,7 @@ public abstract class Living extends Entity {
 		this.max_life = c_max_life;
 		this.hp = max_life;
 		this.bag = new ArrayList<>();
-		
+
 	}
 
 	@Override
@@ -62,14 +65,12 @@ public abstract class Living extends Entity {
 	@Override
 	public void step(long now) {
 		super.step(now);
-		
-		if(this.hp <= 0) {
+
+		if (this.hp <= 0) {
 			death();
 		}
 	}
 
-	
-	
 	// Actions
 
 	@Override
@@ -130,7 +131,7 @@ public abstract class Living extends Entity {
 			this.hand = null;
 		}
 	}
-	
+
 	@Override
 	public void kamikaze() {
 		this.hp = 0;
@@ -147,15 +148,15 @@ public abstract class Living extends Entity {
 		this.getCellDirection(Direction.EAST, 1).damage(power);
 		this.getCellDirection(Direction.WEST, 1).damage(power);
 	}
-	
+
 	public void death() {
-		
-		if(this instanceof Mobs) {
+
+		if (this instanceof Mobs) {
 			this.model.getPlayer().increaseMoney(EARNED_MONEY_WHEN_MOB_DIED);
 		}
 		this.model.removeEntity(this);
 		removeEntityFromCell();
-		
+
 	}
 	 
 	// Conditions
@@ -204,7 +205,7 @@ public abstract class Living extends Entity {
 	public EntityName getTowerSelected() {
 		return this.tower_selected;
 	}
-	
+
 	public int getMaxLife() {
 		return this.max_life;
 	}

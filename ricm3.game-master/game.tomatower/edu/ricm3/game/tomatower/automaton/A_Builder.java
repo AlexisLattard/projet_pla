@@ -84,6 +84,7 @@ public class A_Builder {
 		// 3 cases : Binary Op, Unary Op or directly a funCall
 				
 		A_Expression expression;
+		System.out.println("Kind condition: " + condition.expression.kind);
 		
 		switch (condition.expression.kind) {
 			case "FunCall":
@@ -91,10 +92,12 @@ public class A_Builder {
 				break;
 			
 			case "BinaryOp":
+				
 				expression = makeBinaryOp((BinaryOp)condition.expression);
 				break;
 			
 			case "UnaryOp" :
+				
 				expression = makeUnaryOp((UnaryOp)condition.expression);
 				break;
 	
