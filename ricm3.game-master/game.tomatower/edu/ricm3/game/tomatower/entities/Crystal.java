@@ -3,6 +3,7 @@ package edu.ricm3.game.tomatower.entities;
 import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.menu.DialogFin;
 import edu.ricm3.game.tomatower.mvc.Model;
 
 import java.awt.*;
@@ -37,6 +38,16 @@ public class Crystal extends Living {
 		} else {
 			this.main_instance.damage(power);
 		}
+	}
+	
+	@Override
+	public void death() {
+
+		super.death();
+		System.out.println("Bsarthec");
+		DialogFin dialog = new DialogFin(false,"Pseudo",this.model);
+		dialog.setVisible(true);
+
 	}
 
 	@Override

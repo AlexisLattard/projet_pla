@@ -158,14 +158,6 @@ public abstract class Living extends Entity {
 	}
 
 	public void death() {
-
-		if (this instanceof Mobs) {
-			this.model.getPlayer().increaseMoney(EARNED_MONEY_WHEN_MOB_DIED);
-		}else if (this instanceof Crystal){
-			System.out.println("Bsarthec");
-			DialogFin dialog = new DialogFin(false,"Pseudo",this.model);
-			dialog.setVisible(true);
-		}
 		this.model.removeEntity(this);
 		removeEntityFromCell();
 
