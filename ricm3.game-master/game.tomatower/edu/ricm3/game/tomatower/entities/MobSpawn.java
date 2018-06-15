@@ -49,6 +49,7 @@ public class MobSpawn extends Inert {
 		behaviors.put(this.model.getSprites().sprite_mob_plug, this.model.getAutomatons().get(EntityName.Mob_Plug));
 	}
 
+	
 	@Override
 	public void step(long now) {
 		if (!is_ready && now - this.last_wave > wave_delay && main_instance == null && wave_id < waves.size()) {
@@ -58,6 +59,7 @@ public class MobSpawn extends Inert {
 			instanciateWaveMobs(now);
 		}
 	}
+	
 
 	public void createWave() {
 		int nb_monstre[] = waves.get(wave_id);
