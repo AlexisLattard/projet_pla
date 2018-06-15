@@ -108,7 +108,7 @@ public class Option extends JPanel{
 		File file = new File("./Autres/Resolution");
     	Vector<Vector<Object>> newResolution = new Vector<Vector<Object>>();
     	LecteurDeFichier lecteur = new LecteurDeFichier(file);
-        while (lecteur.estFin()) {
+        while (!lecteur.estFin()) {
         	Vector<Object> row = lecteur.getNextLineCSV_OptionTaille(";");
             newResolution.add(row);
         }
