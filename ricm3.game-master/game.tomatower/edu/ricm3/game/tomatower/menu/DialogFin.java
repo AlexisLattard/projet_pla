@@ -29,6 +29,7 @@ public class DialogFin extends JDialog{
 		super(model.getGameUI().getFrame());
 		this.setLayout(new BorderLayout());
 		this.setSize(400, 400);
+		this.setLocationRelativeTo(null);
 		initNord(gagne,pseudo,model);
 		initCentre();
 		enregistrementScore(pseudo,model);
