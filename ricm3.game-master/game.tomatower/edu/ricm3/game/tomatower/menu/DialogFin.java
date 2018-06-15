@@ -5,11 +5,14 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import edu.ricm3.game.tomatower.mvc.Model;
 
@@ -57,8 +60,10 @@ public class DialogFin extends JDialog{
 		JPanel panelCentre = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		this.boutonQuitter = new Bouton("Quitter");
 		this.boutonQuitter.addActionListener(new QuitterListener());
+		this.boutonQuitter.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
 		this.boutonRetourMenu = new Bouton("Retour au Menu");
 		this.boutonRetourMenu.addActionListener(new RetourMenuListener());
+		this.boutonQuitter.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
 		
 		this.panelBouton = new JPanel(new GridLayout(1,2));
 		this.panelBouton.add(this.boutonQuitter);
