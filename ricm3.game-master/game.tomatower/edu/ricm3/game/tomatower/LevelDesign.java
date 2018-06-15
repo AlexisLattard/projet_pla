@@ -10,7 +10,7 @@ public final class LevelDesign {
 	
 	// HP
 	public static final int MAX_LIFE_PLAYER = 1000; //
-	public static final int MAX_LIFE_MOB = 30; 
+	public static final int MAX_LIFE_MOB = 40; 
 //	public static final int MAX_LIFE_MOB_PLUG = 40; 
 //	public static final int MAX_LIFE_MOB_GHOST = 20; 
 //	public static final int MAX_LIFE_MOB_LANTERN = 30; 
