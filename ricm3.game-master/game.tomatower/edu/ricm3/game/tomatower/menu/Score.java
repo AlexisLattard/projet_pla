@@ -96,7 +96,9 @@ public class Score extends JPanel
     	LecteurDeFichier lecteur= new LecteurDeFichier(file);
         while (!lecteur.estFin()) {
             Vector<Object> row = lecteur.getNextLineCSV_Score(";");
-            données.add(row);
+            if (row != null) {
+            	données.add(row);
+            }
         }
         lecteur.fermeFichier();
     }

@@ -52,8 +52,10 @@ public class LecteurDeFichier {
 		        row.add(elements[0]); 				// Ajout Pseudo
 		        row.add(new Integer(elements[1]));	// Ajout Score
 		        row.add(dfl.format(date));			// Ajout Pseudo
+				return row;	
+			}else {
+				return null;
 			}
-			return row;		
 		}else {
 			return null;
 		}
