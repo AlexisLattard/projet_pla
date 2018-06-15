@@ -192,6 +192,27 @@ Agressiv(Chase) {
 		
 }
 
+Rush(Chase) {
+	* (Chase):
+		| Cell(N,D) ? Pop			:(X)
+		| Cell(S,D) ? Pop			:(X)
+		| Cell(E,D) ? Pop			:(X)
+		| Cell(O,D) ? Pop			:(X)
+		| Closest(D,N) & Cell(N,V) ? Move(N)	:(Chase)
+		| Closest(D,N) & Cell(N,A) ? Move(N)	:(Chase)
+		| Closest(D,N) ? Move(E) / Move(O)	:(Chase)
+		| Closest(D,S) & Cell(S,V) ? Move(S)	:(Chase)
+		| Closest(D,S) & Cell(S,A) ? Move(S)	:(Chase)
+		| Closest(D,S) ? Move(E) / Move(O)	:(Chase)
+		| Closest(D,E) & Cell(E,V) ? Move(E)	:(Chase)
+		| Closest(D,E) & Cell(E,A) ? Move(E)	:(Chase)
+		| Closest(D,E) ? Move(N) / Move(S)	:(Chase)
+		| Closest(D,O) & Cell(O,V) ? Move(O)	:(Chase)
+		| Closest(D,O) & Cell(O,A) ? Move(O)	:(Chase)
+		| True ? Move(S) / Move(N) : (Chase)
+		
+}
+
 Shoper(Bump){
 
 	* (Bump):
