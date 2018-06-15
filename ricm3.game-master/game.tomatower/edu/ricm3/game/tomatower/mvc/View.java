@@ -60,34 +60,33 @@ public class View extends GameView {
 
 	@Override
 	protected void _paint(Graphics g) {
+			computeFPS();
 
-		computeFPS();
+			Map map = this.model.getCurrentMap();
+			if (current_map == null || !this.current_map.equals(map))
+				resizeWindow(map);
 
-		Map map = this.model.getCurrentMap();
-		if (current_map == null || !this.current_map.equals(map))
-			resizeWindow(map);
-
-		// erase background
-		g.setColor(Color.white);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		Iterator<Cell> iter_cells = map.getCellsIterator();
-		Cell c;
-		while (iter_cells.hasNext()) {
-			c = iter_cells.next();
-			int d = map.getCellSize();
-			int[] pos = c.getPosition();
-			int x = pos[0] * d;
-			int y = pos[1] * d;
-			if (map == model.getMainMap()) {
-				g.drawImage(model.getSprites().sprite_grass, x, y, d, d, null);
-			} else {
-				g.drawImage(model.getSprites().sprite_plank, x, y, d, d, null);
+			// erase background
+			g.setColor(Color.white);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			Iterator<Cell> iter_cells = map.getCellsIterator();
+			Cell c;
+			while (iter_cells.hasNext()) {
+				c = iter_cells.next();
+				int d = map.getCellSize();
+				int[] pos = c.getPosition();
+				int x = pos[0] * d;
+				int y = pos[1] * d;
+				if (map == model.getMainMap()) {
+					g.drawImage(model.getSprites().sprite_grass, x, y, d, d, null);
+				} else {
+					g.drawImage(model.getSprites().sprite_plank, x, y, d, d, null);
+				}
 			}
-		}
 
-		map.paint(g);
-
-		hud.paint(g);
+			map.paint(g);
+			hud.paint(g);
+			
 	}
 
 	public void initView(GameUI gameUI) {
