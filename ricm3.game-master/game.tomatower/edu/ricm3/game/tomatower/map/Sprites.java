@@ -30,6 +30,7 @@ public class Sprites {
 	public BufferedImage sprite_arbre;
 	public BufferedImage sprite_lac[];
 	public BufferedImage sprite_mur;
+	public BufferedImage sprite_marchand;
 	public BufferedImage sprite_portal;
 	public BufferedImage sprite_portal_in;
 	public BufferedImage sprite_grass;
@@ -287,6 +288,14 @@ public class Sprites {
 		imageFile = new File("game.tomatower/sprites/obstacles/portal_in.png");
 		try {
 			sprite_portal_in = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.tomatower/sprites/misc/Seller.png");
+		try {
+			sprite_marchand = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);

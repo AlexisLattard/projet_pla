@@ -36,9 +36,6 @@ public class Tower extends Living {
 	@Override
 	public void wizz(Direction d) {
 		Direction[] dir = Direction.values();
-		for (Direction direction : dir) {
-			System.out.println(direction);
-		}
 		for (int i = 0; i < 4; i++) {
 			if (this.cell(dir[i], Kind.Ennemis)) {
 				ArrayList<Entity> cell_entities = this.getCellDirection(dir[i], 1).getEntities();
