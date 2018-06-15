@@ -7,6 +7,7 @@ import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.menu.DialogFin;
+import edu.ricm3.game.tomatower.menu.Jouer;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
@@ -163,7 +164,7 @@ public abstract class Living extends Entity {
 			this.model.getPlayer().increaseMoney(EARNED_MONEY_WHEN_MOB_DIED);
 		}else if (this instanceof Crystal){
 			System.out.println("Bsarthec");
-			DialogFin dialog = new DialogFin(false,"Pseudo",this.model);
+			DialogFin dialog = new DialogFin(false,Jouer.getInstance().getPseudo(),this.model);
 			dialog.setVisible(true);
 		}
 		this.model.removeEntity(this);

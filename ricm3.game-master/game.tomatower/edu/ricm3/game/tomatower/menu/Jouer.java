@@ -27,6 +27,7 @@ import java.util.Map;
 public class Jouer extends JPanel{
 
 	// AUTRES //
+	private String pseudo;
 		// COMPORTEMENT //
 	private File carte_selectionner;
 	private ChoixComportement choix_Comportement;
@@ -56,7 +57,7 @@ public class Jouer extends JPanel{
 	private	 JLabel label_choix_carte;
 		// MAP //
 		// PSEUDO //
-	private JLabel pseudo;
+	private JLabel pseudo_label;
 	private JTextField champPseudo;
 		// PSEUDO //
 	// JLABEL //
@@ -132,7 +133,7 @@ public class Jouer extends JPanel{
 		this.label_choix_carte = new JLabel("Cartes");
 				// MAP //
 				// PSEUDO //
-		this.pseudo = new JLabel("Pseudo");
+		this.pseudo_label = new JLabel("Pseudo");
 		this.champPseudo = new JTextField(20);
 		this.panel_Pseudo = new JPanel(new FlowLayout());
 				// PSEUDO //
@@ -162,7 +163,7 @@ public class Jouer extends JPanel{
 	}
 	
 	private void initPseudo() {
-		this.panel_Pseudo.add(this.pseudo);
+		this.panel_Pseudo.add(this.pseudo_label);
 		this.panel_Pseudo.add(this.champPseudo);
 		this.panel_nord.add(this.panel_Pseudo);
 	}
@@ -272,7 +273,7 @@ public class Jouer extends JPanel{
 		return this.bouton_retour;
 	}
 	
-	private void createInstanceJeu(HashMap<EntityName,A_Automaton> comportements, String pseudo) {
+	private void createInstanceJeu(HashMap<EntityName,A_Automaton> comportements) {
         model.setHashMap(comportements);
         model.initModel(controller);
         view = new View(model,controller);
@@ -289,9 +290,9 @@ public class Jouer extends JPanel{
 	    {
 	    	HashMap<EntityName,A_Automaton> comportements = choix_Comportement.getComportements();
 	        if (!comportements.isEmpty() && carte_selectionner != null) {
-	        	String pseudo = champPseudo.getText();
+	        	Jouer.this.pseudo = champPseudo.getText();
 	        	My_Frame.getInstance().setVisible(false);
-	        	Jouer.getInstance().createInstanceJeu(comportements,pseudo);
+	        	Jouer.getInstance().createInstanceJeu(comportements);
 	        }
 	    }
 	}
@@ -316,5 +317,14 @@ public class Jouer extends JPanel{
 	
 	public ChoixComportement getChoixComportement() {
 		return choix_Comportement;
+	}
+
+	public String getPseudo() {
+		// TODO Auto-generated method stub
+		if (this.pseudo != null) {
+			return this.pseudo;
+		}else {
+			return new String("Anonyme");
+		}
 	}
 }
