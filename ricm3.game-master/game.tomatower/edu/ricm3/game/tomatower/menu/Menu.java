@@ -171,7 +171,8 @@ public class Menu extends JPanel
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 	    	JFrame frame = My_Frame.getInstance();
-	    	JPanel panel = Score.getInstance();
+	    	Score panel = Score.getInstance();
+	    	panel.fillData();
 	    	frame.getContentPane().removeAll();
 	    	frame.getContentPane().add(panel);
 	    	panel.repaint();

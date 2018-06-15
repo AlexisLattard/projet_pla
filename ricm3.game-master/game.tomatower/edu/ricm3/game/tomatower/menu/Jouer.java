@@ -212,7 +212,7 @@ public class Jouer extends JPanel{
 		Border border = BorderFactory.createLineBorder(Color.black,5);
 		for (File child : file.listFiles()) {
 			if (child.isFile()) {
-				Bouton bouton = new Bouton(image);
+				Bouton bouton = new Bouton(image,200,200);
 				bouton.setBorder(border);
 			    bouton.addActionListener(new CarteListener(child));
 			    this.cartes.put(child,bouton);

@@ -6,12 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Scanner;
 import java.util.Vector;
 /**
  * Write a description of class Score here.
@@ -70,7 +65,7 @@ public class Score extends JPanel
         this.tableauDesScore = new Tableau(données,colonnes);
         this.scrollTableauDesScores = new JScrollPane(this.tableauDesScore,
         								JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		fillData();
+		//fillData();
         
         // TABLEAU //
         
