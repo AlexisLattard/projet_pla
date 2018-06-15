@@ -171,9 +171,9 @@ public class Model extends GameModel {
 		Weapon tower_purple = new Weapon(this, HIT_TOWER_PURPLE, RANGE_TOWER_PURPLE, EntityName.Tower_Purple);
 		Weapon tower_yellow = new Weapon(this, HIT_TOWER_YELLOW, RANGE_TOWER_YELLOW, EntityName.Tower_Yellow);
 		Weapon mob_hungry = new Weapon(this, HIT_MOB_HUNGRY, RANGE_MOB_HUNGRY, EntityName.Mob_Hungry);
-		Weapon mob_ghost = new Weapon(this, HIT_MOB_GHOST, RANGE_MOB_GHOST, EntityName.Mob_Ghost);
-		Weapon mob_lantern = new Weapon(this, HIT_MOB_LANTERN, RANGE_MOB_LANTERN, EntityName.Mob_Lantern);
-		Weapon mob_plug = new Weapon(this, HIT_MOB_PLUG, RANGE_MOB_PLUG, EntityName.Mob_Plug);
+//		Weapon mob_ghost = new Weapon(this, HIT_MOB_GHOST, RANGE_MOB_GHOST, EntityName.Mob_Ghost);
+//		Weapon mob_lantern = new Weapon(this, HIT_MOB_LANTERN, RANGE_MOB_LANTERN, EntityName.Mob_Lantern);
+//		Weapon mob_plug = new Weapon(this, HIT_MOB_PLUG, RANGE_MOB_PLUG, EntityName.Mob_Plug);
 
 		this.weapons.put(player.getKindWeapon(), player);
 		this.weapons.put(tower_red.getKindWeapon(), tower_red);
@@ -181,9 +181,9 @@ public class Model extends GameModel {
 		this.weapons.put(tower_yellow.getKindWeapon(), tower_yellow);
 		this.weapons.put(tower_purple.getKindWeapon(), tower_purple);
 		this.weapons.put(mob_hungry.getKindWeapon(), mob_hungry);
-		this.weapons.put(mob_ghost.getKindWeapon(), mob_ghost);
-		this.weapons.put(mob_lantern.getKindWeapon(), mob_lantern);
-		this.weapons.put(mob_plug.getKindWeapon(), mob_plug);
+//		this.weapons.put(mob_ghost.getKindWeapon(), mob_ghost);
+//		this.weapons.put(mob_lantern.getKindWeapon(), mob_lantern);
+//		this.weapons.put(mob_plug.getKindWeapon(), mob_plug);
 
 	}
 
