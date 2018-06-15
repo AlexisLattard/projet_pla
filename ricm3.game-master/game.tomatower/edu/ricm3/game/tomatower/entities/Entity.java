@@ -85,17 +85,23 @@ public abstract class Entity {
 	public abstract void pop(Direction d);
 
 	public void move(Direction d) {
-		this.turn(d);
-		if (this.getCellDirection(d, 1).isFree(this)) {
-			if (System.nanoTime() - last_move > 500000000) {
-				this.prev_cell = this.cell;
-				this.moving = true;
-				this.move_finished = false;
-				this.last_move = System.nanoTime();
-			} else if (this.can_move && this.cell_changed) {
-				this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
+		if (move_finished) {
+			this.turn(d);
+			if (this.can_move) {
+				if (this.getCellDirection(d, 1).isFree(this)) {
+					this.prev_cell = this.cell;
+					this.moving = true;
+					this.move_finished = false;
+					this.last_move = System.nanoTime();
+				}
 			}
 		}
+		if (!this.cell_changed) {
+			System.out.println("move");
+			this.cell_changed = true;
+			this.addEntityOnCell(this.getCellDirection(Direction.FRONT, 1));
+		}
+
 	}
 
 	public void jump() {

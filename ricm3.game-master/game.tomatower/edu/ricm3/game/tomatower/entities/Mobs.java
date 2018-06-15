@@ -28,6 +28,14 @@ public class Mobs extends Living {
 	}
 
 	@Override
+	public void step(long now) {
+		super.step(now);
+		if (this.hp <= 0) {
+			death();
+		}
+	}
+
+	@Override
 	public void pop(Direction d) {
 		// TODO
 		if (getMap().equals(this.model.getMainMap())) {

@@ -10,7 +10,6 @@ import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -64,23 +63,22 @@ public abstract class Living extends Entity {
 				int y = pos[1] * cell_size;
 				switch (this.direction) {
 				case SOUTH:
-					y += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					y += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 5));
 					break;
 				case NORTH:
-					y -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					y -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 5));
 					break;
 				case EAST:
-					x += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					x += cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 5));
 					break;
 				case WEST:
-					x -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 4) + 1);
+					x -= cell_size / 4 * ((System.nanoTime() - last_move) / (500000000 / 5));
 					break;
 				default:
 					System.out.println("default paint");
 				}
 				g.drawImage(sprite[direction.getValue()], x, y, d, d, null);
 				if (System.nanoTime() - last_move > (500000000 / 2) && !this.cell_changed) {
-					this.cell_changed = true;
 					this.move(this.direction);
 				}
 				if (System.nanoTime() - last_move > 500000000) {

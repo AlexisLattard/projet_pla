@@ -134,7 +134,7 @@ public class A_FunctionCall extends A_Expression {
 	
 	public void turn(Entity e) {
 		if(parameters.size() != 1 || (parameters.size() == 1 &&  !(parameters.get(0) instanceof A_DirectionParameter))) {
-//			e.move(Direction.ONTHERIGHT);
+			e.move(Direction.ONTHERIGHT);
 		}else {
 			e.turn(((A_DirectionParameter)parameters.get(0)).value); 
 		}
