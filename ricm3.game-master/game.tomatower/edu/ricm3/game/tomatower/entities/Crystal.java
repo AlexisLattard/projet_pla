@@ -45,6 +45,7 @@ public class Crystal extends Living {
 	public void death() {
 
 		super.death();
+		this.model.setRunningGame(false);
 		DialogFin dialog = new DialogFin(false,Jouer.getInstance().getPseudo(),this.model);
 		dialog.setVisible(true);
 
