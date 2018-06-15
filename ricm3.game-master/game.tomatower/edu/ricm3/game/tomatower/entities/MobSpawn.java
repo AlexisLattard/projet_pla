@@ -13,6 +13,8 @@ import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.entities.enums.EntityName;
 import edu.ricm3.game.tomatower.entities.enums.ObstaclesKind;
 import edu.ricm3.game.tomatower.map.Cell;
+import edu.ricm3.game.tomatower.menu.DialogFin;
+import edu.ricm3.game.tomatower.menu.Jouer;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
@@ -49,7 +51,6 @@ public class MobSpawn extends Inert {
 		behaviors.put(this.model.getSprites().sprite_mob_plug, this.model.getAutomatons().get(EntityName.Mob_Plug));
 	}
 
-	
 	@Override
 	public void step(long now) {
 		if (!is_ready && now - this.last_wave > wave_delay && main_instance == null && wave_id < waves.size()) {
@@ -58,8 +59,29 @@ public class MobSpawn extends Inert {
 		} else if (is_ready && now - this.last_apparition > ACTION_TIME_SPAWN_SAME_WAVE) {
 			instanciateWaveMobs(now);
 		}
+		
+		if (now - last_action > ACTION_TIME_PLAYER && gameEnd()) {
+			this.model.setRunningGame(false);
+			DialogFin dialog = new DialogFin(true, Jouer.getInstance().getPseudo(), this.model);
+			dialog.setVisible(true);
+			last_action = now;			
+		}
 	}
 	
+	public boolean gameEnd(){
+		ArrayList<Entity> entities = this.model.getEntities();
+		boolean fin = this.wave_id >= this.wave_total;
+		if(fin){
+			for(Entity e : entities){
+				if(e instanceof Mobs){
+					fin = false;
+					break;
+				}
+			}
+		}
+		
+		return fin;
+	}
 
 	public void createWave() {
 		int nb_monstre[] = waves.get(wave_id);
