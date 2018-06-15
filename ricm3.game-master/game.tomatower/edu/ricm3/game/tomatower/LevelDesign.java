@@ -10,10 +10,11 @@ public final class LevelDesign {
 	
 	// HP
 	public static final int MAX_LIFE_PLAYER = 1000; //
-	public static final int MAX_LIFE_MOB_PLUG = 40; 
-	public static final int MAX_LIFE_MOB_GHOST = 20; 
-	public static final int MAX_LIFE_MOB_LANTERN = 30; 
-	public static final int MAX_LIFE_MOB_HUNGRY = 10; 
+	public static final int MAX_LIFE_MOB = 40; 
+//	public static final int MAX_LIFE_MOB_PLUG = 40; 
+//	public static final int MAX_LIFE_MOB_GHOST = 20; 
+//	public static final int MAX_LIFE_MOB_LANTERN = 30; 
+//	public static final int MAX_LIFE_MOB_HUNGRY = 10; 
 	public static final int MAX_LIFE_TOWER = 500; //
 	public static final int MAX_LIFE_CRYSTAL = 500; //
 	
@@ -29,10 +30,10 @@ public final class LevelDesign {
 	
 	// Hit
 	public static final int HIT_PLAYER = 20; //
-	public static final int HIT_MOB_PLUG = 10; //
+//  public static final int HIT_MOB_PLUG = 10; //
 	public static final int HIT_MOB_HUNGRY = 40; //
-	public static final int HIT_MOB_LANTERN = 30; //
-	public static final int HIT_MOB_GHOST = 20; //
+//	public static final int HIT_MOB_LANTERN = 30; //
+//	public static final int HIT_MOB_GHOST = 20; //
 	public static final int HIT_TOWER_RED = 80; // 
 	public static final int HIT_TOWER_BLUE = 60; //
 	public static final int HIT_TOWER_YELLOW = 40; // 
