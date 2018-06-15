@@ -43,14 +43,13 @@ public class MobSpawn extends Inert {
 		initWaves();
 
 		behaviors = new HashMap<>();
-		behaviors.put(this.model.getSprites().sprite_mob_plug, this.model.getAutomatons().get(EntityName.Mob_Ghost));
-		behaviors.put(this.model.getSprites().sprite_mob_hungry,
-				this.model.getAutomatons().get(EntityName.Mob_Lantern));
-		behaviors.put(this.model.getSprites().sprite_mob_lantern,
-				this.model.getAutomatons().get(EntityName.Mob_Hungry));
-		behaviors.put(this.model.getSprites().sprite_mob_ghost, this.model.getAutomatons().get(EntityName.Mob_Plug));
+		behaviors.put(this.model.getSprites().sprite_mob_ghost, this.model.getAutomatons().get(EntityName.Mob_Ghost));
+		behaviors.put(this.model.getSprites().sprite_mob_lantern, this.model.getAutomatons().get(EntityName.Mob_Lantern));
+		behaviors.put(this.model.getSprites().sprite_mob_hungry, this.model.getAutomatons().get(EntityName.Mob_Hungry));
+		behaviors.put(this.model.getSprites().sprite_mob_plug, this.model.getAutomatons().get(EntityName.Mob_Plug));
 	}
 
+	
 	@Override
 	public void step(long now) {
 		if (!is_ready && now - this.last_wave > wave_delay && main_instance == null && wave_id < waves.size()) {
@@ -60,6 +59,7 @@ public class MobSpawn extends Inert {
 			instanciateWaveMobs(now);
 		}
 	}
+	
 
 	public void createWave() {
 		int nb_monstre[] = waves.get(wave_id);
@@ -76,8 +76,7 @@ public class MobSpawn extends Inert {
 			sprites = (BufferedImage[]) tab_sprites[j];
 			if (behavior != null && sprites != null) {
 				for (int i = 0; i < nb_monstre[j]; i++) {
-					Mobs mob = new Mobs(this.model, sprites, 1, this.model.getWeapons().get(EntityName.Tower_Red),
-							behavior, MAX_LIFE_MOB_PLUG);
+					Mobs mob = new Mobs(this.model, sprites, 1, this.model.getWeapons().get(EntityName.Mob_Hungry), behavior, MAX_LIFE_MOB);
 					this.current_wave.add(mob);
 				}
 			}

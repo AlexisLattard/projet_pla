@@ -5,6 +5,7 @@ import edu.ricm3.game.tomatower.entities.enums.Direction;
 import edu.ricm3.game.tomatower.entities.enums.Kind;
 import edu.ricm3.game.tomatower.map.Cell;
 import edu.ricm3.game.tomatower.map.Map;
+import edu.ricm3.game.tomatower.menu.DialogFin;
 import edu.ricm3.game.tomatower.mvc.Model;
 import static edu.ricm3.game.tomatower.LevelDesign.*;
 
@@ -52,6 +53,15 @@ public class Mobs extends Living {
 			this.move(d);
 		}
 	}
+	
+	public void death() {
+
+		super.death();
+		this.model.getPlayer().increaseMoney(EARNED_MONEY_WHEN_MOB_DIED);
+		
+
+	}
+	
 
 	public static ArrayList<Class<?>> initColisions() {
 		ArrayList<Class<?>> res = new ArrayList<Class<?>>();
