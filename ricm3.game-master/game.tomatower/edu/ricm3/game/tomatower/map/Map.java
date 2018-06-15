@@ -60,7 +60,8 @@ public class Map {
 					g.setColor(new Color(255, 0, 0, 100));
 				}
 				g.fillRect(x, y, cell_size, cell_size);
-				g.drawImage(((Tower) hand).getSprite()[player.getDirection().getValue()], x, y, cell_size, cell_size,null);
+				g.drawImage(((Tower) hand).getSprite()[player.getDirection().getValue()], x, y, cell_size, cell_size,
+						null);
 			}
 		}
 	}
@@ -169,6 +170,10 @@ public class Map {
 
 					case "Ow":
 						new Obstacle(this.model, this.model.getSprites().sprite_mur, 1, cell, ObstaclesKind.Lake);
+						break;
+
+					case "Om":
+						new Obstacle(this.model, this.model.getSprites().sprite_marchand, 1, cell, ObstaclesKind.Lake);
 						break;
 
 					case "Ot":
